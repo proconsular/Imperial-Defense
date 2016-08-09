@@ -15,30 +15,11 @@ let funmode = false
 class core: NSObject {
     
     override init() {
-        Platform.atlas.act()
-        
         srandom(UInt32(NSDate.timeIntervalSinceReferenceDate()))
         
-        GameState.levelgateway = LevelInfoGateway(pack: "default")
-        
-        let gateway = ProfileGateway()
-        gateway.createDirectory()
-        
-        if gateway.exists(gateway.getPath("user.plist")) {
-            GameState.profile = gateway.retrieve("user")
-        }else{
-            GameState.profile = UserProfile(name: "user")
-        }
-        
-        UserInterface.switchScreen(.Title)
+        UserInterface.setScreen(PrincipalScreen())
         
         super.init()
-        
-        loadLevel("Factory")
-    }
-    
-    func loadLevel(name: String) {
-        UserInterface.setScreen(PrincipalScreen(GameState.levelgateway.retrieve(name)))
     }
     
     func update(processedTime: Float) {

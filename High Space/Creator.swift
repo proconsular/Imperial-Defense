@@ -93,16 +93,9 @@ class Terrain: RotatingArray<Piece> {
         super.init(limit)
     }
     
-    func update() {
-        foreach {
-            guard Camera.containsPiece($0) else { return }
-            $0.update(1 / 60)
-        }
-    }
-    
     func render() {
         foreach {
-            guard Camera.containsPiece($0) || debug else { return }
+            guard Camera.containsPiece($0) else { return }
             $0.display()
         }
     }
@@ -117,7 +110,7 @@ class Terrain: RotatingArray<Piece> {
     
 }
 
-class Piece: GameObject {
+class Piece {
     
     static let width: Float = 16.m
     
@@ -127,7 +120,6 @@ class Piece: GameObject {
     
     let index: Int
     var objects: [Physical]
-    var collectibles: [Collectible]
     var platforms: [Platform] { return objects.filter{ $0 is Platform }.map{ $0 as! Platform } }
     var isEmpty: Bool { return objects.isEmpty }
     
@@ -136,7 +128,6 @@ class Piece: GameObject {
     init (_ index: Int) {
         self.index = index
         objects = []
-        collectibles = []
     }
     
     func contains (object: Physical) -> Bool {
@@ -144,10 +135,6 @@ class Piece: GameObject {
     }
     
     func append (object: Physical) {
-        if let collectible = object as? Collectible{
-            collectibles.append(collectible)
-            return
-        }
         objects.append(object)
     }
     
@@ -155,19 +142,9 @@ class Piece: GameObject {
         objects.appendContentsOf(all)
     }
     
-    func update (processedTime: Float) {
-        collectibles.forEach{
-            $0.update(processedTime)
-        }
-    }
-    
     func display () {
         objects.forEach{
-            guard Camera.contains($0.getBody().shape.getBounds()) || debug else { return }
-            $0.display()
-        }
-        collectibles.forEach{
-            guard Camera.contains($0.getBody().shape.getBounds()) || debug else { return }
+            guard Camera.contains($0.getBody().shape.getBounds()) else { return }
             $0.display()
         }
     }
@@ -374,7 +351,6 @@ class Regulator {
                 self.waiting = false
             })
         }
-        //assembler.assemble(count).forEach(assign)
     }
     
     private func assign (object: Physical) {
@@ -428,19 +404,17 @@ class Assembler {
         }
         return objects
     }
-    
 }
 
 class GameAssembler: Assembler {
     
-    init(_ cast: MainCast, _ terrain: Terrain) {
+    init(_ principal: Principal, _ terrain: Terrain) {
         var assemblers: [Creator] = []
         
-        assemblers.append(TerrainFabricator(float2(Piece.width, 0.4.m), cast.info.level.color))
+        assemblers.append(TerrainFabricator(float2(Piece.width, 0.4.m), float4(0, 0, 0, 1)))
         
-        let length = cast.info.level.hasFloor ? cast.info.length - 10.m : cast.info.length
-        let assembler = PlatformFabrication.Assembler(float2(Piece.width, -1.48.m), length)
-        assembler.assign(PrincipalAdvocate(cast.principal, terrain))
+        let assembler = PlatformFabrication.Assembler(float2(Piece.width, -1.48.m), 1000.m)
+        assembler.assign(PrincipalAdvocate(principal, terrain))
         assemblers.append(assembler)
         
         super.init(assemblers)

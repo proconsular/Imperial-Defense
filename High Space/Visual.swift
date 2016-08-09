@@ -21,11 +21,23 @@ protocol Form {
 class Transform {
     var location: float2
     var matrix: float2x2
+    private(set) var parent: Transform?
+    var children: [Transform]
     
     init(_ location: float2 = float2(), _ orientation: Float = 0) {
         matrix = float2x2(1)
+        children = []
         self.location = location
         self.orientation = orientation
+    }
+    
+    func assign(parent: Transform) {
+        self.parent = parent
+        self.parent?.children.append(self)
+    }
+    
+    func apply(vertex: float2) -> float2 {
+        return vertex * matrix + location
     }
     
     var orientation: Float {
@@ -36,34 +48,14 @@ class Transform {
         get { return atan2f(matrix.cmatrix.columns.0.y, matrix.cmatrix.columns.0.x) }
     }
     
-    func apply(vertex: float2) -> float2 {
-        return vertex * matrix + location
-    }
-}
-
-class TransformGroup {
-    var transforms: [Transform]
-    
-    init() {
-        transforms = []
-    }
-    
-    func push(transform: Transform) {
-        transforms.append(transform)
-    }
-    
-    func pop() {
-        transforms.removeLast()
-    }
-    
-    var transform: Transform {
+    var global: Transform {
         get {
-            let trans = Transform()
-            for t in transforms {
-                trans.location += t.location
-                trans.orientation += t.orientation
+            let master = Transform(location, orientation)
+            if let parent = parent?.global {
+                master.location += parent.location
+                master.orientation += parent.orientation
             }
-            return trans
+            return master
         }
     }
 }
@@ -147,6 +139,10 @@ class Rect: Shape<Edgeform> {
     init(_ transform: Transform = Transform(), _ bounds: float2) {
         self.bounds = bounds
         super.init(transform, Edgeform(bounds))
+    }
+    
+    convenience init(_ location: float2, _ bounds: float2) {
+        self.init(Transform(location), bounds)
     }
     
     override func getBounds() -> RawRect {

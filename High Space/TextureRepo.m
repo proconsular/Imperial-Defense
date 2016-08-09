@@ -44,8 +44,7 @@
     @"Standing",
     @"Jumping",
     @"white",
-    @"platform_base",
-    @"Menu-Back"];
+    @"platform_base"];
     
     for (NSString *name in prefetched) {
         [self prefetch:name];

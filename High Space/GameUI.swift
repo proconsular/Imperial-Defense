@@ -23,27 +23,12 @@ extension DynamicText {
 
 class PrincipalScreen: Screen {
     
-    init(_ level: LevelInfo) {
+    override init() {
         super.init()
         
-        let game = Game(level)
-        let pause = PauseLayer()
-        
-        let resume = pause.objects[0] as! Button
-        resume.event = { [unowned pause] in
-            game.resume()
-            pause.active = false
-        }
-        
-        let restart = pause.objects[1] as! Button
-        restart.event = {
-            UserInterface.setScreen(PrincipalScreen(level))
-        }
-        
-        pause.active = false
+        let game = Game()
         
         layers.append(game)
-        layers.append(pause)
     }
     
     override func use(command: Command) {

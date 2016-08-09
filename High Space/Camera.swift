@@ -63,6 +63,7 @@ class Camera {
         }
     }
     
+    
     static func distance(location: float2) -> Float {
         return (location - Camera.location).length
     }
