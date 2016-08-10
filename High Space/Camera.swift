@@ -16,29 +16,20 @@ class Camera {
         return float2 (Float(bounds.width * scaleFactor), Float(bounds.height * scaleFactor))
     }
     
-    static var location: float2 = float2()
-    static var limitView = true
+    static var transform = Transform()
     
-    var mask: RawRect { return RawRect(Camera.location, Camera.size) }
+    var mask: RawRect { return RawRect(Camera.transform.location, Camera.size) }
     
     static func contains (location: float2, _ bounds: float2) -> Bool {
         return
-            location.x + bounds.x >= Camera.location.x &&
-            location.x <= Camera.location.x + size.x &&
-            location.y + bounds.y >= Camera.location.y &&
-            location.y <= Camera.location.y + size.y
+            location.x + bounds.x >= Camera.transform.location.x &&
+            location.x <= Camera.transform.location.x + size.x &&
+            location.y + bounds.y >= Camera.transform.location.y &&
+            location.y <= Camera.transform.location.y + size.y
     }
     
     static func contains (rect: RawRect) -> Bool {
         return contains(rect.location, rect.bounds)
-    }
-    
-    static func containsPiece (piece: Piece) -> Bool {
-        let location = float2(Piece.getLength(piece.index) - (Piece.width) / 2, 0)
-        let bounds = float2(Piece.width * 2, 0)
-        return
-            location.x + bounds.x >= Camera.location.x &&
-            location.x <= Camera.location.x + size.x
     }
     
     static func onScreen(body: Physical) -> Bool {
@@ -46,26 +37,30 @@ class Camera {
     }
 
     static func focus(location: float2) {
-        let newLocation = location - float2 (Camera.size.x / 2, Camera.size.y / 2) + float2 (150 / 2, 150 / 2)
-        let dl = newLocation - Camera.location
-        Camera.location.x = newLocation.x
-        Camera.location.y += dl.y / 6
-        limitView.isTrue(moveIntoRegion())
+        let newLocation = location - float2(Camera.size.x / 2, Camera.size.y / 2)
+        Camera.transform.location.x = newLocation.x
+        Camera.transform.location.y = newLocation.y
+        moveIntoRegion()
+    }
+    
+    static func move(delta: float2) {
+        transform.location += delta
+        //moveIntoRegion()
     }
     
     private static func moveIntoRegion () {
-        if location.y + Camera.size.y > 0 {
-            location.y += -(location.y + Camera.size.y)
+        if transform.location.y + Camera.size.y > 0 {
+            transform.location.y += -(transform.location.y + Camera.size.y)
         }
-        if location.x < 0 {
-            let length = location.x
-            location.x += -length
+        if transform.location.x < 0 {
+            let length = transform.location.x
+            transform.location.x += -length
         }
     }
     
     
     static func distance(location: float2) -> Float {
-        return (location - Camera.location).length
+        return (location - Camera.transform.location).length
     }
     
 }

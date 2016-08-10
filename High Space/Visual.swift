@@ -285,7 +285,7 @@ class VisualRectScheme: VisualScheme {
     
     init(_ location: float2, _ bounds: float2, _ layout: TextureLayout, _ texture: String) {
         let rect = Rect(Transform(location), bounds)
-        super.init(rect, layout, VisualInfo(getTexture(texture)))
+        super.init(rect, layout, VisualInfo(0))
     }
     
     convenience init(_ location: float2, _ bounds: float2, _ texture: String) {

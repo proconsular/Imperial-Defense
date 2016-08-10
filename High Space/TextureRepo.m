@@ -40,11 +40,7 @@
     glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
     
     NSArray<NSString *> *prefetched =
-  @[@"Running",
-    @"Standing",
-    @"Jumping",
-    @"white",
-    @"platform_base"];
+  @[@"white",];
     
     for (NSString *name in prefetched) {
         [self prefetch:name];

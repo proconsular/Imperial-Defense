@@ -82,10 +82,6 @@ class TextureReader {
         rawTexture = texture
     }
     
-    convenience init (_ info: TextureReaderInfo) {
-        self.init(info.subframe, info.stride, info.limit, getDescription(info.name))
-    }
-    
     func advance () {
         subframe.advance()
     }

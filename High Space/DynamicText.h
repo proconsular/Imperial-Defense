@@ -10,14 +10,11 @@
 @import CoreGraphics;
 @import CoreText;
 
-@class Image, Gradient;
-
 @interface DynamicText : NSObject
 
 @property NSAttributedString* attrString;
 @property(nonatomic) vector_float2 location;
 @property(nonatomic) vector_float2 bounds;
-@property Image *image;
 @property(nonatomic) GLuint texture;
 
 @property vector_float2 shadowOffset;
@@ -37,8 +34,6 @@
 -(void)makeShadowWithOffset:(vector_float2)offset opacity:(float)opacity;
 
 +(CGImageRef)makeCGImageFromAttributedString:(NSAttributedString*)aString;
-
-+(CGImageRef)applyGradientOnCGImage:(CGImageRef)aCGImage gradient:(Gradient*)aGradient string:(NSAttributedString*)aString range:(NSRange)aRange;
 
 +(GLuint)textureFromCGImage:(CGImageRef)aCGImage;
 

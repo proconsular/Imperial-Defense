@@ -150,7 +150,7 @@ GLint modelViewProjectionMatrix_Uniform;
 }
 
 -(void)update{
-    [[Bridge sharedInstance] update:self.timeSinceLastUpdate];
+    [[Bridge sharedInstance] update];
 }
 
 -(void)glkView:(GLKView *)view drawInRect:(CGRect)rect{

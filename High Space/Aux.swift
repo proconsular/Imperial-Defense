@@ -8,21 +8,12 @@
 
 import Foundation
 
-func allObjects (pieces: [Piece]) -> [Physical] {
-    var objs: [Physical] = []
-    
-    for piece in pieces {
-        objs.appendContentsOf(piece.objects)
-    }
-    
-    return objs
-}
-
 func couldCollide (prime: Physical, _ secunde: Physical) -> Bool {
     let pRect = prime.getBody().shape.getBounds()
     let sRect = secunde.getBody().shape.getBounds()
     return RawRect.isIntersected(pRect, sRect)
 }
+
 struct IndexedValue<Value: Comparable>: Comparable {
     let index: Int
     let value: Value
@@ -264,23 +255,6 @@ func ++% (inout value: Int, length: Int) -> Int {
 func ++% (inout value: Float, length: Float) -> Float {
     value = (value + 1) % length
     return value
-}
-
-extension UIImage {
-    func getPixelColor(location: int2) -> float4 {
-        
-        let pixelData = CGDataProviderCopyData(CGImageGetDataProvider(self.CGImage))
-        let data: UnsafePointer<UInt8> = CFDataGetBytePtr(pixelData)
-        
-        let pixelInfo: Int = ((Int(self.size.width) * Int(location.y)) + Int(location.x)) * 4
-        
-        let r = Float(data[pixelInfo + 0]) / Float(255.0)
-        let g = Float(data[pixelInfo + 1]) / Float(255.0)
-        let b = Float(data[pixelInfo + 2]) / Float(255.0)
-        let a = Float(data[pixelInfo + 3]) / Float(255.0)
-        
-        return float4 (r, g, b, a)
-    }
 }
 
 func findBest <V: Comparable> (range: Range<Int>, _ initialValue: V, _ operation: (V, V) -> Bool, @noescape _ process: (Int) -> V) -> IndexedValue<V>? {

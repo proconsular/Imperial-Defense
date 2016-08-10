@@ -49,7 +49,6 @@ class InteractiveElement: InterfaceElement, Interface {
     }
     
     func pressed() {
-        playSound("click", 0.5)
         event()
     }
     
@@ -68,8 +67,6 @@ class Button: InteractiveElement {
         let loc = location - InterfaceElement.bounds("Button") / 2
         
         super.init(loc, float2(), event)
-        createImage(loc, "Button")
-        //rect.bounds = float2(image.bounds.memory)
         
         if text != "" {
             self.text = DynamicText.defaultStyle(text, float4(0, 0, 0, 1), 128.0)
@@ -79,10 +76,7 @@ class Button: InteractiveElement {
     
     init(name: String, _ location: float2, _ event: () -> ()) {
         let loc = location - InterfaceElement.bounds(name) / 2
-        
         super.init(loc, float2(), event)
-        createImage(loc, name)
-        //rect.bounds = float2(image.bounds.memory)
     }
     
     override func display() {

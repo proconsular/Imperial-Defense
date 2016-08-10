@@ -27,7 +27,7 @@ class Atlas {
         data = NSDictionary(contentsOfFile: path) as! [String: AnyObject]
         
         let dict = data["meta"] as! [String: AnyObject]
-        bounds = float2(dict["width"]! as! Float, dict["height"]! as! Float) * kScale
+        bounds = float2(dict["width"]! as! Float, dict["height"]! as! Float)
         
         textures = [:]
         let frames = data["frames"] as! [String: AnyObject]
@@ -57,8 +57,8 @@ class AtlasTexture {
         self.atlas = atlas
         let frames = atlas.data["frames"] as! [String: AnyObject]
         info = frames[name] as! [String: Float]
-        location = float2(info["x"]!, info["y"]!) * kScale
-        bounds = float2(info["w"]!, info["h"]!) * kScale
+        location = float2(info["x"]!, info["y"]!)
+        bounds = float2(info["w"]!, info["h"]!)
         coordinates = []
         coordinates = computeCoordinates()
     }

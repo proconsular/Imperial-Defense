@@ -22,7 +22,7 @@ class core: NSObject {
         super.init()
     }
     
-    func update(processedTime: Float) {
+    func update() {
         UserInterface.update()
     }
     

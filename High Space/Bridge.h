@@ -17,9 +17,7 @@
 +(void)create;
 +(instancetype)sharedInstance;
 
--(void)delay;
-
--(void)update:(double)delta;
+-(void)update;
 -(void)display;
 
 @end

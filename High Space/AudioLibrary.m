@@ -34,27 +34,6 @@
     _hasMusic = YES;
     _hasSound = YES;
     
-    [self loadAudio:@"footsteps"];
-    [self loadAudio:@"platform_walk"];
-    [self loadAudio:@"jump"];
-    [self loadAudio:@"fall"];
-    [self loadAudio:@"hover"];
-    [self loadAudio:@"platform_hit"];
-    [self loadAudio:@"ground_hit"];
-    [self loadAudio:@"coin"];
-    [self loadAudio:@"ThemeLoop"];
-    [self loadAudio:@"ThemeIntro"];
-    [self loadAudio:@"crunch"];
-    [self loadAudio:@"victory"];
-    [self loadAudio:@"click"];
-    [self loadAudio:@"death"];
-    [self loadAudio:@"laser"];
-    [self loadAudio:@"bot_walk"];
-    [self loadAudio:@"powerup"];
-    [self loadAudio:@"powerdown"];
-    [self loadAudio:@"platform_jump"];
-    [self loadAudio:@"shockwave"];
-    
     return self;
 }
 

@@ -8,8 +8,9 @@
 
 import Foundation
 
-protocol Physical: GameObject {
+protocol Physical {
     func getBody () -> Body
+    func update(delta: Float)
 }
 
 enum PhysicalLayer: Int {

@@ -18,7 +18,7 @@ class Light {
     var dissipation: Float
     var color: float4
     
-    var visual: Visual!
+    var display: Display!
     var faces: [Face]
     
     init(_ location: float2, _ brightness: Float, _ attenuation: Float, _ temperature: Float, _ dissipation: Float, _ color: float4 = float4(1)) {
@@ -30,7 +30,7 @@ class Light {
         self.color = color
         faces = []
         let rect = Rect(Transform(float2()), float2(radius))
-        visual = Visual(VisualScheme(rect, TextureLayout(rect), VisualInfo(getTexture("white"))))
+        display = Display(rect, GLTexture("white"))
     }
     
     var radius: Float {
@@ -95,7 +95,7 @@ class Light {
     }
     
     func transform(location: float2) -> float2 {
-        let t = location - Camera.location
+        let t = location - Camera.transform.location
         return float2(t.x, Camera.size.y - t.y) * float2(0.96, 0.96)
     }
     
@@ -117,9 +117,7 @@ class Light {
             shader.setProperty("faces[\(i)].center", vector2: transform(face.center))
         }
         
-        let scheme = visual.scheme as! VisualScheme
-        scheme.hull.transform.location = location - Camera.location
-        visual.render()
+        display.render()
     }
     
 }

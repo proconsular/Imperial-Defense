@@ -8,6 +8,10 @@
 
 import Foundation
 
+protocol AudioElement {
+    
+}
+
 class Audio: AudioElement {
     
     let rawAudio: RawAudio

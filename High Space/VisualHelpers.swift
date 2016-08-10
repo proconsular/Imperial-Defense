@@ -83,8 +83,9 @@ class RawVisualScheme: NSObject, RawScheme {
     }
     
     func getMatrix() -> GLKMatrix4 {
-        let location = scheme.hull.transform.location
-        let orientation = scheme.hull.transform.orientation
+        let global = scheme.hull.transform.global
+        let location = global.location
+        let orientation = global.orientation
         return GLKMatrix4Rotate(GLKMatrix4MakeTranslation(location.x, location.y, 0), orientation, 0, 0, 1)
     }
     

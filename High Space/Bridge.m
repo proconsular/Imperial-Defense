@@ -38,17 +38,11 @@ static Bridge *sharedInstance;
     
     swift = [core new];
     
-    [self delay];
-    
     return self;
 }
 
--(void)delay{
-    _ignore = true;
-}
-
--(void)update:(double)delta{
-    [swift update: (float)delta];
+-(void)update{
+    [swift update];
 }
 
 -(void)display {

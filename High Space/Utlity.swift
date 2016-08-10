@@ -8,63 +8,6 @@
 
 import Foundation
 
-
-func getDescription (name: String) -> Texture {
-    return TextureRepo.sharedLibrary().descriptionWithName(name)
-}
-
-func getTexture (name: String) -> GLuint {
-    return TextureRepo.sharedLibrary().textureWithName(name)
-}
-
-enum Quality {
-    case Low, High
-}
-
-func deleteTexture (name: String) {
-    TextureRepo.deleteTexture(name)
-}
-
-func loadTexture (name: String) -> GLuint {
-    return loadTexture(name, quality: .High)
-}
-
-func loadTexture (name: String, quality: Quality) -> GLuint {
-    TextureRepo.sharedLibrary().prefetch(name)
-    let des = TextureRepo.sharedLibrary().textures[name] as! Texture
-    return des.texture
-}
-
-func playSound (name: String) {
-    AudioLibrary.getAudio(name).start()
-}
-
-func stopSound (name: String) {
-    AudioLibrary.getAudio(name).stop()
-}
-
-func getSound (name: String) -> Audio {
-    return Audio(name)
-}
-
-func playSound (name: String, _ gain: Float) {
-    let sound = AudioLibrary.getAudio(name)
-    sound.newVolume(gain)
-    sound.start()
-}
-
-func playMusic (name: String, _ looping: Bool) {
-    AudioLibrary.getAudio(name).start(looping)
-}
-
-func loadMusic (name: String) {
-    AudioLibrary.sharedLibrary().loadMusicWithName(name)
-}
-
-func unloadMusic (name: String) {
-    AudioLibrary.sharedLibrary().unloadMusicWithName(name)
-}
-
 func count (inout increment: Float, _ amount: Float, _ rate: Float, @autoclosure _ execution: () -> ()) {
     increment += amount
     if increment >= rate {

@@ -11,10 +11,9 @@ import Foundation
 class Basic {
     let display: Display
     
-    init(display: Display) {
+    init(_ display: Display) {
         self.display = display
     }
-    
 }
 
 class RenderLayer {

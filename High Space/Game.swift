@@ -8,34 +8,39 @@
 
 import Foundation
 
-let clear = false
-
-let kScale = Camera.size / float2(1136, 640)
-
 class Game: DisplayLayer {
-    let principal: Principal
-    let world: World
+    
+    let rendermaster: RenderMaster
+    let basic: Basic
     
     init() {
-        principal = Principal(float2(2.m, -2.m))
-        world = World(principal)
-        world.terrain[0].append(principal)
-        Simulation.create(Double(1.2))
+        Simulation.create()
+        
+        rendermaster = RenderMaster()
+        let layer = RenderLayer()
+        let rect = Rect(float2(100), float2(100))
+        rect.transform.assign(Camera.transform)
+        let dis = Display(rect, GLTexture("white"))
+        basic = Basic(dis)
+        layer.displays.append(dis)
+        rendermaster.layers.append(layer)
     }
     
     func use(command: Command) {
-        principal.use(command)
+        if case .Vector(let force) = command {
+            Camera.move(force / 1000)
+            print(Camera.transform.location)
+            let sc = basic.display.visual.scheme as! VisualScheme
+            print(sc.hull.transform.global.location)
+        }
     }
     
     func update() {
-        world.update()
-        var terrain = world.terrain.all
-        Simulation.simulate(&terrain)
-        Camera.focus(principal.body.location - float2(0.4.m, 0.42.m))
+        
     }
     
     func display() {
-        world.render()
+        rendermaster.render()
     }
 }
 

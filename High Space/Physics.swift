@@ -27,7 +27,7 @@ class Simulation {
     
     private static var broadphaser = Broadphaser()
     
-    static func create(speed: Double) {
+    static func create(speed: Double = 1) {
         speedLimit = speed
         self.speed = speedLimit
     }
