@@ -10,7 +10,6 @@ import Foundation
 
 protocol Physical {
     func getBody () -> Body
-    func update(delta: Float)
 }
 
 enum PhysicalLayer: Int {
@@ -116,6 +115,10 @@ struct Substance {
     
     static var Solid: Substance {
         return Substance(Material(.Static), Mass.Immovable, Friction(.Ice))
+    }
+    
+    static func getStandard(mass: Float) -> Substance {
+        return Substance(Material(.Static), Mass.fixed(mass), Friction(.Ice))
     }
     
 }

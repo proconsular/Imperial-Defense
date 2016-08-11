@@ -10,41 +10,68 @@ import Foundation
 
 class Game: DisplayLayer {
     
-    let rendermaster: RenderMaster
-    let basic: Basic
+    let controller: GameController
+    
+    let player: Player
     
     init() {
-        Simulation.create()
+        player = Player(float2(Camera.size.x / 2, 0))
         
-        rendermaster = RenderMaster()
-        let layer = RenderLayer()
-        let rect = Rect(float2(100), float2(100))
-        rect.transform.assign(Camera.transform)
-        let dis = Display(rect, GLTexture("white"))
-        basic = Basic(dis)
-        layer.displays.append(dis)
-        rendermaster.layers.append(layer)
+        controller = GameController()
+        controller.append(player)
+        controller.append(Structure(float2(Camera.size.x / 2, Camera.size.y), float2(Camera.size.x, 100)))
     }
     
     func use(command: Command) {
-        if case .Vector(let force) = command {
-            Camera.move(force / 1000)
-            print(Camera.transform.location)
-            let sc = basic.display.visual.scheme as! VisualScheme
-            print(sc.hull.transform.global.location)
-        }
+        player.use(command)
     }
     
     func update() {
-        
+        controller.update()
+        Camera.focus(player.transform.location)
     }
     
     func display() {
+        controller.render()
+    }
+}
+
+class GameController {
+    let rendermaster: RenderMaster
+    let physics: Physics
+    
+    init() {
+        rendermaster = RenderMaster()
+        rendermaster.layers.append(RenderLayer())
+        physics = Physics()
+    }
+    
+    func append(actor: Actor) {
+        physics.bodies.append(actor.body)
+        rendermaster.layers.first?.displays.append(actor.display)
+    }
+    
+    func update() {
+        physics.update()
+    }
+    
+    func render() {
         rendermaster.render()
     }
 }
 
-
+class Physics {
+    var bodies: [Body]
+    
+    init() {
+        Simulation.create()
+        bodies = []
+    }
+    
+    func update() {
+        Simulation.simulate(&bodies)
+    }
+}
 
 
 

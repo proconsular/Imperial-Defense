@@ -18,9 +18,11 @@ class GLTexture {
 
 class Display {
     let visual: Visual
+    let scheme: VisualScheme
     
     init(_ hull: Hull, _ texture: GLTexture) {
-        visual = Visual(VisualScheme(hull, VisualInfo(texture.id)))
+        scheme = VisualScheme(hull, VisualInfo(texture.id))
+        visual = Visual(scheme)
     }
     
     func render() {

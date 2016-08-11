@@ -37,27 +37,21 @@ class Camera {
     }
 
     static func focus(location: float2) {
-        let newLocation = location - float2(Camera.size.x / 2, Camera.size.y / 2)
-        Camera.transform.location.x = newLocation.x
-        Camera.transform.location.y = newLocation.y
+        //let newLocation = location - float2(Camera.size.x / 2, Camera.size.y / 2)
+        let dl = location - Camera.transform.location - Camera.size / 2
+        Camera.transform.location += dl / 8
         moveIntoRegion()
     }
     
-    static func move(delta: float2) {
-        transform.location += delta
-        //moveIntoRegion()
-    }
-    
     private static func moveIntoRegion () {
-        if transform.location.y + Camera.size.y > 0 {
-            transform.location.y += -(transform.location.y + Camera.size.y)
+        if transform.location.y > 0 {
+            transform.location.y += -(transform.location.y)
         }
-        if transform.location.x < 0 {
-            let length = transform.location.x
-            transform.location.x += -length
-        }
+//        if transform.location.x < 0 {
+//            let length = transform.location.x
+//            transform.location.x += -length
+//        }
     }
-    
     
     static func distance(location: float2) -> Float {
         return (location - Camera.transform.location).length

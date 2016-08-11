@@ -40,34 +40,22 @@ class Simulation {
         speed = speedLimit
     }
     
-    static func simulate (inout bodies: [Physical]) {
+    static func simulate (inout bodies: [Body]) {
         broadphaser.prepare(&bodies)
         processor.process(dt, step(&bodies, dt * speed))
     }
     
-    private static func step (inout bodies: [Physical], _ dt: Double) {
+    private static func step (inout bodies: [Body], _ dt: Double) {
         let delta = Float(dt)
-        
         let contacts = broadphaser.getContacts()
         
+        bodies.forEach{ $0.applyForces(delta) }
+        contacts.forEach{ $0.process(delta, iterations) }
         bodies.forEach{
-            $0.update(delta)
-            $0.getBody().applyForces(delta)
+            $0.applyVelocity(delta)
+            $0.clearForces()
         }
-        
-        contacts.forEach{
-            $0.process(delta, iterations)
-        }
-        
-        bodies.forEach{
-            $0.getBody().applyVelocity(delta)
-            $0.getBody().clearForces()
-        }
-        
-        contacts.forEach{
-            $0.applyCorrection()
-        }
-        
+        contacts.forEach{ $0.applyCorrection() }
     }
     
 }

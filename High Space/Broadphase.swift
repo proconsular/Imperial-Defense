@@ -12,9 +12,8 @@ class Broadphaser {
     
     var bodies: [Body] = []
     
-    func prepare(inout objs: [Physical]) {
-        let filtered = objs.map{ $0.getBody() }.filter{ $0.layer != .Scenery && $0.layer != .Passive }
-        let sorted = filtered.sort{ $0.substance.mass.mass > $1.substance.mass.mass }
+    func prepare(inout objs: [Body]) {
+        let sorted = objs.sort{ $0.substance.mass.mass > $1.substance.mass.mass }
         bodies = sorted
     }
     
