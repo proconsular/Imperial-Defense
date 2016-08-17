@@ -14,7 +14,7 @@ class Trigger {
     static var wasPressed = false
     
     static func process (command: Command, _ action: Command -> ()) {
-        if case .NotPressed = command {
+        if command.id == -1 {
             pressed = false
         }else{
             pressed = true
@@ -41,10 +41,8 @@ class InteractiveElement: InterfaceElement, Interface {
     
     func use(command: Command) {
         guard active else { return }
-        if case .Vector(let point) = command {
-            if rect.contains(point) {
-                pressed()
-            }
+        if rect.contains(command.vector!) {
+            pressed()
         }
     }
     

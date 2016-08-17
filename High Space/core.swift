@@ -31,3 +31,13 @@ class core: NSObject {
     }
     
 }
+
+
+@objc
+class Time: NSObject {
+    static var time: Float = 0
+    
+    static func set(time: Float) {
+        self.time = time
+    }
+}

@@ -134,7 +134,7 @@ class Polygon: Shape<Edgeform> {
 }
 
 class Rect: Shape<Edgeform> {
-    var bounds: float2
+    private(set) var bounds: float2
     
     init(_ transform: Transform = Transform(), _ bounds: float2) {
         self.bounds = bounds
@@ -147,6 +147,11 @@ class Rect: Shape<Edgeform> {
     
     override func getBounds() -> RawRect {
         return RawRect(transform.location - bounds / 2, bounds)
+    }
+    
+    func setBounds(newBounds: float2) {
+        self.bounds = newBounds
+        form = Edgeform(newBounds)
     }
     
 }
@@ -171,18 +176,22 @@ struct TextureLayout {
     }
     
     init(_ hull: Hull) {
-        self.coordinates = TextureLayout.generateCoordinates(hull)
+        if hull is Rect {
+            self.coordinates = [float2(0, 0), float2(0, 1), float2(1, 1), float2(1, 0)]
+        }else{
+            self.coordinates = TextureLayout.generateCoordinates(hull)
+        }
     }
     
     private static func generateCoordinates(hull: Hull) -> [float2] {
         let vertices = hull.getVertices()
-        let center = vertices.center
         
         var coordinates: [float2] = []
         
         for vertex in vertices {
-            let angle = atan2f(vertex.y - center.y, vertex.x - center.x)
-            coordinates.append(float2(cosf(angle) / 1.5 + 0.5, sinf(angle) / 1.5 + 0.5))
+            let dif = normalize(vertex)
+            //print(dif)
+            coordinates.append(float2( dif.x,  dif.y ) + 0.5)
         }
         
         return coordinates

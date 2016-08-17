@@ -40,7 +40,9 @@
     glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
     
     NSArray<NSString *> *prefetched =
-  @[@"white",];
+  @[@"white",
+    @"galaxy"];
+    
     
     for (NSString *name in prefetched) {
         [self prefetch:name];

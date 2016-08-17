@@ -36,6 +36,8 @@ class Body {
     var layer: PhysicalLayer = .Collision
     var relativeGravity: Float = 1
     
+    var object: AnyObject?
+    
     var location: float2 {
         set { shape.transform.location = newValue }
         get { return shape.transform.location }

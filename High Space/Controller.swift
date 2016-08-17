@@ -6,11 +6,12 @@
 //  Copyright (c) 2014 FishyTale Digital, Inc. All rights reserved.
 //
 
-enum Command {
-    case Vector(float2), Action(() -> ()), Pressed, NotPressed, Consumed, wasPressed
+struct Command {
+    var vector: float2?
+    let id: Int
     
-    mutating func consume() {
-        self = .Consumed
+    init(_ id: Int) {
+        self.id = id
     }
 }
 
@@ -43,8 +44,9 @@ class MainController: Controller {
     
     init () {
         let first = LimitedController(HorizontialMovementController(), RawRect(float2(), float2(Camera.size.x / 2, Camera.size.y)))
-        let second = LimitedController(PointController(), RawRect(float2(Camera.size.x / 2, 0), float2(Camera.size.x / 2, Camera.size.y)))
-        self.subcontrollers = [first, second]
+        let second = LimitedController(PointController(2), RawRect(float2(Camera.size.x / 2, 0), float2(Camera.size.x / 2, Camera.size.y * 3 / 4)))
+        let third = LimitedController(PointController(1), RawRect(float2(Camera.size.x / 2, Camera.size.y * 3 / 4), float2(Camera.size.x / 2, Camera.size.y * 1 / 4)))
+        self.subcontrollers = [first, second, third]
     }
     
     func getCommands() -> [Command] {
@@ -57,7 +59,7 @@ class MainController: Controller {
         }
         
         if commands.isEmpty {
-            commands.append(.NotPressed)
+            commands.append(Command(-1))
         }
         
         return commands
@@ -97,7 +99,9 @@ class HorizontialMovementController: Controller {
         let magnitude: Float = abs(velocity)
         let direction: Float = velocity / magnitude
         
-        return .Vector(float2 (min (magnitude * 10, 500) * direction, 0) * ((1.0 / Float(dt)) / 60))
+        var command = Command(0)
+        command.vector = ((float2 (min (magnitude * 10, 500) * direction, 0) * ((1.0 / Float(dt)) / 60)))
+        return command
     }
     
     private func reset (touch: Interaction) {
@@ -119,17 +123,14 @@ class HorizontialMovementController: Controller {
 }
 
 class PointController: Controller {
+    let id: Int
     
-    func apply (press: Interaction) -> Command? {
-        return .Pressed
+    init(_ id: Int) {
+        self.id = id
     }
     
-}
-
-class ActivationController: Controller {
-    
-    func apply(press: Interaction) -> Command? {
-        return .Action({})
+    func apply (press: Interaction) -> Command? {
+        return Command(id)
     }
     
 }

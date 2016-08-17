@@ -26,7 +26,6 @@
 		222DD8D61D48854700A70FA8 /* Default.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 222DD86B1D48854600A70FA8 /* Default.vsh */; };
 		222DD8D81D48854700A70FA8 /* DynamicText.m in Sources */ = {isa = PBXBuildFile; fileRef = 222DD86E1D48854600A70FA8 /* DynamicText.m */; };
 		222DD8DC1D48854700A70FA8 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222DD8721D48854600A70FA8 /* Game.swift */; };
-		222DD8DE1D48854700A70FA8 /* GameTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222DD8741D48854600A70FA8 /* GameTypes.swift */; };
 		222DD8DF1D48854700A70FA8 /* GameUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222DD8751D48854600A70FA8 /* GameUI.swift */; };
 		222DD8E01D48854700A70FA8 /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 222DD8771D48854600A70FA8 /* GameViewController.m */; };
 		222DD8E31D48854700A70FA8 /* GeneralUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222DD87A1D48854600A70FA8 /* GeneralUI.swift */; };
@@ -63,6 +62,8 @@
 		22A9F80C1D5806650097FD61 /* Display.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A9F80B1D5806650097FD61 /* Display.swift */; };
 		22A9F80E1D5818DD0097FD61 /* Basic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A9F80D1D5818DD0097FD61 /* Basic.swift */; };
 		22C2BCA81D59846C00C8F1D5 /* Sky_s_Melody_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C2BCA71D59846C00C8F1D5 /* Sky_s_Melody_Tests.swift */; };
+		22C2BCB01D5D7C5600C8F1D5 /* Creator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C2BCAF1D5D7C5600C8F1D5 /* Creator.swift */; };
+		22C2BCB61D60244000C8F1D5 /* galaxy.png in Resources */ = {isa = PBXBuildFile; fileRef = 22C2BCB51D60244000C8F1D5 /* galaxy.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -103,7 +104,6 @@
 		222DD86D1D48854600A70FA8 /* DynamicText.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DynamicText.h; sourceTree = "<group>"; };
 		222DD86E1D48854600A70FA8 /* DynamicText.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DynamicText.m; sourceTree = "<group>"; };
 		222DD8721D48854600A70FA8 /* Game.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
-		222DD8741D48854600A70FA8 /* GameTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameTypes.swift; sourceTree = "<group>"; };
 		222DD8751D48854600A70FA8 /* GameUI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameUI.swift; sourceTree = "<group>"; };
 		222DD8761D48854600A70FA8 /* GameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameViewController.h; sourceTree = "<group>"; };
 		222DD8771D48854600A70FA8 /* GameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameViewController.m; sourceTree = "<group>"; };
@@ -151,6 +151,8 @@
 		22C2BCA51D59846B00C8F1D5 /* Sky's Melody Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Sky's Melody Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		22C2BCA71D59846C00C8F1D5 /* Sky_s_Melody_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sky_s_Melody_Tests.swift; sourceTree = "<group>"; };
 		22C2BCA91D59846C00C8F1D5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		22C2BCAF1D5D7C5600C8F1D5 /* Creator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Creator.swift; sourceTree = "<group>"; };
+		22C2BCB51D60244000C8F1D5 /* galaxy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = galaxy.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -251,6 +253,7 @@
 			isa = PBXGroup;
 			children = (
 				22722BCC1D488D2700BFA78A /* white.png */,
+				22C2BCB51D60244000C8F1D5 /* galaxy.png */,
 			);
 			name = media;
 			sourceTree = "<group>";
@@ -291,7 +294,6 @@
 				229232601D52F1BD00F47D02 /* auxiliary */,
 				222DD8661D48854600A70FA8 /* core.swift */,
 				222DD8721D48854600A70FA8 /* Game.swift */,
-				222DD8741D48854600A70FA8 /* GameTypes.swift */,
 				222DD8761D48854600A70FA8 /* GameViewController.h */,
 				222DD8771D48854600A70FA8 /* GameViewController.m */,
 			);
@@ -304,6 +306,7 @@
 				222DD8671D48854600A70FA8 /* CreationTypes.swift */,
 				222DD8A31D48854700A70FA8 /* Screens.swift */,
 				222DD8AD1D48854700A70FA8 /* StateDevice.swift */,
+				22C2BCAF1D5D7C5600C8F1D5 /* Creator.swift */,
 			);
 			name = terrain;
 			sourceTree = "<group>";
@@ -547,6 +550,7 @@
 				222DD8D51D48854700A70FA8 /* Default.fsh in Resources */,
 				222DD8EE1D48854700A70FA8 /* Lighting.fsh in Resources */,
 				22722C381D488D2700BFA78A /* FredokaOne-Regular.ttf in Resources */,
+				22C2BCB61D60244000C8F1D5 /* galaxy.png in Resources */,
 				22722BA01D4887B700BFA78A /* MainView.storyboard in Resources */,
 				22722B9E1D4887A700BFA78A /* Launch Screen.storyboard in Resources */,
 				222DD8D61D48854700A70FA8 /* Default.vsh in Resources */,
@@ -584,7 +588,6 @@
 				222DD8C31D48854700A70FA8 /* Aux.swift in Sources */,
 				222DD8EF1D48854700A70FA8 /* Lighting.swift in Sources */,
 				222DD9121D48854700A70FA8 /* VisualHelpers.swift in Sources */,
-				222DD8DE1D48854700A70FA8 /* GameTypes.swift in Sources */,
 				222DD9091D48854700A70FA8 /* Texture.m in Sources */,
 				222DD8CB1D48854700A70FA8 /* Broadphase.swift in Sources */,
 				222DD8C01D48854700A70FA8 /* Atlas.swift in Sources */,
@@ -614,6 +617,7 @@
 				222DD8BD1D48854700A70FA8 /* AppDelegate.m in Sources */,
 				222DD9031D48854700A70FA8 /* ShaderLoader.m in Sources */,
 				222DD9011D48854700A70FA8 /* Screens.swift in Sources */,
+				22C2BCB01D5D7C5600C8F1D5 /* Creator.swift in Sources */,
 				222DD8DF1D48854700A70FA8 /* GameUI.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

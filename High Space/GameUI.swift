@@ -29,6 +29,7 @@ class PrincipalScreen: Screen {
         let game = Game()
         
         layers.append(game)
+        layers.append(StatusLayer(game.player.status))
     }
     
     override func use(command: Command) {
@@ -54,3 +55,63 @@ class PauseLayer: InterfaceLayer {
     }
     
 }
+
+class StatusLayer: InterfaceLayer {
+    let status: Status
+    let element: StatusElement
+    
+    init(_ status: Status) {
+        self.status = status
+        element = StatusElement(status)
+    }
+    
+    override func display() {
+        element.render()
+    }
+    
+}
+
+class StatusElement {
+    let frame: Display
+    let level: Display
+    let rect: Rect
+    let transform: Transform
+    let status: Status
+    let size: float2
+    
+    init(_ status: Status) {
+        self.status = status
+        size = float2(650, 20)
+        frame = Display(Rect(float2(), size), GLTexture("white"))
+        frame.scheme.info.color = float4(0.2, 0.2, 0.2, 0.5)
+        rect = Rect(float2(), float2(size.x - 10, size.y - 5))
+        level = Display(rect, GLTexture("white"))
+        transform = frame.scheme.hull.transform
+        rect.transform.assign(transform)
+        transform.assign(Camera.transform)
+        transform.location = float2(size.x / 2 + 30, 30)
+    }
+    
+    func render() {
+        let rectsize = float2(size.x - 10, size.y - 5)
+        let adjust = rectsize.x * status.hitpoints.percent
+        rect.setBounds(float2(adjust, rectsize.y))
+        rect.transform.location.x = -rectsize.x / 2 + adjust / 2
+        level.visual.refresh()
+        frame.render()
+        level.render()
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
