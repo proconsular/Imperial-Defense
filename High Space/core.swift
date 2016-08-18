@@ -16,8 +16,10 @@ class core: NSObject {
     
     override init() {
         srandom(UInt32(NSDate.timeIntervalSinceReferenceDate()))
+        UserInterface.create()
         
         UserInterface.setScreen(PrincipalScreen())
+        //UserInterface.setScreen(WinScreen())
         
         super.init()
     }

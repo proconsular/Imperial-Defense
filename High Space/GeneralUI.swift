@@ -41,13 +41,11 @@ class InteractiveElement: InterfaceElement, Interface {
     
     func use(command: Command) {
         guard active else { return }
-        if rect.contains(command.vector!) {
-            pressed()
+        if let vector = command.vector {
+            if rect.contains(vector) {
+                event()
+            }
         }
-    }
-    
-    func pressed() {
-        event()
     }
     
     override func display() {
@@ -62,25 +60,25 @@ class Button: InteractiveElement {
     var text: DynamicText?
     
     init(_ text: String, _ location: float2, _ event: () -> () = {}) {
-        let loc = location - InterfaceElement.bounds("Button") / 2
-        
-        super.init(loc, float2(), event)
+        let loc = location
         
         if text != "" {
             self.text = DynamicText.defaultStyle(text, float4(0, 0, 0, 1), 128.0)
-            self.text!.location = rect.location + rect.bounds / 2 - self.text!.frame / 2 + float2(0, 25)
+            self.text!.location = location
         }
+        
+        super.init(loc, self.text!.bounds, event)
     }
     
     init(name: String, _ location: float2, _ event: () -> ()) {
-        let loc = location - InterfaceElement.bounds(name) / 2
+        let loc = location
         super.init(loc, float2(), event)
     }
     
     override func display() {
         guard active else { return }
         super.display()
-        text?.display()
+        text?.render()
     }
     
 }
@@ -91,13 +89,13 @@ class TextButton: InteractiveElement {
     
     init(_ text: DynamicText, _ location: float2, _ event: () -> ()) {
         self.text = text
-        super.init(location - text.frame / 2, text.frame, event)
-        self.text.location = rect.location + rect.bounds / 2 - self.text.frame / 2 + float2(0, 25)
+        super.init(location, text.frame, event)
+        self.text.location = rect.location
     }
     
     override func display() {
         guard active else { return }
-        text.display()
+        text.render()
     }
     
 }
@@ -118,15 +116,10 @@ class ToggleButton: Button {
         
     }
     
-    override func pressed() {
-        index ++% texts.count
-        super.pressed()
-    }
-    
     override func display() {
         guard active else { return }
         super.display()
-        texts[index].display()
+        texts[index].render()
     }
     
 }

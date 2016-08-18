@@ -7,6 +7,7 @@
 //
 
 #import "DynamicText.h"
+#import "Sky_s_Melody-Swift.h"
 
 @implementation DynamicText
 
@@ -81,8 +82,7 @@
     
     free(texture_data);
     
-//    _image = [[Image alloc] initAtPosition:(Vec2) {_location.x, _location.y} inBounds:(Vec2) {width, height} withTexture:_texture selectingCoordinates:[Image IdentityCoordinates]];
-//    *_image.color = (Vec4) {1, 1, 1, 1};
+    _display = [[DisplayAdapter alloc] init:_location :vector2((float)width, (float)height) :_texture];
 }
 
 -(void)createWithAttributedString:(NSAttributedString *)attrString bounds:(vector_float2)aBound{
@@ -141,9 +141,7 @@
     
     free(texture_data);
     
-//    _image = [[Image alloc] initAtPosition:(Vec2) {_location.x, _location.y} inBounds:(Vec2) {width, height} withTexture:_texture selectingCoordinates:[Image IdentityCoordinates]];
-//    *_image.color = (Vec4) {1, 1, 1, 1};
-    
+    _display = [[DisplayAdapter alloc] init:_location :vector2((float)width, (float)height) :_texture];
 }
 
 -(void)attributedStringWithGradient:(NSAttributedString *)aString topColor:(UIColor *)topColor bottomColor:(UIColor *)bottomColor{
@@ -242,8 +240,7 @@
     
     free(texture_data);
     
-//    _image = [[Image alloc] initAtPosition:(Vec2) {_location.x, _location.y} inBounds:(Vec2) {width, height} withTexture:_texture selectingCoordinates:[Image IdentityCoordinates]];
-//    *_image.color = (Vec4) {1, 1, 1, 1};
+    _display = [[DisplayAdapter alloc] init:_location :vector2((float)width, (float)height) :_texture];
 }
 
 +(CGImageRef)makeCGImageFromAttributedString:(NSAttributedString *)aString{
@@ -319,9 +316,8 @@
     
     _texture = texture;
     
-//    if (!_image) {
-//        _image = [[Image alloc] initAtPosition:(Vec2) {_location.x, _location.y} inBounds:(Vec2) {_attrString.size.width, _attrString.size.height} withTexture:_texture selectingCoordinates:[Image IdentityCoordinates]];
-//        *_image.color = (Vec4) {1, 1, 1, 1};
+//    if (!_display) {
+//        _display = [[DisplayAdapter alloc] init:_location :vector2((float)width, (float)height) :_texture];
 //    }else{
 //        _image.texture = texture;
 //    }
@@ -336,23 +332,11 @@
 
 -(void)setLocation:(vector_float2)location{
     _location = location;
-    //_image.modelView = GLKMatrix4MakeTranslation(_location.x, _location.y, 0);
+    _display.location = location;
 }
 
--(void)display{
-    
-//    if (_hasShadow) {
-//        Vec4 temp_color = *(_image.color);
-//        
-//        _image.modelView = GLKMatrix4MakeTranslation(_location.x + _shadowOffset.x, _location.y + _shadowOffset.y, 0);
-//        *_image.color = (Vec4) {0, 0, 0, _shadowOpacity};
-//        [_image display];
-//        
-//        _image.modelView = GLKMatrix4MakeTranslation(_location.x, _location.y, 0);
-//        *_image.color = temp_color;
-//    }
-//    
-//    [_image display];
+-(void)render{
+    [_display render];
 }
 
 @end

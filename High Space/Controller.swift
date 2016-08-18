@@ -16,7 +16,7 @@ struct Command {
 }
 
 protocol Controller {
-    func apply (press: Interaction) -> Command?
+    func apply (location: float2) -> Command?
 }
 
 protocol Interface: class {
@@ -32,28 +32,46 @@ class LimitedController: Controller {
         self.rect = rect
     }
     
-    func apply(press: Interaction) -> Command? {
-        guard rect.contains(press.location) else { return nil }
-        return controller.apply(press)
+    func apply(location: float2) -> Command? {
+        guard rect.contains(location) else { return nil }
+        return controller.apply(location)
     }
 }
 
-class MainController: Controller {
+class Stack<T> {
+    var contents: [T]
     
-    var subcontrollers: [Controller]
+    init() {
+        contents = []
+    }
     
-    init () {
-        let first = LimitedController(HorizontialMovementController(), RawRect(float2(), float2(Camera.size.x / 2, Camera.size.y)))
-        let second = LimitedController(PointController(2), RawRect(float2(Camera.size.x / 2, 0), float2(Camera.size.x / 2, Camera.size.y * 3 / 4)))
-        let third = LimitedController(PointController(1), RawRect(float2(Camera.size.x / 2, Camera.size.y * 3 / 4), float2(Camera.size.x / 2, Camera.size.y * 1 / 4)))
-        self.subcontrollers = [first, second, third]
+    func push(item: T) {
+        contents.append(item)
+    }
+    
+    func pop() -> T? {
+        let item = contents.last
+        contents.removeLast()
+        return item
+    }
+    
+    var peek: T? {
+        return contents.last
+    }
+}
+
+class MainController {
+    var stack: Stack<Controller>
+    
+    init() {
+        stack = Stack()
     }
     
     func getCommands() -> [Command] {
         var commands: [Command] = []
         
         for press in Interaction.presses where press.down {
-            if let command = apply(press) {
+            if let command = stack.peek?.apply(press.location) {
                 commands.append(command)
             }
         }
@@ -64,10 +82,19 @@ class MainController: Controller {
         
         return commands
     }
+}
+
+class ControllerLayer: Controller {
     
-    func apply (press: Interaction) -> Command? {
+    var subcontrollers: [Controller]
+    
+    init () {
+        subcontrollers = []
+    }
+    
+    func apply (location: float2) -> Command? {
         for controller in subcontrollers {
-            if let command = controller.apply(press) {
+            if let command = controller.apply(location) {
                 return command
             }
         }
@@ -76,50 +103,54 @@ class MainController: Controller {
     
 }
 
-class HorizontialMovementController: Controller {
+class GameControllerLayer: ControllerLayer {
     
+    override init() {
+        super.init()
+        let first = LimitedController(HorizontialMovementController(), RawRect(float2(), float2(Camera.size.x / 2, Camera.size.y)))
+        let second = LimitedController(PointController(2), RawRect(float2(Camera.size.x / 2, 0), float2(Camera.size.x / 2, Camera.size.y * 3 / 4)))
+        let third = LimitedController(PointController(1), RawRect(float2(Camera.size.x / 2, Camera.size.y * 3 / 4), float2(Camera.size.x / 2, Camera.size.y * 1 / 4)))
+        self.subcontrollers = [first, second, third]
+    }
+    
+}
+
+class HorizontialMovementController: Controller {
     let range: Float = 15.0
     
     var previous = Float.zero, velocity = Float.zero
     var values: (min: Float, max: Float) = (0, 0)
-    var wasPressed: Bool = false
     
-    func apply (press: Interaction) -> Command? {
-        defer { wasPressed = press.down }
-        guard press.down else { reset(press); return nil }
+    func apply (location: float2) -> Command? {
+        velocity = location.x - previous
         
-        if !wasPressed { previous = press.location.x }
-        velocity = press.location.x - previous
-        
-        check(&values.min, press, <, min)
-        check(&values.max, press, >, max)
+        check(&values.min, location, <, min)
+        check(&values.max, location, >, max)
         
         guard velocity != 0 else { return nil }
         
-        let magnitude: Float = abs(velocity)
-        let direction: Float = velocity / magnitude
+        let magnitude = abs(velocity)
+        let direction = velocity / magnitude
         
         var command = Command(0)
-        command.vector = ((float2 (min (magnitude * 10, 500) * direction, 0) * ((1.0 / Float(dt)) / 60)))
+        command.vector = ((float2(min(magnitude * 10, 500) * direction, 0) * ((1.0 / Float(dt)) / 60)))
         return command
     }
     
-    private func reset (touch: Interaction) {
-        velocity = 0
-        values = (0, 0)
-        previous = touch.location.x
-    }
-    
-    private func check (inout value: Float, _ touch: Interaction, _ operation: (Float, Float) -> Bool, _ function: (Float, Float) -> Float) {
+    private func check (inout value: Float, _ location: float2, _ operation: (Float, Float) -> Bool, _ function: (Float, Float) -> Float) {
         value = function (velocity, value)
         if operation (value, 0) {
             if abs (value - velocity) >= range {
-                reset(touch)
+                reset(location)
             }
-            
         }
     }
     
+    private func reset (location: float2) {
+        velocity = 0
+        values = (0, 0)
+        previous = location.x
+    }
 }
 
 class PointController: Controller {
@@ -129,8 +160,10 @@ class PointController: Controller {
         self.id = id
     }
     
-    func apply (press: Interaction) -> Command? {
-        return Command(id)
+    func apply (location: float2) -> Command? {
+        var command = Command(id)
+        command.vector = location
+        return command
     }
     
 }

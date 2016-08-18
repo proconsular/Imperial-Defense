@@ -34,7 +34,7 @@ class Structure: Actor {
     init(_ location: float2, _ bounds: float2) {
         rect = Rect(location, bounds)
         super.init(rect, Substance.Solid)
-        display.scheme.info.color = float4(0.11, 0.11, 0.12, 1)
+        display.color = float4(0.11, 0.11, 0.12, 1)
     }
     
 }
@@ -69,6 +69,7 @@ class Status {
 class Player: Actor, Interface {
     var status: Status
     var weapon: Weapon!
+    var callback: String -> () = {_ in}
     
     init(_ location: float2, _ weapon: Weapon) {
         status = Status(100)
@@ -76,8 +77,13 @@ class Player: Actor, Interface {
         super.init(Rect(location, float2(0.5.m, 1.m)), Substance.getStandard(0.3))
         weapon.player = self
         body.object = self
-        body.callback = { (_, collision) in
-            self.onObject = collision.normal.y > 0
+        body.callback = { (body, collision) in
+            if !self.onObject {
+                self.onObject = collision.normal.y > 0
+            }
+            if let tag = body.tag {
+                self.callback(tag)
+            }
         }
     }
     
@@ -92,7 +98,6 @@ class Player: Actor, Interface {
             weapon.fire()
         }
     }
-    
 }
 
 class Weapon {
@@ -161,14 +166,14 @@ class Character: Actor {
     init(_ location: float2, _ bounds: float2, _ director: Director) {
         self.director = director
         status = Status(20)
-        super.init(Rect(location, bounds), Substance.getStandard(0.2))
+        super.init(Rect(location, bounds), Substance.getStandard(0.01))
         body.relativeGravity = 0
         director.actor = self
         display.scheme.info.color = float4(0.5, 0.5, 0.5, 1)
         body.object = self
         body.callback = { (body, _) in
             if let player = body.object as? Player {
-                player.status.hitpoints.increase(-0.1)
+                player.status.hitpoints.increase(-0.25)
             }
         }
     }
@@ -198,7 +203,7 @@ class Director {
         let dl = map.player.transform.location - actor.transform.location
         guard dl.length <= 20.m else { return }
         let direction = normalize(dl)
-        let magnitude = 1.m * 0.8 + dl.length * 0.3
+        let magnitude = 1.m * 0.8 + dl.length * 0.5
         actor.body.velocity = direction * magnitude
     }
 }

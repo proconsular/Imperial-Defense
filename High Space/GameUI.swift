@@ -26,10 +26,16 @@ class PrincipalScreen: Screen {
     override init() {
         super.init()
         
+        UserInterface.controller.stack.push(GameControllerLayer())
+        
         let game = Game()
         
         layers.append(game)
         layers.append(StatusLayer(game.player.status))
+    }
+    
+    deinit {
+        UserInterface.controller.stack.pop()
     }
     
     override func use(command: Command) {
@@ -38,6 +44,35 @@ class PrincipalScreen: Screen {
     
     override func display() {
         layers.forEach{$0.display()}
+    }
+    
+}
+
+class EndScreen: Screen {
+    
+    enum Ending {
+        case Victory, Lose
+    }
+    
+    init(ending: Ending) {
+        super.init()
+        
+        let layer = InterfaceLayer()
+        
+        var text = ""
+        
+        if case .Victory = ending {
+            text = "Victory!"
+        }else{
+            text = "You died."
+        }
+        
+        layer.objects.append(TextElement(Camera.size / 2, DynamicText.defaultStyle(text, float4(1), 128)))
+        layer.objects.append(TextButton(DynamicText.defaultStyle("Restart", float4(1), 86), Camera.size / 2 + float2(0, 400), {
+           UserInterface.setScreen(PrincipalScreen())
+        }))
+        
+        layers.append(layer)
     }
     
 }

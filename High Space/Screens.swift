@@ -18,7 +18,7 @@ class TextElement: InterfaceElement {
     
     init(_ location: float2, _ text: DynamicText) {
         self.text = text
-        self.text.location = location - self.text.frame / 2
+        self.text.location = location
         super.init()
         self.location = location
     }
@@ -29,7 +29,7 @@ class TextElement: InterfaceElement {
     }
     
     override func display() {
-        text.display()
+        text.render()
     }
     
 }

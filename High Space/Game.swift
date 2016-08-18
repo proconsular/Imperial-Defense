@@ -24,19 +24,29 @@ class Game: DisplayLayer {
         controller.append(Structure(float2(0, -Camera.size.y / 2), float2(30, Camera.size.y)))
         
         player = Player(float2(Camera.size.x / 2, -2.m), Weapon(controller))
+        player.callback = {
+            if $0 == "goal" {
+                self.victory()
+            }
+        }
         controller.append(player)
         
         Camera.follow = player.transform
         
+        let length = 100.m
         
         let assm = Assembler()
-        let floormaker = FloorSuperMaker()
+        let floormaker = FloorSuperMaker(length)
         floormaker.characters.append(BlobMaker(GameMap(player)))
         assm.makers.append(floormaker)
         
-        maker = MasterMaker (assm) {
+        maker = MasterMaker(assm, length) {
             self.player.transform.location.x >= self.maker.offset - 10.m
         }
+    }
+    
+    func victory() {
+        UserInterface.setScreen(EndScreen(ending: .Victory))
     }
     
     func use(command: Command) {
@@ -44,6 +54,9 @@ class Game: DisplayLayer {
     }
     
     func update() {
+        if player.status.hitpoints.amount <= 0 {
+            UserInterface.setScreen(EndScreen(ending: .Lose))
+        }
         maker.make().forEach(controller.append)
         controller.update()
         Camera.update()

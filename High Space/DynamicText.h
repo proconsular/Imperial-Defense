@@ -10,12 +10,15 @@
 @import CoreGraphics;
 @import CoreText;
 
+@class DisplayAdapter;
+
 @interface DynamicText : NSObject
 
 @property NSAttributedString* attrString;
 @property(nonatomic) vector_float2 location;
 @property(nonatomic) vector_float2 bounds;
 @property(nonatomic) GLuint texture;
+@property(nonatomic) DisplayAdapter* display;
 
 @property vector_float2 shadowOffset;
 @property float shadowOpacity;
@@ -37,6 +40,6 @@
 
 +(GLuint)textureFromCGImage:(CGImageRef)aCGImage;
 
--(void)display;
+-(void)render;
 
 @end

@@ -24,6 +24,10 @@ public class UserInterface {
     
     static var screens: [ScreenName: Screen] = [:]
     
+    static func create() {
+        controller.stack.push(PointController(0))
+    }
+    
     static func setScreen(screen: Screen) {
         self.screen = screen
     }
@@ -99,18 +103,6 @@ public class InterfaceLayer: DisplayLayer {
 public class InterfaceElement {
     
     var location = float2()
-    
-    init() {
-        
-    }
-    
-    init(_ location: float2, _ name: String) {
-        
-    }
-    
-    static func bounds (name: String) -> float2 {
-        return float2()
-    }
     
     func setLocation (newLocation: float2) {
         move(newLocation - location)
