@@ -31,7 +31,7 @@ class PrincipalScreen: Screen {
         let game = Game()
         
         layers.append(game)
-        layers.append(StatusLayer(game.player.status))
+        layers.append(StatusLayer(game.player.shield))
     }
     
     deinit {
@@ -92,10 +92,10 @@ class PauseLayer: InterfaceLayer {
 }
 
 class StatusLayer: InterfaceLayer {
-    let status: Status
+    let status: Shield
     let element: StatusElement
     
-    init(_ status: Status) {
+    init(_ status: Shield) {
         self.status = status
         element = StatusElement(status)
     }
@@ -111,16 +111,17 @@ class StatusElement {
     let level: Display
     let rect: Rect
     let transform: Transform
-    let status: Status
+    let status: Shield
     let size: float2
     
-    init(_ status: Status) {
+    init(_ status: Shield) {
         self.status = status
-        size = float2(650, 20)
+        size = float2(650, 30)
         frame = Display(Rect(float2(), size), GLTexture("white"))
-        frame.scheme.info.color = float4(0.2, 0.2, 0.2, 0.5)
+        frame.color = float4(0.3, 0.3, 0.3, 0.2)
         rect = Rect(float2(), float2(size.x - 10, size.y - 5))
         level = Display(rect, GLTexture("white"))
+        level.color = float4(0.3, 0.7, 1, 1)
         transform = frame.scheme.hull.transform
         rect.transform.assign(transform)
         transform.assign(Camera.transform)
@@ -129,7 +130,7 @@ class StatusElement {
     
     func render() {
         let rectsize = float2(size.x - 10, size.y - 5)
-        let adjust = rectsize.x * status.hitpoints.percent
+        let adjust = rectsize.x * status.points.percent
         rect.setBounds(float2(adjust, rectsize.y))
         rect.transform.location.x = -rectsize.x / 2 + adjust / 2
         level.visual.refresh()

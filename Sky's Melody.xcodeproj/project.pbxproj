@@ -61,6 +61,7 @@
 		22722C561D4897C600BFA78A /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22722C551D4897C600BFA78A /* Media.xcassets */; };
 		22A9F80C1D5806650097FD61 /* Display.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A9F80B1D5806650097FD61 /* Display.swift */; };
 		22A9F80E1D5818DD0097FD61 /* Basic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A9F80D1D5818DD0097FD61 /* Basic.swift */; };
+		22BE5DBD1D66C1EC0038FAA8 /* Dreath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BE5DBC1D66C1EC0038FAA8 /* Dreath.swift */; };
 		22C2BCA81D59846C00C8F1D5 /* Sky_s_Melody_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C2BCA71D59846C00C8F1D5 /* Sky_s_Melody_Tests.swift */; };
 		22C2BCB01D5D7C5600C8F1D5 /* Creator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C2BCAF1D5D7C5600C8F1D5 /* Creator.swift */; };
 		22C2BCB61D60244000C8F1D5 /* galaxy.png in Resources */ = {isa = PBXBuildFile; fileRef = 22C2BCB51D60244000C8F1D5 /* galaxy.png */; };
@@ -148,6 +149,7 @@
 		22722C551D4897C600BFA78A /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		22A9F80B1D5806650097FD61 /* Display.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Display.swift; sourceTree = "<group>"; };
 		22A9F80D1D5818DD0097FD61 /* Basic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Basic.swift; sourceTree = "<group>"; };
+		22BE5DBC1D66C1EC0038FAA8 /* Dreath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dreath.swift; sourceTree = "<group>"; };
 		22C2BCA51D59846B00C8F1D5 /* Sky's Melody Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Sky's Melody Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		22C2BCA71D59846C00C8F1D5 /* Sky_s_Melody_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sky_s_Melody_Tests.swift; sourceTree = "<group>"; };
 		22C2BCA91D59846C00C8F1D5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -262,6 +264,7 @@
 			isa = PBXGroup;
 			children = (
 				22A9F80D1D5818DD0097FD61 /* Basic.swift */,
+				22BE5DBC1D66C1EC0038FAA8 /* Dreath.swift */,
 			);
 			name = entity;
 			sourceTree = "<group>";
@@ -609,6 +612,7 @@
 				222DD8D01D48854700A70FA8 /* Controller.swift in Sources */,
 				222DD8E71D48854700A70FA8 /* GLVisualDisplay.m in Sources */,
 				222DD90D1D48854700A70FA8 /* UserInterface.swift in Sources */,
+				22BE5DBD1D66C1EC0038FAA8 /* Dreath.swift in Sources */,
 				222DD90E1D48854700A70FA8 /* Utlity.swift in Sources */,
 				222DD8CE1D48854700A70FA8 /* CirclePolygonSolver.swift in Sources */,
 				222DD9021D48854700A70FA8 /* Shader.m in Sources */,

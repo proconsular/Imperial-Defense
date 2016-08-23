@@ -26,6 +26,8 @@ class Actor: Basic {
         body = Body(hull, substance)
         super.init(Display(hull, GLTexture("white")))
     }
+    
+    func update() {}
 }
 
 class Structure: Actor {
@@ -66,13 +68,40 @@ class Status {
     }
 }
 
+class Shield {
+    var points: PointRange
+    var damaged = false
+    var timer: Timer!
+    
+    init(amount: Float) {
+        points = PointRange(amount)
+        timer = Timer(5) {
+            self.damaged = false
+        }
+    }
+    
+    func damage(amount: Float) {
+        damaged = true
+        timer.increment = 0
+        points.increase(-amount)
+    }
+    
+    func update() {
+        if damaged {
+            timer.update(Time.time)
+        }else{
+            points.increase(45 * Time.time)
+        }
+    }
+}
+
 class Player: Actor, Interface {
-    var status: Status
+    var shield: Shield
     var weapon: Weapon!
     var callback: String -> () = {_ in}
     
     init(_ location: float2, _ weapon: Weapon) {
-        status = Status(100)
+        shield = Shield(amount: 1000)
         self.weapon = weapon
         super.init(Rect(location, float2(0.5.m, 1.m)), Substance.getStandard(0.3))
         weapon.player = self
@@ -98,6 +127,11 @@ class Player: Actor, Interface {
             weapon.fire()
         }
     }
+    
+    override func update() {
+        shield.update()
+    }
+    
 }
 
 class Weapon {
@@ -152,6 +186,8 @@ class Bullet: Actor {
         body.callback = { (body, _) in
             if let char = body.object as? Character {
                 char.status.hitpoints.increase(-5)
+            }
+            if !(body.object is Player) {
                 self.active = false
             }
         }
@@ -160,35 +196,24 @@ class Bullet: Actor {
 }
 
 class Character: Actor {
-    var director: Director
+    var director: Director?
     var status: Status
     
-    init(_ location: float2, _ bounds: float2, _ director: Director) {
+    init(_ location: float2, _ bounds: float2, _ substance: Substance, _ director: Director?) {
         self.director = director
-        status = Status(20)
-        super.init(Rect(location, bounds), Substance.getStandard(0.01))
-        body.relativeGravity = 0
-        director.actor = self
-        display.scheme.info.color = float4(0.5, 0.5, 0.5, 1)
+        status = Status(100)
+        super.init(Rect(location, bounds), substance)
         body.object = self
-        body.callback = { (body, _) in
-            if let player = body.object as? Player {
-                player.status.hitpoints.increase(-0.25)
-            }
-        }
+        director?.actor = self
     }
     
-    func update() {
-        director.update()
+    override func update() {
+        director?.update()
     }
 }
 
 class GameMap {
-    let player: Player
-    
-    init(_ player: Player) {
-        self.player = player
-    }
+    var player: Player!
 }
 
 class Director {
@@ -199,13 +224,7 @@ class Director {
         self.map = map
     }
     
-    func update() {
-        let dl = map.player.transform.location - actor.transform.location
-        guard dl.length <= 20.m else { return }
-        let direction = normalize(dl)
-        let magnitude = 1.m * 0.8 + dl.length * 0.5
-        actor.body.velocity = direction * magnitude
-    }
+    func update() {}
 }
 
 class RenderLayer {

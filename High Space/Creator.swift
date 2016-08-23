@@ -54,15 +54,10 @@ class GoalMaker: MakerAttachment<Structure> {
     }
 }
 
-class BlobMaker: MakerAttachment<Character> {
-    let map: GameMap
+class SpawnerMaker: MakerAttachment<Character> {
     
-    init(_ map: GameMap) {
-        self.map = map
-    }
-    
-    override func make(structure: Structure) -> Character! {
-        return Character(float2(structure.transform.location.x, structure.transform.location.y - 5.m), float2(0.15.m), Director(map))
+    override func make(structure: Structure) -> Character? {
+        return DreathSpawner(float2(structure.transform.location.x, structure.transform.location.y ) + float2(0, -structure.rect.bounds.y / 2 - 0.5.m / 2))
     }
     
 }
@@ -82,6 +77,7 @@ class FloorSuperMaker: SuperMaker {
         attachments.append(BlockMaker())
         attachments.append(GoalMaker(length))
         characters = []
+        characters.append(SpawnerMaker())
     }
     
     func make(offset: Float) -> [Actor] {
