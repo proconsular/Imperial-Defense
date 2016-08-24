@@ -26,7 +26,7 @@ class Game: DisplayLayer {
         
         controller = GameController(map)
         
-        dreathmap = DreathMap(controller)
+        dreathmap = DreathMap(controller.grid, map)
         
         player = Player(float2(Camera.size.x / 2, -2.m), Weapon(controller))
         player.callback = {
@@ -82,82 +82,42 @@ class Game: DisplayLayer {
 
 class GameController {
     let rendermaster: RenderMaster
+    let renderlayer: RenderLayer
     let physics: Physics
-    var actors: [Actor]
+    let grid: Grid
     var map: GameMap
-    var new: [Actor]
     
     init(_ map: GameMap) {
         self.map = map
         rendermaster = RenderMaster()
-        rendermaster.layers.append(RenderLayer())
+        renderlayer = RenderLayer()
+        rendermaster.layers.append(renderlayer)
         physics = Physics()
-        actors = []
-        new = []
+        grid = Grid(10.m, float2(100.m, 10.m))
     }
     
     func append(actor: Actor) {
-        new.append(actor)
-    }
-    
-    private func insert(actor: Actor) {
-        actors.append(actor)
-        physics.bodies.append(actor.body)
-        rendermaster.layers.first?.displays.append(actor.display)
+        grid.append(actor)
     }
     
     func update() {
-        actors.forEach{ $0.update() }
-        actors.forEach{ $0.onObject = false }
-        
+        grid.update()
+        physics.bodies = grid.actors.map{ $0.body }
         physics.update()
-        
-        for n in new {
-            insert(n)
-        }
-        new.removeAll()
-        delete()
-        
-    }
-    
-    private func delete() {
-        let copy = actors
-        for n in 0 ..< copy.count {
-            if Camera.distance(copy[n].transform.location) > 100.m {
-                remove(n)
-            }
-        }
-        while let index = findDead() {
-            remove(index)
-        }
-        actors.map{ $0 as? Bullet }.enumerate().forEach {
-            if let bullet = $1 {
-                if !bullet.active { remove($0) }
-            }
-        }
-    }
-    
-    private func findDead() -> Int? {
-        let clone = actors
-        for n in 0 ..< clone.count {
-            if let char = clone[n] as? Character {
-                if char.status.hitpoints.amount <= 0 {
-                    return n
-                }
-            }
-        }
-        return nil
-    }
-    
-    func remove(index: Int) {
-        guard index < physics.bodies.count else { return }
-        physics.bodies.removeAtIndex(index)
-        rendermaster.layers.first?.displays.removeAtIndex(index)
-        actors.removeAtIndex(index)
     }
     
     func render() {
-        rendermaster.render()
+        let cells = grid.cells.filter{
+            let rect = RawRect(grid.getCellLocation($0) + float2(0, -grid.size) / 2, float2(grid.size))
+            return Camera.contains(rect)
+        }
+        cells.forEach {
+            $0.elements.map{ $0.element }.forEach{
+                if Camera.distance($0.transform.location) <= Camera.size.length + 2.m {
+                    $0.display.render()
+                }
+            }
+        }
     }
 }
 

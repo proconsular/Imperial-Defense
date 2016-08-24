@@ -162,7 +162,7 @@ class Weapon {
         var bestactor: Actor?
         var length: Float = FLT_MAX
         
-        for actor in controller.actors {
+        for actor in controller.grid.actors {
             if let char = actor as? Character {
                 let dl = player.transform.location - char.transform.location
                 if length > dl.length {

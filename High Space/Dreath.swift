@@ -15,17 +15,19 @@ class Dreath {
 
 class DreathMap {
     var dreath: Dreath
-    var game: GameController
+    var grid: Grid
+    var map: GameMap
     
-    init(_ game: GameController) {
+    init(_ game: Grid, _ map: GameMap) {
         dreath = Dreath()
         dreath.amount = 1
-        self.game = game
+        self.grid = game
+        self.map = map
     }
     
     func computeDreath(location: float2) -> Float {
         var amount = dreath.amount
-        let dreaths = game.actors.filter{ $0 is DreathActor }.map{ $0 as! DreathActor }
+        let dreaths = grid.actors.filter{ $0 is DreathActor }.map{ $0 as! DreathActor }
         dreaths.forEach { actor in
             let dreath = actor.dreath.amount
             let dl = location - actor.transform.location
@@ -35,9 +37,7 @@ class DreathMap {
     }
     
     func update() {
-        Int(rand() % 3).cycle {
-            spawn()
-        }
+        spawn()
         spawnSpawner()
     }
     
@@ -45,13 +45,13 @@ class DreathMap {
         let location = float2(random(0, 100.m), -random(0, Camera.size.y))
         guard available(location) else { return }
         let local_dreath = computeDreath(location)
-        if local_dreath >= 0.6 {
-            game.append(DreathFloater(location, game.map, game))
+        if local_dreath >= 0.4 {
+            grid.append(DreathFloater(location, map, grid))
         }
     }
     
     private func available(location: float2) -> Bool {
-        for actor in game.actors {
+        for actor in grid.actors {
             if actor.body.shape.getBounds().contains(location) {
                 return false
             }
@@ -63,8 +63,8 @@ class DreathMap {
         let clusters = getClusters()
         for index in 0 ..< clusters.count {
             let cluster = clusters[index]
-            if cluster.floaters.count >= 6 {
-                game.append(DreathSpawner(cluster.floaters.first!.transform.location))
+            if cluster.dreath >= 1000 {
+                grid.append(DreathSpawner(cluster.floaters.first!.transform.location))
                 for floater in cluster.floaters {
                     floater.status.hitpoints.amount = 0
                 }
@@ -74,7 +74,7 @@ class DreathMap {
     
     func getClusters() -> [DreathCluster] {
         var clusters: [DreathCluster] = []
-        let dreaths = game.actors.filter{ $0 is DreathFloater }.map{ $0 as! DreathFloater }
+        let dreaths = grid.actors.filter{ $0 is DreathFloater }.map{ $0 as! DreathFloater }
         for i in 0 ..< dreaths.count {
             let prime = dreaths[i]
             let cluster = DreathCluster()
@@ -82,7 +82,7 @@ class DreathMap {
             clusters.append(cluster)
             for j in i + 1 ..< dreaths.count {
                 let secunde = dreaths[j]
-                if (prime.body.location - secunde.body.location).length <= 1.m {
+                if (prime.body.location - secunde.body.location).length <= 0.5.m {
                     cluster.floaters.append(secunde)
                 }
             }
@@ -93,6 +93,12 @@ class DreathMap {
 
 class DreathCluster {
     var floaters: [DreathFloater] = []
+    
+    var dreath: Float {
+        var amount: Float = 0
+        floaters.forEach{ amount += $0.dreath.amount }
+        return amount
+    }
 }
 
 class DreathActor: Character {
@@ -106,8 +112,8 @@ class DreathActor: Character {
 
 class DreathFloater: DreathActor {
     
-    init(_ location: float2, _ map: GameMap, _ game: GameController) {
-        super.init(location, float2(0.1.m), Substance.getStandard(0.02), FloaterDirector(map, game))
+    init(_ location: float2, _ map: GameMap, _ game: Grid) {
+        super.init(location, float2(0.1.m), Substance.getStandard(0.005), FloaterDirector(map, game))
         status = Status(20)
         display.color = float4(0.3, 0.3, 0.3, 1)
         dreath.amount = 25
@@ -118,39 +124,48 @@ class DreathFloater: DreathActor {
         body.relativeGravity = 0
         body.callback = { (body, _) in
             if let player = body.object as? Player {
-                player.shield.damage(0.25)
+                player.shield.damage(0.01)
             }
         }
+    }
+    
+    override func update() {
+        super.update()
+        dreath.amount += 4 * Time.time
+        let value = 0.7 - dreath.amount / 100
+        display.color = float4(value, value, value, 1)
+        display.visual.refresh()
     }
     
 }
 
 class FloaterDirector: Director {
-    let game: GameController
+    let grid: Grid
     
-    init(_ map: GameMap, _ game: GameController) {
-        self.game = game
+    init(_ map: GameMap, _ game: Grid) {
+        self.grid = game
         super.init(map)
     }
     
     override func update() {
         let player = map.player
         let dl = (player.transform.location) - actor.transform.location
-        guard dl.length <= 20.m else { return }
-        let direction = normalize(dl + player.body.velocity * 0.2)
-        let mag = (20.m / dl.length + 10.m)
-        var drag: Float = 300
-        let separation = normalize(actor.body.velocity) - direction
-        if separation.length >= 0.25 {
-            drag = 50
+        if dl.length <= 20.m {
+            let direction = normalize(dl + player.body.velocity * 0.2)
+            let mag = (20.m / dl.length + 10.m)
+            var drag: Float = 300
+            let separation = normalize(actor.body.velocity) - direction
+            if separation.length >= 0.25 {
+                drag = 50
+            }
+            actor.body.velocity += direction * mag / drag
         }
-        let clustering = clusterForce()
-        actor.body.velocity += direction * mag / drag + clustering
+        actor.body.velocity += clusterForce()
     }
     
     private func clusterForce() -> float2 {
         var force = float2()
-        let floaters = game.actors.filter{ $0 is DreathFloater }.map{ $0 as! DreathFloater }
+        let floaters = grid.actors.filter{ $0 is DreathFloater }.map{ $0 as! DreathFloater }
         for floater in floaters where actor !== floater {
             let dl = floater.transform.location - actor.transform.location
             let mag = 50.m / dl.length
@@ -165,10 +180,18 @@ class FloaterDirector: Director {
 class DreathSpawner: DreathActor {
     
     init(_ location: float2) {
-        super.init(location, float2(0.5.m), Substance.getStandard(3), nil)
+        super.init(location, float2(0.5.m), Substance.getStandard(5), nil)
         status = Status(30)
         display.color = float4(1, 0, 0.2, 1)
         dreath.amount = 500
+    }
+    
+    override func update() {
+        super.update()
+        dreath.amount += 100 * Time.time
+        let value = 1 - (dreath.amount - 500) / 2000
+        display.color = float4(value * 0.7, 0.1, value * 0.1, 1)
+        display.visual.refresh()
     }
     
 }

@@ -25,6 +25,12 @@ struct IndexedValue<Value: Comparable>: Comparable {
     
 }
 
+extension int2: Equatable {}
+
+public func == (prime: int2, secunde: int2) -> Bool {
+    return prime.x == secunde.x && prime.y == secunde.y
+}
+
 func == <Value: Comparable> (prime: IndexedValue<Value>, secunde: IndexedValue<Value>) -> Bool {
     return prime.value == secunde.value
 }

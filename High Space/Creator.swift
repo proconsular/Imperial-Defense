@@ -75,7 +75,7 @@ class FloorSuperMaker: SuperMaker {
         maker = FloorMaker()
         attachments = []
         attachments.append(BlockMaker())
-        attachments.append(GoalMaker(length))
+        //attachments.append(GoalMaker(length))
         characters = []
         characters.append(SpawnerMaker())
     }

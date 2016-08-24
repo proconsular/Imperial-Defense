@@ -62,6 +62,7 @@
 		22A9F80C1D5806650097FD61 /* Display.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A9F80B1D5806650097FD61 /* Display.swift */; };
 		22A9F80E1D5818DD0097FD61 /* Basic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A9F80D1D5818DD0097FD61 /* Basic.swift */; };
 		22BE5DBD1D66C1EC0038FAA8 /* Dreath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BE5DBC1D66C1EC0038FAA8 /* Dreath.swift */; };
+		22BE5DBF1D6D3BE30038FAA8 /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BE5DBE1D6D3BE30038FAA8 /* Grid.swift */; };
 		22C2BCA81D59846C00C8F1D5 /* Sky_s_Melody_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C2BCA71D59846C00C8F1D5 /* Sky_s_Melody_Tests.swift */; };
 		22C2BCB01D5D7C5600C8F1D5 /* Creator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C2BCAF1D5D7C5600C8F1D5 /* Creator.swift */; };
 		22C2BCB61D60244000C8F1D5 /* galaxy.png in Resources */ = {isa = PBXBuildFile; fileRef = 22C2BCB51D60244000C8F1D5 /* galaxy.png */; };
@@ -150,6 +151,7 @@
 		22A9F80B1D5806650097FD61 /* Display.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Display.swift; sourceTree = "<group>"; };
 		22A9F80D1D5818DD0097FD61 /* Basic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Basic.swift; sourceTree = "<group>"; };
 		22BE5DBC1D66C1EC0038FAA8 /* Dreath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dreath.swift; sourceTree = "<group>"; };
+		22BE5DBE1D6D3BE30038FAA8 /* Grid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Grid.swift; sourceTree = "<group>"; };
 		22C2BCA51D59846B00C8F1D5 /* Sky's Melody Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Sky's Melody Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		22C2BCA71D59846C00C8F1D5 /* Sky_s_Melody_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sky_s_Melody_Tests.swift; sourceTree = "<group>"; };
 		22C2BCA91D59846C00C8F1D5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -310,6 +312,7 @@
 				222DD8A31D48854700A70FA8 /* Screens.swift */,
 				222DD8AD1D48854700A70FA8 /* StateDevice.swift */,
 				22C2BCAF1D5D7C5600C8F1D5 /* Creator.swift */,
+				22BE5DBE1D6D3BE30038FAA8 /* Grid.swift */,
 			);
 			name = terrain;
 			sourceTree = "<group>";
@@ -588,6 +591,7 @@
 				22A9F80C1D5806650097FD61 /* Display.swift in Sources */,
 				222DD8F91D48854700A70FA8 /* PolygonSolver.swift in Sources */,
 				222DD8CF1D48854700A70FA8 /* CircleSolver.swift in Sources */,
+				22BE5DBF1D6D3BE30038FAA8 /* Grid.swift in Sources */,
 				222DD8C31D48854700A70FA8 /* Aux.swift in Sources */,
 				222DD8EF1D48854700A70FA8 /* Lighting.swift in Sources */,
 				222DD9121D48854700A70FA8 /* VisualHelpers.swift in Sources */,

@@ -19,7 +19,7 @@ class Camera {
     static var transform = Transform()
     static var follow: Transform?
     
-    var mask: RawRect { return RawRect(Camera.transform.location, Camera.size) }
+    static var mask: RawRect { return RawRect(Camera.transform.location, Camera.size) }
     
     static func contains (location: float2, _ bounds: float2) -> Bool {
         return
@@ -30,7 +30,7 @@ class Camera {
     }
     
     static func contains (rect: RawRect) -> Bool {
-        return contains(rect.location, rect.bounds)
+        return RawRect.isIntersected(Camera.mask, rect)
     }
     
     static func onScreen(body: Physical) -> Bool {
