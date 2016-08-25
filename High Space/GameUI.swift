@@ -22,13 +22,16 @@ extension DynamicText {
 }
 
 class PrincipalScreen: Screen {
+    let corruption: TextElement
+    let game: Game
     
     override init() {
+        corruption = TextElement(float2(300, 100), DynamicText.defaultStyle(" ", float4(1), 32))
+        game = Game()
+        
         super.init()
         
         UserInterface.controller.stack.push(GameControllerLayer())
-        
-        let game = Game()
         
         layers.append(game)
         layers.append(StatusLayer(game.player.shield))
@@ -44,6 +47,10 @@ class PrincipalScreen: Screen {
     
     override func display() {
         layers.forEach{$0.display()}
+        let dreath = game.dreathmap.totalDreath()
+        let dis = dreath / 25
+        corruption.setText(DynamicText.defaultStyle("Dreath: \(String(format: "%.0f", dis))", float4(1), 64))
+        corruption.display()
     }
     
 }

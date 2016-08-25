@@ -51,11 +51,12 @@ class Grid {
     }
     
     func update() {
+        removeDead()
+        
         loop { $0.element.update() }
         loop { $0.element.onObject = false }
         
         removeBullets()
-        removeDead()
         relocate()
         
         cells = cells.filter{ !$0.elements.isEmpty }
@@ -79,8 +80,8 @@ class Grid {
     private func removeDead() {
         for cell in cells {
             cell.elements = cell.elements.filter{
-                if let c = $0.element as? Character {
-                    return c.status.hitpoints.amount > 0
+                if let c = $0.element as? DreathActor {
+                    return c.dreath.amount > 0
                 }
                 return true
             }

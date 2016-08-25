@@ -25,7 +25,7 @@ class TextElement: InterfaceElement {
     
     func setText(text: DynamicText) {
         self.text = text
-        self.text.location = location - self.text.frame / 2
+        self.text.location = location
     }
     
     override func display() {
