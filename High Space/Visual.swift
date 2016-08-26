@@ -11,7 +11,7 @@ import Foundation
 protocol Hull {
     var transform: Transform { get set }
     func getVertices() -> [float2]
-    func getBounds() -> RawRect
+    func getBounds() -> FixedRect
 }
 
 protocol Form {
@@ -69,8 +69,8 @@ class Shape<F: Form>: Hull {
         self.form = frame
     }
     
-    func getBounds() -> RawRect {
-        return RawRect(float2(), float2())
+    func getBounds() -> FixedRect {
+        return FixedRect(float2(), float2())
     }
     
     func getVertices() -> [float2] {
@@ -145,8 +145,8 @@ class Rect: Shape<Edgeform> {
         self.init(Transform(location), bounds)
     }
     
-    override func getBounds() -> RawRect {
-        return RawRect(transform.location - bounds / 2, bounds)
+    override func getBounds() -> FixedRect {
+        return FixedRect(transform.location, bounds)
     }
     
     func setBounds(newBounds: float2) {

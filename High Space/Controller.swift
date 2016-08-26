@@ -25,9 +25,9 @@ protocol Interface: class {
 
 class LimitedController: Controller {
     var controller: Controller
-    var rect: RawRect
+    var rect: FixedRect
     
-    init(_ controller: Controller, _ rect: RawRect) {
+    init(_ controller: Controller, _ rect: FixedRect) {
         self.controller = controller
         self.rect = rect
     }
@@ -107,9 +107,9 @@ class GameControllerLayer: ControllerLayer {
     
     override init() {
         super.init()
-        let first = LimitedController(HorizontialMovementController(), RawRect(float2(), float2(Camera.size.x / 2, Camera.size.y)))
-        let second = LimitedController(PointController(2), RawRect(float2(Camera.size.x / 2, 0), float2(Camera.size.x / 2, Camera.size.y * 3 / 4)))
-        let third = LimitedController(PointController(1), RawRect(float2(Camera.size.x / 2, Camera.size.y * 3 / 4), float2(Camera.size.x / 2, Camera.size.y * 1 / 4)))
+        let first = LimitedController(HorizontialMovementController(), FixedRect(float2(Camera.size.x / 4, Camera.size.y / 2), float2(Camera.size.x / 2, Camera.size.y)))
+        let second = LimitedController(PointController(2), FixedRect(float2(Camera.size.x * 3 / 4, Camera.size.y * 3 / 8), float2(Camera.size.x / 2, Camera.size.y * 3 / 4)))
+        let third = LimitedController(PointController(1), FixedRect(float2(Camera.size.x * 3 / 4, Camera.size.y * 7 / 8), float2(Camera.size.x / 2, Camera.size.y * 1 / 4)))
         self.subcontrollers = [first, second, third]
     }
     

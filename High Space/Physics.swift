@@ -18,34 +18,37 @@ let gravity = float2(0, 12.m)
 
 class Simulation {
     
-    private static let iterations = 3
+    private let iterations = 3
     
-    static var speedLimit = 1.0
-    private static var speed = 1.0
+    var speedLimit = 1.0
+    private var speed = 1.0
     
-    static var processor = Processor(0.2)
+    var processor = Processor(0.2)
+    var broadphaser: Broadphaser
     
-    private static var broadphaser = Broadphaser()
+    let grid: Grid
     
-    static func create(speed: Double = 1) {
+    init(_ grid: Grid, speed: Double = 1) {
+        self.grid = grid
         speedLimit = speed
         self.speed = speedLimit
+        broadphaser = Broadphaser(grid)
     }
    
-    static func halt() {
+    func halt() {
         speed = 0
     }
     
-    static func unhalt() {
+    func unhalt() {
         speed = speedLimit
     }
     
-    static func simulate (inout bodies: [Body]) {
-        broadphaser.prepare(&bodies)
-        processor.process(dt, step(&bodies, dt * speed))
+    func simulate() {
+        let bodies = grid.actors.map{ $0.body }
+        processor.process(dt, step(bodies, dt * speed))
     }
     
-    private static func step (inout bodies: [Body], _ dt: Double) {
+    private func step(bodies: [Body], _ dt: Double) {
         let delta = Float(dt)
         let contacts = broadphaser.getContacts()
         

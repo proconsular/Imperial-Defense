@@ -41,7 +41,9 @@
     
     NSArray<NSString *> *prefetched =
   @[@"white",
-    @"galaxy"];
+    @"galaxy",
+    @"Spawner",
+    @"Floater"];
     
     
     for (NSString *name in prefetched) {

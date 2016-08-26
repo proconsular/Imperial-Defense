@@ -11,7 +11,7 @@ import Foundation
 func couldCollide (prime: Physical, _ secunde: Physical) -> Bool {
     let pRect = prime.getBody().shape.getBounds()
     let sRect = secunde.getBody().shape.getBounds()
-    return RawRect.isIntersected(pRect, sRect)
+    return FixedRect.intersects(pRect, sRect)
 }
 
 struct IndexedValue<Value: Comparable>: Comparable {
@@ -26,9 +26,24 @@ struct IndexedValue<Value: Comparable>: Comparable {
 }
 
 extension int2: Equatable {}
+extension int2: CustomStringConvertible {
+    public var description: String {
+        return "\(x), \(y)"
+    }
+}
+
+extension float2: CustomStringConvertible {
+    public var description: String {
+        return "\(x), \(y)"
+    }
+}
 
 public func == (prime: int2, secunde: int2) -> Bool {
     return prime.x == secunde.x && prime.y == secunde.y
+}
+
+public func + (prime: int2, secunde: int2) -> int2 {
+    return int2(prime.x + secunde.x, prime.y + secunde.y)
 }
 
 func == <Value: Comparable> (prime: IndexedValue<Value>, secunde: IndexedValue<Value>) -> Bool {

@@ -66,6 +66,9 @@
 		22C2BCA81D59846C00C8F1D5 /* Sky_s_Melody_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C2BCA71D59846C00C8F1D5 /* Sky_s_Melody_Tests.swift */; };
 		22C2BCB01D5D7C5600C8F1D5 /* Creator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C2BCAF1D5D7C5600C8F1D5 /* Creator.swift */; };
 		22C2BCB61D60244000C8F1D5 /* galaxy.png in Resources */ = {isa = PBXBuildFile; fileRef = 22C2BCB51D60244000C8F1D5 /* galaxy.png */; };
+		22C4E5541D6FCCFF0077DFCB /* Spawner.png in Resources */ = {isa = PBXBuildFile; fileRef = 22C4E5531D6FCCFF0077DFCB /* Spawner.png */; };
+		22C4E5561D6FD39F0077DFCB /* Floater.png in Resources */ = {isa = PBXBuildFile; fileRef = 22C4E5551D6FD39F0077DFCB /* Floater.png */; };
+		22C4E5581D6FF08F0077DFCB /* Quadtree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C4E5571D6FF08F0077DFCB /* Quadtree.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -157,6 +160,9 @@
 		22C2BCA91D59846C00C8F1D5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		22C2BCAF1D5D7C5600C8F1D5 /* Creator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Creator.swift; sourceTree = "<group>"; };
 		22C2BCB51D60244000C8F1D5 /* galaxy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = galaxy.png; sourceTree = "<group>"; };
+		22C4E5531D6FCCFF0077DFCB /* Spawner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Spawner.png; sourceTree = "<group>"; };
+		22C4E5551D6FD39F0077DFCB /* Floater.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Floater.png; sourceTree = "<group>"; };
+		22C4E5571D6FF08F0077DFCB /* Quadtree.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Quadtree.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -258,6 +264,8 @@
 			children = (
 				22722BCC1D488D2700BFA78A /* white.png */,
 				22C2BCB51D60244000C8F1D5 /* galaxy.png */,
+				22C4E5531D6FCCFF0077DFCB /* Spawner.png */,
+				22C4E5551D6FD39F0077DFCB /* Floater.png */,
 			);
 			name = media;
 			sourceTree = "<group>";
@@ -313,6 +321,7 @@
 				222DD8AD1D48854700A70FA8 /* StateDevice.swift */,
 				22C2BCAF1D5D7C5600C8F1D5 /* Creator.swift */,
 				22BE5DBE1D6D3BE30038FAA8 /* Grid.swift */,
+				22C4E5571D6FF08F0077DFCB /* Quadtree.swift */,
 			);
 			name = terrain;
 			sourceTree = "<group>";
@@ -560,9 +569,11 @@
 				22722BA01D4887B700BFA78A /* MainView.storyboard in Resources */,
 				22722B9E1D4887A700BFA78A /* Launch Screen.storyboard in Resources */,
 				222DD8D61D48854700A70FA8 /* Default.vsh in Resources */,
+				22C4E5541D6FCCFF0077DFCB /* Spawner.png in Resources */,
 				22722C561D4897C600BFA78A /* Media.xcassets in Resources */,
 				22722C171D488D2700BFA78A /* white.png in Resources */,
 				222DD8F01D48854700A70FA8 /* Lighting.vsh in Resources */,
+				22C4E5561D6FD39F0077DFCB /* Floater.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -617,6 +628,7 @@
 				222DD8E71D48854700A70FA8 /* GLVisualDisplay.m in Sources */,
 				222DD90D1D48854700A70FA8 /* UserInterface.swift in Sources */,
 				22BE5DBD1D66C1EC0038FAA8 /* Dreath.swift in Sources */,
+				22C4E5581D6FF08F0077DFCB /* Quadtree.swift in Sources */,
 				222DD90E1D48854700A70FA8 /* Utlity.swift in Sources */,
 				222DD8CE1D48854700A70FA8 /* CirclePolygonSolver.swift in Sources */,
 				222DD9021D48854700A70FA8 /* Shader.m in Sources */,

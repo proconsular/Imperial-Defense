@@ -263,7 +263,13 @@ class Pair<T> {
     }
 }
 
-class BodyPair: Pair<Body> {
+func == (prime: BodyPair, secunde: BodyPair) -> Bool {
+    let equal = prime.primary === secunde.primary && prime.secondary === secunde.secondary
+    let cross = prime.primary === secunde.secondary && prime.secondary === secunde.primary
+    return equal || cross
+}
+
+class BodyPair: Pair<Body>, Equatable {
     
     var rebound: Float = 0
     var still: Float = 0
@@ -314,7 +320,11 @@ class BodyPair: Pair<Body> {
     
 }
 
-class Manifold {
+func == (prime: Manifold, secunde: Manifold) -> Bool {
+    return prime.pair == secunde.pair
+}
+
+class Manifold: Equatable {
     typealias Solve = (Body, Body) -> Collision?
     
     let percent: Float = 0.4, slop: Float = 0.05

@@ -29,12 +29,12 @@ class Trigger {
 
 class InteractiveElement: InterfaceElement, Interface {
     
-    var rect: RawRect
+    var rect: FixedRect
     var event: () -> ()
     var active = true
     
     init(_ location: float2, _ bounds: float2, _ event: () -> () = {}) {
-        rect = RawRect(location, bounds)
+        rect = FixedRect(location, bounds)
         self.event = event
         super.init()
     }

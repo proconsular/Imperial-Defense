@@ -24,13 +24,13 @@ static GLuint sampler;
 +(Texture *)fetch:(NSString *)name :(GLenum)format{
     GLuint texture = [GLTextureLoader createTexture];
     glBindTexture(GL_TEXTURE_2D, texture);
-    //glBindSampler(1, sampler);
-    
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    
+    glBindSampler(1, sampler);
+//    
+//    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+//    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+//    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+//    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+//    
     int width, height;
     [GLTextureLoader storeImmutableTexture:[GLTextureLoader getImageData:name :&width :&height] :width :height :format];
     return [[Texture alloc] initWithTexture:texture bounds:vector2((float)width, (float)height)];

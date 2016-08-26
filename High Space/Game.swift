@@ -10,6 +10,8 @@ import Foundation
 
 class Game: DisplayLayer {
     
+    static let levelsize = 30.m
+    
     let background: Display
     let controller: GameController
     var maker: MasterMaker!
@@ -44,15 +46,17 @@ class Game: DisplayLayer {
         
         Camera.follow = player.transform
         
-        let length = 100.m
-        
         let assm = Assembler()
-        let floormaker = FloorSuperMaker(length)
+        let floormaker = FloorSuperMaker(Game.levelsize)
         //floormaker.characters.append(BlobMaker(map))
         assm.makers.append(floormaker)
         
-        maker = MasterMaker(assm, length) {
-            self.player.transform.location.x >= self.maker.offset - 10.m
+        maker = MasterMaker(assm, Game.levelsize) {
+            self.maker.offset < Game.levelsize
+        }
+        
+        for _ in 0 ..< 10 {
+            maker.make().forEach(controller.append)
         }
     }
     
@@ -69,7 +73,7 @@ class Game: DisplayLayer {
         if player.shield.points.amount <= 0 {
             UserInterface.setScreen(EndScreen(ending: .Lose))
         }
-        maker.make().forEach(controller.append)
+//        maker.make().forEach(controller.append)
         controller.update()
         Camera.update()
     }
@@ -83,7 +87,7 @@ class Game: DisplayLayer {
 class GameController {
     let rendermaster: RenderMaster
     let renderlayer: RenderLayer
-    let physics: Physics
+    let physics: Simulation
     let grid: Grid
     var map: GameMap
     
@@ -92,8 +96,8 @@ class GameController {
         rendermaster = RenderMaster()
         renderlayer = RenderLayer()
         rendermaster.layers.append(renderlayer)
-        physics = Physics()
-        grid = Grid(10.m, float2(100.m, 10.m))
+        grid = Grid(10.m, float2(Game.levelsize, 10.m))
+        physics = Simulation(grid)
     }
     
     func append(actor: Actor) {
@@ -102,35 +106,21 @@ class GameController {
     
     func update() {
         grid.update()
-        physics.bodies = grid.actors.map{ $0.body }
-        physics.update()
+        physics.simulate()
     }
     
     func render() {
         let cells = grid.cells.filter{
-            let rect = RawRect(grid.getCellLocation($0) + float2(0, -grid.size) / 2, float2(grid.size))
+            let rect = FixedRect(grid.getCellLocation($0), float2(grid.size + 2.m))
             return Camera.contains(rect)
         }
         cells.forEach {
             $0.elements.map{ $0.element }.forEach{
-                if Camera.distance($0.transform.location) <= Camera.size.length + 2.m {
+                //if Camera.distance($0.transform.location) <= Camera.size.length + 5.m {
                     $0.display.render()
-                }
+                //}
             }
         }
-    }
-}
-
-class Physics {
-    var bodies: [Body]
-    
-    init() {
-        Simulation.create()
-        bodies = []
-    }
-    
-    func update() {
-        Simulation.simulate(&bodies)
     }
 }
 

@@ -185,7 +185,7 @@ class Bullet: Actor {
         body.relativeGravity = 0
         body.callback = { (body, _) in
             if let char = body.object as? DreathActor {
-                char.dreath.damage(250)
+                char.dreath.damage(500)
             }
             if !(body.object is Player) {
                 self.active = false

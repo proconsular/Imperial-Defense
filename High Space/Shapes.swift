@@ -1,5 +1,5 @@
 //
-//  RawRect.swift
+//  FixedRect.swift
 //  Relaci
 //
 //  Created by Chris Luttio on 9/15/14.
@@ -7,7 +7,7 @@
 //
 
 
-struct RawRect {
+struct FixedRect {
     var location, bounds: float2
     
     init (_ location: float2, _ bounds: float2) {
@@ -16,15 +16,17 @@ struct RawRect {
     }
     
     func contains (point: float2) -> Bool {
-        return RawRect.isIntersected(self, RawRect(point, float2(1)))
+        return FixedRect.intersects(self, FixedRect(point, float2(1)))
     }
     
-    static func isIntersected (prime: RawRect, _ secunde: RawRect) -> Bool {
-        guard prime.location.x + prime.bounds.x >= secunde.location.x else { return false }
-        guard prime.location.x <= secunde.location.x + secunde.bounds.x else { return false }
+    static func intersects (prime: FixedRect, _ secunde: FixedRect) -> Bool {
+        let phalf = prime.bounds / 2
+        let shalf = secunde.bounds / 2
+        guard prime.location.x + phalf.x >= secunde.location.x - shalf.x else { return false }
+        guard prime.location.x - phalf.x <= secunde.location.x + shalf.x else { return false }
         
-        guard prime.location.y + prime.bounds.y >= secunde.location.y else { return false }
-        guard prime.location.y <= secunde.location.y + secunde.bounds.y else { return false }
+        guard prime.location.y + phalf.y >= secunde.location.y - shalf.y else { return false }
+        guard prime.location.y - phalf.y <= secunde.location.y + shalf.y else { return false }
         
         return true
     }
@@ -70,25 +72,4 @@ class Sorter {
         return findBestIndex(1 ..< vertices.count, -FLT_MAX, >) { vertices[$0].x }!
     }
 }
-
-//struct Circle: Shape {
-//    var location: float2
-//    var radius: Float
-//    var orientation: Float
-//    
-//    var type: ShapeType { return .Circle }
-//    
-//    var diameter: Float { return radius * 2 }
-//    
-//    init (location: float2, radius: Float) {
-//        self.location = location
-//        self.radius = radius
-//        orientation = 0
-//    }
-//    
-//    func getBounds () -> RawRect {
-//        return RawRect(location - float2(radius), float2(radius * 2))
-//    }
-//}
-
 

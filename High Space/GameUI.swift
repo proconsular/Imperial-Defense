@@ -48,8 +48,9 @@ class PrincipalScreen: Screen {
     override func display() {
         layers.forEach{$0.display()}
         let dreath = game.dreathmap.totalDreath()
-        let dis = dreath / 25
-        corruption.setText(DynamicText.defaultStyle("Dreath: \(String(format: "%.0f", dis))", float4(1), 64))
+        let dis = dreath / 100
+        corruption.setText(DynamicText.defaultStyle("Dreath: \(String(format: "%.1f", dis))", float4(1), 64))
+//        corruption.setText(DynamicText.defaultStyle("Actors: \(game.controller.grid.actors.count)", float4(1), 64))
         corruption.display()
     }
     

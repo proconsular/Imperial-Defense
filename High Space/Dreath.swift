@@ -25,6 +25,9 @@ class DreathMap {
     var grid: Grid
     var map: GameMap
     
+    let threshold: Float = 0.3
+    let clusterToSpawner: Float = 500
+    
     init(_ game: Grid, _ map: GameMap) {
         dreath = Dreath()
         dreath.amount = 0
@@ -38,7 +41,7 @@ class DreathMap {
         dreaths.forEach { actor in
             let dreath = actor.dreath.amount
             let dl = location - actor.transform.location
-            amount += dreath / dl.length
+            amount += (dreath) / dl.length
         }
         return amount / Float(dreaths.count)
     }
@@ -49,11 +52,11 @@ class DreathMap {
     }
     
     func spawn() {
-        let location = float2(random(0, 100.m), -random(0, Camera.size.y))
+        let location = float2(random(0, Game.levelsize), -random(0, Camera.size.y))
         guard available(location) else { return }
         let local_dreath = computeDreath(location)
-        if local_dreath >= 0.25 {
-            grid.append(DreathFloater(location, map, grid))
+        if local_dreath >= threshold {
+            grid.append(DreathFloater(location, local_dreath * 10 + 20, map, grid))
         }
     }
     
@@ -70,7 +73,7 @@ class DreathMap {
         let clusters = getClusters()
         for index in 0 ..< clusters.count {
             let cluster = clusters[index]
-            if cluster.dreath >= 500 {
+            if cluster.dreath >= clusterToSpawner {
                 grid.append(DreathSpawner(cluster.floaters.first!.transform.location))
                 for floater in cluster.floaters {
                     floater.dreath.amount = 0
@@ -129,10 +132,11 @@ class DreathActor: Character {
 
 class DreathFloater: DreathActor {
     
-    init(_ location: float2, _ map: GameMap, _ game: Grid) {
+    init(_ location: float2, _ amount: Float, _ map: GameMap, _ game: Grid) {
         super.init(location, float2(0.1.m), Substance.getStandard(0.005), FloaterDirector(map, game))
-        display.color = float4(0.3, 0.3, 0.3, 1)
-        dreath.amount = 25
+        //display.color = float4(0.3, 0.3, 0.3, 1)
+        display.scheme.info.texture = GLTexture("Floater").id
+        dreath.amount = amount
         setupBody()
     }
     
@@ -147,13 +151,13 @@ class DreathFloater: DreathActor {
     
     override func update() {
         super.update()
-        dreath.amount += 4 * Time.time
+        dreath.amount += 8 * Time.time
         let growth = dreath.amount / 100
         let clamped = clamp(growth, min: 0, max: 1)
-        let value = 0.7 - clamped
-        display.color = float4(value, value, value, 1)
+        let value = 1 - clamped
+        display.color = float4(value / 2, value * 0.4, 2 * growth - 0.2, 1)
         let rect = body.shape as! Rect
-        rect.setBounds(float2(0.15.m) * (clamped))
+        rect.setBounds(float2(0.1.m) * (clamped))
         display.visual.refresh()
     }
     
@@ -186,11 +190,12 @@ class FloaterDirector: Director {
     
     private func clusterForce() -> float2 {
         var force = float2()
+        
         let floaters = grid.actors.filter{ $0 is DreathFloater }.map{ $0 as! DreathFloater }
         for floater in floaters where actor !== floater {
             let dl = floater.transform.location - actor.transform.location
-            guard dl.length <= 5.m else { continue }
-            let mag = 10.m / dl.length
+            guard dl.length <= 4.m else { continue }
+            let mag = (5.m) / dl.length
             let dir = normalize(dl)
             force += mag * dir
         }
@@ -203,19 +208,20 @@ class DreathSpawner: DreathActor {
     
     init(_ location: float2) {
         super.init(location, float2(0.5.m), Substance.getStandard(5), nil)
-        display.color = float4(1, 0, 0.2, 1)
+        //display.color = float4(1, 0, 0.2, 1)
+        display.scheme.info.texture = GLTexture("Spawner").id
         dreath.amount = 500
     }
     
     override func update() {
         super.update()
         dreath.amount += 100 * Time.time
-        let growth = (dreath.amount) / 2000
+        let growth = (dreath.amount) / 5000
         let clamped = clamp(growth, min: 0, max: 1)
-        let value = 1 - clamped
-        display.color = float4(value * 0.7, 0.1, value * 0.1, 1)
+        let value = 1 - growth
+        display.color = float4(growth / 5, value * 0.4, 0.2 + value * 0.5, 1)
         let rect = body.shape as! Rect
-        rect.setBounds(float2(1.m) * (clamped))
+        rect.setBounds(float2(1.5.m) * (clamped))
         display.visual.refresh()
     }
     

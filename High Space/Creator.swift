@@ -22,6 +22,8 @@ class FloorMaker: Maker<Structure> {
     override func make(offset: Float) -> Structure! {
         let size = float2(10.m, random(1.m, 2.m))
         let floor = Structure(float2(offset + size.x / 2, -random(0, size.y / 2)), size)
+        let color = random(0.2, 0.4)
+        floor.display.color = float4(color, color, color, 1)
         return floor
     }
     
