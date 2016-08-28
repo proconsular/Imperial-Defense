@@ -34,7 +34,7 @@ class Simulation {
         self.speed = speedLimit
         broadphaser = Broadphaser(grid)
     }
-   
+    
     func halt() {
         speed = 0
     }

@@ -103,7 +103,7 @@ class Player: Actor, Interface {
     init(_ location: float2, _ weapon: Weapon) {
         shield = Shield(amount: 1000)
         self.weapon = weapon
-        super.init(Rect(location, float2(0.5.m, 1.m)), Substance.getStandard(0.3))
+        super.init(Rect(location, float2(0.5.m, 1.m)), Substance.getStandard(3))
         weapon.player = self
         body.object = self
         body.callback = { (body, collision) in

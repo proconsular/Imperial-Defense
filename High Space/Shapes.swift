@@ -8,11 +8,11 @@
 
 
 struct FixedRect {
-    var location, bounds: float2
+    var location, halfbounds: float2
     
     init (_ location: float2, _ bounds: float2) {
         self.location = location
-        self.bounds = bounds
+        self.halfbounds = bounds / 2
     }
     
     func contains (point: float2) -> Bool {
@@ -20,15 +20,13 @@ struct FixedRect {
     }
     
     static func intersects (prime: FixedRect, _ secunde: FixedRect) -> Bool {
-        let phalf = prime.bounds / 2
-        let shalf = secunde.bounds / 2
-        guard prime.location.x + phalf.x >= secunde.location.x - shalf.x else { return false }
-        guard prime.location.x - phalf.x <= secunde.location.x + shalf.x else { return false }
-        
-        guard prime.location.y + phalf.y >= secunde.location.y - shalf.y else { return false }
-        guard prime.location.y - phalf.y <= secunde.location.y + shalf.y else { return false }
-        
+        if abs(prime.location.x - secunde.location.x) > prime.halfbounds.x + secunde.halfbounds.x { return false }
+        if abs(prime.location.y - secunde.location.y) > prime.halfbounds.y + secunde.halfbounds.y { return false }
         return true
+    }
+    
+    var bounds: float2 {
+        return halfbounds * 2
     }
 }
 

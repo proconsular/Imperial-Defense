@@ -25,7 +25,7 @@ class DreathMap {
     var grid: Grid
     var map: GameMap
     
-    let threshold: Float = 0.3
+    let threshold: Float = 0.5
     let clusterToSpawner: Float = 500
     
     init(_ game: Grid, _ map: GameMap) {
@@ -133,7 +133,7 @@ class DreathActor: Character {
 class DreathFloater: DreathActor {
     
     init(_ location: float2, _ amount: Float, _ map: GameMap, _ game: Grid) {
-        super.init(location, float2(0.1.m), Substance.getStandard(0.005), FloaterDirector(map, game))
+        super.init(location, float2(0.1.m), Substance.StandardRotating(0.005, 0.001), FloaterDirector(map, game))
         //display.color = float4(0.3, 0.3, 0.3, 1)
         display.scheme.info.texture = GLTexture("Floater").id
         dreath.amount = amount
@@ -151,7 +151,7 @@ class DreathFloater: DreathActor {
     
     override func update() {
         super.update()
-        dreath.amount += 8 * Time.time
+        dreath.amount += 4 * Time.time
         let growth = dreath.amount / 100
         let clamped = clamp(growth, min: 0, max: 1)
         let value = 1 - clamped
@@ -207,7 +207,7 @@ class FloaterDirector: Director {
 class DreathSpawner: DreathActor {
     
     init(_ location: float2) {
-        super.init(location, float2(0.5.m), Substance.getStandard(5), nil)
+        super.init(location, float2(0.5.m), Substance.StandardRotating(2, 0.00001), nil)
         //display.color = float4(1, 0, 0.2, 1)
         display.scheme.info.texture = GLTexture("Spawner").id
         dreath.amount = 500
@@ -223,6 +223,7 @@ class DreathSpawner: DreathActor {
         let rect = body.shape as! Rect
         rect.setBounds(float2(1.5.m) * (clamped))
         display.visual.refresh()
+        body.substance.mass.mass = 2 + growth * 4
     }
     
 }

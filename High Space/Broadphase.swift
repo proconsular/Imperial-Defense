@@ -73,7 +73,7 @@ class Broadphaser {
     
     private func validateContact (prime: Body, _ secunde: Body) -> Manifold? {
         guard prime.layer == secunde.layer else { return nil }
-        guard FixedRect.intersects(prime.shape.getBounds(), secunde.shape.getBounds()) else { return nil }
+        guard collide(prime, secunde) else { return nil }
         return Manifold(BodyPair(prime, secunde))
     }
     

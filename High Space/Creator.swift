@@ -79,7 +79,7 @@ class FloorSuperMaker: SuperMaker {
         attachments.append(BlockMaker())
         //attachments.append(GoalMaker(length))
         characters = []
-        characters.append(SpawnerMaker())
+        //characters.append(SpawnerMaker())
     }
     
     func make(offset: Float) -> [Actor] {

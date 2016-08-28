@@ -48,6 +48,7 @@ class Game: DisplayLayer {
         
         let assm = Assembler()
         let floormaker = FloorSuperMaker(Game.levelsize)
+        floormaker.characters.append(SpawnerMaker())
         //floormaker.characters.append(BlobMaker(map))
         assm.makers.append(floormaker)
         

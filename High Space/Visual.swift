@@ -20,7 +20,7 @@ protocol Form {
 
 class Transform {
     var location: float2
-    var matrix: float2x2
+    private(set) var matrix: float2x2
     private(set) var parent: Transform?
     var children: [Transform]
     
@@ -37,12 +37,13 @@ class Transform {
     }
     
     func apply(vertex: float2) -> float2 {
-        return vertex * matrix + location
+        return matrix * vertex + location
     }
     
     var orientation: Float {
         set {
-            let (cosine, sine) = (cosf(newValue), sinf(newValue))
+            let cosine = cosf(newValue)
+            let sine = sinf(newValue)
             matrix = float2x2(rows: [float2(cosine, -sine), float2(sine, cosine)])
         }
         get { return atan2f(matrix.cmatrix.columns.0.y, matrix.cmatrix.columns.0.x) }
@@ -86,7 +87,8 @@ class Shape<F: Form>: Hull {
     }
     
     func getTransformedFace(index: Int) -> Face {
-        return Face(getTransformedVertex(index), getTransformedVertex((index + 1) % form.getVertices().count))
+        let next = index + 1 >= form.getVertices().count ? 0 : index + 1
+        return Face(getTransformedVertex(index), getTransformedVertex(next))
     }
     
 }
@@ -113,7 +115,8 @@ class Edgeform: Form {
     }
     
     func getFace(index: Int) -> Face {
-        return Face(vertices[index], vertices[(index + 1) % vertices.count])
+        let next = index + 1 >= vertices.count ? 0 : index + 1
+        return Face(vertices[index], vertices[next])
     }
     
     func getVertices() -> [float2] {
@@ -146,7 +149,27 @@ class Rect: Shape<Edgeform> {
     }
     
     override func getBounds() -> FixedRect {
-        return FixedRect(transform.location, bounds)
+        
+        var min = float2(FLT_MAX, -FLT_MAX), max = float2(-FLT_MAX, FLT_MAX)
+        
+        for n in 0 ..< form.vertices.count {
+            let vertex = getTransformedVertex(n) - transform.location
+            
+            if vertex.x > max.x {
+                max.x = vertex.x
+            }
+            if vertex.y < max.y {
+                max.y = vertex.y
+            }
+            if vertex.x < min.x {
+                min.x = vertex.x
+            }
+            if vertex.y > min.y {
+                min.y = vertex.y
+            }
+        }
+        
+        return FixedRect(transform.location, float2(max.x - min.x, -max.y + min.y))
     }
     
     func setBounds(newBounds: float2) {
@@ -164,7 +187,7 @@ class Radialform: Form {
     
 }
 
-class Eclipse: Shape<Radialform> {
+class Circle: Shape<Radialform> {
     
 }
 
@@ -190,7 +213,6 @@ struct TextureLayout {
         
         for vertex in vertices {
             let dif = normalize(vertex)
-            //print(dif)
             coordinates.append(float2( dif.x,  dif.y ) + 0.5)
         }
         

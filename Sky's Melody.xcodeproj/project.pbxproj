@@ -69,6 +69,7 @@
 		22C4E5541D6FCCFF0077DFCB /* Spawner.png in Resources */ = {isa = PBXBuildFile; fileRef = 22C4E5531D6FCCFF0077DFCB /* Spawner.png */; };
 		22C4E5561D6FD39F0077DFCB /* Floater.png in Resources */ = {isa = PBXBuildFile; fileRef = 22C4E5551D6FD39F0077DFCB /* Floater.png */; };
 		22C4E5581D6FF08F0077DFCB /* Quadtree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C4E5571D6FF08F0077DFCB /* Quadtree.swift */; };
+		22C4E55A1D7278350077DFCB /* RectSolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C4E5591D7278350077DFCB /* RectSolver.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -163,6 +164,7 @@
 		22C4E5531D6FCCFF0077DFCB /* Spawner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Spawner.png; sourceTree = "<group>"; };
 		22C4E5551D6FD39F0077DFCB /* Floater.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Floater.png; sourceTree = "<group>"; };
 		22C4E5571D6FF08F0077DFCB /* Quadtree.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Quadtree.swift; sourceTree = "<group>"; };
+		22C4E5591D7278350077DFCB /* RectSolver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RectSolver.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -452,6 +454,7 @@
 				222DD8631D48854600A70FA8 /* CirclePolygonSolver.swift */,
 				222DD8641D48854600A70FA8 /* CircleSolver.swift */,
 				222DD8961D48854700A70FA8 /* PolygonSolver.swift */,
+				22C4E5591D7278350077DFCB /* RectSolver.swift */,
 			);
 			name = solvers;
 			sourceTree = "<group>";
@@ -599,6 +602,7 @@
 				222DD8C11D48854700A70FA8 /* Audio.swift in Sources */,
 				222DD90B1D48854700A70FA8 /* TextureRepo.m in Sources */,
 				222DD8C21D48854700A70FA8 /* AudioLibrary.m in Sources */,
+				22C4E55A1D7278350077DFCB /* RectSolver.swift in Sources */,
 				22A9F80C1D5806650097FD61 /* Display.swift in Sources */,
 				222DD8F91D48854700A70FA8 /* PolygonSolver.swift in Sources */,
 				222DD8CF1D48854700A70FA8 /* CircleSolver.swift in Sources */,

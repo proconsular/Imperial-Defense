@@ -29,7 +29,9 @@ class PolygonSolver {
     static private func findLeastPenetratingAxis <T where T: Edgeform> (primary: Shape<T>, _ secondary: Shape<T>) -> IndexedValue<Float>? {
         let axis = findBest(0 ..< primary.form.vertices.count, -FLT_MAX, >) {
             let normal = secondary.transform.matrix.transpose * (primary.transform.matrix * primary.form.normals[$0])
-            return dot(normal, secondary.form.getSupport(-normal) - (secondary.transform.matrix.transpose * (primary.transform.matrix * primary.form.vertices[$0] + primary.transform.location - secondary.transform.location)))
+            return dot(normal, secondary.form.getSupport(-normal) -
+                (secondary.transform.matrix.transpose *
+                (primary.getTransformedVertex($0) - secondary.transform.location)))
         }!
         return axis.value < 0 ? axis : nil
     }
@@ -55,6 +57,7 @@ class PolygonSolver {
     
     static private func findIncidentFace <T where T: Edgeform> (collidingFaces: (reference: Shape<T>, incident: Shape<T>, index: Int)) -> Face {
         let reference_normal = collidingFaces.incident.transform.matrix.transpose * (collidingFaces.reference.transform.matrix * collidingFaces.reference.form.normals[collidingFaces.index])
+        
         let face_index_first = findBestIndex(0 ..< collidingFaces.incident.form.vertices.count, FLT_MAX, <) {
             return dot(reference_normal, collidingFaces.incident.form.normals[$0])
             }!

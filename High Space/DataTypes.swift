@@ -54,10 +54,6 @@ class Body {
         self.callback = callback
     }
     
-    static func box (location: float2, _ bounds: float2, _ substance: Substance) -> Body {
-        return Body(Rect(Transform(location), bounds), substance)
-    }
-    
     func applyImpulse (impulse: float2, _ contact: float2) {
         velocity += substance.mass.inv_mass * impulse
         angular_velocity += substance.mass.inv_inertia * cross(contact - location, impulse).z
@@ -71,7 +67,7 @@ class Body {
     }
     
     func applyForces(dt: Float) {
-        if substance.mass.inv_mass == 0 || layer == .Scenery { return }
+        if substance.mass.inv_mass == 0 { return }
         velocity += (force * substance.mass.inv_mass + gravity * relativeGravity) * (dt / 2)
         angular_velocity += torque * substance.mass.inv_inertia * (dt / 2)
     }
@@ -121,6 +117,10 @@ struct Substance {
     
     static func getStandard(mass: Float) -> Substance {
         return Substance(Material(.Static), Mass.fixed(mass), Friction(.Ice))
+    }
+    
+    static func StandardRotating(mass: Float, _ inverse_interia: Float) -> Substance {
+        return Substance(Material(.Static), Mass(mass, 1 / inverse_interia), Friction(.Ice))
     }
     
 }
@@ -339,8 +339,6 @@ class Manifold: Equatable {
     
     func solve() {
         guard let solution = PolygonSolver.solve(pair.primary.shape as! Shape, pair.secondary.shape as! Shape) else { return }
-        
-        if let tag = pair.primary.tag ?? pair.secondary.tag where tag == "Floor" && solution.normal.x != 0 { return }
         
         collision = solution
         pair.callback(collision)
