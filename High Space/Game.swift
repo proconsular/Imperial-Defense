@@ -30,7 +30,9 @@ class Game: DisplayLayer {
         
         dreathmap = DreathMap(controller.grid, map)
         
-        player = Player(float2(Camera.size.x / 2, -2.m), Weapon(controller))
+        let targetter = DreathTargetter(controller.grid)
+        player = Player(float2(Camera.size.x / 2, -2.m), Weapon(controller.grid, "dreath", targetter))
+        targetter.player = player
         player.callback = {
             if $0 == "goal" {
                 self.victory()
@@ -49,7 +51,6 @@ class Game: DisplayLayer {
         let assm = Assembler()
         let floormaker = FloorSuperMaker(Game.levelsize)
         floormaker.characters.append(SpawnerMaker())
-        //floormaker.characters.append(BlobMaker(map))
         assm.makers.append(floormaker)
         
         maker = MasterMaker(assm, Game.levelsize) {

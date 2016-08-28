@@ -75,7 +75,7 @@ class Shield {
     
     init(amount: Float) {
         points = PointRange(amount)
-        timer = Timer(5) {
+        timer = Timer(1) {
             self.damaged = false
         }
     }
@@ -90,12 +90,14 @@ class Shield {
         if damaged {
             timer.update(Time.time)
         }else{
-            points.increase(45 * Time.time)
+            points.increase(300 * Time.time)
         }
     }
 }
 
 class Player: Actor, Interface {
+    static var player: Player!
+    
     var shield: Shield
     var weapon: Weapon!
     var callback: String -> () = {_ in}
@@ -104,7 +106,7 @@ class Player: Actor, Interface {
         shield = Shield(amount: 1000)
         self.weapon = weapon
         super.init(Rect(location, float2(0.5.m, 1.m)), Substance.getStandard(3))
-        weapon.player = self
+        weapon.actor = self
         body.object = self
         body.callback = { (body, collision) in
             if !self.onObject {
@@ -114,6 +116,7 @@ class Player: Actor, Interface {
                 self.callback(tag)
             }
         }
+        Player.player = self
     }
     
     func use(command: Command) {
@@ -135,44 +138,69 @@ class Player: Actor, Interface {
 }
 
 class Weapon {
-    let controller: GameController
-    var player: Player!
+    let grid: Grid
+    var actor: Actor!
     var count: Float
+    var targetter: Targetter
+    var tag: String
     
-    init(_ controller: GameController) {
-        self.controller = controller
+    init(_ grid: Grid, _ tag: String, _ targetter: Targetter) {
+        self.grid = grid
+        self.tag = tag
+        self.targetter = targetter
         count = 0
     }
     
     func fire() {
         count += Time.time
         if count >= 0.2 {
-            if let char = findActor() {
+            if let char = targetter.getTarget() {
                 let location = char.transform.location
-                let dl = location - player.transform.location
-                let bullet = Bullet(player.transform.location + normalize(dl) * 0.25.m)
-                bullet.body.velocity = normalize(dl) * 10.m
-                controller.append(bullet)
+                let dl = location - actor.transform.location
+                let bullet = Bullet(actor.transform.location + normalize(dl) * 0.25.m, tag)
+                bullet.body.velocity = normalize(dl) * 5.m
+                grid.append(bullet)
             }
             count = 0
         }
     }
     
-    func findActor() -> Actor? {
-        var bestactor: Actor?
+}
+
+protocol Targetter {
+    func getTarget() -> Actor?
+}
+
+class DreathTargetter: Targetter {
+    unowned let grid: Grid
+    var player: Player!
+    
+    init(_ grid: Grid) {
+        self.grid = grid
+    }
+    
+    func getTarget() -> Actor? {
+        var bestactor: DreathActor?
         var length: Float = FLT_MAX
         
-        for actor in controller.grid.actors {
-            if let char = actor as? Character {
+        for actor in grid.actors {
+            if let char = actor as? DreathActor {
                 let dl = player.transform.location - char.transform.location
                 if length > dl.length {
                     length = dl.length
-                    bestactor = actor
+                    bestactor = char
                 }
             }
         }
         
         return bestactor
+    }
+}
+
+class PlayerTargetter: Targetter {
+    
+    func getTarget() -> Actor? {
+        return Player.player
     }
     
 }
@@ -180,15 +208,25 @@ class Weapon {
 class Bullet: Actor {
     var active = true
     
-    init(_ location: float2) {
-        super.init(Rect(location, float2(0.05.m, 0.05.m)), Substance.getStandard(0.5))
+    init(_ location: float2, _ tag: String) {
+        super.init(Rect(location, float2(0.05.m, 0.05.m)), Substance.getStandard(0.01))
         body.relativeGravity = 0
         body.callback = { (body, _) in
-            if let char = body.object as? DreathActor {
-                char.dreath.damage(500)
+            if tag == "dreath" {
+                if let char = body.object as? DreathActor {
+                    char.dreath.damage(100)
+                }
+                if !(body.object is Player) {
+                    self.active = false
+                }
             }
-            if !(body.object is Player) {
-                self.active = false
+            if tag == "player" {
+                if let pla = body.object as? Player {
+                    pla.shield.damage(5)
+                }
+                if !(body.object is DreathActor) {
+                    self.active = false
+                }
             }
         }
     }
