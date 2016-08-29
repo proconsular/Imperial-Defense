@@ -71,6 +71,12 @@
 		22C4E55A1D7278350077DFCB /* RectSolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C4E5591D7278350077DFCB /* RectSolver.swift */; };
 		22C4E55E1D728F2F0077DFCB /* Spawner.png in Resources */ = {isa = PBXBuildFile; fileRef = 22C4E55D1D728F2F0077DFCB /* Spawner.png */; };
 		22C4E5601D72970C0077DFCB /* Colony.png in Resources */ = {isa = PBXBuildFile; fileRef = 22C4E55F1D72970C0077DFCB /* Colony.png */; };
+		22C4E5621D73A9880077DFCB /* hit1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 22C4E5611D73A9880077DFCB /* hit1.wav */; };
+		22C4E5641D73A98E0077DFCB /* explosion1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 22C4E5631D73A98E0077DFCB /* explosion1.wav */; };
+		22C4E5661D73A9940077DFCB /* jump1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 22C4E5651D73A9940077DFCB /* jump1.wav */; };
+		22C4E5681D73A9990077DFCB /* make1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 22C4E5671D73A9990077DFCB /* make1.wav */; };
+		22C4E56A1D73A99D0077DFCB /* shield-re1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 22C4E5691D73A99D0077DFCB /* shield-re1.wav */; };
+		22C4E56C1D73A9A20077DFCB /* shoot1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 22C4E56B1D73A9A20077DFCB /* shoot1.wav */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -167,6 +173,12 @@
 		22C4E5591D7278350077DFCB /* RectSolver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RectSolver.swift; sourceTree = "<group>"; };
 		22C4E55D1D728F2F0077DFCB /* Spawner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Spawner.png; sourceTree = "<group>"; };
 		22C4E55F1D72970C0077DFCB /* Colony.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Colony.png; sourceTree = "<group>"; };
+		22C4E5611D73A9880077DFCB /* hit1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = hit1.wav; sourceTree = "<group>"; };
+		22C4E5631D73A98E0077DFCB /* explosion1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = explosion1.wav; sourceTree = "<group>"; };
+		22C4E5651D73A9940077DFCB /* jump1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = jump1.wav; sourceTree = "<group>"; };
+		22C4E5671D73A9990077DFCB /* make1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = make1.wav; sourceTree = "<group>"; };
+		22C4E5691D73A99D0077DFCB /* shield-re1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "shield-re1.wav"; sourceTree = "<group>"; };
+		22C4E56B1D73A9A20077DFCB /* shoot1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = shoot1.wav; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -271,6 +283,12 @@
 				22C4E5551D6FD39F0077DFCB /* Floater.png */,
 				22C4E55D1D728F2F0077DFCB /* Spawner.png */,
 				22C4E55F1D72970C0077DFCB /* Colony.png */,
+				22C4E5611D73A9880077DFCB /* hit1.wav */,
+				22C4E5631D73A98E0077DFCB /* explosion1.wav */,
+				22C4E5651D73A9940077DFCB /* jump1.wav */,
+				22C4E5671D73A9990077DFCB /* make1.wav */,
+				22C4E5691D73A99D0077DFCB /* shield-re1.wav */,
+				22C4E56B1D73A9A20077DFCB /* shoot1.wav */,
 			);
 			name = media;
 			sourceTree = "<group>";
@@ -570,12 +588,18 @@
 			files = (
 				222DD8D51D48854700A70FA8 /* Default.fsh in Resources */,
 				222DD8EE1D48854700A70FA8 /* Lighting.fsh in Resources */,
+				22C4E56A1D73A99D0077DFCB /* shield-re1.wav in Resources */,
+				22C4E5661D73A9940077DFCB /* jump1.wav in Resources */,
 				22722C381D488D2700BFA78A /* FredokaOne-Regular.ttf in Resources */,
 				22C2BCB61D60244000C8F1D5 /* galaxy.png in Resources */,
 				22722BA01D4887B700BFA78A /* MainView.storyboard in Resources */,
 				22722B9E1D4887A700BFA78A /* Launch Screen.storyboard in Resources */,
+				22C4E5681D73A9990077DFCB /* make1.wav in Resources */,
 				22C4E55E1D728F2F0077DFCB /* Spawner.png in Resources */,
+				22C4E56C1D73A9A20077DFCB /* shoot1.wav in Resources */,
 				222DD8D61D48854700A70FA8 /* Default.vsh in Resources */,
+				22C4E5621D73A9880077DFCB /* hit1.wav in Resources */,
+				22C4E5641D73A98E0077DFCB /* explosion1.wav in Resources */,
 				22722C561D4897C600BFA78A /* Media.xcassets in Resources */,
 				22722C171D488D2700BFA78A /* white.png in Resources */,
 				22C4E5601D72970C0077DFCB /* Colony.png in Resources */,

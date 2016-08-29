@@ -77,6 +77,7 @@ class Shield {
         points = PointRange(amount)
         timer = Timer(1) {
             self.damaged = false
+            play("shield-re1")
         }
     }
     
@@ -125,6 +126,7 @@ class Player: Actor, Interface {
         }else if command.id == 1 {
             if (onObject) {
                 body.velocity.y -= 750
+                play("jump1")
             }
         }else if command.id == 2 {
             weapon.fire()
@@ -160,6 +162,7 @@ class Weapon {
                 let bullet = Bullet(actor.transform.location + normalize(dl) * 0.25.m, tag)
                 bullet.body.velocity = normalize(dl) * 5.m
                 grid.append(bullet)
+                play("shoot1")
             }
             count = 0
         }
@@ -182,12 +185,14 @@ class DreathTargetter: Targetter {
     func getTarget() -> Actor? {
         var bestactor: DreathActor?
         var length: Float = FLT_MAX
+        var dreath: Float = 0
         
         for actor in grid.actors {
             if let char = actor as? DreathActor {
                 let dl = player.transform.location - char.transform.location
-                if length > dl.length {
+                if length > dl.length && char.dreath.amount > dreath || char is DreathKnight {
                     length = dl.length
+                    dreath = char.dreath.amount
                     bestactor = char
                 }
             }
@@ -214,7 +219,8 @@ class Bullet: Actor {
         body.callback = { (body, _) in
             if tag == "dreath" {
                 if let char = body.object as? DreathActor {
-                    char.dreath.damage(100)
+                    char.dreath.damage(200)
+                    play("hit1")
                 }
                 if !(body.object is Player) {
                     self.active = false
@@ -223,6 +229,7 @@ class Bullet: Actor {
             if tag == "player" {
                 if let pla = body.object as? Player {
                     pla.shield.damage(5)
+                    play("hit1")
                 }
                 if !(body.object is DreathActor) {
                     self.active = false

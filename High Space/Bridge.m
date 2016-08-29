@@ -14,9 +14,6 @@
 #import "Sky_s_Melody-Swift.h"
 
 @implementation Bridge {
-    float average_delta;
-    int count;
-    
     core *swift;
 }
 

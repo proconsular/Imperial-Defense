@@ -20,13 +20,24 @@ class Game: DisplayLayer {
     
     let player: Player
     
+    let lighting: Lighting
+    let light: Light
+    let ambient: Display
+    
     init() {
         background = Display(Rect(Camera.size / 2, Camera.size), GLTexture("galaxy"))
         background.scheme.hull.transform.assign(Camera.transform)
         
+        ambient = Display(Rect(Camera.size / 2, Camera.size), GLTexture("white"))
+        ambient.color = float4(0.1, 0.1, 0.1, 0.7)
+        ambient.transform.assign(Camera.transform)
+        
         let map = GameMap()
         
         controller = GameController(map)
+        
+        lighting = Lighting(controller.grid)
+        light = Light(float2(2.m, -2.m), 1.25, -0.005, 40000, -0.0001, float4(1, 1, 1, 1))
         
         dreathmap = DreathMap(controller.grid, map)
         
@@ -39,11 +50,12 @@ class Game: DisplayLayer {
             }
         }
         
+        lighting.lights.append(light)
+        
         map.player = player
         
         controller.append(Structure(float2(0, -Camera.size.y / 2), float2(30, Camera.size.y)))
-        
-        
+        controller.append(Structure(float2(Game.levelsize, -Camera.size.y / 2), float2(30, Camera.size.y)))
         controller.append(player)
         
         Camera.follow = player.transform
@@ -82,6 +94,10 @@ class Game: DisplayLayer {
     
     func display() {
         //background.render()
+        light.location = player.transform.location
+        light.display.transform.location = player.transform.location
+        ambient.render()
+        lighting.render()
         controller.render()
     }
 }
@@ -118,9 +134,9 @@ class GameController {
         }
         cells.forEach {
             $0.elements.map{ $0.element }.forEach{
-                //if Camera.distance($0.transform.location) <= Camera.size.length + 5.m {
+                if Camera.distance($0.transform.location) <= Camera.size.length + 5.m {
                     $0.display.render()
-                //}
+                }
             }
         }
     }

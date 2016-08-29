@@ -31,6 +31,13 @@
     alcMakeContextCurrent(_context);
     _sounds = [NSMutableDictionary new];
     
+    [self loadAudio:@"hit1"];
+    [self loadAudio:@"explosion1"];
+    [self loadAudio:@"jump1"];
+    [self loadAudio:@"make1"];
+    [self loadAudio:@"shield-re1"];
+    [self loadAudio:@"shoot1"];
+    
     _hasMusic = YES;
     _hasSound = YES;
     

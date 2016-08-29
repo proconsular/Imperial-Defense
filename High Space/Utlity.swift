@@ -8,6 +8,10 @@
 
 import Foundation
 
+func play(name: String) {
+    Audio(name).start()
+}
+
 func count (inout increment: Float, _ amount: Float, _ rate: Float, @autoclosure _ execution: () -> ()) {
     increment += amount
     if increment >= rate {

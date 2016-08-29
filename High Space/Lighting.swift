@@ -8,47 +8,50 @@
 
 import Foundation
 
-//class Lighting {
-//    unowned let terrain:
-//    
-//    var lights: [Light]
-//    
-//    init(_ terrain: Terrain) {
-//        self.terrain = terrain
-//        lights = []
-//    }
-//    
-//    func render() {
-//        lights.forEach{ getFaces($0, findObjects($0, terrain)) }
-//        
-//        Graphics.shaders[1].bind()
-//        lights.filter(isVisible).forEach{ $0.render() }
-//        Graphics.bindDefault()
-//    }
-//    
-//    func getFaces(light: Light, _ objects: [Physical]) {
-//        let shapes = objects.map{ $0.getBody().shape as! Shape<Edgeform> }
-//        let faces = light.getFaces(shapes)
-//        light.faces = faces
-//    }
-//    
-//    func findObjects(light: Light, _ terrain: Terrain) -> [Physical] {
-//        var objects: [Physical] = []
-//        terrain.foreach{
-//            $0.platforms.filter{ Lighting.inView(light, $0) }.forEach{ objects.append($0) }
-//        }
-//        return objects
-//    }
-//    
-//    private static func inView(light: Light, _ platform: Platform) -> Bool {
-//        return (platform.location - light.location).length - platform.length < light.radius
-//    }
-//    
-//    private func isVisible(light: Light) -> Bool {
-//        return Camera.distance(light.location) < light.radius * 2
-//    }
-//    
-//}
+class Lighting {
+    unowned let terrain: Grid
+    
+    var lights: [Light]
+    
+    init(_ terrain: Grid) {
+        self.terrain = terrain
+        lights = []
+    }
+    
+    func render() {
+        lights.forEach{ getFaces($0, findObjects($0, terrain)) }
+        
+        Graphics.shaders[1].bind()
+        lights.filter(isVisible).forEach{ $0.render() }
+        Graphics.bindDefault()
+    }
+    
+    func getFaces(light: Light, _ objects: [Actor]) {
+        let shapes = objects.map{ $0.body.shape as! Shape<Edgeform> }
+        var faces = light.getFaces(shapes)
+        if faces.count > 10 {
+            faces = faces.sort{ (light.location - $0.center).length < (light.location - $1.center).length }
+            faces.removeRange(10 ..< faces.count)
+        }
+        light.faces = faces
+    }
+    
+    func findObjects(light: Light, _ terrain: Grid) -> [Actor] {
+        var objects: [Actor] = []
+        terrain.cells.forEach{
+            $0.elements.map{ $0.element }.filter{ Lighting.inView(light, $0) }.forEach{ objects.append($0) }
+        }
+        return objects
+    }
+    
+    private static func inView(light: Light, _ actor: Actor) -> Bool {
+        return (actor.transform.location - light.location).length < light.radius
+    }
+    
+    private func isVisible(light: Light) -> Bool {
+        return Camera.distance(light.location) < light.radius * 2
+    }
+}
 
 class Color {
     var temperature: Float

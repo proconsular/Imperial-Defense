@@ -29,7 +29,7 @@ class Light {
         self.dissipation = dissipation
         self.color = color
         faces = []
-        let rect = Rect(Transform(float2()), float2(radius))
+        let rect = Rect(Transform(float2()), float2(radius * 2))
         display = Display(rect, GLTexture("white"))
     }
     

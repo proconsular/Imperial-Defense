@@ -77,6 +77,7 @@ class DreathMap {
             let cluster = clusters[index]
             if cluster.dreath >= clusterToSpawner {
                 grid.append(DreathSpawner(cluster.floaters.first!.transform.location))
+                play("make1")
                 for floater in cluster.floaters {
                     floater.dreath.amount = 0
                 }
