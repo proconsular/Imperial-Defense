@@ -32,9 +32,9 @@ class Grid {
             cell.append(actor)
             cells.append(cell)
         }
-        if onBorder(actor) {
-            borderActors.append(actor)
-        }
+//        if onBorder(actor) {
+//            borderActors.append(actor)
+//        }
     }
     
     private func getCell(location: int2) -> Cell? {
@@ -96,7 +96,7 @@ class Grid {
         removeBullets()
         relocate()
         
-        borderActors = borderActors.filter(onBorder)
+        //borderActors = borderActors.filter(onBorder)
         cells = cells.filter{ !$0.elements.isEmpty }
     }
     
@@ -145,10 +145,27 @@ class Grid {
         }
     }
     
+    func render() {
+        getVisibleCells().forEach{
+            $0.actors.forEach{
+                if Camera.visible($0.transform.location) {
+                    $0.display.render()
+                }
+            }
+        }
+    }
+    
     var actors: [Actor] {
         var list: [Actor] = []
         loop{ list.append($0.element) }
         return list
+    }
+    
+    func getVisibleCells() -> [Cell] {
+        return cells.filter{
+            let rect = FixedRect(getCellLocation($0), float2(size + 2.m))
+            return Camera.contains(rect)
+        }
     }
 }
 
@@ -179,6 +196,10 @@ class Cell {
         let tree = Quadtree(FixedRect(float2(Float(placement.location.x), Float(placement.location.y)) * 10.m + float2(5.m, -5.m), float2(10.m)))
         elements.map{ $0.element }.forEach(tree.append)
         return tree
+    }
+    
+    var actors: [Actor] {
+        return elements.map{ $0.element }
     }
 }
 

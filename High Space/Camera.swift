@@ -50,13 +50,19 @@ class Camera {
             transform.location.y += -(transform.location.y + Camera.size.y)
         }
         if transform.location.x < 0 {
-            let length = transform.location.x
-            transform.location.x += -length
+            transform.location.x += -transform.location.x
+        }
+        if transform.location.x + Camera.size.x > Game.levelsize {
+            transform.location.x +=  Game.levelsize - (transform.location.x + Camera.size.x)
         }
     }
     
     static func distance(location: float2) -> Float {
         return (location - Camera.transform.location - Camera.size / 2).length
+    }
+    
+    static func visible(location: float2) -> Bool {
+        return Camera.distance(location) <= Camera.size.length + 5.m
     }
     
 }

@@ -111,7 +111,7 @@ class Player: Actor, Interface {
         body.object = self
         body.callback = { (body, collision) in
             if !self.onObject {
-                self.onObject = collision.normal.y > 0
+                self.onObject = collision.normal.y != 0
             }
             if let tag = body.tag {
                 self.callback(tag)
@@ -160,6 +160,7 @@ class Weapon {
                 let location = char.transform.location
                 let dl = location - actor.transform.location
                 let bullet = Bullet(actor.transform.location + normalize(dl) * 0.25.m, tag)
+                bullet.body.orientation = atan2(dl.y, dl.x)
                 bullet.body.velocity = normalize(dl) * 5.m
                 grid.append(bullet)
                 play("shoot1")
@@ -214,7 +215,7 @@ class Bullet: Actor {
     var active = true
     
     init(_ location: float2, _ tag: String) {
-        super.init(Rect(location, float2(0.05.m, 0.05.m)), Substance.getStandard(0.01))
+        super.init(Rect(location, float2(0.1.m, 0.02.m)), Substance.StandardRotating(0.01, 0.01))
         body.relativeGravity = 0
         body.callback = { (body, _) in
             if tag == "dreath" {
@@ -263,11 +264,6 @@ class GameMap {
 
 class Director {
     var actor: Actor!
-    let map: GameMap
-    
-    init(_ map: GameMap) {
-        self.map = map
-    }
     
     func update() {}
 }
