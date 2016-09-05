@@ -45,6 +45,9 @@ class Camera {
         if transform.location.y + Camera.size.y > 0 {
             transform.location.y += -(transform.location.y + Camera.size.y)
         }
+        if transform.location.y < -10.m {
+            transform.location.y += (-10.m - transform.location.y)
+        }
         if transform.location.x < 0 {
             transform.location.x += -transform.location.x
         }

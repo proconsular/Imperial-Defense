@@ -105,6 +105,7 @@ class Broadphaser {
     
     private func validateContact (prime: Body, _ secunde: Body) -> Manifold? {
         guard !prime.hidden && !secunde.hidden else { return nil }
+        guard prime.mask & secunde.mask > 0 else { return nil }
         guard collide(prime, secunde) else { return nil }
         return Manifold(BodyPair(prime, secunde))
     }

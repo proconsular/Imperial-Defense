@@ -10,7 +10,7 @@ import Foundation
 
 class Game: DisplayLayer {
     
-    static let levelsize = 10.m
+    static let levelsize = 20.m
     
     let player: Player
     let grid: Grid
@@ -85,7 +85,7 @@ class LevelMaker {
         assm.makers.append(floormaker)
         
         maker = MasterMaker(assm, Game.levelsize) {
-            self.maker.offset < Game.levelsize
+            true
         }
         
         let count = Int(Game.levelsize / 10.m)

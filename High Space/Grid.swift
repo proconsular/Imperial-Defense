@@ -18,7 +18,8 @@ class Grid {
         self.size = size
         self.bounds = bounds
         cells = []
-        for n in 0 ..< 1 {
+        let count = Int(Game.levelsize / 10.m)
+        for n in 0 ..< count {
             cells.append(Cell(Placement(int2(n, 0))))
         }
     }
@@ -39,16 +40,8 @@ class Grid {
     }
     
     private func transform(location: float2) -> int2 {
-        var x = location.x / size
-        var y = location.y / size
-        if x.isNaN || x.isInfinite {
-            print(location)
-            x = 0
-        }
-        if y.isNaN || y.isInfinite {
-            print(location)
-            y = 0
-        }
+        let x = location.x / size
+        let y = location.y / size
         return int2(Int(x), Int(y))
     }
     

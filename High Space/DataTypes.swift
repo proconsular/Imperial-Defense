@@ -28,6 +28,7 @@ class Body {
     var relativeGravity: Float = 1
     var timeStamp: Int = 0
     var hidden = false
+    var mask: Int = 1
     
     var object: AnyObject?
     

@@ -37,6 +37,7 @@ class Structure: Actor {
         rect = Rect(location, bounds)
         super.init(rect, Substance.Solid)
         display.color = float4(0.11, 0.11, 0.12, 1)
+        body.mask = Int.max
     }
     
 }
@@ -107,6 +108,7 @@ class Player: Actor, Interface {
         shield = Shield(amount: 1000)
         self.weapon = weapon
         super.init(Rect(location, float2(0.5.m, 1.m)), Substance.getStandard(3))
+        body.mask = 1 | 1 << 2
         weapon.actor = self
         body.object = self
         body.callback = { [unowned self] (body, collision) in
@@ -222,6 +224,7 @@ class Bullet: Actor {
     init(_ location: float2, _ tag: String) {
         super.init(Rect(location, float2(0.1.m, 0.01.m)), Substance.StandardRotating(0.01, 0.01))
         body.relativeGravity = 0
+        body.mask = 1 << 1 | 1
         body.callback = { [unowned self] (body, _) in
             if tag == "dreath" {
                 if let char = body.object as? DreathActor {

@@ -344,6 +344,7 @@ class DreathSpawner: DreathActor {
         //display.color = float4(1, 0, 0.2, 1)
         display.scheme.info.texture = GLTexture("Spawner").id
         dreath.amount = 500
+        body.mask = 1 << 1 | 1
     }
     
     override func update() {
@@ -368,6 +369,7 @@ class DreathColony: DreathActor {
         display.color = float4(0.2, 0.2, 0.2, 1)
         display.scheme.info.texture = GLTexture("Colony").id
         dreath.amount = 5000
+        body.mask = 1 << 1
     }
     
     override func update() {
@@ -391,6 +393,7 @@ class DreathKnight: DreathActor {
         weapon = Weapon(grid, "player", PlayerTargetter())
         super.init(Rect(location, float2(0.5.m, 1.m)), Substance.getStandard(3), nil)
         display.color = float4(0.7, 0.7, 0.7, 1)
+        body.mask = 1 | 1 << 2
         dreath.amount = 500
         weapon.actor = self
         body.callback = { [unowned self] (body, collision) in
