@@ -47,17 +47,35 @@ class RawVisualScheme: NSObject, RawScheme {
         let count = amountOfSides
         var indices: [UInt16] = []
         
-        var m = 1
-        for i in 0 ..< count / 2 {
-            let i0 = i % 2 == 0
-            let i1 = i % 2 == 1
-            let ic = i == count - 1
+        if scheme.hull is Circle {
+            let circle = scheme.hull as! Circle
+            let count = circle.form.divides
             
-            m += (i1 ? 2 : 0)
-            indices.append(UInt16((i1 ? i + 1 : 0)))
-            indices.append(UInt16(ic && i1 ? 1 : m))
-            indices.append(UInt16((ic && i0 ? 1 : (i0 ? i + 2 : 0))))
+            var m = 1
+            for i in 0 ..< count {
+                let a = i % 2 == 1 ? i + 1 : 0
+                m += i % 2 == 1 ? 2 : 0
+                let b = m
+                let c = i % 2 == 0 ? i + 2 : 0
+                indices.append(UInt16(a))
+                indices.append(UInt16(i == count - 1 && i % 2 == 1 ? 1 : b))
+                indices.append(UInt16(i == count - 1 && i & 2 == 0 ? 1 : c))
+            }
+        }else{
+            var m = 1
+            for i in 0 ..< count / 2 {
+                let i0 = i % 2 == 0
+                let i1 = i % 2 == 1
+                let ic = i == count - 1
+                
+                m += (i1 ? 2 : 0)
+                indices.append(UInt16((i1 ? i + 1 : 0)))
+                indices.append(UInt16(ic && i1 ? 1 : m))
+                indices.append(UInt16((ic && i0 ? 1 : (i0 ? i + 2 : 0))))
+            }
         }
+        
+       
         
         return indices.map{ $0 + UInt16(offset) }
     }
@@ -67,6 +85,9 @@ class RawVisualScheme: NSObject, RawScheme {
     }
     
     func getIndexBufferSize() -> Int32 {
+        if let circle = scheme.hull as? Circle {
+            return Int32(circle.form.divides * 6)
+        }
         return Int32(amountOfIndices)
     }
     

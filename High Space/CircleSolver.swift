@@ -8,25 +8,23 @@
 
 import Foundation
 
-//class CircleSolver: Solver {
-//    
-//    static func solve (primary: Body, _ secondary: Body) -> Collision? {
-//        let primary = primary.shape as! Circle, secondary = secondary.shape as! Circle
-//        
-//        let n = secondary.location - primary.location
-//        let r = primary.radius + secondary.radius
-//        
-//        if length_squared(n) > r * r { return nil }
-//        
-//        let d = length(n)
-//        
-//        if d != 0 {
-//            let normal = n / d
-//            return Collision([normal * primary.radius + primary.location], normal, r - d)
-//        }
-//        
-//        return Collision([primary.location], float2 (1, 0), primary.radius)
-//    }
-//    
-//    
-//}
+class CircleSolver {
+    
+    static func solve <T where T: Radialform> (primary: Shape<T>, _ secondary: Shape<T>) -> Collision? {
+        let n = secondary.transform.location - primary.transform.location
+        let r = primary.form.radius + secondary.form.radius
+        
+        if length_squared(n) > r * r { return nil }
+        
+        let d = length(n)
+        
+        if d != 0 {
+            let normal = n / d
+            return Collision([normal * primary.form.radius + primary.transform.location], normal, r - d)
+        }
+        
+        return Collision([primary.transform.location], float2 (1, 0), primary.form.radius)
+    }
+    
+    
+}

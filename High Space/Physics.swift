@@ -10,7 +10,7 @@ import Foundation
 import simd
 import Accelerate
 
-let multiplier: Double = 1
+let multiplier: Double = 2
 let framesPerSecond: Double = 60
 
 let dt: Double = 1.0 / (framesPerSecond * multiplier)

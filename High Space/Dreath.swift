@@ -61,6 +61,7 @@ class DreathMap {
                 append(dreath)
             }
         }
+        dreaths.removeAll()
     }
     
     private func append(dreath: DreathActor) {
@@ -189,7 +190,9 @@ class DreathFloaterCluster: DreathActor {
     init() {
         floaters = []
         height = random(3.m, 4.m)
-        super.init(float2(), float2(), Substance.getStandard(0), nil)
+        super.init(Rect(float2(), float2()), Substance.getStandard(0), nil)
+        body.relativeGravity = 0
+        body.hidden = true
         dreath.amount = 1
     }
     
@@ -213,6 +216,7 @@ class DreathFloaterCluster: DreathActor {
     }
     
     override func update() {
+        transform.location = center
         let dy = float2(center.x, -height) - center
         let mag = 0.01.m
         let dir = normalize_safe(dy) ?? float2()
@@ -228,9 +232,9 @@ class DreathFloaterCluster: DreathActor {
 class DreathActor: Character {
     var dreath: Dreath
     
-    override init(_ location: float2, _ bounds: float2, _ substance: Substance, _ director: Director?) {
+    override init(_ hull: Hull, _ substance: Substance, _ director: Director?) {
         dreath = Dreath()
-        super.init(location, bounds, substance, director)
+        super.init(hull, substance, director)
     }
 }
 
@@ -238,7 +242,7 @@ class DreathFloater: DreathActor {
     var cluster: DreathFloaterCluster?
     
     init(_ location: float2, _ amount: Float, _ game: Grid) {
-        super.init(location, float2(0.1.m), Substance.StandardRotating(0.005, 0.001), FloaterDirector(game))
+        super.init(Circle(Transform(location), 0.1.m), Substance.StandardRotating(0.005, 0.001), FloaterDirector(game))
         //display.color = float4(0.3, 0.3, 0.3, 1)
         display.scheme.info.texture = GLTexture("Floater").id
         dreath.amount = amount
@@ -261,8 +265,8 @@ class DreathFloater: DreathActor {
         let clamped = clamp(growth, min: 0, max: 1)
         let value = 1 - clamped
         display.color = float4(value / 2, value * 0.4, 2 * growth - 0.2, 1)
-        let rect = body.shape as! Rect
-        rect.setBounds(float2(0.1.m) * (clamped))
+        let rect = body.shape as! Circle
+        rect.setRadius(0.05.m * clamped)
         display.visual.refresh()
     }
     
@@ -335,7 +339,8 @@ class FloaterDirector: Director {
 class DreathSpawner: DreathActor {
     
     init(_ location: float2) {
-        super.init(location, float2(0.5.m), Substance.StandardRotating(2, 0.00001), nil)
+        super.init(Circle(Transform(location), 0.5.m), Substance.StandardRotating(3, 0.00001), nil)
+        body.substance.friction = Friction(.Iron)
         //display.color = float4(1, 0, 0.2, 1)
         display.scheme.info.texture = GLTexture("Spawner").id
         dreath.amount = 500
@@ -348,8 +353,8 @@ class DreathSpawner: DreathActor {
         let clamped = clamp(growth, min: 0, max: 1)
         let value = 1 - growth
         display.color = float4(growth + 0.5, value * 0.9, value * 0.5, 1)
-        let rect = body.shape as! Rect
-        rect.setBounds(float2(1.5.m) * (clamped))
+        let rect = body.shape as! Circle
+        rect.setRadius(1.5.m / 2 * clamped)
         display.visual.refresh()
         body.substance.mass.mass = 2 + growth * 4
     }
@@ -359,7 +364,7 @@ class DreathSpawner: DreathActor {
 class DreathColony: DreathActor {
     
     init(_ location: float2) {
-        super.init(location, float2(1.m, 2.m), Substance.getStandard(50), nil)
+        super.init(Circle(Transform(location), 1.m), Substance.getStandard(50), nil)
         display.color = float4(0.2, 0.2, 0.2, 1)
         display.scheme.info.texture = GLTexture("Colony").id
         dreath.amount = 5000
@@ -372,8 +377,8 @@ class DreathColony: DreathActor {
         let clamped = clamp(growth, min: 0, max: 1)
         let value = 1 - growth
         display.color = float4(growth * 2, value, value * 0.2, 1)
-        let rect = body.shape as! Rect
-        rect.setBounds(float2(3.m, 3.m) * clamped)
+        let rect = body.shape as! Circle
+        rect.setRadius(3.m / 2 * clamped)
         display.visual.refresh()
     }
     
@@ -384,11 +389,11 @@ class DreathKnight: DreathActor {
     
     init(_ location: float2, _ grid: Grid) {
         weapon = Weapon(grid, "player", PlayerTargetter())
-        super.init(location, float2(0.5.m, 1.m), Substance.getStandard(3), nil)
+        super.init(Rect(location, float2(0.5.m, 1.m)), Substance.getStandard(3), nil)
         display.color = float4(0.7, 0.7, 0.7, 1)
         dreath.amount = 500
         weapon.actor = self
-        body.callback = { (body, collision) in
+        body.callback = { [unowned self] (body, collision) in
             if !self.onObject {
                 self.onObject = collision.normal.y > 0
             }

@@ -8,10 +8,28 @@
 
 import Foundation
 
+
+struct BoundingCircle {
+    var location: float2
+    var radius: Float
+    
+    init(_ location: float2, _ radius: Float) {
+        self.location = location
+        self.radius = radius
+    }
+    
+    func intersects(other: BoundingCircle) -> Bool {
+        let dl = (location - other.location).length
+        let dr = radius + other.radius
+        return dl <= dr
+    }
+}
+
 protocol Hull {
     var transform: Transform { get set }
     func getVertices() -> [float2]
     func getBounds() -> FixedRect
+    func getCircle() -> BoundingCircle
 }
 
 protocol Form {
@@ -64,14 +82,31 @@ class Transform {
 class Shape<F: Form>: Hull {
     var transform: Transform
     var form: F
+    var circle: BoundingCircle
     
     init(_ transform: Transform = Transform(), _ frame: F) {
         self.transform = transform
         self.form = frame
+        circle = BoundingCircle(float2(), 0)
+        computeBoundingCircle()
     }
     
     func getBounds() -> FixedRect {
         return FixedRect(float2(), float2())
+    }
+    
+    private func computeBoundingCircle() {
+        let vertices = form.getVertices()
+        let center = vertices.center
+        let radius = findBestValue(0 ..< vertices.count, -FLT_MAX, >) {
+            return (center - vertices[$0]).length
+            }!
+        circle = BoundingCircle(center, radius)
+    }
+    
+    func getCircle() -> BoundingCircle {
+        circle.location = transform.location
+        return circle
     }
     
     func getVertices() -> [float2] {
@@ -138,10 +173,13 @@ class Polygon: Shape<Edgeform> {
 
 class Rect: Shape<Edgeform> {
     private(set) var bounds: float2
+    private var rect: FixedRect
     
     init(_ transform: Transform = Transform(), _ bounds: float2) {
         self.bounds = bounds
+        rect = FixedRect(float2(), float2())
         super.init(transform, Edgeform(bounds))
+        computeRect()
     }
     
     convenience init(_ location: float2, _ bounds: float2) {
@@ -149,7 +187,11 @@ class Rect: Shape<Edgeform> {
     }
     
     override func getBounds() -> FixedRect {
-        
+        rect.location = transform.location
+        return rect
+    }
+    
+    private func computeRect() {
         var min = float2(FLT_MAX, -FLT_MAX), max = float2(-FLT_MAX, FLT_MAX)
         
         for n in 0 ..< form.vertices.count {
@@ -169,26 +211,60 @@ class Rect: Shape<Edgeform> {
             }
         }
         
-        return FixedRect(transform.location, float2(max.x - min.x, -max.y + min.y))
+        rect = FixedRect(transform.location, float2(max.x - min.x, -max.y + min.y))
     }
     
     func setBounds(newBounds: float2) {
         self.bounds = newBounds
         form = Edgeform(newBounds)
+        computeBoundingCircle()
+        computeRect()
     }
     
 }
 
 class Radialform: Form {
+    let divides = 40
+    var vertices: [float2] = []
+    var radius: Float
     
-    func getVertices() -> [float2] {
-        return []
+    init(_ radius: Float) {
+        self.radius = radius
+        vertices = computeVertices(radius).centered
     }
     
+    private func computeVertices(radius: Float) -> [float2] {
+        var verts: [float2] = []
+        
+        verts.append(float2())
+        
+        for n in 1 ..< divides + 1 {
+            let percent = Float(n - 1) / Float(divides)
+            let angle = percent * Float(M_PI * 2)
+            verts.append(radius * float2(cosf(angle), sinf(angle)))
+        }
+        
+        return verts
+    }
+    
+    func getVertices() -> [float2] {
+        return vertices
+    }
 }
 
 class Circle: Shape<Radialform> {
     
+    init(_ transform: Transform, _ radius: Float) {
+        super.init(transform, Radialform(radius))
+    }
+    
+    override func getBounds() -> FixedRect {
+        return FixedRect(transform.location, float2(form.radius * 2))
+    }
+    
+    func setRadius(radius: Float) {
+        form = Radialform(radius)
+    }
 }
 
 struct TextureLayout {
@@ -207,13 +283,15 @@ struct TextureLayout {
     }
     
     private static func generateCoordinates(hull: Hull) -> [float2] {
-        let vertices = hull.getVertices()
+        let vertices = hull.getVertices().dropFirst()
         
         var coordinates: [float2] = []
         
+        coordinates.append(float2(0.5))
+        
         for vertex in vertices {
-            let dif = normalize(vertex)
-            coordinates.append(float2( dif.x,  dif.y ) + 0.5)
+            let angle = atan2f(vertex.y, vertex.x)
+            coordinates.append(float2(cosf(angle) / 2 + 0.5, sinf(angle) / 2 + 0.5))
         }
         
         return coordinates

@@ -13,28 +13,20 @@ class Grid {
     let size: Float
     let bounds: float2
     var cells: [Cell]
-    var borderActors: [Actor]
     
     init(_ size: Float, _ bounds: float2) {
         self.size = size
         self.bounds = bounds
         cells = []
-        borderActors = []
+        for n in 0 ..< 1 {
+            cells.append(Cell(Placement(int2(n, 0))))
+        }
     }
     
     func append(actor: Actor) {
-        guard FixedRect.intersects(actor.body.shape.getBounds(), FixedRect(float2(bounds.x / 2, -bounds.y / 2), bounds)) else { return }
-        let location = transform(actor.transform.location)
-        if let cell = getCell(location) {
+        if let cell = getCell(transform(actor.transform.location)) {
             cell.append(actor)
-        }else{
-            let cell = Cell(Placement(location))
-            cell.append(actor)
-            cells.append(cell)
         }
-//        if onBorder(actor) {
-//            borderActors.append(actor)
-//        }
     }
     
     private func getCell(location: int2) -> Cell? {
@@ -46,58 +38,28 @@ class Grid {
         return nil
     }
     
-    func onBorder(actor: Actor) -> Bool {
-        let loc = transform(actor.transform.location)
-        let ext = transform(actor.transform.location + actor.body.shape.getBounds().bounds / 2)
-        return loc != ext
-    }
-    
-    func getNeighbors(location: int2) -> [Cell] {
-        var neighbors: [Cell] = []
-        
-        let start = location.x - 1
-        
-        for n in 0 ..< 3 {
-            let loc = int2(start + n, location.y)
-            guard loc != location else { continue }
-            if let cell = getCell(loc) {
-                 neighbors.append(cell)
-            }
-        }
-        
-        return neighbors
-    }
-    
     private func transform(location: float2) -> int2 {
-        return int2(Int(location.x / size), Int(location.y / size))
-    }
-    
-    func query(location: float2, _ bounds: float2) -> [Cell] {
-        let loc = transform(location)
-        let ext = transform(bounds / 2)
-        var inter: [Cell] = []
-        let hs = Int(size / 2)
-        for cell in cells {
-            let right = cell.placement.location.x + hs >= loc.x - ext.x
-            let left = cell.placement.location.x - hs <= loc.x + ext.x
-            if right && left {
-                inter.append(cell)
-            }
+        var x = location.x / size
+        var y = location.y / size
+        if x.isNaN || x.isInfinite {
+            print(location)
+            x = 0
         }
-        return inter
+        if y.isNaN || y.isInfinite {
+            print(location)
+            y = 0
+        }
+        return int2(Int(x), Int(y))
     }
     
     func update() {
         removeDead()
+        removeBullets()
         
         loop { $0.element.update() }
         loop { $0.element.onObject = false }
         
-        removeBullets()
         relocate()
-        
-        //borderActors = borderActors.filter(onBorder)
-        cells = cells.filter{ !$0.elements.isEmpty }
     }
     
     func getCellLocation(cell: Cell) -> float2 {
@@ -146,7 +108,7 @@ class Grid {
     }
     
     func render() {
-        getVisibleCells().forEach{
+        cells.forEach{
             $0.actors.forEach{
                 if Camera.visible($0.transform.location) {
                     $0.display.render()

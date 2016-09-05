@@ -109,7 +109,7 @@ class Player: Actor, Interface {
         super.init(Rect(location, float2(0.5.m, 1.m)), Substance.getStandard(3))
         weapon.actor = self
         body.object = self
-        body.callback = { (body, collision) in
+        body.callback = { [unowned self] (body, collision) in
             if !self.onObject {
                 self.onObject = collision.normal.y != 0
             }
@@ -178,27 +178,32 @@ protocol Targetter {
 class DreathTargetter: Targetter {
     unowned let grid: Grid
     var player: Player!
+    weak var target: DreathActor?
     
     init(_ grid: Grid) {
         self.grid = grid
     }
     
     func getTarget() -> Actor? {
+       
         var bestactor: DreathActor?
-        var length: Float = FLT_MAX
-        var dreath: Float = 0
+        var rating: Float = -FLT_MAX
         
         for actor in grid.actors {
             if let char = actor as? DreathActor {
                 let dl = player.transform.location - char.transform.location
-                if length > dl.length && char.dreath.amount > dreath || char is DreathKnight {
-                    length = dl.length
-                    dreath = char.dreath.amount
+                var lw = 10.m / dl.length * 2 + char.dreath.amount / 1000 * 0.5
+                if char is DreathKnight {
+                    lw += 10
+                }
+                if lw > rating {
+                    rating = lw
                     bestactor = char
                 }
             }
         }
         
+        //target = bestactor
         return bestactor
     }
 }
@@ -215,9 +220,9 @@ class Bullet: Actor {
     var active = true
     
     init(_ location: float2, _ tag: String) {
-        super.init(Rect(location, float2(0.1.m, 0.02.m)), Substance.StandardRotating(0.01, 0.01))
+        super.init(Rect(location, float2(0.1.m, 0.01.m)), Substance.StandardRotating(0.01, 0.01))
         body.relativeGravity = 0
-        body.callback = { (body, _) in
+        body.callback = { [unowned self] (body, _) in
             if tag == "dreath" {
                 if let char = body.object as? DreathActor {
                     char.dreath.damage(200)
@@ -245,10 +250,10 @@ class Character: Actor {
     var director: Director?
     var status: Status
     
-    init(_ location: float2, _ bounds: float2, _ substance: Substance, _ director: Director?) {
+    init(_ hull: Hull, _ substance: Substance, _ director: Director?) {
         self.director = director
         status = Status(100)
-        super.init(Rect(location, bounds), substance)
+        super.init(hull, substance)
         body.object = self
         director?.actor = self
     }

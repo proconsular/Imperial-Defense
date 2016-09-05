@@ -8,14 +8,6 @@
 
 import Foundation
 
-protocol Physical {
-    func getBody () -> Body
-}
-
-enum PhysicalLayer: Int {
-    case Collision, Scenery, Passive
-}
-
 typealias Callback = (Body, Collision) -> ()
 
 class Body {
@@ -24,7 +16,7 @@ class Body {
     
     var substance: Substance
     
-    var velocity: float2 = float2 ()
+    var velocity: float2 = float2()
     var angular_velocity: Float = 0
     
     var force: float2 = float2 ()
@@ -33,8 +25,9 @@ class Body {
     var callback: Callback
     
     var tag: String?
-    var layer: PhysicalLayer = .Collision
     var relativeGravity: Float = 1
+    var timeStamp: Int = 0
+    var hidden = false
     
     var object: AnyObject?
     
@@ -338,9 +331,26 @@ class Manifold: Equatable {
     }
     
     func solve() {
-        guard let solution = PolygonSolver.solve(pair.primary.shape as! Shape, pair.secondary.shape as! Shape) else { return }
+        var solution: Collision?
+        if let prime = pair.primary.shape as? Shape<Edgeform>, let secunde = pair.secondary.shape as? Shape<Edgeform> {
+            solution = PolygonSolver.solve(prime, secunde)
+        }
+        if let prime = pair.primary.shape as? Shape<Radialform>, let secunde = pair.secondary.shape as? Shape<Radialform> {
+            solution = CircleSolver.solve(prime, secunde)
+        }
+        if let prime = pair.primary.shape as? Shape<Radialform>, let secunde = pair.secondary.shape as? Shape<Edgeform> {
+            solution = CirclePolygonSolver.solve(prime, secunde)
+        }
+        if let prime = pair.primary.shape as? Shape<Edgeform>, let secunde = pair.secondary.shape as? Shape<Radialform> {
+            solution = CirclePolygonSolver.solve(secunde, prime)
+            if let sol = solution {
+                solution!.normal = -sol.normal
+            }
+        }
         
-        collision = solution
+        guard let col = solution else { return }
+        
+        collision = col
         pair.callback(collision)
     }
     

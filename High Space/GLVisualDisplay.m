@@ -74,7 +74,7 @@
     glBindTexture(GL_TEXTURE_2D, [_scheme getTexture]);
     glUniformMatrix4fv(modelViewProjectionMatrix_Uniform, 1, 0, GLKMatrix4Multiply(projectionMatrix, [_scheme getMatrix]).m);
     
-    glDrawElements(GL_TRIANGLE_STRIP, [_scheme getIndexBufferSize] / 2, GL_UNSIGNED_SHORT, 0);
+    glDrawElements(GL_TRIANGLE_FAN, [_scheme getIndexBufferSize] / 2, GL_UNSIGNED_SHORT, 0);
 }
 
 @end

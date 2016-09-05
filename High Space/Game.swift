@@ -32,6 +32,16 @@ class Game: DisplayLayer {
         player = Player(float2(Camera.size.x / 2, -2.m), Weapon(grid, "dreath", targetter))
         targetter.player = player
         
+        let height = 10.m - 0.1.m
+        
+        grid.append(Structure(float2(0, -height / 2), float2(0.25.m, height)))
+        grid.append(Structure(float2(Game.levelsize - 0.1.m, -height / 2), float2(0.25.m, height)))
+        
+        let count = Int(Game.levelsize / 10.m)
+        for i in 0 ..< count {
+            grid.append(Structure(float2(Float(i) * 10.m + 5.m, -height), float2(10.m, 0.25.m)))
+        }
+        
         grid.append(player)
         
         Camera.follow = player.transform
@@ -60,7 +70,7 @@ class Game: DisplayLayer {
     }
     
     func display() {
-        lighting.render()
+        //lighting.render()
         grid.render()
     }
 }

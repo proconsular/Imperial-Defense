@@ -33,10 +33,6 @@ class Camera {
         return FixedRect.intersects(Camera.mask, rect)
     }
     
-    static func onScreen(body: Physical) -> Bool {
-        return Camera.contains(body.getBody().shape.getBounds())
-    }
-    
     static func update() {
         if let transform = follow {
             let dl = transform.location - Camera.transform.location - Camera.size / 2

@@ -10,7 +10,7 @@ import Foundation
 
 
 class Quadtree {
-    let threshold = 20, depth_limit = 4
+    let threshold = 10, depth_limit = 4
     
     let depth: Int
     let mask: FixedRect
@@ -43,7 +43,7 @@ class Quadtree {
     
     private func insert(actor: Actor) {
         for sector in sectors {
-            if FixedRect.intersects(actor.body.shape.getBounds(), sector.mask) {
+            if FixedRect.intersects(sector.mask, actor.body.shape.getBounds()) {
                 sector.append(actor)
             }
         }

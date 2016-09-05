@@ -8,12 +8,6 @@
 
 import Foundation
 
-func couldCollide (prime: Physical, _ secunde: Physical) -> Bool {
-    let pRect = prime.getBody().shape.getBounds()
-    let sRect = secunde.getBody().shape.getBounds()
-    return FixedRect.intersects(pRect, sRect)
-}
-
 struct IndexedValue<Value: Comparable>: Comparable {
     let index: Int
     let value: Value
@@ -212,6 +206,14 @@ extension Array {
             for j in i + 1 ..< count {
                 let secunde = self[j]
                 process(prime, secunde)
+            }
+        }
+    }
+    
+    func matchIndices(start: Int = 0, @noescape _ process: (Int, Int) -> ()) {
+        for i in start ..< count {
+            for j in i + 1 ..< count {
+                process(i, j)
             }
         }
     }
