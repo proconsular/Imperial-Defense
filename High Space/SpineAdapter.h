@@ -11,4 +11,7 @@
 
 #include <stdio.h>
 
+char* readFile(const char *, int *);
+char* readFileAtPath(const char *);
+
 #endif /* SpineAdapter_h */

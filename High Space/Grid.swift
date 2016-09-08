@@ -104,7 +104,7 @@ class Grid {
         cells.forEach{
             $0.actors.forEach{
                 if Camera.visible($0.transform.location) {
-                    $0.display.render()
+                    $0.render()
                 }
             }
         }

@@ -9,5 +9,7 @@
 #import "RawVisualDisplay.h"
 #import "GLTextureLoader.h"
 #import "spine.h"
+#import "SpineAdapter.h"
+#import "SpineRenderer.h"
 
 #import <UIKit/UIGestureRecognizerSubClass.h>

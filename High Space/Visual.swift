@@ -38,7 +38,7 @@ protocol Form {
 
 class Transform {
     var location: float2
-    private(set) var matrix: float2x2
+    var matrix: float2x2
     private(set) var parent: Transform?
     var children: [Transform]
     
@@ -49,7 +49,7 @@ class Transform {
         self.orientation = orientation
     }
     
-    func assign(parent: Transform) {
+    func assign(parent: Transform?) {
         self.parent = parent
         self.parent?.children.append(self)
     }
@@ -332,7 +332,12 @@ class VisualScheme: Scheme {
     }
     
     var vertices: [float2] {
-        return hull.getVertices()
+        get { return hull.getVertices() }
+        set {
+            if let rect = hull as? Rect {
+                rect.form.vertices = newValue
+            }
+        }
     }
     
     var coordinates: [float2] {

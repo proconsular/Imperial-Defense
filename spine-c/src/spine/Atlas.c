@@ -32,6 +32,7 @@
 #include <spine/Atlas.h>
 #include <ctype.h>
 #include <spine/extension.h>
+#include <printf.h>
 
 spAtlasPage* spAtlasPage_create (spAtlas* atlas, const char* name) {
 	spAtlasPage* self = NEW(spAtlasPage);
@@ -171,7 +172,7 @@ spAtlas* spAtlas_create (const char* begin, int length, const char* dir, void* r
 	int count;
 	const char* end = begin + length;
 	int dirLength = (int)strlen(dir);
-	int needsSlash = dirLength > 0 && dir[dirLength - 1] != '/' && dir[dirLength - 1] != '\\';
+    int needsSlash = dirLength > 0 && dir[dirLength - 1] != '/' && dir[dirLength - 1] != '\\';
 
 	spAtlasPage *page = 0;
 	spAtlasPage *lastPage = 0;
@@ -183,7 +184,7 @@ spAtlas* spAtlas_create (const char* begin, int length, const char* dir, void* r
 	self->rendererObject = rendererObject;
 
 	while (readLine(&begin, end, &str)) {
-		if (str.end - str.begin == 0) {
+        if (str.end - str.begin == 0) {
 			page = 0;
 		} else if (!page) {
 			char* name = mallocString(&str);
@@ -191,7 +192,7 @@ spAtlas* spAtlas_create (const char* begin, int length, const char* dir, void* r
 			memcpy(path, dir, dirLength);
 			if (needsSlash) path[dirLength] = '/';
 			strcpy(path + dirLength + needsSlash, name);
-
+            
 			page = spAtlasPage_create(self, name);
 			FREE(name);
 			if (lastPage)
@@ -199,7 +200,6 @@ spAtlas* spAtlas_create (const char* begin, int length, const char* dir, void* r
 			else
 				self->pages = page;
 			lastPage = page;
-
 			switch (readTuple(&begin, end, tuple)) {
 			case 0:
 				return abortAtlas(self);
@@ -319,7 +319,7 @@ spAtlas* spAtlas_createFromFile (const char* path, void* rendererObject) {
 
 	data = _spUtil_readFile(path, &length);
 	if (data) atlas = spAtlas_create(data, length, dir, rendererObject);
-
+    
 	FREE(data);
 	FREE(dir);
 	return atlas;

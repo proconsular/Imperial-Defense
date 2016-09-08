@@ -45,6 +45,8 @@ class Game: DisplayLayer {
         grid.append(player)
         
         Camera.follow = player.transform
+        
+        
     }
     
     func victory() {

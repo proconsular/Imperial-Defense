@@ -166,6 +166,19 @@ extension Measureable {
     var dm: Float { return self.m / 10 }
 }
 
+extension Array {
+    
+    func pair() -> [float2] {
+        var array: [float2] = []
+        for n in 0 ..< count / 2 {
+            if let x = self[n * 2] as? Float, let y = self[n * 2 + 1] as? Float {
+                 array.append(float2(x, y))
+            }
+        }
+        return array
+    }
+    
+}
 
 extension Array {
     

@@ -43,14 +43,28 @@ class Display {
 
 @objc class DisplayAdapter: NSObject {
     let display: Display
+    let rect: Rect
     
     init(_ location: float2, _ bounds: float2, _ texture: GLuint) {
-        display = Display(Rect(location, bounds), GLTexture(texture))
+        rect = Rect(location, bounds)
+        display = Display(rect, GLTexture(texture))
         display.transform.assign(Camera.transform)
+    }
+    
+    override convenience init() {
+        self.init(float2(), float2(), 0)
+    }
+    
+    func clearParent() {
+        display.transform.assign(nil)
     }
     
     func render() {
         display.render()
+    }
+    
+    func refresh() {
+        display.visual.refresh()
     }
     
     var color: float4 {
@@ -61,6 +75,53 @@ class Display {
     var location: float2 {
         get { return display.transform.location }
         set { display.transform.location = newValue }
+    }
+    
+    var bounds: float2 {
+        get { return rect.bounds }
+        set { rect.setBounds(newValue) }
+    }
+    
+    var rotation: Float {
+        get { return display.transform.orientation }
+        set { display.transform.orientation = newValue }
+    }
+    
+    var texture: GLuint {
+        get { return display.scheme.texture }
+        set { display.scheme.info.texture = newValue }
+    }
+    
+    func setMatrix(row0: float2, _ row1: float2) {
+        display.transform.matrix = float2x2(rows: [row0, row1])
+    }
+    
+    func setCoordinates(uvs: UnsafePointer<Float>, _ length: Int) {
+        var coordinates: [float2] = []
+        var coors = uvs
+        for _ in 0 ..< length / 2 {
+            var vertex = float2()
+            vertex.x = coors.memory
+            coors = coors.successor()
+            vertex.y = coors.memory
+            coors = coors.successor()
+            coordinates.append(vertex)
+        }
+        display.scheme.layout.coordinates = coordinates
+    }
+    
+    func setVertices(vertices: UnsafePointer<Float>, _ length: Int) {
+        var verts: [float2] = []
+        var vert = vertices
+        for _ in 0 ..< length / 2 {
+            var vertex = float2()
+            vertex.x = vert.memory
+            vert = vert.successor()
+            vertex.y = vert.memory
+            vert = vert.successor()
+            verts.append(vertex)
+        }
+        display.scheme.vertices = verts
     }
 }
 

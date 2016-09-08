@@ -28,6 +28,10 @@ class Actor: Basic {
     }
     
     func update() {}
+    
+    func render() {
+        display.render()
+    }
 }
 
 class Structure: Actor {
@@ -103,17 +107,23 @@ class Player: Actor, Interface {
     var shield: Shield
     var weapon: Weapon!
     var callback: String -> () = {_ in}
+    let spine: Skeleton
+    
+    var jumping = false
     
     init(_ location: float2, _ weapon: Weapon) {
         shield = Shield(amount: 1000)
         self.weapon = weapon
-        super.init(Rect(location, float2(0.5.m, 1.m)), Substance.getStandard(3))
+        let transform = Transform(location)
+        spine = Skeleton("spineboy", transform, float2(0, 0.5.m))
+        super.init(Rect(transform, float2(0.5.m, 1.m)), Substance.getStandard(3))
         body.mask = 1 | 1 << 2
         weapon.actor = self
         body.object = self
         body.callback = { [unowned self] (body, collision) in
             if !self.onObject {
                 self.onObject = collision.normal.y != 0
+                self.jumping = !self.onObject
             }
             if let tag = body.tag {
                 self.callback(tag)
@@ -137,8 +147,26 @@ class Player: Actor, Interface {
     
     override func update() {
         shield.update()
+        
+        if !jumping {
+            if abs(body.velocity.x) > 1.m {
+                spine.setAnimation("run")
+                spine.setDirection(body.velocity.x > 0 ? 1 : -1)
+            }else{
+                spine.setAnimation("idle")
+            }
+        }else{
+            spine.setAnimation("jump")
+        }
+        
+        spine.update()
     }
     
+    override func render() {
+        jumping = !onObject
+        
+        spine.render()
+    }
 }
 
 class Weapon {
