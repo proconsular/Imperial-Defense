@@ -162,7 +162,7 @@ protocol Measureable {
 }
 
 extension Measureable {
-    var m: Float { return self.toFloat() * 250 }
+    var m: Float { return self.toFloat() * 350 }
     var dm: Float { return self.m / 10 }
 }
 
@@ -264,7 +264,7 @@ extension Float {
     }
     
     func toDegrees () -> Float {
-        return self * Float (180 / M_PI)
+        return (self * Float (180 / M_PI))
     }
     
     var isPositive: Bool {

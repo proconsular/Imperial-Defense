@@ -23,13 +23,14 @@ class Skeleton {
     let data: UnsafeMutablePointer<spSkeletonData>
     
     var lastAnimation: String?
+    var dir = 1
     
     init(_ name: String, _ transform: Transform, _ offset: float2 = float2()) {
         self.transform = transform
         self.offset = offset
         let atlas = spAtlas_createFromFile("\(name).atlas", nil)
         let json = spSkeletonJson_create(atlas)
-        json.memory.scale = 0.5
+        json.memory.scale = 0.6
         
         data = spSkeletonJson_readSkeletonData(json, readFileAtPath("\(name).json"))
         
@@ -57,7 +58,20 @@ class Skeleton {
     }
     
     func setDirection(dir: Int) {
+        self.dir = dir
         skeleton.memory.flipX = dir == 1 ? 0 : 1
+    }
+    
+    func getBoneLocation(name: String) -> float2 {
+        let bone = spSkeleton_findBone(skeleton, name)
+        let vertex = float2(bone.memory.worldX + skeleton.memory.x, bone.memory.worldY + skeleton.memory.y)
+        return vertex
+    }
+    
+    func rotateBone(name: String, _ amount: Float) {
+        let bone = spSkeleton_findBone(skeleton, name)
+        let value = -amount.toDegrees() - 5 + (dir == 1 ? 0 : 180)
+        bone.memory.rotation = value
     }
     
     func update() {
@@ -68,10 +82,13 @@ class Skeleton {
         counter += Time.time
         
         if let anim = animation {
-             spAnimation_apply(anim, skeleton, last, counter, 1, nil, nil)
+            spAnimation_apply(anim, skeleton, last, counter, 1, nil, nil)
         }
         
         spSkeleton_update(skeleton, Time.time)
+    }
+    
+    func updateWorld() {
         spSkeleton_updateWorldTransform(skeleton)
     }
     

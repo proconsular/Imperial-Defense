@@ -63,10 +63,10 @@
 		22A9F80E1D5818DD0097FD61 /* Basic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A9F80D1D5818DD0097FD61 /* Basic.swift */; };
 		22B8C3581D7B6B1400806C16 /* GridTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B8C3571D7B6B1400806C16 /* GridTypes.swift */; };
 		22B8C35D1D7D302400806C16 /* spineboy.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 22B8C35A1D7D302400806C16 /* spineboy.atlas */; };
-		22B8C35E1D7D302400806C16 /* spineboy.json in Resources */ = {isa = PBXBuildFile; fileRef = 22B8C35B1D7D302400806C16 /* spineboy.json */; };
 		22B8C35F1D7D302400806C16 /* spineboy.png in Resources */ = {isa = PBXBuildFile; fileRef = 22B8C35C1D7D302400806C16 /* spineboy.png */; };
 		22B8C3641D7D4DFC00806C16 /* SpineRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B8C3631D7D4DFC00806C16 /* SpineRenderer.m */; };
 		22B8C3661D81321C00806C16 /* SkeletonAdaptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B8C3651D81321C00806C16 /* SkeletonAdaptor.swift */; };
+		22B8C3681D8262C400806C16 /* spineboy.json in Resources */ = {isa = PBXBuildFile; fileRef = 22B8C3671D8262C400806C16 /* spineboy.json */; };
 		22BE5DBD1D66C1EC0038FAA8 /* Dreath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BE5DBC1D66C1EC0038FAA8 /* Dreath.swift */; };
 		22BE5DBF1D6D3BE30038FAA8 /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BE5DBE1D6D3BE30038FAA8 /* Grid.swift */; };
 		22C2BCA81D59846C00C8F1D5 /* Sky_s_Melody_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C2BCA71D59846C00C8F1D5 /* Sky_s_Melody_Tests.swift */; };
@@ -210,11 +210,11 @@
 		22A9F80D1D5818DD0097FD61 /* Basic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Basic.swift; sourceTree = "<group>"; };
 		22B8C3571D7B6B1400806C16 /* GridTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridTypes.swift; sourceTree = "<group>"; };
 		22B8C35A1D7D302400806C16 /* spineboy.atlas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = spineboy.atlas; sourceTree = "<group>"; };
-		22B8C35B1D7D302400806C16 /* spineboy.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = spineboy.json; sourceTree = "<group>"; };
 		22B8C35C1D7D302400806C16 /* spineboy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spineboy.png; sourceTree = "<group>"; };
 		22B8C3621D7D4DFC00806C16 /* SpineRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpineRenderer.h; sourceTree = "<group>"; };
 		22B8C3631D7D4DFC00806C16 /* SpineRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpineRenderer.m; sourceTree = "<group>"; };
 		22B8C3651D81321C00806C16 /* SkeletonAdaptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SkeletonAdaptor.swift; sourceTree = "<group>"; };
+		22B8C3671D8262C400806C16 /* spineboy.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = spineboy.json; sourceTree = "<group>"; };
 		22BE5DBC1D66C1EC0038FAA8 /* Dreath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dreath.swift; sourceTree = "<group>"; };
 		22BE5DBE1D6D3BE30038FAA8 /* Grid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Grid.swift; sourceTree = "<group>"; };
 		22C2BCA51D59846B00C8F1D5 /* Sky's Melody Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Sky's Melody Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -638,7 +638,7 @@
 			isa = PBXGroup;
 			children = (
 				22B8C35A1D7D302400806C16 /* spineboy.atlas */,
-				22B8C35B1D7D302400806C16 /* spineboy.json */,
+				22B8C3671D8262C400806C16 /* spineboy.json */,
 				22B8C35C1D7D302400806C16 /* spineboy.png */,
 			);
 			name = spine;
@@ -866,7 +866,6 @@
 				22B8C35F1D7D302400806C16 /* spineboy.png in Resources */,
 				222DD8D51D48854700A70FA8 /* Default.fsh in Resources */,
 				222DD8EE1D48854700A70FA8 /* Lighting.fsh in Resources */,
-				22B8C35E1D7D302400806C16 /* spineboy.json in Resources */,
 				22C4E56A1D73A99D0077DFCB /* shield-re1.wav in Resources */,
 				22C4E5661D73A9940077DFCB /* jump1.wav in Resources */,
 				22C4E68E1D75552D0077DFCB /* org.eclipse.cdt.codan.core.prefs in Resources */,
@@ -886,6 +885,7 @@
 				22C4E5641D73A98E0077DFCB /* explosion1.wav in Resources */,
 				22722C561D4897C600BFA78A /* Media.xcassets in Resources */,
 				22C4E68F1D75552D0077DFCB /* org.eclipse.cdt.managedbuilder.core.prefs in Resources */,
+				22B8C3681D8262C400806C16 /* spineboy.json in Resources */,
 				22722C171D488D2700BFA78A /* white.png in Resources */,
 				22C4E6901D75552D0077DFCB /* CMakeLists.txt in Resources */,
 				22C4E5601D72970C0077DFCB /* Colony.png in Resources */,

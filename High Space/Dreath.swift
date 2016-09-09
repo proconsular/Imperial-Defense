@@ -10,13 +10,23 @@ import Foundation
 
 
 class Dreath {
-    var amount: Float = 0
+    let base: Float
+    var amount: Float
+    
+    init(_ base: Float) {
+        self.base = base
+        amount = 0
+    }
     
     func damage(amount: Float) {
         self.amount += -amount
-        if self.amount < 0 {
-            self.amount = 0
+        if value < 0 {
+            self.amount = -base
         }
+    }
+    
+    var value: Float {
+        return base + amount
     }
 }
 
@@ -31,8 +41,7 @@ class DreathMap {
     var dreathcreators: [DreathCreator]
     
     init(_ game: Grid) {
-        dreath = Dreath()
-        dreath.amount = 0
+        dreath = Dreath(0)
         self.grid = game
         dreaths = []
         dreathcreators = []
@@ -47,7 +56,7 @@ class DreathMap {
         var amount = dreath.amount
         let dreaths = grid.actors.filter{ $0 is DreathActor }.map{ $0 as! DreathActor }
         dreaths.forEach { actor in
-            let dreath = actor.dreath.amount
+            let dreath = actor.dreath.value
             let dl = location - actor.transform.location
             amount += (dreath) / dl.length
         }
@@ -78,10 +87,10 @@ class DreathMap {
     }
     
     func totalDreath() -> Float {
-        var amount = dreath.amount
+        var amount = dreath.value
         grid.actors.forEach{
             if let dre = $0 as? DreathActor {
-                amount += dre.dreath.amount
+                amount += dre.dreath.value
             }
         }
         return amount
@@ -121,7 +130,7 @@ class ClusterCreator: DreathCreator {
         let list = dre.filter{ $0 is DreathFloater }.map{ $0 as! DreathFloater }
         for floater in list {
             if floater.cluster == nil {
-                if floater.dreath.amount >= 100 {
+                if floater.dreath.value >= 100 {
                     let cluster = DreathFloaterCluster()
                     cluster.append(floater)
                     return cluster
@@ -157,7 +166,7 @@ class ColonyCreator: DreathCreator {
         let dre = dreathmap.dreaths
         let list = dre.filter{ $0 is DreathSpawner }.map{ $0 as! DreathSpawner }
         for spawner in list {
-            if spawner.dreath.amount >= 5000 {
+            if spawner.dreath.value >= 5000 {
                 spawner.dreath.amount = 0
                 return DreathColony(spawner.transform.location)
             }
@@ -173,7 +182,7 @@ class KnightCreator: DreathCreator {
         let dre = dreathmap.dreaths
         let colonies = dre.filter{ $0 is DreathColony }.map{ $0 as! DreathColony }
         for colony in colonies {
-            if colony.dreath.amount >= 7000 {
+            if colony.dreath.value >= 7000 {
                 colony.dreath.damage(1500)
                 return DreathKnight(colony.transform.location + float2(0, -2.m), dreathmap.grid)
             }
@@ -193,7 +202,7 @@ class DreathFloaterCluster: DreathActor {
         super.init(Rect(float2(), float2()), Substance.getStandard(0), nil)
         body.relativeGravity = 0
         body.hidden = true
-        dreath.amount = 1
+        dreath = Dreath(1)
     }
     
     func append(floater: DreathFloater) {
@@ -211,11 +220,12 @@ class DreathFloaterCluster: DreathActor {
     
     var amount: Float {
         var amount: Float = 0
-        floaters.forEach{ amount += $0.dreath.amount }
+        floaters.forEach{ amount += $0.dreath.value }
         return amount
     }
     
     override func update() {
+        super.update()
         transform.location = center
         let dy = float2(center.x, -height) - center
         let mag = 0.01.m
@@ -224,17 +234,23 @@ class DreathFloaterCluster: DreathActor {
     }
     
     func destroy() {
-        dreath.amount = 0
-        floaters.forEach{ $0.dreath.amount = 0 }
+        alive = false
+        floaters.forEach{ $0.alive = false }
     }
 }
 
 class DreathActor: Character {
-    var dreath: Dreath
+    var dreath: Dreath!
     
     override init(_ hull: Hull, _ substance: Substance, _ director: Director?) {
-        dreath = Dreath()
         super.init(hull, substance, director)
+    }
+    
+    override func update() {
+        super.update()
+        if dreath.amount <= -dreath.base * 0.1 {
+            alive = false
+        }
     }
 }
 
@@ -245,7 +261,7 @@ class DreathFloater: DreathActor {
         super.init(Circle(Transform(location), 0.1.m), Substance.StandardRotating(0.005, 0.001), FloaterDirector(game))
         //display.color = float4(0.3, 0.3, 0.3, 1)
         display.scheme.info.texture = GLTexture("Floater").id
-        dreath.amount = amount
+        dreath = Dreath(amount)
         setupBody()
     }
     
@@ -261,7 +277,7 @@ class DreathFloater: DreathActor {
     override func update() {
         super.update()
         dreath.amount += 4 * Time.time
-        let growth = dreath.amount / 100
+        let growth = dreath.value / 100
         let clamped = clamp(growth, min: 0, max: 1)
         let value = 1 - clamped
         display.color = float4(value / 2, value * 0.4, 2 * growth - 0.2, 1)
@@ -343,14 +359,14 @@ class DreathSpawner: DreathActor {
         body.substance.friction = Friction(.Iron)
         //display.color = float4(1, 0, 0.2, 1)
         display.scheme.info.texture = GLTexture("Spawner").id
-        dreath.amount = 500
+        dreath = Dreath(1000)
         body.mask = 1 << 1 | 1
     }
     
     override func update() {
         super.update()
         dreath.amount += 100 * Time.time
-        let growth = (dreath.amount) / 5000
+        let growth = (dreath.value) / 5000
         let clamped = clamp(growth, min: 0, max: 1)
         let value = 1 - growth
         display.color = float4(growth + 0.5, value * 0.9, value * 0.5, 1)
@@ -368,14 +384,15 @@ class DreathColony: DreathActor {
         super.init(Circle(Transform(location), 1.m), Substance.getStandard(50), nil)
         display.color = float4(0.2, 0.2, 0.2, 1)
         display.scheme.info.texture = GLTexture("Colony").id
-        dreath.amount = 5000
+        dreath = Dreath(5000)
         body.mask = 1 << 1
+        order = -1
     }
     
     override func update() {
         super.update()
         dreath.amount += 100 * Time.time
-        let growth = (dreath.amount) / 10000
+        let growth = (dreath.value) / 10000
         let clamped = clamp(growth, min: 0, max: 1)
         let value = 1 - growth
         display.color = float4(growth * 2, value, value * 0.2, 1)
@@ -394,7 +411,7 @@ class DreathKnight: DreathActor {
         super.init(Rect(location, float2(0.5.m, 1.m)), Substance.getStandard(3), nil)
         display.color = float4(0.7, 0.7, 0.7, 1)
         body.mask = 1 | 1 << 2
-        dreath.amount = 500
+        dreath = Dreath(500)
         weapon.actor = self
         body.callback = { [unowned self] (body, collision) in
             if !self.onObject {

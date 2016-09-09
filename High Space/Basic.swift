@@ -20,6 +20,8 @@ class Actor: Basic {
     let transform: Transform
     let body: Body
     var onObject = false
+    var alive = true
+    var order = 0
     
     init(_ hull: Hull, _ substance: Substance) {
         self.transform = hull.transform
@@ -130,17 +132,21 @@ class Player: Actor, Interface {
             }
         }
         Player.player = self
+        order = 100
     }
     
     func use(command: Command) {
         if command.id == 0 {
-            body.velocity += command.vector! / 20
+            let force = command.vector! / 20
+            body.velocity += force
+            spine.setDirection(force.x > 0 ? 1 : -1)
         }else if command.id == 1 {
             if (onObject) {
-                body.velocity.y -= 750
+                body.velocity.y -= 3.m
                 play("jump1")
             }
         }else if command.id == 2 {
+            weapon.fireVertex = spine.getBoneLocation("gunTip")
             weapon.fire()
         }
     }
@@ -149,9 +155,8 @@ class Player: Actor, Interface {
         shield.update()
         
         if !jumping {
-            if abs(body.velocity.x) > 1.m {
+            if abs(body.velocity.x) > 0.2.m {
                 spine.setAnimation("run")
-                spine.setDirection(body.velocity.x > 0 ? 1 : -1)
             }else{
                 spine.setAnimation("idle")
             }
@@ -160,6 +165,14 @@ class Player: Actor, Interface {
         }
         
         spine.update()
+        
+        if let target = weapon.targetter.getTarget() {
+            let dl = target.transform.location - spine.getBoneLocation("gun")
+            let angle = atan2(dl.y, dl.x)
+            spine.rotateBone("gun", angle)
+        }
+        
+        spine.updateWorld()
     }
     
     override func render() {
@@ -175,6 +188,7 @@ class Weapon {
     var count: Float
     var targetter: Targetter
     var tag: String
+    var fireVertex: float2?
     
     init(_ grid: Grid, _ tag: String, _ targetter: Targetter) {
         self.grid = grid
@@ -187,9 +201,11 @@ class Weapon {
         count += Time.time
         if count >= 0.2 {
             if let char = targetter.getTarget() {
+                let ve = actor.transform.location
+                let vert = fireVertex ?? ve
                 let location = char.transform.location
-                let dl = location - actor.transform.location
-                let bullet = Bullet(actor.transform.location + normalize(dl) * 0.25.m, tag)
+                let dl = location - vert
+                let bullet = Bullet(vert, tag)
                 bullet.body.orientation = atan2(dl.y, dl.x)
                 bullet.body.velocity = normalize(dl) * 5.m
                 grid.append(bullet)
@@ -247,7 +263,6 @@ class PlayerTargetter: Targetter {
 }
 
 class Bullet: Actor {
-    var active = true
     
     init(_ location: float2, _ tag: String) {
         super.init(Rect(location, float2(0.1.m, 0.01.m)), Substance.StandardRotating(0.01, 0.01))
@@ -260,7 +275,7 @@ class Bullet: Actor {
                     play("hit1")
                 }
                 if !(body.object is Player) {
-                    self.active = false
+                    self.alive = false
                 }
             }
             if tag == "player" {
@@ -269,7 +284,7 @@ class Bullet: Actor {
                     play("hit1")
                 }
                 if !(body.object is DreathActor) {
-                    self.active = false
+                    self.alive = false
                 }
             }
         }

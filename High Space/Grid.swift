@@ -47,7 +47,6 @@ class Grid {
     
     func update() {
         removeDead()
-        removeBullets()
         
         loop { $0.element.update() }
         loop { $0.element.onObject = false }
@@ -59,24 +58,10 @@ class Grid {
         return float2(Float(cell.placement.location.x), Float(cell.placement.location.y)) * size
     }
     
-    private func removeBullets() {
-        for cell in cells {
-            cell.elements = cell.elements.filter{
-                if let c = $0.element as? Bullet {
-                    return c.active
-                }
-                return true
-            }
-        }
-    }
-    
     private func removeDead() {
         for cell in cells {
             cell.elements = cell.elements.filter{
-                if let c = $0.element as? DreathActor {
-                    return c.dreath.amount > 0
-                }
-                return true
+                return $0.element.alive
             }
         }
     }
@@ -102,7 +87,7 @@ class Grid {
     
     func render() {
         cells.forEach{
-            $0.actors.forEach{
+            $0.actors.sort{ $0.order < $1.order }.forEach{
                 if Camera.visible($0.transform.location) {
                     $0.render()
                 }
