@@ -44,7 +44,8 @@
     @"galaxy",
     @"Spawner",
     @"Floater",
-    @"Colony"];
+    @"Colony",
+    @"bullet"];
     
     
     for (NSString *name in prefetched) {

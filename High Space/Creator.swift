@@ -23,7 +23,7 @@ class FloorMaker: Maker<Structure> {
         let size = float2(10.m, random(1.m, 2.m))
         let floor = Structure(float2(offset + size.x / 2, -random(0, size.y / 2)), size)
         let color = random(0.2, 0.4)
-        floor.display.color = float4(color, color, color, 1)
+        floor.display.color = float4(color + random(0, 0.3), color + random(0, 0.3), color + random(0, 0.3), 1)
         return floor
     }
     
@@ -34,7 +34,9 @@ class BlockMaker: MakerAttachment<Structure> {
     override func make(floor: Structure) -> Structure? {
         let size = float2(random(0.2.m, 2.m), random(0.5.m, 1.m))
         let floorsize = floor.rect.bounds.x
-        return Structure(float2(floor.transform.location.x + random(-floorsize / 2, floorsize / 2), floor.transform.location.y - floor.rect.bounds.y / 2 + -random(-size.y / 2, size.y / 2)), size)
+        let struc = Structure(float2(floor.transform.location.x + random(-floorsize / 2, floorsize / 2), floor.transform.location.y - floor.rect.bounds.y / 2 + -random(-size.y / 2, size.y / 2)), size)
+        struc.display.color = float4(random(0.2, 0.4), random(0.3, 0.5), random(0.1, 0.4), 1)
+        return struc
     }
     
 }

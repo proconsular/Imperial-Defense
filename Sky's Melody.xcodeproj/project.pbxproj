@@ -67,6 +67,15 @@
 		22B8C3641D7D4DFC00806C16 /* SpineRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 22B8C3631D7D4DFC00806C16 /* SpineRenderer.m */; };
 		22B8C3661D81321C00806C16 /* SkeletonAdaptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B8C3651D81321C00806C16 /* SkeletonAdaptor.swift */; };
 		22B8C3681D8262C400806C16 /* spineboy.json in Resources */ = {isa = PBXBuildFile; fileRef = 22B8C3671D8262C400806C16 /* spineboy.json */; };
+		22B8C36A1D84F6E000806C16 /* shoot2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 22B8C3691D84F6E000806C16 /* shoot2.wav */; };
+		22B8C36C1D84F6EC00806C16 /* hit2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 22B8C36B1D84F6EC00806C16 /* hit2.wav */; };
+		22B8C3701D8521A300806C16 /* bullet.png in Resources */ = {isa = PBXBuildFile; fileRef = 22B8C36F1D8521A300806C16 /* bullet.png */; };
+		22B8C3721D85424100806C16 /* hit4.wav in Resources */ = {isa = PBXBuildFile; fileRef = 22B8C3711D85424100806C16 /* hit4.wav */; };
+		22B8C3741D85424600806C16 /* hit5.wav in Resources */ = {isa = PBXBuildFile; fileRef = 22B8C3731D85424600806C16 /* hit5.wav */; };
+		22B8C3761D8544A900806C16 /* charge1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 22B8C3751D8544A900806C16 /* charge1.wav */; };
+		22B8C3781D85465400806C16 /* charge2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 22B8C3771D85465400806C16 /* charge2.wav */; };
+		22B8C37A1D85465B00806C16 /* hit6.wav in Resources */ = {isa = PBXBuildFile; fileRef = 22B8C3791D85465B00806C16 /* hit6.wav */; };
+		22B8C37C1D8546D700806C16 /* hit7.wav in Resources */ = {isa = PBXBuildFile; fileRef = 22B8C37B1D8546D700806C16 /* hit7.wav */; };
 		22BE5DBD1D66C1EC0038FAA8 /* Dreath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BE5DBC1D66C1EC0038FAA8 /* Dreath.swift */; };
 		22BE5DBF1D6D3BE30038FAA8 /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BE5DBE1D6D3BE30038FAA8 /* Grid.swift */; };
 		22C2BCA81D59846C00C8F1D5 /* Sky_s_Melody_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C2BCA71D59846C00C8F1D5 /* Sky_s_Melody_Tests.swift */; };
@@ -215,6 +224,15 @@
 		22B8C3631D7D4DFC00806C16 /* SpineRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpineRenderer.m; sourceTree = "<group>"; };
 		22B8C3651D81321C00806C16 /* SkeletonAdaptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SkeletonAdaptor.swift; sourceTree = "<group>"; };
 		22B8C3671D8262C400806C16 /* spineboy.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = spineboy.json; sourceTree = "<group>"; };
+		22B8C3691D84F6E000806C16 /* shoot2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = shoot2.wav; sourceTree = "<group>"; };
+		22B8C36B1D84F6EC00806C16 /* hit2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = hit2.wav; sourceTree = "<group>"; };
+		22B8C36F1D8521A300806C16 /* bullet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bullet.png; sourceTree = "<group>"; };
+		22B8C3711D85424100806C16 /* hit4.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = hit4.wav; sourceTree = "<group>"; };
+		22B8C3731D85424600806C16 /* hit5.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = hit5.wav; sourceTree = "<group>"; };
+		22B8C3751D8544A900806C16 /* charge1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = charge1.wav; sourceTree = "<group>"; };
+		22B8C3771D85465400806C16 /* charge2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = charge2.wav; sourceTree = "<group>"; };
+		22B8C3791D85465B00806C16 /* hit6.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = hit6.wav; sourceTree = "<group>"; };
+		22B8C37B1D8546D700806C16 /* hit7.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = hit7.wav; sourceTree = "<group>"; };
 		22BE5DBC1D66C1EC0038FAA8 /* Dreath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dreath.swift; sourceTree = "<group>"; };
 		22BE5DBE1D6D3BE30038FAA8 /* Grid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Grid.swift; sourceTree = "<group>"; };
 		22C2BCA51D59846B00C8F1D5 /* Sky's Melody Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Sky's Melody Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -415,12 +433,21 @@
 				22C4E5551D6FD39F0077DFCB /* Floater.png */,
 				22C4E55D1D728F2F0077DFCB /* Spawner.png */,
 				22C4E55F1D72970C0077DFCB /* Colony.png */,
+				22B8C36F1D8521A300806C16 /* bullet.png */,
 				22C4E5611D73A9880077DFCB /* hit1.wav */,
 				22C4E5631D73A98E0077DFCB /* explosion1.wav */,
 				22C4E5651D73A9940077DFCB /* jump1.wav */,
 				22C4E5671D73A9990077DFCB /* make1.wav */,
 				22C4E5691D73A99D0077DFCB /* shield-re1.wav */,
 				22C4E56B1D73A9A20077DFCB /* shoot1.wav */,
+				22B8C3691D84F6E000806C16 /* shoot2.wav */,
+				22B8C36B1D84F6EC00806C16 /* hit2.wav */,
+				22B8C3711D85424100806C16 /* hit4.wav */,
+				22B8C3731D85424600806C16 /* hit5.wav */,
+				22B8C3751D8544A900806C16 /* charge1.wav */,
+				22B8C3771D85465400806C16 /* charge2.wav */,
+				22B8C3791D85465B00806C16 /* hit6.wav */,
+				22B8C37B1D8546D700806C16 /* hit7.wav */,
 			);
 			name = media;
 			sourceTree = "<group>";
@@ -866,29 +893,38 @@
 				22B8C35F1D7D302400806C16 /* spineboy.png in Resources */,
 				222DD8D51D48854700A70FA8 /* Default.fsh in Resources */,
 				222DD8EE1D48854700A70FA8 /* Lighting.fsh in Resources */,
+				22B8C3701D8521A300806C16 /* bullet.png in Resources */,
 				22C4E56A1D73A99D0077DFCB /* shield-re1.wav in Resources */,
+				22B8C37C1D8546D700806C16 /* hit7.wav in Resources */,
 				22C4E5661D73A9940077DFCB /* jump1.wav in Resources */,
 				22C4E68E1D75552D0077DFCB /* org.eclipse.cdt.codan.core.prefs in Resources */,
 				22722C381D488D2700BFA78A /* FredokaOne-Regular.ttf in Resources */,
 				22B8C35D1D7D302400806C16 /* spineboy.atlas in Resources */,
+				22B8C36A1D84F6E000806C16 /* shoot2.wav in Resources */,
 				22C4E68D1D75552D0077DFCB /* .project in Resources */,
 				22C2BCB61D60244000C8F1D5 /* galaxy.png in Resources */,
 				22722BA01D4887B700BFA78A /* MainView.storyboard in Resources */,
 				22C4E6911D75552D0077DFCB /* LICENSE in Resources */,
 				22722B9E1D4887A700BFA78A /* Launch Screen.storyboard in Resources */,
+				22B8C37A1D85465B00806C16 /* hit6.wav in Resources */,
 				22C4E5681D73A9990077DFCB /* make1.wav in Resources */,
+				22B8C36C1D84F6EC00806C16 /* hit2.wav in Resources */,
 				22C4E68C1D75552D0077DFCB /* .cproject in Resources */,
+				22B8C3741D85424600806C16 /* hit5.wav in Resources */,
 				22C4E55E1D728F2F0077DFCB /* Spawner.png in Resources */,
 				22C4E56C1D73A9A20077DFCB /* shoot1.wav in Resources */,
 				222DD8D61D48854700A70FA8 /* Default.vsh in Resources */,
 				22C4E5621D73A9880077DFCB /* hit1.wav in Resources */,
+				22B8C3781D85465400806C16 /* charge2.wav in Resources */,
 				22C4E5641D73A98E0077DFCB /* explosion1.wav in Resources */,
 				22722C561D4897C600BFA78A /* Media.xcassets in Resources */,
 				22C4E68F1D75552D0077DFCB /* org.eclipse.cdt.managedbuilder.core.prefs in Resources */,
 				22B8C3681D8262C400806C16 /* spineboy.json in Resources */,
 				22722C171D488D2700BFA78A /* white.png in Resources */,
+				22B8C3761D8544A900806C16 /* charge1.wav in Resources */,
 				22C4E6901D75552D0077DFCB /* CMakeLists.txt in Resources */,
 				22C4E5601D72970C0077DFCB /* Colony.png in Resources */,
+				22B8C3721D85424100806C16 /* hit4.wav in Resources */,
 				222DD8F01D48854700A70FA8 /* Lighting.vsh in Resources */,
 				22C4E5561D6FD39F0077DFCB /* Floater.png in Resources */,
 			);

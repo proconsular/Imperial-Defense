@@ -25,7 +25,7 @@ class Grid {
     }
     
     func append(actor: Actor) {
-        if let cell = getCell(transform(actor.transform.location)) {
+        if let loc = transform(actor.transform.location), let cell = getCell(loc) {
             cell.append(actor)
         }
     }
@@ -39,9 +39,10 @@ class Grid {
         return nil
     }
     
-    private func transform(location: float2) -> int2 {
+    private func transform(location: float2) -> int2? {
         let x = location.x / size
         let y = location.y / size
+        if !x.isFinite || !y.isFinite { return nil }
         return int2(Int(x), Int(y))
     }
     

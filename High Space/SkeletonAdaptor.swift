@@ -30,7 +30,7 @@ class Skeleton {
         self.offset = offset
         let atlas = spAtlas_createFromFile("\(name).atlas", nil)
         let json = spSkeletonJson_create(atlas)
-        json.memory.scale = 0.6
+        json.memory.scale = 0.5
         
         data = spSkeletonJson_readSkeletonData(json, readFileAtPath("\(name).json"))
         

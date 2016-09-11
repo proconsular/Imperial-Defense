@@ -29,7 +29,7 @@ class Game: DisplayLayer {
         levelmaker = LevelMaker(grid)
         
         let targetter = DreathTargetter(grid)
-        player = Player(float2(Camera.size.x / 2, -2.m), Weapon(grid, "dreath", targetter))
+        player = Player(float2(Camera.size.x / 2, -2.m), Weapon(grid, "dreath", targetter, Weapon.Stats(100, 15, 0.15, 65, 50)))
         targetter.player = player
         
         let height = 10.m - 0.1.m

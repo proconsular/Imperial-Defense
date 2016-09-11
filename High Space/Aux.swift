@@ -162,7 +162,7 @@ protocol Measureable {
 }
 
 extension Measureable {
-    var m: Float { return self.toFloat() * 350 }
+    var m: Float { return self.toFloat() * 325 }
     var dm: Float { return self.m / 10 }
 }
 

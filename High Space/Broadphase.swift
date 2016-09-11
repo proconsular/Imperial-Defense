@@ -58,7 +58,7 @@ class Broadphaser {
         var contacts: [Manifold] = []
         
         for cell in grid.cells {
-            contacts += execute(cell.getTree())
+            contacts += process(cell.elements.map{ $0.element.body }.sort(sortBodies))
         }
         
         return contacts

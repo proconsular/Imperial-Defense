@@ -34,7 +34,7 @@ class PrincipalScreen: Screen {
         UserInterface.controller.stack.push(GameControllerLayer())
         
         layers.append(game)
-        layers.append(StatusLayer(game.player.shield))
+        layers.append(StatusLayer(game.player))
     }
     
     deinit {
@@ -100,21 +100,27 @@ class PauseLayer: InterfaceLayer {
 }
 
 class StatusLayer: InterfaceLayer {
-    let status: Shield
-    let element: StatusElement
+    let status: Player
+    let element: ShieldElement
+    let weapon: StatusElement
+    let laser: StatusElement
     
-    init(_ status: Shield) {
+    init(_ status: Player) {
         self.status = status
-        element = StatusElement(status)
+        element = ShieldElement(status.shield)
+        weapon = StatusElement(status.weapon, float2())
+        laser = StatusElement(status.laser, float2(0, 30))
     }
     
     override func display() {
         element.render()
+        weapon.render()
+        laser.render()
     }
     
 }
 
-class StatusElement {
+class ShieldElement {
     let frame: Display
     let level: Display
     let rect: Rect
@@ -124,12 +130,12 @@ class StatusElement {
     
     init(_ status: Shield) {
         self.status = status
-        size = float2(650, 30)
+        size = float2(650, 22.5)
         frame = Display(Rect(float2(), size), GLTexture("white"))
         frame.color = float4(0.3, 0.3, 0.3, 0.2)
-        rect = Rect(float2(), float2(size.x - 10, size.y - 5))
+        rect = Rect(float2(), float2(size.x - 7, size.y - 3))
         level = Display(rect, GLTexture("white"))
-        level.color = float4(0.3, 0.7, 1, 1)
+        level.color = float4(0.4, 1, 0.5, 1)
         transform = frame.scheme.hull.transform
         rect.transform.assign(transform)
         transform.assign(Camera.transform)
@@ -137,10 +143,43 @@ class StatusElement {
     }
     
     func render() {
-        let rectsize = float2(size.x - 10, size.y - 5)
+        let rectsize = float2(size.x - 7, size.y - 3)
         let adjust = rectsize.x * status.points.percent
         rect.setBounds(float2(adjust, rectsize.y))
         rect.transform.location.x = -rectsize.x / 2 + adjust / 2
+        level.visual.refresh()
+        frame.render()
+        level.render()
+    }
+}
+
+class StatusElement {
+    let frame: Display
+    let level: Display
+    let rect: Rect
+    let transform: Transform
+    let status: Weapon
+    let size: float2
+    
+    init(_ status: Weapon, _ offset: float2) {
+        self.status = status
+        size = float2(550, 15)
+        frame = Display(Rect(float2(), size), GLTexture("white"))
+        frame.color = float4(0.3, 0.3, 0.3, 0.2)
+        rect = Rect(float2(), float2(size.x - 7, size.y - 3))
+        level = Display(rect, GLTexture("white"))
+        level.color = float4(1, 0.2, 0.1, 1)
+        transform = frame.scheme.hull.transform
+        rect.transform.assign(transform)
+        transform.assign(Camera.transform)
+        transform.location = float2(-size.x / 2 - 30 + Camera.size.x, 30) + offset
+    }
+    
+    func render() {
+        let rectsize = float2(size.x - 7, size.y - 3)
+        let adjust = rectsize.x * status.stats.power.percent
+        rect.setBounds(float2(adjust, rectsize.y))
+        rect.transform.location.x = rectsize.x / 2 - adjust / 2
         level.visual.refresh()
         frame.render()
         level.render()

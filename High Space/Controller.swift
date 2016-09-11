@@ -107,10 +107,16 @@ class GameControllerLayer: ControllerLayer {
     
     override init() {
         super.init()
-        let first = LimitedController(HorizontialMovementController(), FixedRect(float2(Camera.size.x / 4, Camera.size.y / 2), float2(Camera.size.x / 2, Camera.size.y)))
-        let second = LimitedController(PointController(2), FixedRect(float2(Camera.size.x * 3 / 4, Camera.size.y * 3 / 8), float2(Camera.size.x / 2, Camera.size.y * 3 / 4)))
-        let third = LimitedController(PointController(1), FixedRect(float2(Camera.size.x * 3 / 4, Camera.size.y * 7 / 8), float2(Camera.size.x / 2, Camera.size.y * 1 / 4)))
-        self.subcontrollers = [first, second, third]
+        let movement = LimitedController(HorizontialMovementController(), FixedRect(float2(Camera.size.x / 4, Camera.size.y / 2), float2(Camera.size.x / 2, Camera.size.y)))
+        
+        
+        let shoot1 = LimitedController(PointController(2), FixedRect(float2(Camera.size.x * 3 / 4, Camera.size.y * 5 / 8), float2(Camera.size.x / 2, Camera.size.y * 1 / 4)))
+        
+        let shoot2 = LimitedController(PointController(3), FixedRect(float2(Camera.size.x * 3 / 4, Camera.size.y * 2 / 8), float2(Camera.size.x / 2, Camera.size.y * 2 / 4)))
+        
+        
+        let jump = LimitedController(PointController(1), FixedRect(float2(Camera.size.x * 3 / 4, Camera.size.y * 7 / 8), float2(Camera.size.x / 2, Camera.size.y * 1 / 4)))
+        self.subcontrollers = [movement, shoot1, shoot2, jump]
     }
     
 }

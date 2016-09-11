@@ -37,6 +37,14 @@
     [self loadAudio:@"make1"];
     [self loadAudio:@"shield-re1"];
     [self loadAudio:@"shoot1"];
+    [self loadAudio:@"shoot2"];
+    [self loadAudio:@"hit2"];
+    [self loadAudio:@"hit5"];
+    [self loadAudio:@"hit4"];
+    [self loadAudio:@"hit6"];
+    [self loadAudio:@"hit7"];
+    [self loadAudio:@"charge1"];
+    [self loadAudio:@"charge2"];
     
     _hasMusic = YES;
     _hasSound = YES;

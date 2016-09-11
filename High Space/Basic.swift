@@ -82,9 +82,11 @@ class Shield {
     
     init(amount: Float) {
         points = PointRange(amount)
-        timer = Timer(1) {
+        timer = Timer(4) {
             self.damaged = false
-            play("shield-re1")
+            if self.points.percent <= 0.9 {
+                play("shield-re1", 0.75)
+            }
         }
     }
     
@@ -92,13 +94,14 @@ class Shield {
         damaged = true
         timer.increment = 0
         points.increase(-amount)
+        playIfNot("hit5", 1.5)
     }
     
     func update() {
         if damaged {
             timer.update(Time.time)
         }else{
-            points.increase(300 * Time.time)
+            points.increase(500 * Time.time)
         }
     }
 }
@@ -108,6 +111,7 @@ class Player: Actor, Interface {
     
     var shield: Shield
     var weapon: Weapon!
+    var laser: Weapon!
     var callback: String -> () = {_ in}
     let spine: Skeleton
     
@@ -116,15 +120,17 @@ class Player: Actor, Interface {
     init(_ location: float2, _ weapon: Weapon) {
         shield = Shield(amount: 1000)
         self.weapon = weapon
+        self.laser = Weapon(weapon.grid, "dreath", DreathHiveTargetter(weapon.grid), Weapon.Stats(50, 25, 0.5, 10, 1000))
         let transform = Transform(location)
-        spine = Skeleton("spineboy", transform, float2(0, 0.5.m))
-        super.init(Rect(transform, float2(0.5.m, 1.m)), Substance.getStandard(3))
-        body.mask = 1 | 1 << 2
+        spine = Skeleton("spineboy", transform, float2(0, 0.4.m))
+        super.init(Rect(transform, float2(0.4.m, 0.8.m)), Substance(Material(.Wood), Mass(6, 0), Friction(.Iron)))
+        body.mask = 0b100001
         weapon.actor = self
+        laser.actor = self
         body.object = self
         body.callback = { [unowned self] (body, collision) in
             if !self.onObject {
-                self.onObject = collision.normal.y != 0
+                self.onObject = (collision.normal.y) > FLT_EPSILON
                 self.jumping = !self.onObject
             }
             if let tag = body.tag {
@@ -137,9 +143,11 @@ class Player: Actor, Interface {
     
     func use(command: Command) {
         if command.id == 0 {
-            let force = command.vector! / 20
-            body.velocity += force
-            spine.setDirection(force.x > 0 ? 1 : -1)
+            let force = command.vector! / 10
+            if abs(body.velocity.x) < 5.m {
+                body.velocity.x += force.x
+                spine.setDirection(force.x > 0 ? 1 : -1)
+            }
         }else if command.id == 1 {
             if (onObject) {
                 body.velocity.y -= 3.m
@@ -148,11 +156,16 @@ class Player: Actor, Interface {
         }else if command.id == 2 {
             weapon.fireVertex = spine.getBoneLocation("gunTip")
             weapon.fire()
+        }else if command.id == 3 {
+            laser.fireVertex = spine.getBoneLocation("gunTip")
+            laser.fire()
         }
     }
     
     override func update() {
         shield.update()
+        weapon.update()
+        laser.update()
         
         if !jumping {
             if abs(body.velocity.x) > 0.2.m {
@@ -183,36 +196,64 @@ class Player: Actor, Interface {
 }
 
 class Weapon {
+    
+    struct Stats {
+        var power: PointRange
+        var cost: Float
+        var firerate: Float
+        var chargerate: Float
+        var damage: Float
+        
+        init(_ limit: Float, _ cost: Float, _ rate: Float, _ charge: Float, _ damage: Float) {
+            power = PointRange(limit)
+            self.cost = cost
+            self.firerate = rate
+            self.chargerate = charge
+            self.damage = damage
+        }
+    }
+    
     let grid: Grid
     var actor: Actor!
     var count: Float
     var targetter: Targetter
     var tag: String
     var fireVertex: float2?
+    var stats: Stats
     
-    init(_ grid: Grid, _ tag: String, _ targetter: Targetter) {
+    init(_ grid: Grid, _ tag: String, _ targetter: Targetter, _ stats: Stats) {
         self.grid = grid
         self.tag = tag
         self.targetter = targetter
         count = 0
+        self.stats = stats
     }
     
     func fire() {
         count += Time.time
-        if count >= 0.2 {
-            if let char = targetter.getTarget() {
-                let ve = actor.transform.location
-                let vert = fireVertex ?? ve
-                let location = char.transform.location
-                let dl = location - vert
-                let bullet = Bullet(vert, tag)
-                bullet.body.orientation = atan2(dl.y, dl.x)
-                bullet.body.velocity = normalize(dl) * 5.m
-                grid.append(bullet)
-                play("shoot1")
+        if count >= stats.firerate && stats.power.amount >= stats.cost {
+            if let target = targetter.getTarget() {
+                shoot(target)
+                stats.power.increase(-stats.cost)
             }
             count = 0
         }
+    }
+    
+    func update() {
+        stats.power.increase(stats.chargerate * Time.time)
+    }
+    
+    private func shoot(target: Actor) {
+        let ve = actor.transform.location
+        let vert = fireVertex ?? ve
+        let location = target.transform.location
+        let dl = location - vert
+        let bullet = Bullet(vert, tag, stats.damage)
+        bullet.body.orientation = atan2(dl.y, dl.x)
+        bullet.body.velocity = normalize(dl) * 11.m
+        grid.append(bullet)
+        play("shoot2", random(0.8, 1.1))
     }
     
 }
@@ -237,8 +278,43 @@ class DreathTargetter: Targetter {
         
         for actor in grid.actors {
             if let char = actor as? DreathActor {
+                guard char.alive else { continue }
                 let dl = player.transform.location - char.transform.location
-                var lw = 10.m / dl.length * 2 + char.dreath.amount / 1000 * 0.5
+                var lw = 10.m / dl.length * 2 //+ char.dreath.amount / 1000 * 0.5
+                if char is DreathKnight {
+                    lw += 10
+                }
+                if lw > rating {
+                    rating = lw
+                    bestactor = char
+                }
+            }
+        }
+        
+        //target = bestactor
+        return bestactor
+    }
+}
+
+class DreathHiveTargetter: Targetter {
+    unowned let grid: Grid
+    var player: Player!
+    weak var target: DreathActor?
+    
+    init(_ grid: Grid) {
+        self.grid = grid
+    }
+    
+    func getTarget() -> Actor? {
+        
+        var bestactor: DreathActor?
+        var rating: Float = -FLT_MAX
+        
+        for actor in grid.actors {
+            if let char = actor as? DreathActor {
+                guard char.alive else { continue }
+                let dl = Player.player.transform.location - char.transform.location
+                var lw = 10.m / dl.length + char.dreath.amount
                 if char is DreathKnight {
                     lw += 10
                 }
@@ -263,16 +339,20 @@ class PlayerTargetter: Targetter {
 }
 
 class Bullet: Actor {
+    var damage: Float
     
-    init(_ location: float2, _ tag: String) {
-        super.init(Rect(location, float2(0.1.m, 0.01.m)), Substance.StandardRotating(0.01, 0.01))
+    init(_ location: float2, _ tag: String, _ damage: Float) {
+        self.damage = damage
+        super.init(Rect(location, float2(0.25.m, 0.04.m)), Substance(Material(.Wood), Mass(5, 0), Friction(.Iron)))
+        display.scheme.info.texture = GLTexture("bullet").id
+        display.color = float4(0.8, 1, 0.8, 1)
         body.relativeGravity = 0
-        body.mask = 1 << 1 | 1
+        body.mask = 0b01110
         body.callback = { [unowned self] (body, _) in
             if tag == "dreath" {
                 if let char = body.object as? DreathActor {
-                    char.dreath.damage(200)
-                    play("hit1")
+                    char.dreath.damage(damage)
+                    play("hit1", 1.5)
                 }
                 if !(body.object is Player) {
                     self.alive = false
@@ -287,7 +367,12 @@ class Bullet: Actor {
                     self.alive = false
                 }
             }
+            //self.alive = false
         }
+    }
+    
+    override func update() {
+        super.update()
     }
     
 }

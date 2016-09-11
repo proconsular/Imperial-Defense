@@ -8,8 +8,18 @@
 
 import Foundation
 
-func play(name: String) {
-    Audio(name).start()
+func play(name: String, _ pitch: Float = 1) {
+    let audio = Audio(name)
+    audio.pitch = pitch
+    audio.start()
+}
+
+func playIfNot(name: String, _ pitch: Float = 1) {
+    let audio = Audio(name)
+    if !audio.playing {
+        audio.pitch = pitch
+        audio.start()
+    }
 }
 
 func count (inout increment: Float, _ amount: Float, _ rate: Float, @autoclosure _ execution: () -> ()) {
