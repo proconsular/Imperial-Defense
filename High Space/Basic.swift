@@ -82,7 +82,7 @@ class Shield {
     
     init(amount: Float) {
         points = PointRange(amount)
-        timer = Timer(4) {
+        timer = Timer(2) {
             self.damaged = false
             if self.points.percent <= 0.9 {
                 play("shield-re1", 0.75)
@@ -343,7 +343,7 @@ class Bullet: Actor {
     
     init(_ location: float2, _ tag: String, _ damage: Float) {
         self.damage = damage
-        super.init(Rect(location, float2(0.25.m, 0.04.m)), Substance(Material(.Wood), Mass(5, 0), Friction(.Iron)))
+        super.init(Rect(location, float2(0.25.m, 0.04.m)), Substance(Material(.Wood), Mass(10, 0), Friction(.Iron)))
         display.scheme.info.texture = GLTexture("bullet").id
         display.color = float4(0.8, 1, 0.8, 1)
         body.relativeGravity = 0

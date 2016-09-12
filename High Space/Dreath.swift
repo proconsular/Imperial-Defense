@@ -136,7 +136,7 @@ class ClusterCreator: DreathCreator {
         let list = dre.filter{ $0 is DreathFloater }.map{ $0 as! DreathFloater }
         for floater in list {
             if floater.cluster == nil {
-                if floater.dreath.value >= 250 {
+                if floater.dreath.value >= 150 {
                     let cluster = DreathFloaterCluster()
                     cluster.append(floater)
                     return cluster
@@ -155,7 +155,7 @@ class SpawnerCreator: DreathCreator {
         let list = dre.filter{ $0 is DreathFloater }.map{ $0 as! DreathFloater }
         for floater in list {
             if let cluster = floater.cluster where cluster.alive {
-                if cluster.amount >= 750 {
+                if cluster.amount >= 5000 {
                     let center = cluster.center
                     cluster.destroy()
                     return DreathSpawner(center)
@@ -234,12 +234,22 @@ class DreathFloaterCluster: DreathActor {
     override func update() {
         super.update()
         transform.location = center
-//        let dy = float2(center.x, -height) - center
-//        let mag = 0.01.m
-//        let dir = normalize_safe(dy) ?? float2()
-//        floaters.forEach{ $0.body.velocity += mag * dir }
+        attack()
         floaters = floaters.filter{ $0.alive }
         alive = floaters.count > 0
+    }
+    
+    func attack() {
+        let dl = Player.player.transform.location - center
+        if dl.length <= 5.m {
+            let dir = normalize(dl)
+            let mag = 6.m * Time.time
+            move(mag * dir)
+        }
+    }
+    
+    func move(force: float2) {
+        floaters.forEach{ $0.body.velocity += force }
     }
     
     func destroy() {
@@ -292,7 +302,7 @@ class DreathFloater: DreathActor {
     
     init(_ location: float2, _ amount: Float, _ game: Grid) {
         unique = float4(random(0, 0.4), random(0, 0.4), random(0, 0.4), 1)
-        super.init(Circle(Transform(location), 0.1.m), Substance(Material(.BouncyBall), Mass(0.1, 0.0005), Friction(.Iron)), FloaterDirector(game))
+        super.init(Circle(Transform(location), 0.1.m), Substance(Material(.Rock), Mass(0.5, 0), Friction(.Ice)), FloaterDirector(game))
         display.scheme.info.texture = GLTexture("Floater").id
         dreath = Dreath(amount, 10)
         setupBody()
@@ -353,7 +363,7 @@ class FloaterDirector: Director {
             if attackTimer >= 1 {
                 attackTimer = 0
                 mode = 1
-                play("charge2", 1.5)
+                play("charge2", 2)
                 attack(dl, 30)
             }
         }
@@ -365,7 +375,12 @@ class FloaterDirector: Director {
         
         attackingTimer += Time.time
         if attackingTimer <= 8 {
-            attack(dl)
+            if dl.length <= 10.m {
+                attack(dl)
+            }else{
+                mode = 0
+                attackingTimer = 0
+            }
         }else{
             mode = 0
             attackingTimer = 0
@@ -384,9 +399,8 @@ class FloaterDirector: Director {
                 let floaters = grid.actors.filter{ $0 is DreathFloater }.map{ $0 as! DreathFloater }
                 for floater in floaters where actor !== floater {
                     if let cluster = floater.cluster {
-                        if cluster.floaters.count <= 4 {
+                        if cluster.floaters.count <= 12 {
                             actor.body.velocity += movetoCluster(cluster)
-                            mode = 2
                         }
                     }
                 }
@@ -399,7 +413,7 @@ class FloaterDirector: Director {
         guard let clust = floater.cluster else { return }
         let dl = clust.center - floater.transform.location
         if dl.length != 0 {
-            let mag = 0.05.m * dl.length * Time.time
+            let mag = 15.m * Time.time
             let dir = normalize(dl)
             actor.body.velocity += mag * dir
         }
@@ -408,10 +422,11 @@ class FloaterDirector: Director {
     private func movetoCluster(cluster: DreathFloaterCluster) -> float2 {
         let dl = cluster.center - actor.transform.location
         guard dl.length <= 4.m else { return float2() }
-        let mag = (5.m) / dl.length
+        let mag = 10.m * Time.time
         let dir = normalize(dl)
         if dl.length <= 1.m {
             cluster.append(actor as! DreathFloater)
+            mode = 2
         }
         return mag * dir
     }
@@ -421,7 +436,7 @@ class FloaterDirector: Director {
 class DreathSpawner: DreathActor {
     
     init(_ location: float2) {
-        super.init(Circle(Transform(location), 0.5.m), Substance.StandardRotating(10, 0.00001), nil)
+        super.init(Circle(Transform(location), 0.5.m), Substance.StandardRotating(10, 0.000001), nil)
         body.substance.friction = Friction(.Iron)
         //display.color = float4(1, 0, 0.2, 1)
         display.scheme.info.texture = GLTexture("Spawner").id
@@ -452,7 +467,7 @@ class DreathSpawner: DreathActor {
 class DreathColony: DreathActor {
     
     init(_ location: float2) {
-        super.init(Circle(Transform(location), 1.m), Substance.getStandard(50), nil)
+        super.init(Circle(Transform(location), 1.m), Substance.StandardRotating(50, 0.0000001), nil)
         display.color = float4(0.2, 0.2, 0.2, 1)
         display.scheme.info.texture = GLTexture("Colony").id
         dreath = Dreath(5000, 100)
