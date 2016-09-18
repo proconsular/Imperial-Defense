@@ -26,17 +26,17 @@ class Lighting {
         Graphics.bindDefault()
     }
     
-    func getFaces(light: Light, _ objects: [Actor]) {
+    func getFaces(_ light: Light, _ objects: [Actor]) {
         let shapes = objects.map{ $0.body.shape as! Shape<Edgeform> }
         var faces = light.getFaces(shapes)
         if faces.count > 10 {
-            faces = faces.sort{ (light.location - $0.center).length < (light.location - $1.center).length }
-            faces.removeRange(10 ..< faces.count)
+            faces = faces.sorted{ (light.location - $0.center).length < (light.location - $1.center).length }
+            faces.removeSubrange(10 ..< faces.count)
         }
         light.faces = faces
     }
     
-    func findObjects(light: Light, _ terrain: Grid) -> [Actor] {
+    func findObjects(_ light: Light, _ terrain: Grid) -> [Actor] {
         var objects: [Actor] = []
         terrain.cells.forEach{
             $0.elements.map{ $0.element }.filter{ Lighting.inView(light, $0) }.forEach{ objects.append($0) }
@@ -44,11 +44,11 @@ class Lighting {
         return objects
     }
     
-    private static func inView(light: Light, _ actor: Actor) -> Bool {
+    fileprivate static func inView(_ light: Light, _ actor: Actor) -> Bool {
         return (actor.transform.location - light.location).length < light.radius
     }
     
-    private func isVisible(light: Light) -> Bool {
+    fileprivate func isVisible(_ light: Light) -> Bool {
         return Camera.distance(light.location) < light.radius * 2
     }
 }
@@ -60,12 +60,12 @@ class Color {
         self.temperature = temperature
     }
     
-    func computeColor(temperature: Float) -> float4 {
+    func computeColor(_ temperature: Float) -> float4 {
         let reduced = temperature / 100
         return float4(computeRed(reduced), computeGreen(reduced), computeBlue(reduced), 1)
     }
     
-    private func computeRed(temperature: Float) -> Float {
+    fileprivate func computeRed(_ temperature: Float) -> Float {
         var red: Float = 1
         
         if temperature > 66 {
@@ -75,7 +75,7 @@ class Color {
         return clamp(red, min: 0, max: 1)
     }
     
-    private func computeGreen(temperature: Float) -> Float {
+    fileprivate func computeGreen(_ temperature: Float) -> Float {
         var green: Float = 1
         
         if temperature <= 66 {
@@ -87,7 +87,7 @@ class Color {
         return clamp(green, min: 0, max: 1)
     }
     
-    private func computeBlue(temperature: Float) -> Float {
+    fileprivate func computeBlue(_ temperature: Float) -> Float {
         var blue: Float = 1
         
         if temperature < 66 {

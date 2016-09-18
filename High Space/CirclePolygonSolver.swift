@@ -10,7 +10,7 @@ import Foundation
 
 class CirclePolygonSolver {
     
-    static func solve (primary: Shape<Radialform>, _ secondary: Shape<Edgeform>) -> Collision? {
+    static func solve (_ primary: Shape<Radialform>, _ secondary: Shape<Edgeform>) -> Collision? {
         var solution = Collision()
         
         let center = secondary.transform.matrix.transpose * (primary.transform.location - secondary.transform.location)
@@ -47,7 +47,7 @@ class CirclePolygonSolver {
         return solution
     }
     
-    static func findCollidingFace (polygon: Shape<Edgeform>, _ center: float2, _ radius: Float) -> IndexedValue<Float>? {
+    static func findCollidingFace (_ polygon: Shape<Edgeform>, _ center: float2, _ radius: Float) -> IndexedValue<Float>? {
         return findBest(0 ..< polygon.form.vertices.count, -FLT_MAX, >) {
             let s = dot(polygon.form.normals[$0], center - polygon.form.vertices[$0])
             if s > radius { return -FLT_MAX }

@@ -9,5 +9,5 @@
 import Foundation
 
 protocol Solver {
-    static func solve (primary: Body, _ secondary: Body) -> Collision?
+    static func solve (_ primary: Body, _ secondary: Body) -> Collision?
 }

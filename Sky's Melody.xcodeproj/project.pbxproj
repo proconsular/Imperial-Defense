@@ -21,7 +21,7 @@
 		222DD8D01D48854700A70FA8 /* Controller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222DD8651D48854600A70FA8 /* Controller.swift */; };
 		222DD8D11D48854700A70FA8 /* core.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222DD8661D48854600A70FA8 /* core.swift */; };
 		222DD8D21D48854700A70FA8 /* CreationTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222DD8671D48854600A70FA8 /* CreationTypes.swift */; };
-		222DD8D41D48854700A70FA8 /* DataTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222DD8691D48854600A70FA8 /* DataTypes.swift */; };
+		222DD8D41D48854700A70FA8 /* PhysicsTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222DD8691D48854600A70FA8 /* PhysicsTypes.swift */; };
 		222DD8D51D48854700A70FA8 /* Default.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 222DD86A1D48854600A70FA8 /* Default.fsh */; };
 		222DD8D61D48854700A70FA8 /* Default.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 222DD86B1D48854600A70FA8 /* Default.vsh */; };
 		222DD8D81D48854700A70FA8 /* DynamicText.m in Sources */ = {isa = PBXBuildFile; fileRef = 222DD86E1D48854600A70FA8 /* DynamicText.m */; };
@@ -59,6 +59,7 @@
 		22722C171D488D2700BFA78A /* white.png in Resources */ = {isa = PBXBuildFile; fileRef = 22722BCC1D488D2700BFA78A /* white.png */; };
 		22722C381D488D2700BFA78A /* FredokaOne-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 22722BED1D488D2700BFA78A /* FredokaOne-Regular.ttf */; };
 		22722C561D4897C600BFA78A /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22722C551D4897C600BFA78A /* Media.xcassets */; };
+		227BF5F51D87C2F3006C3CEA /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227BF5F41D87C2F3006C3CEA /* Map.swift */; };
 		22A9F80C1D5806650097FD61 /* Display.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A9F80B1D5806650097FD61 /* Display.swift */; };
 		22A9F80E1D5818DD0097FD61 /* Basic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A9F80D1D5818DD0097FD61 /* Basic.swift */; };
 		22B8C3581D7B6B1400806C16 /* GridTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B8C3571D7B6B1400806C16 /* GridTypes.swift */; };
@@ -76,6 +77,7 @@
 		22B8C3781D85465400806C16 /* charge2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 22B8C3771D85465400806C16 /* charge2.wav */; };
 		22B8C37A1D85465B00806C16 /* hit6.wav in Resources */ = {isa = PBXBuildFile; fileRef = 22B8C3791D85465B00806C16 /* hit6.wav */; };
 		22B8C37C1D8546D700806C16 /* hit7.wav in Resources */ = {isa = PBXBuildFile; fileRef = 22B8C37B1D8546D700806C16 /* hit7.wav */; };
+		22B8C37E1D8669B200806C16 /* Level.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B8C37D1D8669B200806C16 /* Level.swift */; };
 		22BE5DBD1D66C1EC0038FAA8 /* Dreath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BE5DBC1D66C1EC0038FAA8 /* Dreath.swift */; };
 		22BE5DBF1D6D3BE30038FAA8 /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BE5DBE1D6D3BE30038FAA8 /* Grid.swift */; };
 		22C2BCA81D59846C00C8F1D5 /* Sky_s_Melody_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C2BCA71D59846C00C8F1D5 /* Sky_s_Melody_Tests.swift */; };
@@ -167,7 +169,7 @@
 		222DD8651D48854600A70FA8 /* Controller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Controller.swift; sourceTree = "<group>"; };
 		222DD8661D48854600A70FA8 /* core.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = core.swift; sourceTree = "<group>"; };
 		222DD8671D48854600A70FA8 /* CreationTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreationTypes.swift; sourceTree = "<group>"; };
-		222DD8691D48854600A70FA8 /* DataTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataTypes.swift; sourceTree = "<group>"; };
+		222DD8691D48854600A70FA8 /* PhysicsTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhysicsTypes.swift; sourceTree = "<group>"; };
 		222DD86A1D48854600A70FA8 /* Default.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Default.fsh; sourceTree = "<group>"; };
 		222DD86B1D48854600A70FA8 /* Default.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Default.vsh; sourceTree = "<group>"; };
 		222DD86D1D48854600A70FA8 /* DynamicText.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DynamicText.h; sourceTree = "<group>"; };
@@ -215,6 +217,7 @@
 		22722BCC1D488D2700BFA78A /* white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = white.png; sourceTree = "<group>"; };
 		22722BED1D488D2700BFA78A /* FredokaOne-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "FredokaOne-Regular.ttf"; sourceTree = "<group>"; };
 		22722C551D4897C600BFA78A /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
+		227BF5F41D87C2F3006C3CEA /* Map.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
 		22A9F80B1D5806650097FD61 /* Display.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Display.swift; sourceTree = "<group>"; };
 		22A9F80D1D5818DD0097FD61 /* Basic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Basic.swift; sourceTree = "<group>"; };
 		22B8C3571D7B6B1400806C16 /* GridTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GridTypes.swift; sourceTree = "<group>"; };
@@ -233,6 +236,7 @@
 		22B8C3771D85465400806C16 /* charge2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = charge2.wav; sourceTree = "<group>"; };
 		22B8C3791D85465B00806C16 /* hit6.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = hit6.wav; sourceTree = "<group>"; };
 		22B8C37B1D8546D700806C16 /* hit7.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = hit7.wav; sourceTree = "<group>"; };
+		22B8C37D1D8669B200806C16 /* Level.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Level.swift; sourceTree = "<group>"; };
 		22BE5DBC1D66C1EC0038FAA8 /* Dreath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dreath.swift; sourceTree = "<group>"; };
 		22BE5DBE1D6D3BE30038FAA8 /* Grid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Grid.swift; sourceTree = "<group>"; };
 		22C2BCA51D59846B00C8F1D5 /* Sky's Melody Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Sky's Melody Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -465,7 +469,7 @@
 			isa = PBXGroup;
 			children = (
 				2292325F1D52F19700F47D02 /* solvers */,
-				222DD8691D48854600A70FA8 /* DataTypes.swift */,
+				222DD8691D48854600A70FA8 /* PhysicsTypes.swift */,
 				222DD8601D48854600A70FA8 /* Broadphase.swift */,
 				222DD8941D48854700A70FA8 /* Physics.swift */,
 				222DD8AB1D48854700A70FA8 /* Shapes.swift */,
@@ -506,6 +510,8 @@
 				22C4E5571D6FF08F0077DFCB /* Quadtree.swift */,
 				22C4E56D1D750EA20077DFCB /* LightingSystem.swift */,
 				22B8C3571D7B6B1400806C16 /* GridTypes.swift */,
+				22B8C37D1D8669B200806C16 /* Level.swift */,
+				227BF5F41D87C2F3006C3CEA /* Map.swift */,
 			);
 			name = terrain;
 			sourceTree = "<group>";
@@ -853,15 +859,17 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0730;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "Chris Luttio";
 				TargetAttributes = {
 					222DD82F1D48843100A70FA8 = {
 						CreatedOnToolsVersion = 7.3;
 						DevelopmentTeam = 36J98TSRWU;
+						LastSwiftMigration = 0800;
 					};
 					22C2BCA41D59846B00C8F1D5 = {
 						CreatedOnToolsVersion = 7.3;
+						LastSwiftMigration = 0800;
 						TestTargetID = 222DD82F1D48843100A70FA8;
 					};
 				};
@@ -945,7 +953,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				222DD8E61D48854700A70FA8 /* GLTextureLoader.m in Sources */,
-				222DD8D41D48854700A70FA8 /* DataTypes.swift in Sources */,
+				222DD8D41D48854700A70FA8 /* PhysicsTypes.swift in Sources */,
 				222DD8E01D48854700A70FA8 /* GameViewController.m in Sources */,
 				222DD8E31D48854700A70FA8 /* GeneralUI.swift in Sources */,
 				222DD8F11D48854700A70FA8 /* main.m in Sources */,
@@ -1008,6 +1016,7 @@
 				222DD90D1D48854700A70FA8 /* UserInterface.swift in Sources */,
 				22BE5DBD1D66C1EC0038FAA8 /* Dreath.swift in Sources */,
 				22C4E6A11D75552D0077DFCB /* IkConstraintData.c in Sources */,
+				227BF5F51D87C2F3006C3CEA /* Map.swift in Sources */,
 				22C4E5581D6FF08F0077DFCB /* Quadtree.swift in Sources */,
 				22C4E6931D75552D0077DFCB /* Animation.c in Sources */,
 				222DD90E1D48854700A70FA8 /* Utlity.swift in Sources */,
@@ -1022,6 +1031,7 @@
 				22C4E69F1D75552D0077DFCB /* extension.c in Sources */,
 				22C4E6A81D75552D0077DFCB /* Skeleton.c in Sources */,
 				222DD8BD1D48854700A70FA8 /* AppDelegate.m in Sources */,
+				22B8C37E1D8669B200806C16 /* Level.swift in Sources */,
 				222DD9031D48854700A70FA8 /* ShaderLoader.m in Sources */,
 				222DD9011D48854700A70FA8 /* Screens.swift in Sources */,
 				22C4E6981D75552D0077DFCB /* Attachment.c in Sources */,
@@ -1075,6 +1085,7 @@
 		222DD8441D48843100A70FA8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -1086,8 +1097,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -1109,7 +1122,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -1120,6 +1133,7 @@
 		222DD8451D48843100A70FA8 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -1131,8 +1145,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -1148,9 +1164,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -1161,14 +1178,17 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = 36J98TSRWU;
 				HEADER_SEARCH_PATHS = "spine-c/include/**";
 				INFOPLIST_FILE = "High Space/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_CFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "Chris-Luttio.High-Space";
 				PRODUCT_NAME = "Sky's Melody";
 				SWIFT_OBJC_BRIDGING_HEADER = "High Space/High Space-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -1178,13 +1198,16 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = 36J98TSRWU;
 				HEADER_SEARCH_PATHS = "spine-c/include/**";
 				INFOPLIST_FILE = "High Space/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_CFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "Chris-Luttio.High-Space";
 				PRODUCT_NAME = "Sky's Melody";
 				SWIFT_OBJC_BRIDGING_HEADER = "High Space/High Space-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -1197,6 +1220,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Chris-Luttio.Sky-s-Melody-Tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Sky's Melody.app/Sky's Melody";
 			};
 			name = Debug;
@@ -1209,6 +1233,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Chris-Luttio.Sky-s-Melody-Tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Sky's Melody.app/Sky's Melody";
 			};
 			name = Release;

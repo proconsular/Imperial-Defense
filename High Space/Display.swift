@@ -12,7 +12,7 @@ class GLTexture {
     var id: GLuint
     
     init(_ name: String) {
-        id = TextureRepo.sharedLibrary().textureWithName(name)
+        id = TextureRepo.sharedLibrary().texture(withName: name)
     }
     
     init (_ id: GLuint) {
@@ -92,32 +92,32 @@ class Display {
         set { display.scheme.info.texture = newValue }
     }
     
-    func setMatrix(row0: float2, _ row1: float2) {
+    func setMatrix(_ row0: float2, _ row1: float2) {
         display.transform.matrix = float2x2(rows: [row0, row1])
     }
     
-    func setCoordinates(uvs: UnsafePointer<Float>, _ length: Int) {
+    func setCoordinates(_ uvs: UnsafePointer<Float>, _ length: Int) {
         var coordinates: [float2] = []
         var coors = uvs
         for _ in 0 ..< length / 2 {
             var vertex = float2()
-            vertex.x = coors.memory
+            vertex.x = coors.pointee
             coors = coors.successor()
-            vertex.y = coors.memory
+            vertex.y = coors.pointee
             coors = coors.successor()
             coordinates.append(vertex)
         }
         display.scheme.layout.coordinates = coordinates
     }
     
-    func setVertices(vertices: UnsafePointer<Float>, _ length: Int) {
+    func setVertices(_ vertices: UnsafePointer<Float>, _ length: Int) {
         var verts: [float2] = []
         var vert = vertices
         for _ in 0 ..< length / 2 {
             var vertex = float2()
-            vertex.x = vert.memory
+            vertex.x = vert.pointee
             vert = vert.successor()
-            vertex.y = vert.memory
+            vertex.y = vert.pointee
             vert = vert.successor()
             verts.append(vertex)
         }

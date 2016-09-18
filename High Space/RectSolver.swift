@@ -10,7 +10,7 @@ import Foundation
 
 class RectSolver {
     
-    func solve(primary: Rect, _ secondary: Rect) {
+    func solve(_ primary: Rect, _ secondary: Rect) {
         
     }
     

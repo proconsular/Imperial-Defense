@@ -35,11 +35,11 @@ class TextureAnimation {
         reader.subframe.index = 0
     }
     
-    func face (newDirection: Float) {
+    func face (_ newDirection: Float) {
         reader.setOrientation(float2(newDirection, 1))
     }
     
-    func animate (amount: Float) {
+    func animate (_ amount: Float) {
         timer.update(amount)
     }
     

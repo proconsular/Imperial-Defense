@@ -18,11 +18,11 @@ class Interaction: UIGestureRecognizer {
     
     static var presses: [Interaction] = []
     
-    class func appendTouch (touch: Interaction) {
+    class func appendTouch (_ touch: Interaction) {
         presses.append(touch)
     }
     
-    override init(target: AnyObject?, action: Selector) {
+    override init(target: Any?, action: Selector?) {
         down = false
         wasDown = false
         location = float2()
@@ -31,18 +31,18 @@ class Interaction: UIGestureRecognizer {
     
    
     
-    private func isSelf (touch: UITouch) -> Bool {
+    fileprivate func isSelf (_ touch: UITouch) -> Bool {
         for press in Interaction.presses where press !== self {
-            if let event = press.rawTouch where event === touch {
+            if let event = press.rawTouch , event === touch {
                 return true
             }
         }
         return false
     }
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent) {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent) {
         guard rawTouch == nil else { return }
-        for touch in touches where touch.phase == .Began {
+        for touch in touches where touch.phase == .began {
             guard !isSelf(touch) else { continue }
             
             update(touch)
@@ -51,18 +51,18 @@ class Interaction: UIGestureRecognizer {
         }
     }
     
-    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent) {
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent) {
         if let touch = rawTouch {
-            if touch.phase == .Moved {
+            if touch.phase == .moved {
                 update(touch)
                 wasDown = true
             }
         }
     }
     
-    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent) {
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent) {
         if let touch = rawTouch {
-            if touch.phase == .Ended {
+            if touch.phase == .ended {
                 update(touch)
                 down = false
                 wasDown = true
@@ -71,9 +71,9 @@ class Interaction: UIGestureRecognizer {
         }
     }
     
-    private func update (touch: UITouch) {
-        let point = touch.locationInView(view)
-        let scale = UIScreen.mainScreen().scale
+    fileprivate func update (_ touch: UITouch) {
+        let point = touch.location(in: view)
+        let scale = UIScreen.main.scale
         location = float2(Float(point.x * scale), Float(point.y * scale))
         down = true
     }

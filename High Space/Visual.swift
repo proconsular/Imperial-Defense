@@ -18,7 +18,7 @@ struct BoundingCircle {
         self.radius = radius
     }
     
-    func intersects(other: BoundingCircle) -> Bool {
+    func intersects(_ other: BoundingCircle) -> Bool {
         let dl = (location - other.location).length
         let dr = radius + other.radius
         return dl <= dr
@@ -39,7 +39,7 @@ protocol Form {
 class Transform {
     var location: float2
     var matrix: float2x2
-    private(set) var parent: Transform?
+    fileprivate(set) var parent: Transform?
     var children: [Transform]
     
     init(_ location: float2 = float2(), _ orientation: Float = 0) {
@@ -49,12 +49,12 @@ class Transform {
         self.orientation = orientation
     }
     
-    func assign(parent: Transform?) {
+    func assign(_ parent: Transform?) {
         self.parent = parent
         self.parent?.children.append(self)
     }
     
-    func apply(vertex: float2) -> float2 {
+    func apply(_ vertex: float2) -> float2 {
         return matrix * vertex + location
     }
     
@@ -95,7 +95,7 @@ class Shape<F: Form>: Hull {
         return FixedRect(float2(), float2())
     }
     
-    private func computeBoundingCircle() {
+    fileprivate func computeBoundingCircle() {
         let vertices = form.getVertices()
         let center = vertices.center
         let radius = findBestValue(0 ..< vertices.count, -FLT_MAX, >) {
@@ -113,15 +113,15 @@ class Shape<F: Form>: Hull {
         return form.getVertices()
     }
     
-    func getTransformedVertex(index: Int) -> float2 {
+    func getTransformedVertex(_ index: Int) -> float2 {
         return getTransformedVertex(form.getVertices()[index])
     }
     
-    func getTransformedVertex(vertex: float2) -> float2 {
+    func getTransformedVertex(_ vertex: float2) -> float2 {
         return transform.apply(vertex)
     }
     
-    func getTransformedFace(index: Int) -> Face {
+    func getTransformedFace(_ index: Int) -> Face {
         let next = index + 1 >= form.getVertices().count ? 0 : index + 1
         return Face(getTransformedVertex(index), getTransformedVertex(next))
     }
@@ -149,7 +149,7 @@ class Edgeform: Form {
         return normals
     }
     
-    func getFace(index: Int) -> Face {
+    func getFace(_ index: Int) -> Face {
         let next = index + 1 >= vertices.count ? 0 : index + 1
         return Face(vertices[index], vertices[next])
     }
@@ -158,7 +158,7 @@ class Edgeform: Form {
         return vertices
     }
     
-    func getSupport(normal: float2) -> float2 {
+    func getSupport(_ normal: float2) -> float2 {
         return vertices[findBestIndex(0 ..< vertices.count, -FLT_MAX, >) { dot(vertices[$0], normal) }!]
     }
 }
@@ -172,11 +172,13 @@ class Polygon: Shape<Edgeform> {
 }
 
 class Rect: Shape<Edgeform> {
-    private(set) var bounds: float2
-    private var rect: FixedRect
+    fileprivate(set) var bounds: float2
+    fileprivate var rect: FixedRect
+    fileprivate var orientation: Float
     
     init(_ transform: Transform = Transform(), _ bounds: float2) {
         self.bounds = bounds
+        orientation = 0
         rect = FixedRect(float2(), float2())
         super.init(transform, Edgeform(bounds))
         computeRect()
@@ -188,10 +190,14 @@ class Rect: Shape<Edgeform> {
     
     override func getBounds() -> FixedRect {
         rect.location = transform.location
+        if orientation != transform.orientation {
+            orientation = transform.orientation
+            computeRect()
+        }
         return rect
     }
     
-    private func computeRect() {
+    fileprivate func computeRect() {
         var min = float2(FLT_MAX, -FLT_MAX), max = float2(-FLT_MAX, FLT_MAX)
         
         for n in 0 ..< form.vertices.count {
@@ -214,7 +220,7 @@ class Rect: Shape<Edgeform> {
         rect = FixedRect(transform.location, float2(max.x - min.x, -max.y + min.y))
     }
     
-    func setBounds(newBounds: float2) {
+    func setBounds(_ newBounds: float2) {
         self.bounds = newBounds
         form = Edgeform(newBounds)
         computeBoundingCircle()
@@ -233,7 +239,7 @@ class Radialform: Form {
         vertices = computeVertices(radius).centered
     }
     
-    private func computeVertices(radius: Float) -> [float2] {
+    fileprivate func computeVertices(_ radius: Float) -> [float2] {
         var verts: [float2] = []
         
         verts.append(float2())
@@ -262,7 +268,7 @@ class Circle: Shape<Radialform> {
         return FixedRect(transform.location, float2(form.radius * 2))
     }
     
-    func setRadius(radius: Float) {
+    func setRadius(_ radius: Float) {
         form = Radialform(radius)
     }
 }
@@ -282,7 +288,7 @@ struct TextureLayout {
         }
     }
     
-    private static func generateCoordinates(hull: Hull) -> [float2] {
+    fileprivate static func generateCoordinates(_ hull: Hull) -> [float2] {
         let vertices = hull.getVertices().dropFirst()
         
         var coordinates: [float2] = []

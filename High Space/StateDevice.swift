@@ -24,8 +24,8 @@ class Link <Node: Hashable>: Hashable {
     }
 }
 
-enum StateLinkerError: ErrorType {
-    case NoLinks
+enum StateLinkerError: Error {
+    case noLinks
 }
 
 struct Linker<Node: Hashable> {
@@ -34,16 +34,16 @@ struct Linker<Node: Hashable> {
     var links: Linking = []
     var totalStrength: Float = 0
     
-    mutating func append (newLink: Link<Node>) {
+    mutating func append (_ newLink: Link<Node>) {
         links.append(newLink)
         totalStrength += newLink.strength
     }
     
-    mutating func appendAll (links: [Link<Node>]) {
+    mutating func appendAll (_ links: [Link<Node>]) {
         links.forEach{append($0)}
     }
     
-    func omit (omittions: [Node]) -> Linker<Node> {
+    func omit (_ omittions: [Node]) -> Linker<Node> {
         var filtered: Linker<Node> = Linker()
         for link in links where !omittions.contains(link.node) {
             filtered.append(link)
@@ -52,7 +52,7 @@ struct Linker<Node: Hashable> {
     }
     
     func next() throws -> Node {
-        let random_number = Float(Float(random() % 1000) / 1000)
+        let random_number = Float(Float(arc4random() % 1000) / 1000)
         var sum: Float = 0
         
         for link in links {
@@ -62,7 +62,7 @@ struct Linker<Node: Hashable> {
             }
         }
         
-        throw StateLinkerError.NoLinks
+        throw StateLinkerError.noLinks
     }
 }
 
@@ -86,17 +86,17 @@ class State<Reference: Hashable>: Hashable {
 class StateDevice<Reference: Hashable> {
     typealias CompoundState = State<Reference>
     
-    private var states: [Reference: CompoundState] = [:]
-    private var state: CompoundState!
-    private var previous: CompoundState!
+    fileprivate var states: [Reference: CompoundState] = [:]
+    fileprivate var state: CompoundState!
+    fileprivate var previous: CompoundState!
     
     var omittions: [Reference] = []
     
-    func omit (omittions: [Reference]) {
-        self.omittions.appendContentsOf(omittions)
+    func omit (_ omittions: [Reference]) {
+        self.omittions.append(contentsOf: omittions)
     }
     
-    func set(ref: Reference) {
+    func set(_ ref: Reference) {
         state = states[ref]
     }
     
@@ -104,7 +104,7 @@ class StateDevice<Reference: Hashable> {
         return state
     }
     
-    func getAll (refs: [Reference]) -> [CompoundState] {
+    func getAll (_ refs: [Reference]) -> [CompoundState] {
         var states: [CompoundState] = []
         for (ref, state) in self.states where refs.contains(ref) {
             states.append(state)
@@ -112,21 +112,21 @@ class StateDevice<Reference: Hashable> {
         return states
     }
     
-    func link(alpha: Reference, _ beta: Reference, _ strength: Float) {
+    func link(_ alpha: Reference, _ beta: Reference, _ strength: Float) {
         states[alpha]?.connections.append(Link(states[beta]!, strength))
     }
     
-    func link(alpha: Reference, _ links: [Reference: Float]) {
+    func link(_ alpha: Reference, _ links: [Reference: Float]) {
         for (beta, strength) in links {
             link(alpha, beta, strength)
         }
     }
     
-    func append (state: CompoundState) {
+    func append (_ state: CompoundState) {
         states.updateValue(state, forKey: state.name)
     }
     
-    func appendAll (newStates: [CompoundState]) {
+    func appendAll (_ newStates: [CompoundState]) {
         for newState in newStates {
             append(newState)
         }

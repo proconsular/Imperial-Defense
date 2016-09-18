@@ -61,7 +61,7 @@ struct PointRange {
         return amount / limit
     }
     
-    mutating func increase(amount: Float) {
+    mutating func increase(_ amount: Float) {
         self.amount += amount
         self.amount = clamp(self.amount, min: 0, max: limit)
     }
@@ -90,7 +90,7 @@ class Shield {
         }
     }
     
-    func damage(amount: Float) {
+    func damage(_ amount: Float) {
         damaged = true
         timer.increment = 0
         points.increase(-amount)
@@ -112,10 +112,12 @@ class Player: Actor, Interface {
     var shield: Shield
     var weapon: Weapon!
     var laser: Weapon!
-    var callback: String -> () = {_ in}
+    var callback: (String) -> () = {_ in}
     let spine: Skeleton
     
     var jumping = false
+    var canSideJump = false
+    var sideJumpNormal = float2()
     
     init(_ location: float2, _ weapon: Weapon) {
         shield = Shield(amount: 1000)
@@ -123,14 +125,19 @@ class Player: Actor, Interface {
         self.laser = Weapon(weapon.grid, "dreath", DreathHiveTargetter(weapon.grid), Weapon.Stats(50, 25, 0.5, 10, 1000))
         let transform = Transform(location)
         spine = Skeleton("spineboy", transform, float2(0, 0.4.m))
-        super.init(Rect(transform, float2(0.4.m, 0.8.m)), Substance(Material(.Wood), Mass(6, 0), Friction(.Iron)))
+        super.init(Rect(transform, float2(0.4.m, 0.8.m)), Substance(Material(.wood), Mass(6, 0), Friction(.iron)))
         body.mask = 0b100001
         weapon.actor = self
         laser.actor = self
         body.object = self
         body.callback = { [unowned self] (body, collision) in
+            //self.canSideJump = false
             if !self.onObject {
-                self.onObject = (collision.normal.y) > FLT_EPSILON
+                self.onObject = collision.normal.y > FLT_EPSILON
+                if body.substance.mass.mass == 0 {
+                    self.canSideJump = true
+                    self.sideJumpNormal = collision.normal
+                }
                 self.jumping = !self.onObject
             }
             if let tag = body.tag {
@@ -141,7 +148,7 @@ class Player: Actor, Interface {
         order = 100
     }
     
-    func use(command: Command) {
+    func use(_ command: Command) {
         if command.id == 0 {
             let force = command.vector! / 10
             if abs(body.velocity.x) < 5.m {
@@ -149,8 +156,11 @@ class Player: Actor, Interface {
                 spine.setDirection(force.x > 0 ? 1 : -1)
             }
         }else if command.id == 1 {
-            if (onObject) {
-                body.velocity.y -= 3.m
+            if (onObject || canSideJump) {
+                body.velocity.y -= 3.75.m
+                if canSideJump {
+                    body.velocity.x += 2.m * -sideJumpNormal.x
+                }
                 play("jump1")
             }
         }else if command.id == 2 {
@@ -186,6 +196,8 @@ class Player: Actor, Interface {
         }
         
         spine.updateWorld()
+        
+        canSideJump = false
     }
     
     override func render() {
@@ -213,7 +225,7 @@ class Weapon {
         }
     }
     
-    let grid: Grid
+    let grid: Map
     var actor: Actor!
     var count: Float
     var targetter: Targetter
@@ -221,7 +233,7 @@ class Weapon {
     var fireVertex: float2?
     var stats: Stats
     
-    init(_ grid: Grid, _ tag: String, _ targetter: Targetter, _ stats: Stats) {
+    init(_ grid: Map, _ tag: String, _ targetter: Targetter, _ stats: Stats) {
         self.grid = grid
         self.tag = tag
         self.targetter = targetter
@@ -244,7 +256,7 @@ class Weapon {
         stats.power.increase(stats.chargerate * Time.time)
     }
     
-    private func shoot(target: Actor) {
+    fileprivate func shoot(_ target: Actor) {
         let ve = actor.transform.location
         let vert = fireVertex ?? ve
         let location = target.transform.location
@@ -263,11 +275,11 @@ protocol Targetter {
 }
 
 class DreathTargetter: Targetter {
-    unowned let grid: Grid
+    unowned let grid: Map
     var player: Player!
     weak var target: DreathActor?
     
-    init(_ grid: Grid) {
+    init(_ grid: Map) {
         self.grid = grid
     }
     
@@ -297,11 +309,11 @@ class DreathTargetter: Targetter {
 }
 
 class DreathHiveTargetter: Targetter {
-    unowned let grid: Grid
+    unowned let grid: Map
     var player: Player!
     weak var target: DreathActor?
     
-    init(_ grid: Grid) {
+    init(_ grid: Map) {
         self.grid = grid
     }
     
@@ -343,7 +355,7 @@ class Bullet: Actor {
     
     init(_ location: float2, _ tag: String, _ damage: Float) {
         self.damage = damage
-        super.init(Rect(location, float2(0.25.m, 0.04.m)), Substance(Material(.Wood), Mass(10, 0), Friction(.Iron)))
+        super.init(Rect(location, float2(0.25.m, 0.04.m)), Substance(Material(.wood), Mass(10, 0), Friction(.iron)))
         display.scheme.info.texture = GLTexture("bullet").id
         display.color = float4(0.8, 1, 0.8, 1)
         body.relativeGravity = 0

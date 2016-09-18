@@ -10,10 +10,10 @@ import Foundation
 
 class Valve<Product> {
     var queue: Queue<Product> = Queue()
-    var constraints: [Product -> Bool] = []
+    var constraints: [(Product) -> Bool] = []
     var previous: Product?
     
-    func supply(item: Product) {
+    func supply(_ item: Product) {
         queue.push(item)
     }
     
@@ -22,7 +22,7 @@ class Valve<Product> {
         return previous
     }
     
-    private func prerelease() -> Product? {
+    fileprivate func prerelease() -> Product? {
         guard let peek = queue.peek else { return nil }
         for constraint in constraints where !constraint(peek) { return nil }
         return queue.pop()
@@ -47,7 +47,7 @@ class Procedure<Type, Product>: State<Int> {
         super.init(name)
     }
     
-    func construct(offset: float2) -> GeneratedProcedure<Product> {
+    func construct(_ offset: float2) -> GeneratedProcedure<Product> {
         return GeneratedProcedure(offset)
     }
     

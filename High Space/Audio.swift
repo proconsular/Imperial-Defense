@@ -53,7 +53,7 @@ class Audio: AudioElement {
 class RawAudio: NSObject {
     
     let source, buffer: UInt32
-    private(set) var volume, pitch: Float
+    fileprivate(set) var volume, pitch: Float
     
     init (_ source: UInt32, _ buffer: UInt32) {
         self.source = source
@@ -63,7 +63,7 @@ class RawAudio: NSObject {
         super.init()
     }
     
-    func start (looping: Bool = false) {
+    func start (_ looping: Bool = false) {
         alSourcei(source, AL_LOOPING, looping ? 1 : 0)
         alSourcePlay(source)
     }
@@ -72,21 +72,21 @@ class RawAudio: NSObject {
         alSourceStop(source)
     }
   
-    func newVolume(volume: Float) {
+    func newVolume(_ volume: Float) {
         alSourcef(source, AL_GAIN, volume)
         self.volume = volume
     }
     
-    func newPitch(pitch: Float) {
+    func newPitch(_ pitch: Float) {
         alSourcef(source, AL_PITCH, pitch)
         self.pitch = pitch
     }
     
     func isPlaying () -> Bool {
-        let value = UnsafeMutablePointer<ALint>.alloc(1)
-        defer { value.destroy(); value.dealloc(1) }
+        let value = UnsafeMutablePointer<ALint>.allocate(capacity: 1)
+        defer { value.deinitialize(); value.deallocate(capacity: 1) }
         alGetSourcei(source, AL_SOURCE_STATE, value)
-        return value.memory == AL_PLAYING
+        return value.pointee == AL_PLAYING
     }
     
 }

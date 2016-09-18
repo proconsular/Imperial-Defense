@@ -13,87 +13,106 @@ class Game: DisplayLayer {
     static let levelsize = 20.m
     
     let player: Player
-    let grid: Grid
+    //let grid: Grid
     
     let physics: Simulation
     let lighting: LightingSystem
     let levelmaker: LevelMaker
     let dreathmap: DreathMap
     
+    let map: Map
+    
+    let roommap: RoomMap
+    let room: Room
+    
+    var old = false
+    
     init() {
-        grid = Grid(10.m, float2(Game.levelsize, 10.m))
+        levelmaker = LevelMaker()
+        roommap = RoomMap(8, float2(30.m))
+        roommap.generate()
+        let gen = RoomGenerator()
+        room = gen.generate(roommap)
+        var start = float2()
         
-        lighting = LightingSystem(grid)
-        physics = Simulation(grid)
-        dreathmap = DreathMap(grid)
-        levelmaker = LevelMaker(grid)
-        
-        let targetter = DreathTargetter(grid)
-        player = Player(float2(Camera.size.x / 2, -2.m), Weapon(grid, "dreath", targetter, Weapon.Stats(100, 15, 0.15, 65, 50)))
-        targetter.player = player
-        
-        let height = 10.m - 0.1.m
-        
-        grid.append(Structure(float2(0, -height / 2), float2(0.25.m, height)))
-        grid.append(Structure(float2(Game.levelsize - 0.1.m, -height / 2), float2(0.25.m, height)))
-        
-        let count = Int(Game.levelsize / 10.m)
-        for i in 0 ..< count {
-            grid.append(Structure(float2(Float(i) * 10.m + 5.m, -height), float2(10.m, 0.25.m)))
+        if old {
+            start = float2(Camera.size.x / 2, -2.m)
+            map = Map(float2(Game.levelsize, 10.m))
+            levelmaker.create(map)
+            let height = 10.m - 0.1.m
+            
+            map.append(Structure(float2(0, -height / 2), float2(0.25.m, height)))
+            map.append(Structure(float2(Game.levelsize - 0.1.m, -height / 2), float2(0.25.m, height)))
+            
+            let count = Int(Game.levelsize / 10.m)
+            for i in 0 ..< count {
+                map.append(Structure(float2(Float(i) * 10.m + 5.m, -height), float2(10.m, 0.25.m)))
+            }
+            Camera.clip = true
+        }else{
+            map = room.map
+            start = float2(6.m, -30.m)
+            Camera.clip = true
         }
         
-        grid.append(player)
+        lighting = LightingSystem(map.grid)
+        physics = Simulation(map.grid)
+        dreathmap = DreathMap(map)
+        
+        let targetter = DreathTargetter(map)
+        player = Player(start, Weapon(map, "dreath", targetter, Weapon.Stats(100, 15, 0.15, 65, 50)))
+        targetter.player = player
+        
+        map.append(player)
+        
+        //Camera.transform.location = float2(1, -1) * 30.m / 2
         
         Camera.follow = player.transform
-        
-        
     }
     
     func victory() {
-        UserInterface.setScreen(EndScreen(ending: .Victory))
+        UserInterface.setScreen(EndScreen(ending: .victory))
     }
     
     func death() {
         if player.shield.points.amount <= 0 {
-            UserInterface.setScreen(EndScreen(ending: .Lose))
+            UserInterface.setScreen(EndScreen(ending: .lose))
         }
     }
     
-    func use(command: Command) {
+    func use(_ command: Command) {
         player.use(command)
     }
     
     func update() {
         death()
         dreathmap.update()
-        grid.update()
+        map.update()
         physics.simulate()
         Camera.update()
     }
     
     func display() {
         //lighting.render()
-        grid.render()
+        map.render()
     }
 }
 
 class LevelMaker {
     var maker: MasterMaker!
     
-    init(_ grid: Grid) {
+    init() {
         let assm = Assembler()
         let floormaker = FloorSuperMaker(Game.levelsize)
         floormaker.characters.append(SpawnerMaker())
         assm.makers.append(floormaker)
-        
-        maker = MasterMaker(assm, Game.levelsize) {
-            true
-        }
-        
+        maker = MasterMaker(assm, Game.levelsize) { true }
+    }
+    
+    func create(_ map: Map) {
         let count = Int(Game.levelsize / 10.m)
-        
         for _ in 0 ..< count {
-            maker.make().forEach(grid.append)
+            maker.make().forEach(map.append)
         }
     }
     

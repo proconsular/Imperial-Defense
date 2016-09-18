@@ -69,11 +69,11 @@ extension float2: Equatable {
         return int2 (Int32(self.x), Int32(self.y))
     }
     
-    static func polar (angle: Float) -> float2 {
+    static func polar (_ angle: Float) -> float2 {
         return float2(cosf(angle), sinf(angle))
     }
     
-    func isGreaterThan (vector: float2) -> Bool {
+    func isGreaterThan (_ vector: float2) -> Bool {
         return length_squared(self) > length_squared(vector)
     }
     
@@ -86,17 +86,17 @@ extension float2: Equatable {
     }
 }
 
-extension CollectionType where Generator.Element == float2, Index == Int {
+extension Collection where Iterator.Element == float2, Index == Int, IndexDistance == Int {
     var center: float2 {
         var sum = float2()
         for vec in self {
             sum += vec
         }
-        return sum / Float(count)
+        return sum / Float(self.count)
     }
 }
 
-extension MutableCollectionType where Generator.Element == float2, Index == Int {
+extension MutableCollection where Iterator.Element == float2, Index == Int, IndexDistance == Int {
     var centered: Self {
         var array = self
         let cen = center
@@ -115,7 +115,7 @@ public func == (alpha: float2, beta: float2) -> Bool {
 extension Float {
     
     static func random () -> Float {
-        return Float ((rand() % 1000) / 1000)
+        return Float ((arc4random() % 1000) / 1000)
     }
     
     static var zero: Float {
@@ -132,13 +132,13 @@ extension Int: Measureable {
         return Float(self) * Float(M_PI / 180)
     }
     
-    func loop (@noescape block: (Int) -> ()) {
+    func loop (_ block: (Int) -> ()) {
         for index in 0 ..< self {
             block(index)
         }
     }
     
-    func cycle (@noescape block: () -> ()) {
+    func cycle (_ block: () -> ()) {
         for _ in 0 ..< self {
             block()
         }
@@ -183,8 +183,8 @@ extension Array {
 extension Array {
     
     func asData() -> UnsafeMutablePointer<Element> {
-        let pointer = UnsafeMutablePointer<Element>.alloc(self.count)
-        pointer.initializeFrom(self)
+        let pointer = UnsafeMutablePointer<Element>.allocate(capacity: self.count)
+        pointer.initialize(from: self)
         return pointer
     }
     
@@ -203,17 +203,17 @@ extension Array {
         return asArray().asData()
     }
     
-    func rotate (amount: Int) -> Array {
+    func rotate (_ amount: Int) -> Array {
         var array = Array(self)
         let count = abs(amount)
         let direction = amount / count
         for _ in 0..<count {
-            array.insert(direction == 1 ? array.removeLast() : array.removeFirst(), atIndex: direction == 1 ? 0 : array.count)
+            array.insert(direction == 1 ? array.removeLast() : array.removeFirst(), at: direction == 1 ? 0 : array.count)
         }
         return array
     }
     
-    func match(start: Int = 0, @noescape _ process: (Element, Element) -> ()) {
+    func match(_ start: Int = 0, _ process: (Element, Element) -> ()) {
         for i in start ..< count {
             let prime = self[i]
             for j in i + 1 ..< count {
@@ -223,7 +223,7 @@ extension Array {
         }
     }
     
-    func matchIndices(start: Int = 0, @noescape _ process: (Int, Int) -> ()) {
+    func matchIndices(_ start: Int = 0, _ process: (Int, Int) -> ()) {
         for i in start ..< count {
             for j in i + 1 ..< count {
                 process(i, j)
@@ -231,17 +231,17 @@ extension Array {
         }
     }
     
-    func next(index: Int) -> Element {
+    func next(_ index: Int) -> Element {
         return self[index % count]
     }
     
 }
 
 func randomFloat () -> Float {
-    return Float(random() % 10000) / 10000
+    return Float(arc4random() % 10000) / 10000
 }
 
-func random(min: Float, _ max: Float) -> Float {
+func random(_ min: Float, _ max: Float) -> Float {
     return randomFloat() * (max - min) + min
 }
 
@@ -253,7 +253,7 @@ func >> <T> (array: Array<T>, amount: Int) -> Array<T> {
     return array.rotate(amount)
 }
 
-func normalize_safe (value: float2) -> float2? {
+func normalize_safe (_ value: float2) -> float2? {
     return length_squared(value) == 0 ? nil : normalize(value)
 }
 
@@ -268,11 +268,11 @@ extension Float {
     }
     
     var isPositive: Bool {
-        return !isSignMinus
+        return self > 0
     }
     
     var isNegative: Bool {
-        return !isPositive
+        return self < 0
     }
     
 }
@@ -283,17 +283,17 @@ infix operator ++% {
     assignment
 }
 
-func ++% (inout value: Int, length: Int) -> Int {
+func ++% (value: inout Int, length: Int) -> Int {
     value = (value + 1) % length
     return value
 }
 
-func ++% (inout value: Float, length: Float) -> Float {
-    value = (value + 1) % length
+func ++% (value: inout Float, length: Float) -> Float {
+    value = (value + 1).truncatingRemainder(dividingBy: length)
     return value
 }
 
-func findBest <V: Comparable> (range: Range<Int>, _ initialValue: V, _ operation: (V, V) -> Bool, @noescape _ process: (Int) -> V) -> IndexedValue<V>? {
+func findBest <V: Comparable, T: Sequence> (_ range: T, _ initialValue: V, _ operation: (V, V) -> Bool, _ process: (Int) -> V) -> IndexedValue<V>? where T.Iterator.Element == Int {
     var best = IndexedValue<V>(0, initialValue)
     for index in range {
         let result = process(index)
@@ -305,21 +305,21 @@ func findBest <V: Comparable> (range: Range<Int>, _ initialValue: V, _ operation
     return best
 }
 
-func findBestValue <V: Comparable> (range: Range<Int>, _ initialValue: V, _ operation: (V, V) -> Bool, @noescape _ process: (Int) -> V) -> V? {
+func findBestValue <V: Comparable, T: Sequence> (_ range: T, _ initialValue: V, _ operation: (V, V) -> Bool, _ process: (Int) -> V) -> V? where T.Iterator.Element == Int {
     guard let value = findBest(range, initialValue, operation, process) else { return nil }
     return value.value
 }
 
-func findBestIndex <V: Comparable> (range: Range<Int>, _ initialValue: V, _ operation: (V, V) -> Bool, @noescape _ process: (Int) -> V) -> Int? {
+func findBestIndex <V: Comparable, T: Sequence> (_ range: T, _ initialValue: V, _ operation: (V, V) -> Bool, _ process: (Int) -> V) -> Int? where T.Iterator.Element == Int {
     guard let value = findBest(range, initialValue, operation, process) else { return nil }
     return value.index
 }
 
-func nextIndex (index: Int, _ count: Int) -> Int {
+func nextIndex (_ index: Int, _ count: Int) -> Int {
     return index + 1 >= count ? 0 : index + 1
 }
 
-func alpha (primary: Float, _ secondary: Float) -> Float {
+func alpha (_ primary: Float, _ secondary: Float) -> Float {
     return primary / (primary - secondary)
 }
 
@@ -327,7 +327,7 @@ func / (vector: float2, scalar: Float) -> float2 {
     return float2 (vector.x / scalar, vector.y / scalar)
 }
 
-func clamp <T: Comparable> (x: T, min: T, max: T) -> T {
+func clamp <T: Comparable> (_ x: T, min: T, max: T) -> T {
     if x < min {
         return min
     }else if x > max {
@@ -336,19 +336,19 @@ func clamp <T: Comparable> (x: T, min: T, max: T) -> T {
     return x
 }
 
-func sqr (num: Float) -> Float {
+func sqr (_ num: Float) -> Float {
     return num * num
 }
 
-func length (x: Float, _ y: Float) -> Float {
+func length (_ x: Float, _ y: Float) -> Float {
     return sqrt(sqr(x) + sqr(y))
 }
 
-func length (m: Float) -> Float {
+func length (_ m: Float) -> Float {
     return length(m, m)
 }
 
-func BiasGreaterThan(a: Float, _ b: Float) -> Bool {
+func BiasGreaterThan(_ a: Float, _ b: Float) -> Bool {
     let k_biasRelative = Float(0.95);
     let k_biasAbsolute = Float(0.01);
     
@@ -356,14 +356,14 @@ func BiasGreaterThan(a: Float, _ b: Float) -> Bool {
     return a >= b * k_biasRelative + a * k_biasAbsolute;
 }
 
-func crossf2f(a: float2, _ b: Float) -> float2 {
+func crossf2f(_ a: float2, _ b: Float) -> float2 {
     return float2 (b * a.y, -b * a.x)
 }
 
-func crossff2(a: Float, _ b: float2) -> float2 {
+func crossff2(_ a: Float, _ b: float2) -> float2 {
     return float2 (-a * b.y, a * b.x)
 }
 
-func equal (p: Float, _ s: Float) -> Bool {
+func equal (_ p: Float, _ s: Float) -> Bool {
     return abs(p - s) <= FLT_EPSILON
 }

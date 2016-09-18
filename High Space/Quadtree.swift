@@ -24,7 +24,7 @@ class Quadtree {
         elements = []
     }
     
-    func append(actor: Actor) {
+    func append(_ actor: Actor) {
         if elements.count < threshold && sectors.isEmpty {
             elements.append(actor)
         }else{
@@ -41,7 +41,7 @@ class Quadtree {
         }
     }
     
-    private func insert(actor: Actor) {
+    fileprivate func insert(_ actor: Actor) {
         for sector in sectors {
             if FixedRect.intersects(sector.mask, actor.body.shape.getBounds()) {
                 sector.append(actor)
@@ -49,14 +49,14 @@ class Quadtree {
         }
     }
     
-    private func divide() {
+    fileprivate func divide() {
         appendSector(1, 1)
         appendSector(-1, 1)
         appendSector(-1, -1)
         appendSector(1, -1)
     }
     
-    private func appendSector(x: Float, _ y: Float) {
+    fileprivate func appendSector(_ x: Float, _ y: Float) {
         sectors.append(Quadtree(FixedRect(mask.location + float2(x * mask.bounds.x, y * mask.bounds.y) / 4, mask.bounds / 2), depth + 1))
     }
 }

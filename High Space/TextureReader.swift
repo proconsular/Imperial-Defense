@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 FishyTale Digital, Inc. All rights reserved.
 //
 
-func coordinatesFromIndex (index: Float, _ width: Float) -> float2 {
-    return float2 (index % width, Float(Int(index / width)))
+func coordinatesFromIndex (_ index: Float, _ width: Float) -> float2 {
+    return float2 (index.truncatingRemainder(dividingBy: width), Float(Int(index / width)))
 }
 
 extension int2 {
@@ -32,7 +32,7 @@ func * (alpha: float2, beta: float2) -> float2 {
     return float2(alpha.x * beta.x, alpha.y * beta.y)
 }
 
-func generateTextureCoordinates (offset: float2, _ frame: float2) -> [float2] {
+func generateTextureCoordinates (_ offset: float2, _ frame: float2) -> [float2] {
     var textureCoordinates = [float2] ()
     for i in 0 ..< 4 {
         textureCoordinates.append((float2.polar(int2(i, 4).anglize - 45.toRadians) / 1.5 + 0.5) * frame + offset)
@@ -86,7 +86,7 @@ class TextureReader {
         subframe.advance()
     }
     
-    func setOrientation (newOrientation: float2) {
+    func setOrientation (_ newOrientation: float2) {
         subframe.orientation = newOrientation
     }
     

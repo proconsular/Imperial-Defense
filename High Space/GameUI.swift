@@ -14,7 +14,7 @@ extension DynamicText {
         return float2(Float(self.attrString.size().width), Float(self.attrString.size().height))
     }
     
-    static func defaultStyle(string: String, _ color: float4, _ size: Float) -> DynamicText {
+    static func defaultStyle(_ string: String, _ color: float4, _ size: Float) -> DynamicText {
         let string = NSAttributedString(string: string, attributes: [NSFontAttributeName: UIFont(name: "FredokaOne-Regular", size: CGFloat(size))!, NSForegroundColorAttributeName: UIColor(red: CGFloat(color.x), green: CGFloat(color.y), blue: CGFloat(color.z), alpha: CGFloat(color.w))])
         return DynamicText(attributedString: string)
     }
@@ -41,8 +41,8 @@ class PrincipalScreen: Screen {
         UserInterface.controller.stack.pop()
     }
     
-    override func use(command: Command) {
-        layers.reverse().forEach{ $0.use(command) }
+    override func use(_ command: Command) {
+        layers.reversed().forEach{ $0.use(command) }
     }
     
     override func display() {
@@ -59,7 +59,7 @@ class PrincipalScreen: Screen {
 class EndScreen: Screen {
     
     enum Ending {
-        case Victory, Lose
+        case victory, lose
     }
     
     init(ending: Ending) {
@@ -69,7 +69,7 @@ class EndScreen: Screen {
         
         var text = ""
         
-        if case .Victory = ending {
+        if case .victory = ending {
             text = "Victory!"
         }else{
             text = "You died."
@@ -93,7 +93,7 @@ class PauseLayer: InterfaceLayer {
         objects.append(Button("Resume", base))
         objects.append(Button("Restart", base + float2(0, 200)))
         objects.append(Button("Menu", base + float2(0, 400)) {
-            UserInterface.switchScreen(.Menu)
+            UserInterface.switchScreen(.menu)
         })
     }
     

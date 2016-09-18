@@ -15,11 +15,11 @@ struct FixedRect {
         self.halfbounds = bounds / 2
     }
     
-    func contains (point: float2) -> Bool {
+    func contains (_ point: float2) -> Bool {
         return FixedRect.intersects(self, FixedRect(point, float2(1)))
     }
     
-    static func intersects (prime: FixedRect, _ secunde: FixedRect) -> Bool {
+    static func intersects (_ prime: FixedRect, _ secunde: FixedRect) -> Bool {
         if abs(prime.location.x - secunde.location.x) > prime.halfbounds.x + secunde.halfbounds.x { return false }
         if abs(prime.location.y - secunde.location.y) > prime.halfbounds.y + secunde.halfbounds.y { return false }
         return true
@@ -31,7 +31,7 @@ struct FixedRect {
 }
 
 class Sorter {
-    static func sortVertices (vertices: [float2]) -> [float2] {
+    static func sortVertices (_ vertices: [float2]) -> [float2] {
         var sortedVertices: [float2] = []
         
         let rightIndex = findRightMostVertex(vertices)
@@ -47,10 +47,10 @@ class Sorter {
             index += 1
         }
         
-        return sortedVertices.reverse()
+        return sortedVertices.reversed()
     }
     
-    static func findNextHullIndex(vertices: [float2], _ hullVertex: float2, _ hullIndex: Int) -> Int {
+    static func findNextHullIndex(_ vertices: [float2], _ hullVertex: float2, _ hullIndex: Int) -> Int {
         var nextIndex = 0
         for index in 1 ..< vertices.count {
             guard nextIndex != hullIndex else { nextIndex = index; continue }
@@ -61,12 +61,12 @@ class Sorter {
         return nextIndex
     }
     
-    static func isNextHullIndex(primary: float2, _ secondary: float2) -> Bool {
+    static func isNextHullIndex(_ primary: float2, _ secondary: float2) -> Bool {
         let crossProduct = cross(secondary, primary).z
         return crossProduct < 0 || (crossProduct == 0 && primary.isGreaterThan(secondary))
     }
     
-    static func findRightMostVertex(vertices: [float2]) -> Int {
+    static func findRightMostVertex(_ vertices: [float2]) -> Int {
         return findBestIndex(1 ..< vertices.count, -FLT_MAX, >) { vertices[$0].x }!
     }
 }

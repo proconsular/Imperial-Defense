@@ -15,7 +15,7 @@ let funmode = false
 class core: NSObject {
     
     override init() {
-        srandom(UInt32(NSDate.timeIntervalSinceReferenceDate()))
+        srandom(UInt32(Date.timeIntervalSinceReferenceDate))
         UserInterface.create()
         
         UserInterface.setScreen(PrincipalScreen())
@@ -39,7 +39,7 @@ class core: NSObject {
 class Time: NSObject {
     static var time: Float = 0
     
-    static func set(time: Float) {
+    static func set(_ time: Float) {
         self.time = time
     }
 }

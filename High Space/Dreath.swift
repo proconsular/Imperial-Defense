@@ -20,7 +20,7 @@ class Dreath {
         amount = 0
     }
     
-    func damage(amount: Float) {
+    func damage(_ amount: Float) {
         self.amount += -amount
         if value < 0 {
             self.amount = -base
@@ -38,7 +38,7 @@ class Dreath {
 
 class DreathMap {
     var dreath: Dreath
-    var grid: Grid
+    var grid: Map
    
     let threshold: Float = 2
     let clusterToSpawner: Float = 400
@@ -46,7 +46,7 @@ class DreathMap {
     
     var dreathcreators: [DreathCreator]
     
-    init(_ game: Grid) {
+    init(_ game: Map) {
         dreath = Dreath(0, 0)
         self.grid = game
         dreaths = []
@@ -58,7 +58,7 @@ class DreathMap {
         //dreathcreators.append(KnightCreator(self))
     }
     
-    func computeDreath(location: float2) -> Float {
+    func computeDreath(_ location: float2) -> Float {
         var amount = dreath.amount
         let dreaths = grid.actors.filter{ $0 is DreathActor }.map{ $0 as! DreathActor }
         dreaths.forEach { actor in
@@ -79,11 +79,11 @@ class DreathMap {
         dreaths.removeAll()
     }
     
-    private func append(dreath: DreathActor) {
+    fileprivate func append(_ dreath: DreathActor) {
         grid.append(dreath)
     }
     
-    func available(location: float2) -> Bool {
+    func available(_ location: float2) -> Bool {
         for actor in grid.actors {
             if actor.body.shape.getBounds().contains(location) {
                 return false
@@ -154,7 +154,7 @@ class SpawnerCreator: DreathCreator {
         let dre = dreathmap.dreaths
         let list = dre.filter{ $0 is DreathFloater }.map{ $0 as! DreathFloater }
         for floater in list {
-            if let cluster = floater.cluster where cluster.alive {
+            if let cluster = floater.cluster , cluster.alive {
                 if cluster.amount >= 5000 {
                     let center = cluster.center
                     cluster.destroy()
@@ -212,7 +212,7 @@ class DreathFloaterCluster: DreathActor {
         dreath = Dreath(1, 0)
     }
     
-    func append(floater: DreathFloater) {
+    func append(_ floater: DreathFloater) {
         floater.cluster = self
         floaters.append(floater)
     }
@@ -248,7 +248,7 @@ class DreathFloaterCluster: DreathActor {
         }
     }
     
-    func move(force: float2) {
+    func move(_ force: float2) {
         floaters.forEach{ $0.body.velocity += force }
     }
     
@@ -274,7 +274,7 @@ class DreathActor: Character {
         }
     }
     
-    private func grow(growth: Float) {
+    fileprivate func grow(_ growth: Float) {
         display.color = computeColor(growth)
         
         let rect = body.shape as! Circle
@@ -283,15 +283,15 @@ class DreathActor: Character {
         display.visual.refresh()
     }
     
-    private func computeGrowth(scale: Float) -> Float {
+    fileprivate func computeGrowth(_ scale: Float) -> Float {
         return clamp(dreath.value / scale, min: 0, max: 1)
     }
     
-    func computeColor(value: Float) -> float4 {
+    func computeColor(_ value: Float) -> float4 {
         return float4(value, value, value, 1)
     }
     
-    func computeRadius(value: Float) -> Float {
+    func computeRadius(_ value: Float) -> Float {
         return 1.m * value
     }
 }
@@ -300,15 +300,15 @@ class DreathFloater: DreathActor {
     weak var cluster: DreathFloaterCluster?
     var unique: float4
     
-    init(_ location: float2, _ amount: Float, _ game: Grid) {
+    init(_ location: float2, _ amount: Float, _ game: Map) {
         unique = float4(random(0, 0.4), random(0, 0.4), random(0, 0.4), 1)
-        super.init(Circle(Transform(location), 0.1.m), Substance(Material(.Rock), Mass(0.5, 0), Friction(.Ice)), FloaterDirector(game))
+        super.init(Circle(Transform(location), 0.1.m), Substance(Material(.rock), Mass(0.5, 0), Friction(.ice)), FloaterDirector(game))
         display.scheme.info.texture = GLTexture("Floater").id
         dreath = Dreath(amount, 10)
         setupBody()
     }
     
-    private func setupBody() {
+    fileprivate func setupBody() {
         body.relativeGravity = 0
         body.callback = { (body, _) in
             if let player = body.object as? Player {
@@ -323,22 +323,22 @@ class DreathFloater: DreathActor {
         grow(computeGrowth(100))
     }
     
-    override func computeColor(value: Float) -> float4 {
+    override func computeColor(_ value: Float) -> float4 {
         return float4(value / 2, value / 2, value / 2, 1) * unique
     }
     
-    override func computeRadius(value: Float) -> Float {
+    override func computeRadius(_ value: Float) -> Float {
         return 0.03.m * value
     }
 }
 
 class FloaterDirector: Director {
-    let grid: Grid
+    let grid: Map
     var attackTimer: Float = 0
     var attackingTimer: Float = 0
     var mode = 0
     
-    init(_ game: Grid) {
+    init(_ game: Map) {
         self.grid = game
         super.init()
     }
@@ -355,9 +355,9 @@ class FloaterDirector: Director {
         actor.body.velocity *= 0.95
     }
     
-    private func attackPlayer() {
+    fileprivate func attackPlayer() {
         let player = Player.player
-        let dl = player.transform.location - actor.transform.location
+        let dl = (player?.transform.location)! - actor.transform.location
         if dl.length <= 5.m && mode != 1 {
             attackTimer += Time.time
             if attackTimer >= 1 {
@@ -369,9 +369,9 @@ class FloaterDirector: Director {
         }
     }
     
-    private func attackmode() {
+    fileprivate func attackmode() {
         let player = Player.player
-        let dl = player.transform.location - actor.transform.location
+        let dl = (player?.transform.location)! - actor.transform.location
         
         attackingTimer += Time.time
         if attackingTimer <= 8 {
@@ -387,13 +387,13 @@ class FloaterDirector: Director {
         }
     }
     
-    private func attack(dl: float2, _ speed: Float = 1) {
+    fileprivate func attack(_ dl: float2, _ speed: Float = 1) {
         let direction = normalize(dl)
         let power = 6.m * speed * Time.time
         actor.body.velocity += power * direction
     }
     
-    private func clusterForce() {
+    fileprivate func clusterForce() {
         if let floater = actor as? DreathFloater {
             if floater.cluster == nil {
                 let floaters = grid.actors.filter{ $0 is DreathFloater }.map{ $0 as! DreathFloater }
@@ -408,7 +408,7 @@ class FloaterDirector: Director {
         }
     }
     
-    private func cluster() {
+    fileprivate func cluster() {
         guard let floater = actor as? DreathFloater else { return }
         guard let clust = floater.cluster else { return }
         let dl = clust.center - floater.transform.location
@@ -419,7 +419,7 @@ class FloaterDirector: Director {
         }
     }
     
-    private func movetoCluster(cluster: DreathFloaterCluster) -> float2 {
+    fileprivate func movetoCluster(_ cluster: DreathFloaterCluster) -> float2 {
         let dl = cluster.center - actor.transform.location
         guard dl.length <= 4.m else { return float2() }
         let mag = 10.m * Time.time
@@ -437,7 +437,7 @@ class DreathSpawner: DreathActor {
     
     init(_ location: float2) {
         super.init(Circle(Transform(location), 0.5.m), Substance.StandardRotating(10, 0.000001), nil)
-        body.substance.friction = Friction(.Iron)
+        body.substance.friction = Friction(.iron)
         //display.color = float4(1, 0, 0.2, 1)
         display.scheme.info.texture = GLTexture("Spawner").id
         dreath = Dreath(1000, 100)
@@ -453,12 +453,12 @@ class DreathSpawner: DreathActor {
         body.substance.mass.mass = 8 + growth * 10
     }
     
-    override func computeColor(value: Float) -> float4 {
+    override func computeColor(_ value: Float) -> float4 {
         let inverse = 1 - value
         return float4(value + 0.5, inverse * 0.9, inverse * 0.5, 1)
     }
     
-    override func computeRadius(value: Float) -> Float {
+    override func computeRadius(_ value: Float) -> Float {
         return 0.75.m * value
     }
     
@@ -481,11 +481,11 @@ class DreathColony: DreathActor {
         grow(computeGrowth(10000))
     }
     
-    override func computeColor(value: Float) -> float4 {
+    override func computeColor(_ value: Float) -> float4 {
         return float4(value * 2, 0.3, value / 2, 1)
     }
     
-    override func computeRadius(value: Float) -> Float {
+    override func computeRadius(_ value: Float) -> Float {
         return 1.5.m * value
     }
     
@@ -494,7 +494,7 @@ class DreathColony: DreathActor {
 class DreathKnight: DreathActor {
     let weapon: Weapon
     
-    init(_ location: float2, _ grid: Grid) {
+    init(_ location: float2, _ grid: Map) {
         weapon = Weapon(grid, "player", PlayerTargetter(), Weapon.Stats(0, 0, 0, 0, 0))
         super.init(Rect(location, float2(0.5.m, 1.m)), Substance.getStandard(3), nil)
         display.color = float4(0.7, 0.7, 0.7, 1)

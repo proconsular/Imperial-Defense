@@ -23,7 +23,7 @@ class TextElement: InterfaceElement {
         self.location = location
     }
     
-    func setText(text: DynamicText) {
+    func setText(_ text: DynamicText) {
         self.text = text
         self.text.location = location
     }

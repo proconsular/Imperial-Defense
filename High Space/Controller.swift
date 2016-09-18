@@ -16,11 +16,11 @@ struct Command {
 }
 
 protocol Controller {
-    func apply (location: float2) -> Command?
+    func apply (_ location: float2) -> Command?
 }
 
 protocol Interface: class {
-    func use (command: Command)
+    func use (_ command: Command)
 }
 
 class LimitedController: Controller {
@@ -32,7 +32,7 @@ class LimitedController: Controller {
         self.rect = rect
     }
     
-    func apply(location: float2) -> Command? {
+    func apply(_ location: float2) -> Command? {
         guard rect.contains(location) else { return nil }
         return controller.apply(location)
     }
@@ -45,7 +45,7 @@ class Stack<T> {
         contents = []
     }
     
-    func push(item: T) {
+    func push(_ item: T) {
         contents.append(item)
     }
     
@@ -92,7 +92,7 @@ class ControllerLayer: Controller {
         subcontrollers = []
     }
     
-    func apply (location: float2) -> Command? {
+    func apply (_ location: float2) -> Command? {
         for controller in subcontrollers {
             if let command = controller.apply(location) {
                 return command
@@ -127,7 +127,7 @@ class HorizontialMovementController: Controller {
     var previous = Float.zero, velocity = Float.zero
     var values: (min: Float, max: Float) = (0, 0)
     
-    func apply (location: float2) -> Command? {
+    func apply (_ location: float2) -> Command? {
         velocity = location.x - previous
         
         check(&values.min, location, <, min)
@@ -143,7 +143,7 @@ class HorizontialMovementController: Controller {
         return command
     }
     
-    private func check (inout value: Float, _ location: float2, _ operation: (Float, Float) -> Bool, _ function: (Float, Float) -> Float) {
+    fileprivate func check (_ value: inout Float, _ location: float2, _ operation: (Float, Float) -> Bool, _ function: (Float, Float) -> Float) {
         value = function (velocity, value)
         if operation (value, 0) {
             if abs (value - velocity) >= range {
@@ -152,7 +152,7 @@ class HorizontialMovementController: Controller {
         }
     }
     
-    private func reset (location: float2) {
+    fileprivate func reset (_ location: float2) {
         velocity = 0
         values = (0, 0)
         previous = location.x
@@ -166,7 +166,7 @@ class PointController: Controller {
         self.id = id
     }
     
-    func apply (location: float2) -> Command? {
+    func apply (_ location: float2) -> Command? {
         var command = Command(id)
         command.vector = location
         return command

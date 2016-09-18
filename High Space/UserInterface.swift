@@ -13,10 +13,10 @@ protocol DisplayLayer: Interface {
     func display()
 }
 
-public class UserInterface {
+open class UserInterface {
     
     enum ScreenName {
-        case Menu, Title
+        case menu, title
     }
     
     static var screen: Screen!
@@ -28,11 +28,11 @@ public class UserInterface {
         controller.stack.push(PointController(0))
     }
     
-    static func setScreen(screen: Screen) {
+    static func setScreen(_ screen: Screen) {
         self.screen = screen
     }
     
-    static func switchScreen(name: ScreenName) {
+    static func switchScreen(_ name: ScreenName) {
         self.screen = screens[name]
     }
     
@@ -47,7 +47,7 @@ public class UserInterface {
     
 }
 
-public class Screen: Interface {
+open class Screen: Interface {
     
     var layers: [DisplayLayer] = []
     
@@ -59,25 +59,25 @@ public class Screen: Interface {
         layers.forEach{$0.display()}
     }
     
-    func use(command: Command) {
+    func use(_ command: Command) {
         Trigger.process(command) { [unowned self] (command) in
-            self.layers.reverse().forEach{$0.use(command)}
+            self.layers.reversed().forEach{$0.use(command)}
         }
     }
     
 }
 
-public class InterfaceLayer: DisplayLayer {
+open class InterfaceLayer: DisplayLayer {
     
     var location = float2()
     var objects: [InterfaceElement] = []
     var active = true
     
-    func setLocation(newLocation: float2) {
+    func setLocation(_ newLocation: float2) {
         move(newLocation - location)
     }
     
-    func move (amount: float2) {
+    func move (_ amount: float2) {
         for obj in objects {
             obj.move(amount)
         }
@@ -93,22 +93,22 @@ public class InterfaceLayer: DisplayLayer {
         objects.forEach{$0.display()}
     }
     
-    func use(command: Command) {
+    func use(_ command: Command) {
         guard active else { return }
         objects.map{$0 as? Interface}.forEach{$0?.use(command)}
     }
     
 }
 
-public class InterfaceElement {
+open class InterfaceElement {
     
     var location = float2()
     
-    func setLocation (newLocation: float2) {
+    func setLocation (_ newLocation: float2) {
         move(newLocation - location)
     }
     
-    func move (amount: float2) {
+    func move (_ amount: float2) {
         location += amount
     }
     

@@ -8,13 +8,13 @@
 
 import Foundation
 
-func play(name: String, _ pitch: Float = 1) {
+func play(_ name: String, _ pitch: Float = 1) {
     let audio = Audio(name)
     audio.pitch = pitch
     audio.start()
 }
 
-func playIfNot(name: String, _ pitch: Float = 1) {
+func playIfNot(_ name: String, _ pitch: Float = 1) {
     let audio = Audio(name)
     if !audio.playing {
         audio.pitch = pitch
@@ -22,7 +22,7 @@ func playIfNot(name: String, _ pitch: Float = 1) {
     }
 }
 
-func count (inout increment: Float, _ amount: Float, _ rate: Float, @autoclosure _ execution: () -> ()) {
+func count (_ increment: inout Float, _ amount: Float, _ rate: Float, _ execution: @autoclosure () -> ()) {
     increment += amount
     if increment >= rate {
         increment = 0
@@ -35,32 +35,32 @@ struct Timer {
     var increment: Float
     var event: () -> ()
     
-    init (_ rate: Float, _ event: () -> ()) {
+    init (_ rate: Float, _ event: @escaping () -> ()) {
         self.rate = rate
         self.event = event
         increment = 0
     }
     
-    mutating func update (amount: Float) {
+    mutating func update (_ amount: Float) {
         count(&increment, amount, rate, event())
     }
 }
 
 class Processor {
     
-    private let limit: Double
+    fileprivate let limit: Double
     
-    private var startTime, deltaTime: Double
-    private var remainder: Double
+    fileprivate var startTime, deltaTime: Double
+    fileprivate var remainder: Double
     
     init (_ limit: Double) {
         self.limit = limit
         deltaTime = 0
         remainder = 0
-        startTime = NSDate.timeIntervalSinceReferenceDate()
+        startTime = Date.timeIntervalSinceReferenceDate
     }
     
-    func process (frameTime: Double, @autoclosure _ step: () -> ()) {
+    func process (_ frameTime: Double, _ step: @autoclosure () -> ()) {
         deltaTime = clamp(deltaTime + computePastTime(), min: 0, max: limit)
         
         let frames = Int(computeFrames(frameTime))
@@ -70,7 +70,7 @@ class Processor {
         remainder = computeFrames(frameTime)
     }
     
-    func computeFrames(frameTime: Double) -> Double {
+    func computeFrames(_ frameTime: Double) -> Double {
         return deltaTime / frameTime
     }
     
@@ -79,7 +79,7 @@ class Processor {
     }
     
     func computePastTime () -> Double {
-        let currentTime = NSDate.timeIntervalSinceReferenceDate()
+        let currentTime = Date.timeIntervalSinceReferenceDate
         let time = currentTime - startTime
         startTime = currentTime
         return time
@@ -88,10 +88,10 @@ class Processor {
 }
 
 class Queue<Element> {
-    private var array: [Element] = []
+    fileprivate var array: [Element] = []
     var isEmpty: Bool { return array.isEmpty }
     
-    func push (element: Element) {
+    func push (_ element: Element) {
         array.append(element)
     }
     

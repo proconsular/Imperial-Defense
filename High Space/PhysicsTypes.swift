@@ -42,25 +42,25 @@ class Body {
         get { return shape.transform.orientation }
     }
     
-    init (_ shape: Hull, _ substance: Substance, callback: Callback = { _ in }) {
+    init (_ shape: Hull, _ substance: Substance, callback: @escaping Callback = { _ in }) {
         self.shape = shape
         self.substance = substance
         self.callback = callback
     }
     
-    func applyImpulse (impulse: float2, _ contact: float2) {
+    func applyImpulse (_ impulse: float2, _ contact: float2) {
         velocity += substance.mass.inv_mass * impulse
         angular_velocity += substance.mass.inv_inertia * cross(contact - location, impulse).z
     }
     
-    func applyVelocity(dt: Float) {
+    func applyVelocity(_ dt: Float) {
         if substance.mass.inv_mass == 0 { return }
         location += velocity * dt
         orientation += angular_velocity * dt
         applyForces(dt)
     }
     
-    func applyForces(dt: Float) {
+    func applyForces(_ dt: Float) {
         if substance.mass.inv_mass == 0 { return }
         velocity += (force * substance.mass.inv_mass + gravity * relativeGravity) * (dt / 2)
         angular_velocity += torque * substance.mass.inv_inertia * (dt / 2)
@@ -71,23 +71,23 @@ class Body {
         torque = 0
     }
     
-    func addForce(force: float2) {
+    func addForce(_ force: float2) {
         self.force += force
     }
     
-    func addVelocity(velocity: float2) {
+    func addVelocity(_ velocity: float2) {
         self.velocity += velocity
     }
     
-    func getRelativeVelocity(contact: float2) -> float2 {
+    func getRelativeVelocity(_ contact: float2) -> float2 {
          return velocity + crossff2(angular_velocity, contact - location)
     }
     
-    func getInverseMass(contact: float2, _ normal: float2) -> Float {
+    func getInverseMass(_ contact: float2, _ normal: float2) -> Float {
         return substance.mass.inv_mass + sqr(cross(contact - location, normal).z) * substance.mass.inv_inertia
     }
     
-    func correct(correction: float2) {
+    func correct(_ correction: float2) {
         location += substance.mass.inv_mass * correction
     }
     
@@ -106,36 +106,36 @@ struct Substance {
     }
     
     static var Solid: Substance {
-        return Substance(Material(.Static), Mass.Immovable, Friction(.Ice))
+        return Substance(Material(.static), Mass.Immovable, Friction(.ice))
     }
     
-    static func getStandard(mass: Float) -> Substance {
-        return Substance(Material(.Static), Mass.fixed(mass), Friction(.Ice))
+    static func getStandard(_ mass: Float) -> Substance {
+        return Substance(Material(.static), Mass.fixed(mass), Friction(.ice))
     }
     
-    static func StandardRotating(mass: Float, _ inverse_interia: Float) -> Substance {
-        return Substance(Material(.Static), Mass(mass, 1 / inverse_interia), Friction(.Ice))
+    static func StandardRotating(_ mass: Float, _ inverse_interia: Float) -> Substance {
+        return Substance(Material(.static), Mass(mass, 1 / inverse_interia), Friction(.ice))
     }
     
 }
 
 struct Friction {
     
-    enum Type {
-        case Rubber, Iron, Ice
+    enum `Type` {
+        case rubber, iron, ice
     }
     
     var still, inmotion: Float
     
     init (_ type: Type) {
         switch type {
-        case .Rubber:
+        case .rubber:
             still = 1.1
             inmotion = 0.9
-        case .Iron:
+        case .iron:
             still = 0.5
             inmotion = 0.4
-        case .Ice:
+        case .ice:
             still = 0.2
             inmotion = 0.1
         }
@@ -163,19 +163,19 @@ struct Mass {
         return self.init(0, 0)
     }
     
-    static func fixed (mass: Float) -> Mass {
+    static func fixed (_ mass: Float) -> Mass {
         return self.init(mass, 1E+20)
     }
     
-    static func pivot (inertia: Float) -> Mass {
+    static func pivot (_ inertia: Float) -> Mass {
         return self.init(0, inertia)
     }
 }
 
 struct Material {
     
-    enum Type {
-        case Rock, Wood, Static, BouncyBall, SuperBall
+    enum `Type` {
+        case rock, wood, `static`, bouncyBall, superBall
     }
     
     var density, restitution: Float
@@ -183,22 +183,22 @@ struct Material {
     init (_ type: Type){
         var ntype = type
         if funmode {
-            ntype = .SuperBall
+            ntype = .superBall
         }
         switch ntype {
-        case .Rock:
+        case .rock:
             density = 0.6
             restitution = 0.1
-        case .Wood:
+        case .wood:
             density = 0.3
             restitution = 0.2
-        case .Static:
+        case .static:
             density = 0
             restitution = 0.2
-        case .BouncyBall:
+        case .bouncyBall:
             density = 0.3
             restitution = 0.8
-        case .SuperBall:
+        case .superBall:
             density = 0.3
             restitution = 0.95
         }
@@ -276,38 +276,38 @@ class BodyPair: Pair<Body>, Equatable {
         super.init(primary, secondary)
     }
     
-    private func getRelativeVelocity (contact: float2) -> float2 {
+    fileprivate func getRelativeVelocity (_ contact: float2) -> float2 {
         return -primary.getRelativeVelocity(contact) + secondary.getRelativeVelocity(contact)
     }
     
-    private func getInverseMass (contact: float2, _ normal: float2) -> Float {
+    fileprivate func getInverseMass (_ contact: float2, _ normal: float2) -> Float {
         return primary.getInverseMass(contact, normal) + secondary.getInverseMass(contact, normal)
     }
     
-    private func getInverseMass () -> Float {
+    fileprivate func getInverseMass () -> Float {
         return primary.substance.mass.inv_mass + secondary.substance.mass.inv_mass
     }
     
-    private var hasInfiniteMass: Bool {
+    fileprivate var hasInfiniteMass: Bool {
         return equal(primary.substance.mass.inv_mass + secondary.substance.mass.inv_mass, 0)
     }
     
-    private func applyImpulse (contact: float2, _ impulse: float2) {
+    fileprivate func applyImpulse (_ contact: float2, _ impulse: float2) {
         primary.applyImpulse(-impulse, contact)
         secondary.applyImpulse(impulse, contact)
     }
     
-    private func clear() {
+    fileprivate func clear() {
         primary.velocity = float2()
         secondary.velocity = float2()
     }
     
-    private func correct(correction: float2) {
+    fileprivate func correct(_ correction: float2) {
         primary.correct(-correction)
         secondary.correct(correction)
     }
     
-    private func callback(collision: Collision) {
+    fileprivate func callback(_ collision: Collision) {
         primary.callback(secondary, collision)
         secondary.callback(primary, collision)
     }
@@ -380,12 +380,12 @@ class Manifold: Equatable {
         }
     }
     
-    private func getFriction(tangentforce: Float, _ impulse: Float) -> Float {
+    fileprivate func getFriction(_ tangentforce: Float, _ impulse: Float) -> Float {
         guard abs(tangentforce) >= impulse * pair.still else { return tangentforce }
         return -impulse * pair.inmotion
     }
     
-    func process (processedTime: Float, _ iterations: Int) {//
+    func process (_ processedTime: Float, _ iterations: Int) {//
         iterations.cycle(process)
     }
     

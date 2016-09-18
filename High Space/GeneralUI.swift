@@ -13,7 +13,7 @@ class Trigger {
     static var pressed = false
     static var wasPressed = false
     
-    static func process (command: Command, _ action: Command -> ()) {
+    static func process (_ command: Command, _ action: (Command) -> ()) {
         if command.id == -1 {
             pressed = false
         }else{
@@ -33,13 +33,13 @@ class InteractiveElement: InterfaceElement, Interface {
     var event: () -> ()
     var active = true
     
-    init(_ location: float2, _ bounds: float2, _ event: () -> () = {}) {
+    init(_ location: float2, _ bounds: float2, _ event: @escaping () -> () = {}) {
         rect = FixedRect(location, bounds)
         self.event = event
         super.init()
     }
     
-    func use(command: Command) {
+    func use(_ command: Command) {
         guard active else { return }
         if let vector = command.vector {
             if rect.contains(vector) {
@@ -59,7 +59,7 @@ class Button: InteractiveElement {
     
     var text: DynamicText?
     
-    init(_ text: String, _ location: float2, _ event: () -> () = {}) {
+    init(_ text: String, _ location: float2, _ event: @escaping () -> () = {}) {
         let loc = location
         
         if text != "" {
@@ -70,7 +70,7 @@ class Button: InteractiveElement {
         super.init(loc, self.text!.bounds, event)
     }
     
-    init(name: String, _ location: float2, _ event: () -> ()) {
+    init(name: String, _ location: float2, _ event: @escaping () -> ()) {
         let loc = location
         super.init(loc, float2(), event)
     }
@@ -87,7 +87,7 @@ class TextButton: InteractiveElement {
     
     var text: DynamicText
     
-    init(_ text: DynamicText, _ location: float2, _ event: () -> ()) {
+    init(_ text: DynamicText, _ location: float2, _ event: @escaping () -> ()) {
         self.text = text
         super.init(location, text.frame, event)
         self.text.location = rect.location
@@ -105,7 +105,7 @@ class ToggleButton: Button {
     var texts: [DynamicText] = []
     var index: Int = 0
     
-    init(_ texts: [String], _ location: float2, _ event: () -> () = {}) {
+    init(_ texts: [String], _ location: float2, _ event: @escaping () -> () = {}) {
         super.init("", location, event)
         
         for text in texts {

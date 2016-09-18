@@ -24,7 +24,7 @@ class RawVisualScheme: NSObject, RawScheme {
         let color = scheme.color
         
         for i in 0 ..< vertices.count {
-            compiled.appendContentsOf([
+            compiled.append(contentsOf: [
                 vertices[i].x,
                 vertices[i].y,
                 coordinates[i].x,
@@ -40,10 +40,10 @@ class RawVisualScheme: NSObject, RawScheme {
     }
     
     func getCompiledBufferDataSize() -> Int32 {
-        return Int32(amountOfNumbers * 6 * sizeof(Float))
+        return Int32(amountOfNumbers * 6 * MemoryLayout<Float>.size)
     }
     
-    func getIndicesArray(offset: Int = 0) -> [UInt16] {
+    func getIndicesArray(_ offset: Int = 0) -> [UInt16] {
         let count = amountOfSides
         var indices: [UInt16] = []
         
@@ -141,7 +141,7 @@ class RawVisualSchemeGroup: NSObject, RawScheme {
             var array: [Float] = []
             
             for i in 0 ..< vertices.count {
-                array.appendContentsOf([
+                array.append(contentsOf: [
                     vertices[i].x,
                     vertices[i].y,
                     coordinates[i].x,
@@ -153,7 +153,7 @@ class RawVisualSchemeGroup: NSObject, RawScheme {
                 ])
             }
             
-            compiled.appendContentsOf(array)
+            compiled.append(contentsOf: array)
         }
         
         return compiled.asData()
@@ -162,9 +162,9 @@ class RawVisualSchemeGroup: NSObject, RawScheme {
     func getIndicesArray() -> [UInt16] {
         var indices: [UInt16] = []
         
-        for (index, scheme) in group.schemes.enumerate() {
+        for (index, scheme) in group.schemes.enumerated() {
             let raw = scheme.getRawScheme() as! RawVisualScheme
-            indices.appendContentsOf(raw.getIndicesArray(index * 4))
+            indices.append(contentsOf: raw.getIndicesArray(index * 4))
             if index < group.schemes.count - 1 {
                 indices.append(UInt16.max)
             }
@@ -180,7 +180,7 @@ class RawVisualSchemeGroup: NSObject, RawScheme {
     }
     
     func getCompiledBufferDataSize() -> Int32 {
-        return Int32(amountOfNumbers * 6 * sizeof(Float))
+        return Int32(amountOfNumbers * 6 * MemoryLayout<Float>.size)
     }
     
     func getIndexBufferSize() -> Int32 {

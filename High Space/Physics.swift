@@ -18,10 +18,10 @@ let gravity = float2(0, 12.m)
 
 class Simulation {
     
-    private let iterations = 3
+    fileprivate let iterations = 3
     
     var speedLimit = 1.0
-    private var speed = 1.0
+    fileprivate var speed = 1.0
     
     var processor = Processor(0.2)
     var broadphaser: Broadphaser
@@ -48,7 +48,7 @@ class Simulation {
         processor.process(dt, step(bodies, dt * speed))
     }
     
-    private func step(bodies: [Body], _ dt: Double) {
+    fileprivate func step(_ bodies: [Body], _ dt: Double) {
         let delta = Float(dt)
         let contacts = broadphaser.getContacts()
         

@@ -23,7 +23,7 @@ class Atlas {
             texture = GLTextureLoader.fetch(name)
         }
         
-        let path = NSBundle.mainBundle().pathForResource(name, ofType: "plist")!
+        let path = Bundle.main.path(forResource: name, ofType: "plist")!
         data = NSDictionary(contentsOfFile: path) as! [String: AnyObject]
         
         let dict = data["meta"] as! [String: AnyObject]
@@ -51,7 +51,7 @@ class AtlasTexture {
     unowned let atlas: Atlas
     let info: [String: Float]
     let location, bounds: float2
-    private(set) var coordinates: [float2]
+    fileprivate(set) var coordinates: [float2]
     
     init (_ name: String, _ atlas: Atlas) {
         self.atlas = atlas
@@ -63,7 +63,7 @@ class AtlasTexture {
         coordinates = computeCoordinates()
     }
     
-    private func computeCoordinates () -> [float2] {
+    fileprivate func computeCoordinates () -> [float2] {
         var coordinates: [float2] = []
         
         coordinates.append(float2(location.x / atlas.bounds.x, location.y / atlas.bounds.y))

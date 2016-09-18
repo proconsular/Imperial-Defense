@@ -37,7 +37,7 @@ class Light {
         return log(Light.threshold * brightness) / attenuation
     }
     
-    func getValidFaces(shape: Shape<Edgeform>) -> [Face] {
+    func getValidFaces(_ shape: Shape<Edgeform>) -> [Face] {
         var faces: [Face] = []
         var indices: [Int] = []
         for i in 0 ..< shape.form.vertices.count {
@@ -48,11 +48,11 @@ class Light {
                 indices.append(i)
             }
         }
-        if indices.contains(0) && indices.contains(3) { faces = faces.reverse() }
+        if indices.contains(0) && indices.contains(3) { faces = faces.reversed() }
         return faces
     }
     
-    func getVertices(faces: [Face]) -> [float2] {
+    func getVertices(_ faces: [Face]) -> [float2] {
         var vertices: [float2] = []
         for face in faces {
             for vertex in [face.first, face.second] {
@@ -62,7 +62,7 @@ class Light {
         return vertices
     }
     
-    func filterVertices(vertices: [float2]) -> Face? {
+    func filterVertices(_ vertices: [float2]) -> Face? {
         var clone = float2(Float.infinity)
         vertices.match{ if $0 == $1 { clone = $0 } }
         let vs = vertices.filter{ $0 != clone }
@@ -70,7 +70,7 @@ class Light {
         return Face(vs.first!, vs.last!)
     }
     
-    func getFaces(shapes: [Shape<Edgeform>]) -> [Face] {
+    func getFaces(_ shapes: [Shape<Edgeform>]) -> [Face] {
         var faces: [Face] = []
         for shape in shapes {
             if let face = getFace(shape) { faces.append(face) }
@@ -78,23 +78,23 @@ class Light {
         return faces
     }
     
-    func getFace(shape: Shape<Edgeform>) -> Face? {
+    func getFace(_ shape: Shape<Edgeform>) -> Face? {
         let faces = getValidFaces(shape)
         let verts = getVertices(faces)
         return filterVertices(verts)
     }
     
-    func isLit(vertex: float2, _ face: Face) -> Bool {
+    func isLit(_ vertex: float2, _ face: Face) -> Bool {
         guard cross(face.first - location, vertex - location).z > 0 else { return true }
         guard cross(vertex - location, face.second - location).z > 0 else { return true }
         return computeSide(location, face) == computeSide(vertex, face)
     }
     
-    func computeSide(vertex: float2, _ face: Face) -> Bool {
+    func computeSide(_ vertex: float2, _ face: Face) -> Bool {
         return cross(face.vector, vertex - face.center).z < 0
     }
     
-    func transform(location: float2) -> float2 {
+    func transform(_ location: float2) -> float2 {
         let t = location - Camera.transform.location
         return float2(t.x, Camera.size.y - t.y) * float2(0.96, 0.96)
     }

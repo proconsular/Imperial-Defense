@@ -30,14 +30,14 @@ class Skeleton {
         self.offset = offset
         let atlas = spAtlas_createFromFile("\(name).atlas", nil)
         let json = spSkeletonJson_create(atlas)
-        json.memory.scale = 0.5
+        json?.pointee.scale = 0.5
         
         data = spSkeletonJson_readSkeletonData(json, readFileAtPath("\(name).json"))
         
         let skel = spSkeleton_create(data)
-        skeleton = skel
+        skeleton = skel!
         
-        skel.memory.flipY = 1
+        skel?.pointee.flipY = 1
         
         spSkeleton_setToSetupPose(skeleton)
         spSkeleton_updateWorldTransform(skeleton)
@@ -47,7 +47,7 @@ class Skeleton {
         setAnimation("idle")
     }
     
-    func setAnimation(name: String) {
+    func setAnimation(_ name: String) {
         animation = spSkeletonData_findAnimation(data, name)
         if let last = lastAnimation {
             if last != name {
@@ -57,26 +57,26 @@ class Skeleton {
         lastAnimation = name
     }
     
-    func setDirection(dir: Int) {
+    func setDirection(_ dir: Int) {
         self.dir = dir
-        skeleton.memory.flipX = dir == 1 ? 0 : 1
+        skeleton.pointee.flipX = dir == 1 ? 0 : 1
     }
     
-    func getBoneLocation(name: String) -> float2 {
+    func getBoneLocation(_ name: String) -> float2 {
         let bone = spSkeleton_findBone(skeleton, name)
-        let vertex = float2(bone.memory.worldX + skeleton.memory.x, bone.memory.worldY + skeleton.memory.y)
+        let vertex = float2((bone?.pointee.worldX)! + skeleton.pointee.x, (bone?.pointee.worldY)! + skeleton.pointee.y)
         return vertex
     }
     
-    func rotateBone(name: String, _ amount: Float) {
+    func rotateBone(_ name: String, _ amount: Float) {
         let bone = spSkeleton_findBone(skeleton, name)
         let value = -amount.toDegrees() - 5 + (dir == 1 ? 0 : 180)
-        bone.memory.rotation = value
+        bone?.pointee.rotation = value
     }
     
     func update() {
-        skeleton.memory.x = transform.location.x + offset.x
-        skeleton.memory.y = transform.location.y + offset.y
+        skeleton.pointee.x = transform.location.x + offset.x
+        skeleton.pointee.y = transform.location.y + offset.y
         
         let last = counter
         counter += Time.time

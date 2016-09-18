@@ -10,7 +10,7 @@ import Foundation
 
 class CircleSolver {
     
-    static func solve <T where T: Radialform> (primary: Shape<T>, _ secondary: Shape<T>) -> Collision? {
+    static func solve <T> (_ primary: Shape<T>, _ secondary: Shape<T>) -> Collision? where T: Radialform {
         let n = secondary.transform.location - primary.transform.location
         let r = primary.form.radius + secondary.form.radius
         

@@ -9,7 +9,7 @@
 import Foundation
 
 enum Program: Int {
-    case Default, Lighting
+    case `default`, lighting
 }
 
 extension GLuint {
@@ -32,20 +32,20 @@ class Graphics: NSObject {
 //        }
 //    }
     
-    static func append (shader: Shader) {
+    static func append (_ shader: Shader) {
         shaders.append(shader)
     }
     
-    static func getShader (index: Program) -> Shader {
+    static func getShader (_ index: Program) -> Shader {
         return shaders[index.rawValue]
     }
     
-    static func bind (index: Program) -> Shader {
+    static func bind (_ index: Program) -> Shader {
         return getShader(index).bind()
     }
     
     static func bindDefault() {
-        getShader(.Default).bind()
+        getShader(.default).bind()
     }
     
 //    static func render (image: Image) {
