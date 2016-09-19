@@ -11,9 +11,98 @@ import Foundation
 class Level {
     var rooms: [Room]
     var current: Room!
+    var index: Int = 0
     
-    init() {
+    var dreathmap: DreathMap!
+    
+    let depth: Int
+    
+    init(_ depth: Int) {
+        self.depth = depth
         rooms = []
+        rooms.append(createRoom(float2(), float2(1, 0)))
+        current = rooms[0]
+        
+        Camera.bounds = current.size
+        
+        dreathmap = DreathMap(self)
+    }
+    
+    func createRoom(_ start: float2, _ direction: float2) -> Room {
+        let map = RoomMap(14, float2(30.m))
+        map.setStart(start, direction)
+        map.generate()
+        let gen = RoomGenerator()
+        return gen.generate(map)
+    }
+    
+    func findOpenedDoor(actor: Actor) -> Door? {
+        for door in current.doors {
+            if FixedRect.intersects(door.body.shape.getBounds(), actor.body.shape.getBounds()) {
+                return door
+            }
+        }
+        return nil
+    }
+    
+    func openDoor() {
+        if let door = findOpenedDoor(actor: Player.player) {
+            if door.room >= 0 {
+                changeRoom(index: door.room, rooms[door.room].findDoor(index)!)
+            }else{
+                if depth == 0 || rooms.count - 1 < depth {
+                    let direction = -door.direction
+                    let start = float2(direction == 1 ? 0 : 9, 0)
+                    let other_door = tryRoom(start, -direction)
+                    door.room = rooms.count - 1
+                    changeRoom(index: door.room, other_door)
+                }
+            }
+        }
+    }
+    
+    func tryRoom(_ start: float2, _ direction: Int) -> Door {
+        let room = createRoom(start, float2(Float(-direction), 0))
+        if let door = getDoor(room, -direction) {
+            rooms.append(room)
+            return door
+        }else{
+            return tryRoom(start, direction)
+        }
+    }
+    
+    func getDoor(_ room: Room, _ direction: Int) -> Door? {
+        return room.findDoor(self.index) ?? room.getDoor(float2(Float(direction), 0))
+    }
+    
+    func changeRoom(index: Int, _ other_door: Door) {
+        let actor = Player.player!
+        current.map.remove(actor)
+        
+        let last = self.index
+        
+        current = rooms[index]
+        self.index = index
+        
+        Camera.bounds = current.size
+        
+        other_door.room = last
+        
+        actor.transform.location = float2(other_door.transform.location.x + Float(other_door.direction) * 2.m, other_door.transform.location.y)
+        
+        Camera.transform.location = actor.transform.location
+        
+        current.map.append(actor)
+    }
+    
+    func update() {
+        openDoor()
+        dreathmap.update()
+        current.update()
+    }
+    
+    func render() {
+        current.render()
     }
 }
 
@@ -22,9 +111,45 @@ class Room {
     let size: float2
     let map: Map
     
+    let physics: Simulation
+    let lighting: LightingSystem
+    
+    var doors: [Door]
+    
     init(_ size: float2) {
         self.size = size
         map = Map(size)
+        doors = []
+        lighting = LightingSystem(map.grid)
+        physics = Simulation(map.grid)
+    }
+    
+    func getDoor(_ direction: float2) -> Door? {
+        for door in doors {
+            if door.direction == Int(direction.x) {
+                return door
+            }
+        }
+        return nil
+    }
+    
+    func findDoor(_ index: Int) -> Door? {
+        for door in doors {
+            if door.room == index {
+                return door
+            }
+        }
+        return nil
+    }
+    
+    func update() {
+        map.update()
+        physics.simulate()
+        Camera.update()
+    }
+    
+    func render() {
+        map.render()
     }
     
 }
@@ -90,27 +215,31 @@ class RoomMap {
     var startPoint: float2
     
     var bitmap: [Int]
-    var scale = 2.5.m
+    var scale = 3.m
     
     init(_ complexity: Int, _ size: float2) {
         self.complexity = complexity
         self.size = size / scale
-        startPoint = float2(0, 0)
+        startPoint = float2()
         direction = float2(1, 0)
         bitmap = Array<Int>(repeating: 0, count: Int(self.size.x * self.size.y))
     }
     
+    func setStart(_ location: float2, _ direction: float2) {
+        self.startPoint = location
+        self.direction = direction
+    }
+    
     func generate() {
         for _ in 0 ..< complexity {
-            let endPoint = startPoint + (computeMaxPoint() - startPoint) * random(0.4, 0.8)
+            let endPoint = startPoint + (computeMaxPoint() - startPoint) * 0.5
             let line = Line(startPoint, endPoint)
             
-            let dl = line.vector
-            let count = Int(dl.length)
+            let count = Int(ceil(line.length))
             
             for n in 0 ..< count {
                 let point = line.first + Float(n) * line.direction
-                setMap(point, value: 1)
+                setMap(point, 1)
             }
             
             startPoint = endPoint
@@ -118,10 +247,22 @@ class RoomMap {
         }
     }
     
-    func setMap(_ point: float2, value: Int) {
+    func setMap(_ point: float2, _ value: Int) {
         let index = Int(point.x) + Int(-point.y * size.x)
-        guard index >= 0 && index < Int(size.x * size.y) else { return }
+        guard contains(index: index) else { return }
         bitmap[index] = value
+    }
+    
+    func getIndex(_ x: Int, _ y: Int) -> Int {
+        return x + Int(Float(y) * size.x)
+    }
+    
+    func getPoint(_ x: Int, _ y: Int) -> float2 {
+        return float2(Float(x) + 0.5, Float(y) - size.y + 0.5) * scale
+    }
+    
+    func contains(index: Int) -> Bool {
+        return index >= 0 && index < Int(size.x * size.y)
     }
     
     func computeDirection(_ endPoint: float2) {
@@ -145,7 +286,7 @@ class RoomMap {
     }
     
     func computeMaxPoint() -> float2 {
-        var maxEndPoint = direction * size
+        var maxEndPoint = float2(clamp(direction.x * size.x, min: 0, max: size.x), -clamp(-direction.y * size.y, min: 0, max: size.y))
         if direction.x == 0 {
             maxEndPoint.x = startPoint.x
         }else{
@@ -163,12 +304,36 @@ class RoomGenerator {
         
         for x in 0 ..< Int(map.size.x) {
             for y in 0 ..< Int(map.size.y) {
-                let point = float2(Float(x) + 0.5, Float(y) - map.size.y + 0.5) * map.scale
-                let index = x + Int(Float(y) * map.size.x)
-                //print(x, y, index)
+                let point = map.getPoint(x, y)
+                let index = map.getIndex(x, y)
                 if map.bitmap[index] == 0 {
                     let block = Structure(point, float2(map.scale))
+                    block.display.color = float4(random(0, 0.3), random(0, 0.3), random(0, 0.3), 1)
                     room.map.append(block)
+                }
+                if map.bitmap[index] == 1 {
+                    let index_below = map.getIndex(x, y + 1)
+                    let point_below = map.getPoint(x, y + 1)
+                    
+                    if map.contains(index: index_below) {
+                        if map.bitmap[index_below] == 0 {
+                            let direction = point_below.x <= map.scale / 2 ? 1 : -1
+                            if point_below.x <= map.scale / 2 || point_below.x >= map.size.x * map.scale - map.scale / 2 {
+                                let index_side = map.getIndex(x + direction, y)
+                                
+                                if map.contains(index: index_side) {
+                                    if map.bitmap[index_side] == 1 {
+                                        let block = Door(point, float2(map.scale), direction)
+                                        room.map.append(block)
+                                        room.doors.append(block)
+                                    }
+                                }
+                                
+                            }
+                        }
+                       
+                    }
+                    
                 }
             }
         }

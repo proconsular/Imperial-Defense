@@ -63,7 +63,7 @@ class Button: InteractiveElement {
         let loc = location
         
         if text != "" {
-            self.text = DynamicText.defaultStyle(text, float4(0, 0, 0, 1), 128.0)
+            self.text = DynamicText.defaultStyle(text, float4(0, 0, 0, 1), 64.0)
             self.text!.location = location
         }
         

@@ -14,10 +14,12 @@ class Grid {
     let bounds: float2
     var cells: [Cell]
     var actors: [Actor]
+    var mask: FixedRect
     
     init(_ size: Float, _ bounds: float2) {
         self.size = size
         self.bounds = bounds
+        mask = FixedRect(float2(bounds.x / 2, -bounds.y / 2), bounds)
         cells = []
         actors = []
         for n in 0 ..< Int(bounds.x / size) {
@@ -32,6 +34,13 @@ class Grid {
         cells.forEach{ $0.append(actor) }
         if cells.count > 0 {
             actors.append(actor)
+        }
+    }
+    
+    func remove(_ actor: Actor) {
+        actors.removeObject(actor)
+        for cell in cells {
+            cell.elements = cell.elements.filter{ $0.element !== actor }
         }
     }
     
@@ -81,7 +90,11 @@ class Grid {
                 return $0.element.alive
             }
         }
-        actors = actors.filter{ $0.alive }
+        actors = actors.filter{ $0.alive && contains(actor: $0) }
+    }
+    
+    func contains(actor: Actor) -> Bool {
+        return FixedRect.intersects(mask, actor.body.shape.getBounds())
     }
     
     fileprivate func relocate() {

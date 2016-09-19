@@ -23,10 +23,12 @@ extension DynamicText {
 
 class PrincipalScreen: Screen {
     let corruption: TextElement
+    let depth: TextElement
     let game: Game
     
     override init() {
         corruption = TextElement(float2(300, 100), DynamicText.defaultStyle(" ", float4(1), 32))
+        depth = TextElement(float2(325, 100), DynamicText.defaultStyle(" ", float4(1), 32))
         game = Game()
         
         super.init()
@@ -47,11 +49,15 @@ class PrincipalScreen: Screen {
     
     override func display() {
         layers.forEach{$0.display()}
-        let dreath = game.dreathmap.totalDreath()
-        let dis = dreath / 100
+        
+//        let dreath = game.dreathmap.totalDreath()
+//        let dis = dreath / 100
         //corruption.setText(DynamicText.defaultStyle("Dreath: \(String(format: "%.1f", dis))", float4(1), 64))
 //        corruption.setText(DynamicText.defaultStyle("Actors: \(game.controller.grid.actors.count)", float4(1), 64))
-        corruption.display()
+        //corruption.display()
+        let dp = game.level.depth == 0 ? "infinity" : "\(game.level.depth)"
+        depth.setText(DynamicText.defaultStyle("Depth: \(game.level.rooms.count - 1) of \(dp)", float4(1), 48))
+        depth.display()
     }
     
 }
@@ -104,18 +110,27 @@ class StatusLayer: InterfaceLayer {
     let element: ShieldElement
     let weapon: StatusElement
     let laser: StatusElement
+    let restart: TextButton
     
     init(_ status: Player) {
         self.status = status
         element = ShieldElement(status.shield)
         weapon = StatusElement(status.weapon, float2())
         laser = StatusElement(status.laser, float2(0, 30))
+        restart = TextButton(DynamicText.defaultStyle("restart", float4(0, 0, 0, 1), 64.0), float2(Camera.size.x / 2, 50)) {
+            UserInterface.setScreen(PrincipalScreen())
+        }
+    }
+    
+    override func use(_ command: Command) {
+        restart.use(command)
     }
     
     override func display() {
         element.render()
         weapon.render()
         laser.render()
+        restart.display()
     }
     
 }

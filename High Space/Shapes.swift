@@ -16,7 +16,7 @@ struct FixedRect {
     }
     
     func contains (_ point: float2) -> Bool {
-        return FixedRect.intersects(self, FixedRect(point, float2(1)))
+        return FixedRect.intersects(self, FixedRect(point, float2(2)))
     }
     
     static func intersects (_ prime: FixedRect, _ secunde: FixedRect) -> Bool {

@@ -48,6 +48,20 @@ class Structure: Actor {
     
 }
 
+class Door: Structure {
+    var room: Int
+    var direction: Int
+    
+    init(_ location: float2, _ bounds: float2, _ direction: Int) {
+        room = -1
+        self.direction = direction
+        super.init(location, bounds)
+        body.hidden = true
+        display.color = float4(1, 1, 1, 0.5)
+    }
+    
+}
+
 struct PointRange {
     var amount: Float
     var limit: Float
@@ -157,7 +171,7 @@ class Player: Actor, Interface {
             }
         }else if command.id == 1 {
             if (onObject || canSideJump) {
-                body.velocity.y -= 3.75.m
+                body.velocity.y -= 4.m
                 if canSideJump {
                     body.velocity.x += 2.m * -sideJumpNormal.x
                 }
@@ -225,7 +239,7 @@ class Weapon {
         }
     }
     
-    let grid: Map
+    let grid: Level
     var actor: Actor!
     var count: Float
     var targetter: Targetter
@@ -233,7 +247,7 @@ class Weapon {
     var fireVertex: float2?
     var stats: Stats
     
-    init(_ grid: Map, _ tag: String, _ targetter: Targetter, _ stats: Stats) {
+    init(_ grid: Level, _ tag: String, _ targetter: Targetter, _ stats: Stats) {
         self.grid = grid
         self.tag = tag
         self.targetter = targetter
@@ -256,7 +270,7 @@ class Weapon {
         stats.power.increase(stats.chargerate * Time.time)
     }
     
-    fileprivate func shoot(_ target: Actor) {
+    private func shoot(_ target: Actor) {
         let ve = actor.transform.location
         let vert = fireVertex ?? ve
         let location = target.transform.location
@@ -264,7 +278,7 @@ class Weapon {
         let bullet = Bullet(vert, tag, stats.damage)
         bullet.body.orientation = atan2(dl.y, dl.x)
         bullet.body.velocity = normalize(dl) * 11.m
-        grid.append(bullet)
+        grid.current.map.append(bullet)
         play("shoot2", random(0.8, 1.1))
     }
     
@@ -275,11 +289,11 @@ protocol Targetter {
 }
 
 class DreathTargetter: Targetter {
-    unowned let grid: Map
+    unowned let grid: Level
     var player: Player!
     weak var target: DreathActor?
     
-    init(_ grid: Map) {
+    init(_ grid: Level) {
         self.grid = grid
     }
     
@@ -288,7 +302,7 @@ class DreathTargetter: Targetter {
         var bestactor: DreathActor?
         var rating: Float = -FLT_MAX
         
-        for actor in grid.actors {
+        for actor in grid.current.map.actors {
             if let char = actor as? DreathActor {
                 guard char.alive else { continue }
                 let dl = player.transform.location - char.transform.location
@@ -309,11 +323,11 @@ class DreathTargetter: Targetter {
 }
 
 class DreathHiveTargetter: Targetter {
-    unowned let grid: Map
+    unowned let grid: Level
     var player: Player!
     weak var target: DreathActor?
     
-    init(_ grid: Map) {
+    init(_ grid: Level) {
         self.grid = grid
     }
     
@@ -322,7 +336,7 @@ class DreathHiveTargetter: Targetter {
         var bestactor: DreathActor?
         var rating: Float = -FLT_MAX
         
-        for actor in grid.actors {
+        for actor in grid.current.map.actors {
             if let char = actor as? DreathActor {
                 guard char.alive else { continue }
                 let dl = Player.player.transform.location - char.transform.location
@@ -357,7 +371,7 @@ class Bullet: Actor {
         self.damage = damage
         super.init(Rect(location, float2(0.25.m, 0.04.m)), Substance(Material(.wood), Mass(10, 0), Friction(.iron)))
         display.scheme.info.texture = GLTexture("bullet").id
-        display.color = float4(0.8, 1, 0.8, 1)
+        display.color = float4(1, 0.4, 0.4, 1)
         body.relativeGravity = 0
         body.mask = 0b01110
         body.callback = { [unowned self] (body, _) in

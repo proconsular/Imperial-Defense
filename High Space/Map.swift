@@ -8,6 +8,19 @@
 
 import Foundation
 
+extension Array where Element: AnyObject {
+    
+    mutating func removeObject(_ element: Element) {
+        for n in 0 ..< self.count {
+            if self[n] === element {
+                self.remove(at: n)
+                return
+            }
+        }
+    }
+    
+}
+
 class Map {
     
     let size: float2
@@ -25,6 +38,11 @@ class Map {
         grid.append(element)
     }
     
+    func remove(_ element: Actor) {
+        actors.removeObject(element)
+        grid.remove(element)
+    }
+    
     func update() {
         updateObjects()
         grid.update()
@@ -39,7 +57,7 @@ class Map {
     }
     
     private func clean() {
-        actors = actors.filter{ $0.alive }
+        actors = actors.filter{ $0.alive && grid.contains(actor: $0) }
     }
     
     func render() {

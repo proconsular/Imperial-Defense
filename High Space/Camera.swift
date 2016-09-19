@@ -19,6 +19,7 @@ class Camera {
     static var transform = Transform()
     static var follow: Transform?
     static var clip = true
+    static var bounds = float2()
     
     static var mask: FixedRect { return FixedRect(Camera.transform.location, Camera.size) }
     
@@ -44,18 +45,18 @@ class Camera {
         }
     }
     
-    fileprivate static func moveIntoRegion () {
+    private static func moveIntoRegion () {
         if transform.location.y + Camera.size.y > 0 {
             transform.location.y += -(transform.location.y + Camera.size.y)
         }
-        if transform.location.y < -30.m {
-            transform.location.y += (-30.m - transform.location.y)
+        if transform.location.y < -bounds.y {
+            transform.location.y += (-bounds.y - transform.location.y)
         }
         if transform.location.x < 0 {
             transform.location.x += -transform.location.x
         }
-        if transform.location.x + Camera.size.x > 30.m {
-            transform.location.x +=  30.m - (transform.location.x + Camera.size.x)
+        if transform.location.x + Camera.size.x > bounds.x {
+            transform.location.x +=  bounds.x - (transform.location.x + Camera.size.x)
         }
     }
     
