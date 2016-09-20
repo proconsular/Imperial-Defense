@@ -118,7 +118,7 @@ GLint modelViewProjectionMatrix_Uniform;
     glEnable(GL_PRIMITIVE_RESTART_FIXED_INDEX);
     glActiveTexture(GL_TEXTURE0);
     
-    glClearColor(0.6f, 0.6f, 0.65f, 1.0f);
+    glClearColor(0.3f, 0.3f, 0.3f, 1.0f);
 }
 
 -(void)setProjectionMatrix{

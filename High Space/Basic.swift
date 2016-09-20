@@ -273,7 +273,7 @@ class Weapon {
     private func shoot(_ target: Actor) {
         let ve = actor.transform.location
         let vert = fireVertex ?? ve
-        let location = target.transform.location
+        let location = target.transform.location + target.body.velocity * Float(dt)
         let dl = location - vert
         let bullet = Bullet(vert, tag, stats.damage)
         bullet.body.orientation = atan2(dl.y, dl.x)
@@ -371,7 +371,7 @@ class Bullet: Actor {
         self.damage = damage
         super.init(Rect(location, float2(0.25.m, 0.04.m)), Substance(Material(.wood), Mass(10, 0), Friction(.iron)))
         display.scheme.info.texture = GLTexture("bullet").id
-        display.color = float4(1, 0.4, 0.4, 1)
+        display.color = float4(0.4, 1, 0.4, 1)
         body.relativeGravity = 0
         body.mask = 0b01110
         body.callback = { [unowned self] (body, _) in

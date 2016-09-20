@@ -18,8 +18,9 @@ class core: NSObject {
         srandom(UInt32(Date.timeIntervalSinceReferenceDate))
         UserInterface.create()
         
-        UserInterface.setScreen(PrincipalScreen())
-        //UserInterface.setScreen(WinScreen())
+        //UserInterface.setScreen(PrincipalScreen())
+        
+        UserInterface.setScreen(StarshipScreen())
         
         super.init()
     }

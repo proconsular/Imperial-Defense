@@ -21,6 +21,66 @@ extension DynamicText {
     
 }
 
+class StarshipScreen: Screen {
+    
+    let background: Display
+    
+    override init() {
+        background = Display(Rect(Camera.size / 2, Camera.size), GLTexture("galaxy"))
+        background.transform.assign(Camera.transform)
+        
+        super.init()
+        
+        let layer = InterfaceLayer()
+        
+        let count = 5
+        
+        let start = Camera.size.x / 2 - (Float(count - 1) * 1.m) / 2
+        
+        for n in 0 ..< count {
+            let planet = PlanetView(float2(start + Float(n) * 1.m, Camera.size.y / 2))
+            planet.circle.color = float4(random(0.7, 1), random(0.7, 1), random(0.7, 1), 1)
+            layer.objects.append(planet)
+        }
+        
+        layers.append(layer)
+    }
+    
+    override func display() {
+        background.render()
+        super.display()
+    }
+    
+}
+
+class PlanetView: InterfaceElement, Interface {
+    
+    let circle: Display
+    let shape: Circle
+    let transform: Transform
+    
+    override init(_ location: float2) {
+        transform = Transform(location)
+        transform.assign(Camera.transform)
+        shape = Circle(transform, 0.4.m)
+        circle = Display(shape, GLTexture("planet"))
+        super.init(location)
+    }
+    
+    func use(_ command: Command) {
+        if let point = command.vector {
+            if shape.getBounds().contains(point) {
+                UserInterface.setScreen(PrincipalScreen())
+            }
+        }
+    }
+    
+    override func display() {
+        circle.render()
+    }
+    
+}
+
 class PrincipalScreen: Screen {
     let corruption: TextElement
     let depth: TextElement
@@ -111,19 +171,24 @@ class StatusLayer: InterfaceLayer {
     let weapon: StatusElement
     let laser: StatusElement
     let restart: TextButton
+    let ship: TextButton
     
     init(_ status: Player) {
         self.status = status
         element = ShieldElement(status.shield)
         weapon = StatusElement(status.weapon, float2())
         laser = StatusElement(status.laser, float2(0, 30))
-        restart = TextButton(DynamicText.defaultStyle("restart", float4(0, 0, 0, 1), 64.0), float2(Camera.size.x / 2, 50)) {
+        restart = TextButton(DynamicText.defaultStyle("restart", float4(0, 0, 0, 1), 64.0), float2(Camera.size.x / 2 + 100, 50)) {
             UserInterface.setScreen(PrincipalScreen())
+        }
+        ship = TextButton(DynamicText.defaultStyle("ship", float4(0, 0, 0, 1), 64.0), float2(Camera.size.x / 2 - 100, 50)) {
+            UserInterface.setScreen(StarshipScreen())
         }
     }
     
     override func use(_ command: Command) {
         restart.use(command)
+        ship.use(command)
     }
     
     override func display() {
@@ -131,6 +196,7 @@ class StatusLayer: InterfaceLayer {
         weapon.render()
         laser.render()
         restart.display()
+        ship.display()
     }
     
 }

@@ -19,7 +19,7 @@ class TextElement: InterfaceElement {
     init(_ location: float2, _ text: DynamicText) {
         self.text = text
         self.text.location = location
-        super.init()
+        super.init(location)
         self.location = location
     }
     

@@ -39,6 +39,11 @@ class Display {
         get { return scheme.color }
         set { scheme.info.color = newValue }
     }
+    
+    var texture: GLuint {
+        get { return scheme.texture }
+        set { scheme.info.texture = newValue }
+    }
 }
 
 @objc class DisplayAdapter: NSObject {

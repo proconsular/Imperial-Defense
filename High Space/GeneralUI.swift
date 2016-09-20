@@ -36,7 +36,7 @@ class InteractiveElement: InterfaceElement, Interface {
     init(_ location: float2, _ bounds: float2, _ event: @escaping () -> () = {}) {
         rect = FixedRect(location, bounds)
         self.event = event
-        super.init()
+        super.init(location)
     }
     
     func use(_ command: Command) {

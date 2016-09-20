@@ -104,6 +104,10 @@ open class InterfaceElement {
     
     var location = float2()
     
+    init(_ location: float2) {
+        self.location = location
+    }
+    
     func setLocation (_ newLocation: float2) {
         move(newLocation - location)
     }

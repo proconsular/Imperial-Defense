@@ -135,6 +135,8 @@
 		22C4E6B11D75552D0077DFCB /* TransformConstraintData.c in Sources */ = {isa = PBXBuildFile; fileRef = 22C4E68A1D75552D0077DFCB /* TransformConstraintData.c */; };
 		22C4E6B21D75552D0077DFCB /* VertexAttachment.c in Sources */ = {isa = PBXBuildFile; fileRef = 22C4E68B1D75552D0077DFCB /* VertexAttachment.c */; };
 		22C4E6B51D7557B00077DFCB /* SpineAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C4E6B31D7557B00077DFCB /* SpineAdapter.m */; };
+		22CA678E1D90E307007CB4D3 /* planet.png in Resources */ = {isa = PBXBuildFile; fileRef = 22CA678D1D90E307007CB4D3 /* planet.png */; };
+		22CA67921D90E92E007CB4D3 /* rock.png in Resources */ = {isa = PBXBuildFile; fileRef = 22CA67911D90E92E007CB4D3 /* rock.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -331,6 +333,8 @@
 		22C4E68B1D75552D0077DFCB /* VertexAttachment.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = VertexAttachment.c; sourceTree = "<group>"; };
 		22C4E6B31D7557B00077DFCB /* SpineAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpineAdapter.m; sourceTree = "<group>"; };
 		22C4E6B41D7557B00077DFCB /* SpineAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpineAdapter.h; sourceTree = "<group>"; };
+		22CA678D1D90E307007CB4D3 /* planet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = planet.png; sourceTree = "<group>"; };
+		22CA67911D90E92E007CB4D3 /* rock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rock.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -434,9 +438,11 @@
 				22B8C3591D7D301C00806C16 /* spine */,
 				22722BCC1D488D2700BFA78A /* white.png */,
 				22C2BCB51D60244000C8F1D5 /* galaxy.png */,
+				22CA678D1D90E307007CB4D3 /* planet.png */,
 				22C4E5551D6FD39F0077DFCB /* Floater.png */,
 				22C4E55D1D728F2F0077DFCB /* Spawner.png */,
 				22C4E55F1D72970C0077DFCB /* Colony.png */,
+				22CA67911D90E92E007CB4D3 /* rock.png */,
 				22B8C36F1D8521A300806C16 /* bullet.png */,
 				22C4E5611D73A9880077DFCB /* hit1.wav */,
 				22C4E5631D73A98E0077DFCB /* explosion1.wav */,
@@ -921,6 +927,7 @@
 				22B8C3741D85424600806C16 /* hit5.wav in Resources */,
 				22C4E55E1D728F2F0077DFCB /* Spawner.png in Resources */,
 				22C4E56C1D73A9A20077DFCB /* shoot1.wav in Resources */,
+				22CA67921D90E92E007CB4D3 /* rock.png in Resources */,
 				222DD8D61D48854700A70FA8 /* Default.vsh in Resources */,
 				22C4E5621D73A9880077DFCB /* hit1.wav in Resources */,
 				22B8C3781D85465400806C16 /* charge2.wav in Resources */,
@@ -934,6 +941,7 @@
 				22C4E5601D72970C0077DFCB /* Colony.png in Resources */,
 				22B8C3721D85424100806C16 /* hit4.wav in Resources */,
 				222DD8F01D48854700A70FA8 /* Lighting.vsh in Resources */,
+				22CA678E1D90E307007CB4D3 /* planet.png in Resources */,
 				22C4E5561D6FD39F0077DFCB /* Floater.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

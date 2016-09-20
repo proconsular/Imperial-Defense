@@ -308,7 +308,9 @@ class RoomGenerator {
                 let index = map.getIndex(x, y)
                 if map.bitmap[index] == 0 {
                     let block = Structure(point, float2(map.scale))
-                    block.display.color = float4(random(0, 0.3), random(0, 0.3), random(0, 0.3), 1)
+                    let tint = random(0.1, 0.3)
+                    block.display.color = float4(tint + random(0, 0.1), tint, tint, 1)
+                    block.display.texture = GLTexture("rock").id
                     room.map.append(block)
                 }
                 if map.bitmap[index] == 1 {
