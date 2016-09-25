@@ -96,6 +96,15 @@ extension Collection where Iterator.Element == float2, Index == Int, IndexDistan
     }
 }
 
+extension Collection where Iterator.Element == Int, Index == Int, IndexDistance == Int {
+    func getValue(at: Int) -> Iterator.Element? {
+        if at < count {
+            return self[at]
+        }
+        return nil
+    }
+}
+
 extension MutableCollection where Iterator.Element == float2, Index == Int, IndexDistance == Int {
     var centered: Self {
         var array = self

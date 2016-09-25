@@ -47,14 +47,14 @@ class DreathMap {
     var dreathcreators: [DreathCreator]
     
     init(_ game: Level) {
-        dreath = Dreath(10, 0)
+        dreath = Dreath(0, 0)
         self.grid = game
         dreaths = []
         dreathcreators = []
-        dreathcreators.append(FloaterCreator(self))
-        dreathcreators.append(ClusterCreator(self))
-        dreathcreators.append(SpawnerCreator(self))
-        dreathcreators.append(ColonyCreator(self))
+        dreathcreators.append(FloaterCreator(self, 1))
+        dreathcreators.append(ClusterCreator(self, 0))
+        dreathcreators.append(SpawnerCreator(self, 10))
+        dreathcreators.append(ColonyCreator(self, 0))
         //dreathcreators.append(KnightCreator(self))
     }
     
@@ -79,9 +79,17 @@ class DreathMap {
         dreaths.removeAll()
     }
     
-    func spawn() {
-        if let dreath = dreathcreators[0].create() {
-            append(dreath)
+    func spawn(_ amount: Float) {
+        var count = amount
+        while count > 0 {
+            dreathcreators.forEach{
+                if let dreath = $0.spawn() {
+                    if count >= $0.cost {
+                        append(dreath)
+                        count -= $0.cost
+                    }
+                }
+            }
         }
     }
     
@@ -111,26 +119,40 @@ class DreathMap {
 
 class DreathCreator {
     let dreathmap: DreathMap
+    let cost: Float
     
-    init(_ map: DreathMap) {
+    init(_ map: DreathMap, _ cost: Float) {
         self.dreathmap = map
+        self.cost = cost
     }
     
     func create() -> DreathActor? {
         return nil
+    }
+    
+    func spawn() -> DreathActor? {
+        return nil
+    }
+    
+    func getAvailableLocation() -> float2? {
+        let location = float2(random(0, dreathmap.grid.current.map.size.x), -random(0, dreathmap.grid.current.map.size.y))
+        guard dreathmap.available(location) else { return nil }
+        return location
     }
 }
 
 class FloaterCreator: DreathCreator {
     
     override func create() -> DreathActor? {
-        let location = float2(random(0, dreathmap.grid.current.map.size.x), -random(0, dreathmap.grid.current.map.size.y))
-        guard dreathmap.available(location) else { return nil }
+        guard let location = getAvailableLocation() else { return nil }
         let local_dreath = dreathmap.computeDreath(location)
-        if local_dreath >= dreathmap.threshold {
-            return DreathFloater(location, local_dreath * 10 + 20, dreathmap.grid)
-        }
-        return nil
+        guard local_dreath >= dreathmap.threshold else { return nil }
+        return DreathFloater(location, local_dreath * 10 + 20, dreathmap.grid)
+    }
+    
+    override func spawn() -> DreathActor? {
+        guard let location = getAvailableLocation() else { return nil }
+        return DreathFloater(location, 30, dreathmap.grid)
     }
     
 }
@@ -169,6 +191,11 @@ class SpawnerCreator: DreathCreator {
             }
         }
         return nil
+    }
+    
+    override func spawn() -> DreathActor? {
+        guard let location = getAvailableLocation() else { return nil }
+        return DreathSpawner(location)
     }
     
 }

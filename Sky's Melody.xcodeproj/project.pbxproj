@@ -137,6 +137,16 @@
 		22C4E6B51D7557B00077DFCB /* SpineAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C4E6B31D7557B00077DFCB /* SpineAdapter.m */; };
 		22CA678E1D90E307007CB4D3 /* planet.png in Resources */ = {isa = PBXBuildFile; fileRef = 22CA678D1D90E307007CB4D3 /* planet.png */; };
 		22CA67921D90E92E007CB4D3 /* rock.png in Resources */ = {isa = PBXBuildFile; fileRef = 22CA67911D90E92E007CB4D3 /* rock.png */; };
+		22D31C141D94BFE800818AFA /* door.png in Resources */ = {isa = PBXBuildFile; fileRef = 22D31C131D94BFE800818AFA /* door.png */; };
+		22D31C161D94CC6400818AFA /* starship.png in Resources */ = {isa = PBXBuildFile; fileRef = 22D31C151D94CC6400818AFA /* starship.png */; };
+		22D31C181D94CD6600818AFA /* book.png in Resources */ = {isa = PBXBuildFile; fileRef = 22D31C171D94CD6600818AFA /* book.png */; };
+		22D31C1B1D94D0DE00818AFA /* pickup1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 22D31C191D94D0DE00818AFA /* pickup1.wav */; };
+		22D31C1C1D94D0DE00818AFA /* pickup2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 22D31C1A1D94D0DE00818AFA /* pickup2.wav */; };
+		22D31C1E1D94D0E700818AFA /* jet1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 22D31C1D1D94D0E700818AFA /* jet1.wav */; };
+		22D31C201D94D0F200818AFA /* hit8.wav in Resources */ = {isa = PBXBuildFile; fileRef = 22D31C1F1D94D0F200818AFA /* hit8.wav */; };
+		22D31C221D94D36300818AFA /* gem.png in Resources */ = {isa = PBXBuildFile; fileRef = 22D31C211D94D36300818AFA /* gem.png */; };
+		22D31C241D94D58D00818AFA /* door1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 22D31C231D94D58D00818AFA /* door1.wav */; };
+		22D31C261D976AB500818AFA /* Items.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22D31C251D976AB500818AFA /* Items.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -335,6 +345,16 @@
 		22C4E6B41D7557B00077DFCB /* SpineAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpineAdapter.h; sourceTree = "<group>"; };
 		22CA678D1D90E307007CB4D3 /* planet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = planet.png; sourceTree = "<group>"; };
 		22CA67911D90E92E007CB4D3 /* rock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rock.png; sourceTree = "<group>"; };
+		22D31C131D94BFE800818AFA /* door.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = door.png; sourceTree = "<group>"; };
+		22D31C151D94CC6400818AFA /* starship.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = starship.png; sourceTree = "<group>"; };
+		22D31C171D94CD6600818AFA /* book.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = book.png; sourceTree = "<group>"; };
+		22D31C191D94D0DE00818AFA /* pickup1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = pickup1.wav; sourceTree = "<group>"; };
+		22D31C1A1D94D0DE00818AFA /* pickup2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = pickup2.wav; sourceTree = "<group>"; };
+		22D31C1D1D94D0E700818AFA /* jet1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = jet1.wav; sourceTree = "<group>"; };
+		22D31C1F1D94D0F200818AFA /* hit8.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = hit8.wav; sourceTree = "<group>"; };
+		22D31C211D94D36300818AFA /* gem.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gem.png; sourceTree = "<group>"; };
+		22D31C231D94D58D00818AFA /* door1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = door1.wav; sourceTree = "<group>"; };
+		22D31C251D976AB500818AFA /* Items.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Items.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -444,6 +464,10 @@
 				22C4E55F1D72970C0077DFCB /* Colony.png */,
 				22CA67911D90E92E007CB4D3 /* rock.png */,
 				22B8C36F1D8521A300806C16 /* bullet.png */,
+				22D31C131D94BFE800818AFA /* door.png */,
+				22D31C151D94CC6400818AFA /* starship.png */,
+				22D31C171D94CD6600818AFA /* book.png */,
+				22D31C211D94D36300818AFA /* gem.png */,
 				22C4E5611D73A9880077DFCB /* hit1.wav */,
 				22C4E5631D73A98E0077DFCB /* explosion1.wav */,
 				22C4E5651D73A9940077DFCB /* jump1.wav */,
@@ -458,6 +482,11 @@
 				22B8C3771D85465400806C16 /* charge2.wav */,
 				22B8C3791D85465B00806C16 /* hit6.wav */,
 				22B8C37B1D8546D700806C16 /* hit7.wav */,
+				22D31C191D94D0DE00818AFA /* pickup1.wav */,
+				22D31C1A1D94D0DE00818AFA /* pickup2.wav */,
+				22D31C1D1D94D0E700818AFA /* jet1.wav */,
+				22D31C1F1D94D0F200818AFA /* hit8.wav */,
+				22D31C231D94D58D00818AFA /* door1.wav */,
 			);
 			name = media;
 			sourceTree = "<group>";
@@ -467,6 +496,7 @@
 			children = (
 				22A9F80D1D5818DD0097FD61 /* Basic.swift */,
 				22BE5DBC1D66C1EC0038FAA8 /* Dreath.swift */,
+				22D31C251D976AB500818AFA /* Items.swift */,
 			);
 			name = entity;
 			sourceTree = "<group>";
@@ -911,27 +941,36 @@
 				22C4E56A1D73A99D0077DFCB /* shield-re1.wav in Resources */,
 				22B8C37C1D8546D700806C16 /* hit7.wav in Resources */,
 				22C4E5661D73A9940077DFCB /* jump1.wav in Resources */,
+				22D31C1B1D94D0DE00818AFA /* pickup1.wav in Resources */,
 				22C4E68E1D75552D0077DFCB /* org.eclipse.cdt.codan.core.prefs in Resources */,
+				22D31C1C1D94D0DE00818AFA /* pickup2.wav in Resources */,
+				22D31C241D94D58D00818AFA /* door1.wav in Resources */,
 				22722C381D488D2700BFA78A /* FredokaOne-Regular.ttf in Resources */,
 				22B8C35D1D7D302400806C16 /* spineboy.atlas in Resources */,
 				22B8C36A1D84F6E000806C16 /* shoot2.wav in Resources */,
 				22C4E68D1D75552D0077DFCB /* .project in Resources */,
 				22C2BCB61D60244000C8F1D5 /* galaxy.png in Resources */,
+				22D31C1E1D94D0E700818AFA /* jet1.wav in Resources */,
 				22722BA01D4887B700BFA78A /* MainView.storyboard in Resources */,
+				22D31C201D94D0F200818AFA /* hit8.wav in Resources */,
 				22C4E6911D75552D0077DFCB /* LICENSE in Resources */,
 				22722B9E1D4887A700BFA78A /* Launch Screen.storyboard in Resources */,
 				22B8C37A1D85465B00806C16 /* hit6.wav in Resources */,
 				22C4E5681D73A9990077DFCB /* make1.wav in Resources */,
 				22B8C36C1D84F6EC00806C16 /* hit2.wav in Resources */,
+				22D31C221D94D36300818AFA /* gem.png in Resources */,
 				22C4E68C1D75552D0077DFCB /* .cproject in Resources */,
+				22D31C181D94CD6600818AFA /* book.png in Resources */,
 				22B8C3741D85424600806C16 /* hit5.wav in Resources */,
 				22C4E55E1D728F2F0077DFCB /* Spawner.png in Resources */,
+				22D31C141D94BFE800818AFA /* door.png in Resources */,
 				22C4E56C1D73A9A20077DFCB /* shoot1.wav in Resources */,
 				22CA67921D90E92E007CB4D3 /* rock.png in Resources */,
 				222DD8D61D48854700A70FA8 /* Default.vsh in Resources */,
 				22C4E5621D73A9880077DFCB /* hit1.wav in Resources */,
 				22B8C3781D85465400806C16 /* charge2.wav in Resources */,
 				22C4E5641D73A98E0077DFCB /* explosion1.wav in Resources */,
+				22D31C161D94CC6400818AFA /* starship.png in Resources */,
 				22722C561D4897C600BFA78A /* Media.xcassets in Resources */,
 				22C4E68F1D75552D0077DFCB /* org.eclipse.cdt.managedbuilder.core.prefs in Resources */,
 				22B8C3681D8262C400806C16 /* spineboy.json in Resources */,
@@ -1036,6 +1075,7 @@
 				22C4E6941D75552D0077DFCB /* AnimationState.c in Sources */,
 				22C4E6921D75552D0077DFCB /* README.md in Sources */,
 				22C4E69B1D75552D0077DFCB /* BoneData.c in Sources */,
+				22D31C261D976AB500818AFA /* Items.swift in Sources */,
 				22C4E69F1D75552D0077DFCB /* extension.c in Sources */,
 				22C4E6A81D75552D0077DFCB /* Skeleton.c in Sources */,
 				222DD8BD1D48854700A70FA8 /* AppDelegate.m in Sources */,

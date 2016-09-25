@@ -20,7 +20,8 @@ class core: NSObject {
         
         //UserInterface.setScreen(PrincipalScreen())
         
-        UserInterface.setScreen(StarshipScreen())
+        UserInterface.screens.append(StarshipScreen())
+        UserInterface.switchScreen(0)
         
         super.init()
     }

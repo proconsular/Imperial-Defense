@@ -22,7 +22,7 @@ open class UserInterface {
     static var screen: Screen!
     static var controller = MainController()
     
-    static var screens: [ScreenName: Screen] = [:]
+    static var screens: [Screen] = []
     
     static func create() {
         controller.stack.push(PointController(0))
@@ -32,7 +32,7 @@ open class UserInterface {
         self.screen = screen
     }
     
-    static func switchScreen(_ name: ScreenName) {
+    static func switchScreen(_ name: Int) {
         self.screen = screens[name]
     }
     

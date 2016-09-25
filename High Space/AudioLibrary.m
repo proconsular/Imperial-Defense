@@ -43,8 +43,13 @@
     [self loadAudio:@"hit4"];
     [self loadAudio:@"hit6"];
     [self loadAudio:@"hit7"];
+    [self loadAudio:@"hit8"];
     [self loadAudio:@"charge1"];
     [self loadAudio:@"charge2"];
+    [self loadAudio:@"jet1"];
+    [self loadAudio:@"pickup1"];
+    [self loadAudio:@"pickup2"];
+    [self loadAudio:@"door1"];
     
     _hasMusic = YES;
     _hasSound = YES;

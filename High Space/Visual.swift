@@ -23,6 +23,11 @@ struct BoundingCircle {
         let dr = radius + other.radius
         return dl <= dr
     }
+    
+    func contains(_ location: float2) -> Bool {
+        let dl = (self.location - location).length
+        return dl <= radius
+    }
 }
 
 protocol Hull {

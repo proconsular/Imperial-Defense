@@ -24,10 +24,18 @@ extension DynamicText {
 class StarshipScreen: Screen {
     
     let background: Display
+    let score: TextElement
+    
+    var levels: [Level]
     
     override init() {
         background = Display(Rect(Camera.size / 2, Camera.size), GLTexture("galaxy"))
         background.transform.assign(Camera.transform)
+        score = TextElement(float2(125, 60), DynamicText.defaultStyle(" ", float4(1), 32))
+        levels = []
+        for n in 0 ..< 5 {
+            levels.append(Level(1 + n * 2))
+        }
         
         super.init()
         
@@ -38,7 +46,7 @@ class StarshipScreen: Screen {
         let start = Camera.size.x / 2 - (Float(count - 1) * 1.m) / 2
         
         for n in 0 ..< count {
-            let planet = PlanetView(float2(start + Float(n) * 1.m, Camera.size.y / 2))
+            let planet = PlanetView(float2(start + Float(n) * 1.m, Camera.size.y / 2), levels[n])
             planet.circle.color = float4(random(0.7, 1), random(0.7, 1), random(0.7, 1), 1)
             layer.objects.append(planet)
         }
@@ -49,6 +57,8 @@ class StarshipScreen: Screen {
     override func display() {
         background.render()
         super.display()
+        score.setText(DynamicText.defaultStyle("Pages: \(Score.pages)", float4(1), 48))
+        score.display()
     }
     
 }
@@ -58,8 +68,10 @@ class PlanetView: InterfaceElement, Interface {
     let circle: Display
     let shape: Circle
     let transform: Transform
+    let level: Level
     
-    override init(_ location: float2) {
+    init(_ location: float2, _ level: Level) {
+        self.level = level
         transform = Transform(location)
         transform.assign(Camera.transform)
         shape = Circle(transform, 0.4.m)
@@ -70,7 +82,7 @@ class PlanetView: InterfaceElement, Interface {
     func use(_ command: Command) {
         if let point = command.vector {
             if shape.getBounds().contains(point) {
-                UserInterface.setScreen(PrincipalScreen())
+                UserInterface.setScreen(PrincipalScreen(level))
             }
         }
     }
@@ -84,23 +96,26 @@ class PlanetView: InterfaceElement, Interface {
 class PrincipalScreen: Screen {
     let corruption: TextElement
     let depth: TextElement
+    let score: TextElement
     let game: Game
     
-    override init() {
-        corruption = TextElement(float2(300, 100), DynamicText.defaultStyle(" ", float4(1), 32))
-        depth = TextElement(float2(325, 100), DynamicText.defaultStyle(" ", float4(1), 32))
-        game = Game()
+    init(_ level: Level) {
+        corruption = TextElement(float2(Camera.size.x - 300, 125), DynamicText.defaultStyle(" ", float4(1), 32))
+        self.depth = TextElement(float2(325, 100), DynamicText.defaultStyle(" ", float4(1), 32))
+        score = TextElement(float2(325, 150), DynamicText.defaultStyle(" ", float4(1), 32))
+        game = Game(level)
         
         super.init()
         
         UserInterface.controller.stack.push(GameControllerLayer())
         
         layers.append(game)
-        layers.append(StatusLayer(game.player))
+        layers.append(StatusLayer(game))
+        //layers.append(InventoryView())
     }
     
     deinit {
-        UserInterface.controller.stack.pop()
+        let _ = UserInterface.controller.stack.pop()
     }
     
     override func use(_ command: Command) {
@@ -110,14 +125,15 @@ class PrincipalScreen: Screen {
     override func display() {
         layers.forEach{$0.display()}
         
-//        let dreath = game.dreathmap.totalDreath()
-//        let dis = dreath / 100
-        //corruption.setText(DynamicText.defaultStyle("Dreath: \(String(format: "%.1f", dis))", float4(1), 64))
-//        corruption.setText(DynamicText.defaultStyle("Actors: \(game.controller.grid.actors.count)", float4(1), 64))
-        //corruption.display()
+        let dreath = game.level.dreathmap.totalDreath()
+        let dis = dreath / 100
+        corruption.setText(DynamicText.defaultStyle("Dreath: \(String(format: "%.1f", dis))", float4(1), 48))
+        corruption.display()
         let dp = game.level.depth == 0 ? "infinity" : "\(game.level.depth)"
         depth.setText(DynamicText.defaultStyle("Depth: \(game.level.rooms.count - 1) of \(dp)", float4(1), 48))
         depth.display()
+        score.setText(DynamicText.defaultStyle("Pages: \(Score.pages)", float4(1), 48))
+        score.display()
     }
     
 }
@@ -143,7 +159,7 @@ class EndScreen: Screen {
         
         layer.objects.append(TextElement(Camera.size / 2, DynamicText.defaultStyle(text, float4(1), 128)))
         layer.objects.append(TextButton(DynamicText.defaultStyle("Restart", float4(1), 86), Camera.size / 2 + float2(0, 400), {
-           UserInterface.setScreen(PrincipalScreen())
+           UserInterface.switchScreen(0)
         }))
         
         layers.append(layer)
@@ -158,45 +174,75 @@ class PauseLayer: InterfaceLayer {
         let base = Camera.size / 2 - float2(0, 200)
         objects.append(Button("Resume", base))
         objects.append(Button("Restart", base + float2(0, 200)))
-        objects.append(Button("Menu", base + float2(0, 400)) {
-            UserInterface.switchScreen(.menu)
-        })
+//        objects.append(Button("Menu", base + float2(0, 400)) {
+//            UserInterface.switchScreen(.menu)
+//        })
     }
     
 }
 
 class StatusLayer: InterfaceLayer {
+    let game: Game
     let status: Player
     let element: ShieldElement
     let weapon: StatusElement
     let laser: StatusElement
-    let restart: TextButton
     let ship: TextButton
     
-    init(_ status: Player) {
-        self.status = status
+    init(_ game: Game) {
+        self.game = game
+        self.status = game.player
         element = ShieldElement(status.shield)
         weapon = StatusElement(status.weapon, float2())
         laser = StatusElement(status.laser, float2(0, 30))
-        restart = TextButton(DynamicText.defaultStyle("restart", float4(0, 0, 0, 1), 64.0), float2(Camera.size.x / 2 + 100, 50)) {
-            UserInterface.setScreen(PrincipalScreen())
-        }
-        ship = TextButton(DynamicText.defaultStyle("ship", float4(0, 0, 0, 1), 64.0), float2(Camera.size.x / 2 - 100, 50)) {
-            UserInterface.setScreen(StarshipScreen())
+        ship = TextButton(DynamicText.defaultStyle("ship", float4(0, 0, 0, 1), 64.0), float2(Camera.size.x / 2, 50)) {
+            UserInterface.switchScreen(0)
         }
     }
     
     override func use(_ command: Command) {
-        restart.use(command)
-        ship.use(command)
+        if FixedRect.intersects(game.ship.rect.getBounds(), game.player.body.shape.getBounds()) && game.level.index == 0 {
+            ship.use(command)
+        }
     }
     
     override func display() {
         element.render()
         weapon.render()
         laser.render()
-        restart.display()
-        ship.display()
+        if FixedRect.intersects(game.ship.rect.getBounds(), game.player.body.shape.getBounds()) && game.level.index == 0 {
+            ship.display()
+        }
+    }
+}
+
+class InventoryView: InterfaceLayer {
+    let number: TextElement
+    
+    override init() {
+        number = TextElement(float2(), DynamicText.defaultStyle(" ", float4(1), 16))
+    }
+    
+    override func display() {
+        let width = 6
+        let height = 3
+        let start = float2(Camera.size.x / 2 - Float(width - 1) * 0.5.m / 2, Camera.size.y / 2 - Float(height - 1) * 0.5.m / 2)
+        var x = 0, y = 0
+        for stack in Score.inventory.items {
+            let item = stack.items.first!
+            let loc = start + float2(Float(x) * 0.5.m, Float(y) * 0.5.m)
+            item.transform.location = loc + Camera.transform.location
+            if x >= width - 1 {
+                y += 1
+                x = 0
+            }else{
+                x += 1
+            }
+            item.render()
+            number.setLocation(loc + float2(30, 30))
+            number.setText(DynamicText.defaultStyle("\(stack.items.count)", float4(1), 48))
+            number.display()
+        }
     }
     
 }

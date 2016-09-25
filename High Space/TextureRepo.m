@@ -29,8 +29,8 @@
     _textures = [NSMutableDictionary new];
 
     glGenSamplers(1, &_sampler);
-    glSamplerParameteri(_sampler, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glSamplerParameteri(_sampler, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glSamplerParameteri(_sampler, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glSamplerParameteri(_sampler, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
     glSamplerParameteri(_sampler, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glSamplerParameteri(_sampler, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     
@@ -47,7 +47,11 @@
     @"Colony",
     @"bullet",
     @"planet",
-    @"rock"];
+    @"rock",
+    @"door",
+    @"starship",
+    @"book",
+    @"gem"];
     
     
     for (NSString *name in prefetched) {

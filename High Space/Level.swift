@@ -22,18 +22,19 @@ class Level {
         rooms = []
         rooms.append(createRoom(float2(), float2(1, 0)))
         current = rooms[0]
-        
         Camera.bounds = current.size
-        
         dreathmap = DreathMap(self)
     }
     
     func createRoom(_ start: float2, _ direction: float2) -> Room {
-        let map = RoomMap(14, float2(30.m))
+        let map = RoomMap(20, float2(30.m))
         map.setStart(start, direction)
         map.generate()
-        let gen = RoomGenerator()
-        return gen.generate(map)
+        let gen = RoomGenerator(map)
+        if rooms.count > depth - 1 {
+            gen.hasGoal = true
+        }
+        return gen.generate()
     }
     
     func findOpenedDoor(actor: Actor) -> Door? {
@@ -56,6 +57,8 @@ class Level {
                     let other_door = tryRoom(start, -direction)
                     door.room = rooms.count - 1
                     changeRoom(index: door.room, other_door)
+                    let amount = Float(10 * (rooms.count - 1))
+                    dreathmap.spawn(amount)
                 }
             }
         }
@@ -63,7 +66,7 @@ class Level {
     
     func tryRoom(_ start: float2, _ direction: Int) -> Door {
         let room = createRoom(start, float2(Float(-direction), 0))
-        if let door = getDoor(room, -direction) {
+        if let door = getDoor(room, -direction), room.doors.count >= 3 {
             rooms.append(room)
             return door
         }else{
@@ -88,11 +91,16 @@ class Level {
         
         other_door.room = last
         
-        actor.transform.location = float2(other_door.transform.location.x + Float(other_door.direction) * 2.m, other_door.transform.location.y)
+        let act_size = actor.body.shape.getBounds().bounds
+        let door_size = other_door.body.shape.getBounds().bounds
         
-        Camera.transform.location = actor.transform.location
+        actor.transform.location = float2(other_door.transform.location.x + Float(other_door.direction) * 0.5.m, other_door.transform.location.y + door_size.y / 2 - act_size.y / 2)
+        
+        Camera.transform.location = actor.transform.location - Camera.size / 2
         
         current.map.append(actor)
+        
+        play("door1")
     }
     
     func update() {
@@ -122,6 +130,11 @@ class Room {
         doors = []
         lighting = LightingSystem(map.grid)
         physics = Simulation(map.grid)
+        
+        map.append(Structure(float2(size.x / 2, 0), float2(size.x, 0.1.m)))
+        map.append(Structure(float2(size.x / 2, -size.y), float2(size.x, 0.1.m)))
+        map.append(Structure(float2(0, -size.y / 2), float2(0.1.m, size.y)))
+        map.append(Structure(float2(size.x, -size.y / 2), float2(0.1.m, size.y)))
     }
     
     func getDoor(_ direction: float2) -> Door? {
@@ -232,8 +245,8 @@ class RoomMap {
     
     func generate() {
         for _ in 0 ..< complexity {
-            let endPoint = startPoint + (computeMaxPoint() - startPoint) * 0.5
-            let line = Line(startPoint, endPoint)
+            let endPoint = floor(startPoint) + (computeMaxPoint() - startPoint) * 0.5
+            let line = Line(floor(startPoint), floor(endPoint))
             
             let count = Int(ceil(line.length))
             
@@ -299,48 +312,111 @@ class RoomMap {
 
 class RoomGenerator {
     
-    func generate(_ map: RoomMap) -> Room {
-        let room = Room(map.size * map.scale)
+    var map: RoomMap!
+    var room: Room!
+    var x: Int = 0
+    var y: Int = 0
+    var point: float2 = float2()
+    var index: Int = 0
+    var hasGoal = false
+    
+    init(_ map: RoomMap) {
+        self.map = map
+    }
+    
+    func generate() -> Room {
+        room = Room(map.size * map.scale)
+        
+        x = 0
+        y = 0
+        index = 0
+        point = float2()
         
         for x in 0 ..< Int(map.size.x) {
+            self.x = x
             for y in 0 ..< Int(map.size.y) {
-                let point = map.getPoint(x, y)
-                let index = map.getIndex(x, y)
-                if map.bitmap[index] == 0 {
-                    let block = Structure(point, float2(map.scale))
-                    let tint = random(0.1, 0.3)
-                    block.display.color = float4(tint + random(0, 0.1), tint, tint, 1)
-                    block.display.texture = GLTexture("rock").id
-                    room.map.append(block)
-                }
-                if map.bitmap[index] == 1 {
-                    let index_below = map.getIndex(x, y + 1)
-                    let point_below = map.getPoint(x, y + 1)
-                    
-                    if map.contains(index: index_below) {
-                        if map.bitmap[index_below] == 0 {
-                            let direction = point_below.x <= map.scale / 2 ? 1 : -1
-                            if point_below.x <= map.scale / 2 || point_below.x >= map.size.x * map.scale - map.scale / 2 {
-                                let index_side = map.getIndex(x + direction, y)
-                                
-                                if map.contains(index: index_side) {
-                                    if map.bitmap[index_side] == 1 {
-                                        let block = Door(point, float2(map.scale), direction)
-                                        room.map.append(block)
-                                        room.doors.append(block)
-                                    }
-                                }
-                                
-                            }
-                        }
-                       
-                    }
-                    
-                }
+                self.y = y
+                point = map.getPoint(x, y)
+                index = map.getIndex(x, y)
+                makeBlock()
+                makeObjectAbove()
+                
             }
         }
         
         return room
+    }
+    
+    func makeBlock() {
+        if map.bitmap[index] == 0 {
+            let block = Structure(point, float2(map.scale))
+            let tint = random(0.1, 0.3)
+            block.display.color = float4(tint + random(0, 0.1), tint, tint, 1)
+            block.display.texture = GLTexture("rock").id
+            room.map.append(block)
+        }
+    }
+    
+    func makeObjectAbove() {
+        if map.bitmap[index] == 1 {
+            let index_below = map.getIndex(x, y + 1)
+            let point_below = map.getPoint(x, y + 1)
+            if map.contains(index: index_below) {
+                if map.bitmap[index_below] == 0 {
+                    makeObject(point_below)
+                }
+            }
+        }
+    }
+    
+    func makeObject(_ point_below: float2) {
+        if isOnEdge(point_below) {
+            makeDoor(point_below)
+        }else{
+            if hasGoal {
+                hasGoal = false
+                makeGoal()
+            }else{
+                if random(0, 1) < 0.2 {
+                    let size = float2(0.3.m, 0.3.m)
+                    let array = Array<Int>(repeating: 1, count: Int(arc4random()) % 3)
+                    let id = Gem.Identity(array)
+                    let goal = Gem(float2(point.x, point.y + map.scale / 2 - size.y / 2), id)
+                    goal.display.color = float4(1) - float4(Float(id.values.getValue(at: 0) ?? 0), Float(id.values.getValue(at: 1) ?? 0), Float(id.values.getValue(at: 2) ?? 0), 0)
+                    goal.body.tag = "rock"
+                    goal.display.texture = GLTexture("gem").id
+                    room.map.append(goal)
+                }
+            }
+        }
+    }
+    
+    func makeGoal() {
+        let size = float2(0.4.m, 0.5.m)
+        let goal = Structure(float2(point.x, point.y + map.scale / 2 - size.y / 2), size)
+        goal.display.color = float4(1, 1, 0.8, 1)
+        goal.body.tag = "goal"
+        goal.display.texture = GLTexture("book").id
+        room.map.append(goal)
+    }
+    
+    func isOnEdge(_ point: float2) -> Bool {
+        return point.x <= map.scale / 2 || point.x >= map.size.x * map.scale - map.scale / 2
+    }
+    
+    func makeDoor(_ point_below: float2) {
+        let direction = point_below.x <= map.scale / 2 ? 1 : -1
+        let index_side = map.getIndex(x + direction, y)
+        if map.contains(index: index_side) {
+            if map.bitmap[index_side] == 1 {
+                let size = float2(0.5.m, map.scale / 2)
+                let offset = -map.scale / 2 + size.x / 2
+                let dir = float2(Float(direction) * offset, map.scale / 2 - size.y / 2)
+                let block = Door(point + dir, size, direction)
+                room.map.append(block)
+                room.doors.append(block)
+            }
+        }
     }
     
 }

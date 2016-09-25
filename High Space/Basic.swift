@@ -44,6 +44,7 @@ class Structure: Actor {
         super.init(rect, Substance.Solid)
         display.color = float4(0.11, 0.11, 0.12, 1)
         body.mask = Int.max
+        body.object = self
     }
     
 }
@@ -58,6 +59,10 @@ class Door: Structure {
         super.init(location, bounds)
         body.hidden = true
         display.color = float4(1, 1, 1, 0.5)
+        display.texture = GLTexture("door").id
+        if direction == -1 {
+            display.scheme.layout.coordinates = display.scheme.layout.coordinates.rotate(2)
+        }
     }
     
 }
@@ -108,7 +113,7 @@ class Shield {
         damaged = true
         timer.increment = 0
         points.increase(-amount)
-        playIfNot("hit5", 1.5)
+        playIfNot("hit8", 0.65)
     }
     
     func update() {
@@ -120,6 +125,52 @@ class Shield {
     }
 }
 
+class ItemStack {
+    var items: [Item]
+    
+    init() {
+        items = []
+    }
+}
+
+class Inventory {
+    var items: [ItemStack]
+    
+    init() {
+        items = []
+    }
+    
+    func append(_ item: Item) {
+        guard let gem = item as? Gem else { return }
+        if !insert(gem) {
+            createStack(gem)
+        }
+    }
+    
+    private func insert(_ gem: Gem) -> Bool {
+        for stack in items {
+            if let g = stack.items.first as? Gem {
+                if gem.identity == g.identity {
+                    stack.items.append(gem)
+                    return true
+                }
+            }
+        }
+        return false
+    }
+    
+    private func createStack(_ item: Item) {
+        let stack = ItemStack()
+        stack.items.append(item)
+        items.append(stack)
+    }
+}
+
+class Score {
+    static var pages: Int = 0
+    static var inventory = Inventory()
+}
+
 class Player: Actor, Interface {
     static var player: Player!
     
@@ -128,6 +179,7 @@ class Player: Actor, Interface {
     var laser: Weapon!
     var callback: (String) -> () = {_ in}
     let spine: Skeleton
+    var fuel: Float = 100
     
     var jumping = false
     var canSideJump = false
@@ -145,7 +197,6 @@ class Player: Actor, Interface {
         laser.actor = self
         body.object = self
         body.callback = { [unowned self] (body, collision) in
-            //self.canSideJump = false
             if !self.onObject {
                 self.onObject = collision.normal.y > FLT_EPSILON
                 if body.substance.mass.mass == 0 {
@@ -155,7 +206,24 @@ class Player: Actor, Interface {
                 self.jumping = !self.onObject
             }
             if let tag = body.tag {
-                self.callback(tag)
+                if tag == "goal" {
+                    if let actor = body.object as? Actor {
+                        if actor.alive {
+                            Score.pages += 1
+                            play("pickup1")
+                        }
+                        actor.alive = false
+                    }
+                }
+                if tag == "rock" {
+                    if let actor = body.object as? Item {
+                        if actor.alive {
+                            Score.inventory.append(actor)
+                            play("pickup2")
+                        }
+                        actor.alive = false
+                    }
+                }
             }
         }
         Player.player = self
@@ -170,13 +238,12 @@ class Player: Actor, Interface {
                 spine.setDirection(force.x > 0 ? 1 : -1)
             }
         }else if command.id == 1 {
-            if (onObject || canSideJump) {
-                body.velocity.y -= 4.m
-                if canSideJump {
-                    body.velocity.x += 2.m * -sideJumpNormal.x
-                }
-                play("jump1")
+            if fuel > 0 {
+                fuel -= 5
+                body.velocity.y -= 0.75.m
+                playIfNot("jet1", 1.5)
             }
+            
         }else if command.id == 2 {
             weapon.fireVertex = spine.getBoneLocation("gunTip")
             weapon.fire()
@@ -190,6 +257,8 @@ class Player: Actor, Interface {
         shield.update()
         weapon.update()
         laser.update()
+        
+        fuel += 50 * Time.time
         
         if !jumping {
             if abs(body.velocity.x) > 0.2.m {
@@ -306,6 +375,7 @@ class DreathTargetter: Targetter {
             if let char = actor as? DreathActor {
                 guard char.alive else { continue }
                 let dl = player.transform.location - char.transform.location
+                guard dl.length < 5.m else { continue }
                 var lw = 10.m / dl.length * 2 //+ char.dreath.amount / 1000 * 0.5
                 if char is DreathKnight {
                     lw += 10
@@ -340,6 +410,7 @@ class DreathHiveTargetter: Targetter {
             if let char = actor as? DreathActor {
                 guard char.alive else { continue }
                 let dl = Player.player.transform.location - char.transform.location
+                guard dl.length < 5.m else { continue }
                 var lw = 10.m / dl.length + char.dreath.amount
                 if char is DreathKnight {
                     lw += 10
