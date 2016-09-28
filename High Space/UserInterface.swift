@@ -19,36 +19,56 @@ open class UserInterface {
         case menu, title
     }
     
-    static var screen: Screen!
     static var controller = MainController()
     
-    static var screens: [Screen] = []
+    static var spaces: [ScreenSpace] = []
+    static var index = 0
+    
+    static var space: ScreenSpace {
+        return spaces[index]
+    }
     
     static func create() {
-        controller.stack.push(PointController(0))
-    }
-    
-    static func setScreen(_ screen: Screen) {
-        self.screen = screen
-    }
-    
-    static func switchScreen(_ name: Int) {
-        self.screen = screens[name]
+        controller.push(PointController(0))
     }
     
     static func update() {
-        controller.getCommands().forEach(screen.use)
-        screen.update()
+        controller.getCommands().forEach(space.use)
+        space.update()
     }
     
     static func display () {
-        screen.display()
+        space.display()
+    }
+    
+    static func set(index: Int) {
+        self.index = index
+    }
+    
+    static func set(space: ScreenSpace) {
+        spaces.append(space)
+        index = spaces.count - 1
+    }
+    
+}
+
+class ScreenSpace: Stack<Screen>, Interface {
+    
+    func use(_ command: Command) {
+        peek?.use(command)
+    }
+    
+    func update() {
+        peek?.update()
+    }
+    
+    func display() {
+        peek?.display()
     }
     
 }
 
 open class Screen: Interface {
-    
     var layers: [DisplayLayer] = []
     
     func update() {
@@ -64,7 +84,6 @@ open class Screen: Interface {
             self.layers.reversed().forEach{$0.use(command)}
         }
     }
-    
 }
 
 open class InterfaceLayer: DisplayLayer {

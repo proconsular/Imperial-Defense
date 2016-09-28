@@ -24,7 +24,10 @@
 	<true/>
 	<key>UIAppFonts</key>
 	<array>
-		<string>FredokaOne-Regular.ttf</string>
+		<string>Metropolis-ExtraLight.otf</string>
+		<string>Segan.ttf</string>
+		<string>Aaargh.ttf</string>
+		<string>Adamina-Regular.ttf</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>Launch Screen</string>

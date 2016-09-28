@@ -45,14 +45,16 @@ class Stack<T> {
         contents = []
     }
     
+    func wipe() {
+        contents.removeAll()
+    }
+    
     func push(_ item: T) {
         contents.append(item)
     }
     
-    func pop() -> T? {
-        let item = contents.last
+    func pop() {
         contents.removeLast()
-        return item
     }
     
     var peek: T? {
@@ -77,11 +79,20 @@ class MainController {
         }
         
         if commands.isEmpty {
-            commands.append(Command(-1))
+            return [Command(-1)]
         }
         
         return commands
     }
+    
+    func push(_ controller: Controller) {
+        stack.push(controller)
+    }
+    
+    func reduce() {
+        stack.pop()
+    }
+    
 }
 
 class ControllerLayer: Controller {

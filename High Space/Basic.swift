@@ -138,12 +138,15 @@ class Inventory {
     
     init() {
         items = []
+        for _ in 0 ..< 12 {
+            items.append(ItemStack())
+        }
     }
     
     func append(_ item: Item) {
         guard let gem = item as? Gem else { return }
         if !insert(gem) {
-            createStack(gem)
+            push(gem)
         }
     }
     
@@ -159,10 +162,13 @@ class Inventory {
         return false
     }
     
-    private func createStack(_ item: Item) {
-        let stack = ItemStack()
-        stack.items.append(item)
-        items.append(stack)
+    private func push(_ item: Item) {
+        for stack in items {
+            if stack.items.isEmpty {
+                stack.items.append(item)
+                return
+            }
+        }
     }
 }
 

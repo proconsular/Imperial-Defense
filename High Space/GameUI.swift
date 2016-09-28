@@ -15,7 +15,7 @@ extension DynamicText {
     }
     
     static func defaultStyle(_ string: String, _ color: float4, _ size: Float) -> DynamicText {
-        let string = NSAttributedString(string: string, attributes: [NSFontAttributeName: UIFont(name: "FredokaOne-Regular", size: CGFloat(size))!, NSForegroundColorAttributeName: UIColor(red: CGFloat(color.x), green: CGFloat(color.y), blue: CGFloat(color.z), alpha: CGFloat(color.w))])
+        let string = NSAttributedString(string: string, attributes: [NSFontAttributeName: UIFont(name: "Metropolis-ExtraLight", size: CGFloat(size))!, NSForegroundColorAttributeName: UIColor(red: CGFloat(color.x), green: CGFloat(color.y), blue: CGFloat(color.z), alpha: CGFloat(color.w))])
         return DynamicText(attributedString: string)
     }
     
@@ -82,7 +82,8 @@ class PlanetView: InterfaceElement, Interface {
     func use(_ command: Command) {
         if let point = command.vector {
             if shape.getBounds().contains(point) {
-                UserInterface.setScreen(PrincipalScreen(level))
+                UserInterface.set(index: 0)
+                UserInterface.space.push(PrincipalScreen(level))
             }
         }
     }
@@ -115,7 +116,7 @@ class PrincipalScreen: Screen {
     }
     
     deinit {
-        let _ = UserInterface.controller.stack.pop()
+        UserInterface.controller.reduce()
     }
     
     override func use(_ command: Command) {
@@ -127,13 +128,63 @@ class PrincipalScreen: Screen {
         
         let dreath = game.level.dreathmap.totalDreath()
         let dis = dreath / 100
-        corruption.setText(DynamicText.defaultStyle("Dreath: \(String(format: "%.1f", dis))", float4(1), 48))
+        corruption.setText(DynamicText.defaultStyle("Dreath: \(String(format: "%.f", dis))", float4(1), 48))
         corruption.display()
         let dp = game.level.depth == 0 ? "infinity" : "\(game.level.depth)"
         depth.setText(DynamicText.defaultStyle("Depth: \(game.level.rooms.count - 1) of \(dp)", float4(1), 48))
         depth.display()
         score.setText(DynamicText.defaultStyle("Pages: \(Score.pages)", float4(1), 48))
         score.display()
+    }
+    
+}
+
+class InventoryScreen: Screen {
+    
+    override init() {
+        super.init()
+        layers.append(InventoryView())
+        
+        let i = InterfaceLayer()
+        i.objects.append(TextButton(DynamicText.defaultStyle("game", float4(1), 64), float2(Camera.size.x / 2, 50)) {
+            UserInterface.space.pop()
+        })
+        layers.append(i)
+    }
+    
+}
+
+class ForgeScreen: Screen {
+    let forgeview: ForgeView
+    let inventoryview: InventoryView
+    
+    init(_ forge: Forge) {
+        forgeview = ForgeView(forge)
+        inventoryview = InventoryView()
+        super.init()
+        layers.append(forgeview)
+        inventoryview.location = float2(0, 300)
+        layers.append(inventoryview)
+    }
+    
+    override func update() {
+        super.update()
+        
+        if let fs = forgeview.selection, let isl = inventoryview.selection {
+            if forgeview.isBlank(index: fs) {
+                if !inventoryview.isBlank(index: isl) {
+                    forgeview.append(index: fs, item: inventoryview.remove(index: isl) as! Gem)
+                    forgeview.selection = nil
+                    inventoryview.selection = nil
+                }
+            }else if inventoryview.isBlank(index: isl) {
+                if !forgeview.isBlank(index: fs) {
+                    inventoryview.append(index: isl, forgeview.remove(index: fs))
+                    forgeview.selection = nil
+                    inventoryview.selection = nil
+                }
+            }
+        }
     }
     
 }
@@ -159,7 +210,8 @@ class EndScreen: Screen {
         
         layer.objects.append(TextElement(Camera.size / 2, DynamicText.defaultStyle(text, float4(1), 128)))
         layer.objects.append(TextButton(DynamicText.defaultStyle("Restart", float4(1), 86), Camera.size / 2 + float2(0, 400), {
-           UserInterface.switchScreen(0)
+            UserInterface.space.wipe()
+            UserInterface.set(index: 1)
         }))
         
         layers.append(layer)
@@ -188,6 +240,8 @@ class StatusLayer: InterfaceLayer {
     let weapon: StatusElement
     let laser: StatusElement
     let ship: TextButton
+    let inventory: TextButton
+    let device: TextButton
     
     init(_ game: Game) {
         self.game = game
@@ -195,56 +249,58 @@ class StatusLayer: InterfaceLayer {
         element = ShieldElement(status.shield)
         weapon = StatusElement(status.weapon, float2())
         laser = StatusElement(status.laser, float2(0, 30))
-        ship = TextButton(DynamicText.defaultStyle("ship", float4(0, 0, 0, 1), 64.0), float2(Camera.size.x / 2, 50)) {
-            UserInterface.switchScreen(0)
+        ship = TextButton(DynamicText.defaultStyle("ship", float4(1), 64.0), float2(Camera.size.x / 2, 50)) {
+            UserInterface.space.wipe()
+            UserInterface.set(index: 1)
+        }
+        inventory = TextButton(DynamicText.defaultStyle("inventory", float4(1), 64.0), float2(Camera.size.x / 2, 50)) {
+            UserInterface.space.push(InventoryScreen())
+        }
+        device = TextButton(DynamicText.defaultStyle("device", float4(1), 64.0), float2(Camera.size.x / 2, 50)) {
+            
         }
     }
     
     override func use(_ command: Command) {
         if FixedRect.intersects(game.ship.rect.getBounds(), game.player.body.shape.getBounds()) && game.level.index == 0 {
             ship.use(command)
+        }else if let _device = findDevice() {
+            device.event = {
+                if _device.name.lowercased() == "forge" {
+                    UserInterface.space.push(ForgeScreen(_device as! Forge))
+                }
+            }
+            device.use(command)
+        }else{
+            inventory.use(command)
         }
+    }
+    
+    private func findDevice() -> Device? {
+        for actor in game.level.current.map.actors {
+            if let device = actor as? Device {
+                if device.isUsable(game.player.transform.location) {
+                    return device
+                }
+            }
+        }
+        return nil
     }
     
     override func display() {
         element.render()
         weapon.render()
-        laser.render()
+        //laser.render()
         if FixedRect.intersects(game.ship.rect.getBounds(), game.player.body.shape.getBounds()) && game.level.index == 0 {
             ship.display()
+        }else if let _device = findDevice() {
+            device.text = DynamicText.defaultStyle("\(_device.name.lowercased())", float4(1), 64)
+            device.text.location = device.location
+            device.display()
+        }else{
+            inventory.display()
         }
     }
-}
-
-class InventoryView: InterfaceLayer {
-    let number: TextElement
-    
-    override init() {
-        number = TextElement(float2(), DynamicText.defaultStyle(" ", float4(1), 16))
-    }
-    
-    override func display() {
-        let width = 6
-        let height = 3
-        let start = float2(Camera.size.x / 2 - Float(width - 1) * 0.5.m / 2, Camera.size.y / 2 - Float(height - 1) * 0.5.m / 2)
-        var x = 0, y = 0
-        for stack in Score.inventory.items {
-            let item = stack.items.first!
-            let loc = start + float2(Float(x) * 0.5.m, Float(y) * 0.5.m)
-            item.transform.location = loc + Camera.transform.location
-            if x >= width - 1 {
-                y += 1
-                x = 0
-            }else{
-                x += 1
-            }
-            item.render()
-            number.setLocation(loc + float2(30, 30))
-            number.setText(DynamicText.defaultStyle("\(stack.items.count)", float4(1), 48))
-            number.display()
-        }
-    }
-    
 }
 
 class ShieldElement {

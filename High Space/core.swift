@@ -11,17 +11,20 @@ import Accelerate
 
 let funmode = false
 
-@objc
-class core: NSObject {
+@objc class core: NSObject {
     
     override init() {
-        srandom(UInt32(Date.timeIntervalSinceReferenceDate))
         UserInterface.create()
         
         //UserInterface.setScreen(PrincipalScreen())
         
-        UserInterface.screens.append(StarshipScreen())
-        UserInterface.switchScreen(0)
+        UserInterface.set(space: ScreenSpace())
+        
+        let shipspace = ScreenSpace()
+        
+        shipspace.push(StarshipScreen())
+        
+        UserInterface.set(space: shipspace)
         
         super.init()
     }
@@ -36,9 +39,7 @@ class core: NSObject {
     
 }
 
-
-@objc
-class Time: NSObject {
+@objc class Time: NSObject {
     static var time: Float = 0
     
     static func set(_ time: Float) {

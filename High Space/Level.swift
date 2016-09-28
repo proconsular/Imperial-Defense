@@ -377,18 +377,26 @@ class RoomGenerator {
                 hasGoal = false
                 makeGoal()
             }else{
-                if random(0, 1) < 0.2 {
-                    let size = float2(0.3.m, 0.3.m)
-                    let array = Array<Int>(repeating: 1, count: Int(arc4random()) % 3)
-                    let id = Gem.Identity(array)
-                    let goal = Gem(float2(point.x, point.y + map.scale / 2 - size.y / 2), id)
-                    goal.display.color = float4(1) - float4(Float(id.values.getValue(at: 0) ?? 0), Float(id.values.getValue(at: 1) ?? 0), Float(id.values.getValue(at: 2) ?? 0), 0)
-                    goal.body.tag = "rock"
-                    goal.display.texture = GLTexture("gem").id
+                if random(0, 1) < 0.7 {
+                   makeGem()
+                }else if random(0, 1) < 0.2 {
+                    let goal = Forge(float2(point.x, point.y))
                     room.map.append(goal)
                 }
             }
         }
+    }
+    
+    func makeGem() {
+        let size = float2(0.3.m, 0.3.m)
+        var array: [Int] = []
+        for _ in 0 ..< 6 {
+            array.append(Int(arc4random() % 2))
+        }
+        let id = Gem.Identity(array)
+        let goal = Gem(float2(point.x, point.y + map.scale / 2 - size.y / 2), id)
+        
+        room.map.append(goal)
     }
     
     func makeGoal() {

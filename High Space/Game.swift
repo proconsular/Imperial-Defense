@@ -40,12 +40,12 @@ class Game: DisplayLayer {
     }
     
     func victory() {
-        UserInterface.setScreen(EndScreen(ending: .victory))
+        UserInterface.space.push(EndScreen(ending: .victory))
     }
     
     func death() {
         if player.shield.points.amount <= 0 {
-            UserInterface.setScreen(EndScreen(ending: .lose))
+            UserInterface.space.push(EndScreen(ending: .lose))
         }
     }
     
