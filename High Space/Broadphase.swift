@@ -59,8 +59,10 @@ class Broadphaser {
         var contacts: [Manifold] = []
         
         for cell in grid.cells {
-            contacts += process(cell.elements.map{ $0.element.body }.sorted(by: sortBodies))
+            contacts += process(cell.elements.map{ $0.element.body })
         }
+        
+        //contacts = process(grid.actors.map{ $0.body }.sorted(by: sortBodies))
         
         return contacts
     }

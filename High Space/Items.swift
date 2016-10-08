@@ -105,6 +105,12 @@ class Gem: Item {
         init(_ values: [Int]) {
             self.values = values
         }
+        
+        var sum: Int {
+            var s = 0
+            values.forEach{ s += $0 }
+            return s
+        }
     }
     
     var identity: Identity
@@ -120,8 +126,11 @@ class Gem: Item {
     private func computeColor() -> float4 {
         var color = float4(1)
         for n in 0 ..< identity.values.count {
-            let value = identity.values[n]
-            color[n % 3] += Float(value) / 5
+            let value = Float(identity.values[n])
+            let m = Float(n)
+            color.x += (m == 1 ? value : 0) + (m == 3 ? value : 0) + (m == 4 ? value : 0) + (m == 5 ? value : 0)
+            color.y += (m == 0 ? value : 0) + (m == 1 ? value : 0) + (m == 4 ? value : 0)
+            color.z += (m == 2 ? value : 0) + (m == 4 ? value : 0) + (m == 5 ? value : 0)
         }
         return color
     }

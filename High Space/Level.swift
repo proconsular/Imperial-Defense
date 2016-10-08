@@ -390,8 +390,9 @@ class RoomGenerator {
     func makeGem() {
         let size = float2(0.3.m, 0.3.m)
         var array: [Int] = []
-        for _ in 0 ..< 6 {
-            array.append(Int(arc4random() % 2))
+        let v = Int(arc4random() % 6)
+        for n in 0 ..< 6 {
+            array.append(v == n ? 1 : 0)
         }
         let id = Gem.Identity(array)
         let goal = Gem(float2(point.x, point.y + map.scale / 2 - size.y / 2), id)
