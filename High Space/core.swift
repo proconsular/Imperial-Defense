@@ -16,13 +16,11 @@ let funmode = false
     override init() {
         UserInterface.create()
         
-        //UserInterface.setScreen(PrincipalScreen())
-        
         UserInterface.set(space: ScreenSpace())
         
         let shipspace = ScreenSpace()
         
-        shipspace.push(StarshipScreen())
+        shipspace.push(PrincipalScreen())
         
         UserInterface.set(space: shipspace)
         

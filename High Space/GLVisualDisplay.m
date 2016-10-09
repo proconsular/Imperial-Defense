@@ -7,7 +7,7 @@
 //
 
 #import "GLVisualDisplay.h"
-#import "Sky_s_Melody-Swift.h"
+#import "Defender-Swift.h"
 
 #define BUFFER_OFFSET(i) ((char *)NULL + (i))
 

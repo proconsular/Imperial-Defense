@@ -169,7 +169,7 @@
 		221A5F0F1D986A8C004B1516 /* Adamina-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Adamina-Regular.ttf"; sourceTree = "<group>"; };
 		221A5F111D986C57004B1516 /* Metropolis-ExtraLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Metropolis-ExtraLight.otf"; sourceTree = "<group>"; };
 		221A5F131D9B67DE004B1516 /* InGameViews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InGameViews.swift; sourceTree = "<group>"; };
-		222DD8301D48843100A70FA8 /* Sky's Melody.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Sky's Melody.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		222DD8301D48843100A70FA8 /* Defender.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Defender.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		222DD8431D48843100A70FA8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		222DD84B1D48854600A70FA8 /* Animation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Animation.swift; sourceTree = "<group>"; };
 		222DD84C1D48854600A70FA8 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -257,7 +257,7 @@
 		22B8C37D1D8669B200806C16 /* Level.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Level.swift; sourceTree = "<group>"; };
 		22BE5DBC1D66C1EC0038FAA8 /* Dreath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dreath.swift; sourceTree = "<group>"; };
 		22BE5DBE1D6D3BE30038FAA8 /* Grid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Grid.swift; sourceTree = "<group>"; };
-		22C2BCA51D59846B00C8F1D5 /* Sky's Melody Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Sky's Melody Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		22C2BCA51D59846B00C8F1D5 /* Defender Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Defender Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		22C2BCA71D59846C00C8F1D5 /* Sky_s_Melody_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sky_s_Melody_Tests.swift; sourceTree = "<group>"; };
 		22C2BCAF1D5D7C5600C8F1D5 /* Creator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Creator.swift; sourceTree = "<group>"; };
 		22C2BCB51D60244000C8F1D5 /* galaxy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = galaxy.png; sourceTree = "<group>"; };
@@ -395,8 +395,8 @@
 		222DD8311D48843100A70FA8 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				222DD8301D48843100A70FA8 /* Sky's Melody.app */,
-				22C2BCA51D59846B00C8F1D5 /* Sky's Melody Tests.xctest */,
+				222DD8301D48843100A70FA8 /* Defender.app */,
+				22C2BCA51D59846B00C8F1D5 /* Defender Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -867,9 +867,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		222DD82F1D48843100A70FA8 /* Sky's Melody */ = {
+		222DD82F1D48843100A70FA8 /* Defender */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 222DD8461D48843100A70FA8 /* Build configuration list for PBXNativeTarget "Sky's Melody" */;
+			buildConfigurationList = 222DD8461D48843100A70FA8 /* Build configuration list for PBXNativeTarget "Defender" */;
 			buildPhases = (
 				222DD82C1D48843100A70FA8 /* Sources */,
 				222DD82D1D48843100A70FA8 /* Frameworks */,
@@ -879,14 +879,14 @@
 			);
 			dependencies = (
 			);
-			name = "Sky's Melody";
+			name = Defender;
 			productName = "High Space";
-			productReference = 222DD8301D48843100A70FA8 /* Sky's Melody.app */;
+			productReference = 222DD8301D48843100A70FA8 /* Defender.app */;
 			productType = "com.apple.product-type.application";
 		};
-		22C2BCA41D59846B00C8F1D5 /* Sky's Melody Tests */ = {
+		22C2BCA41D59846B00C8F1D5 /* Defender Tests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 22C2BCAC1D59846C00C8F1D5 /* Build configuration list for PBXNativeTarget "Sky's Melody Tests" */;
+			buildConfigurationList = 22C2BCAC1D59846C00C8F1D5 /* Build configuration list for PBXNativeTarget "Defender Tests" */;
 			buildPhases = (
 				22C2BCA11D59846B00C8F1D5 /* Sources */,
 				22C2BCA21D59846B00C8F1D5 /* Frameworks */,
@@ -897,9 +897,9 @@
 			dependencies = (
 				22C2BCAB1D59846C00C8F1D5 /* PBXTargetDependency */,
 			);
-			name = "Sky's Melody Tests";
+			name = "Defender Tests";
 			productName = "Sky's Melody Tests";
-			productReference = 22C2BCA51D59846B00C8F1D5 /* Sky's Melody Tests.xctest */;
+			productReference = 22C2BCA51D59846B00C8F1D5 /* Defender Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -924,7 +924,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 222DD82B1D48843100A70FA8 /* Build configuration list for PBXProject "Sky's Melody" */;
+			buildConfigurationList = 222DD82B1D48843100A70FA8 /* Build configuration list for PBXProject "Defender" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -937,8 +937,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				222DD82F1D48843100A70FA8 /* Sky's Melody */,
-				22C2BCA41D59846B00C8F1D5 /* Sky's Melody Tests */,
+				222DD82F1D48843100A70FA8 /* Defender */,
+				22C2BCA41D59846B00C8F1D5 /* Defender Tests */,
 			);
 		};
 /* End PBXProject section */
@@ -1123,7 +1123,7 @@
 /* Begin PBXTargetDependency section */
 		22C2BCAB1D59846C00C8F1D5 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 222DD82F1D48843100A70FA8 /* Sky's Melody */;
+			target = 222DD82F1D48843100A70FA8 /* Defender */;
 			targetProxy = 22C2BCAA1D59846C00C8F1D5 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -1233,8 +1233,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_CFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = "Chris-Luttio.High-Space";
-				PRODUCT_NAME = "Sky's Melody";
+				PRODUCT_BUNDLE_IDENTIFIER = "Chris-Luttio.Defender";
+				PRODUCT_NAME = Defender;
 				SWIFT_OBJC_BRIDGING_HEADER = "High Space/High Space-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 3.0;
@@ -1255,8 +1255,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_CFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = "Chris-Luttio.High-Space";
-				PRODUCT_NAME = "Sky's Melody";
+				PRODUCT_BUNDLE_IDENTIFIER = "Chris-Luttio.Defender";
+				PRODUCT_NAME = Defender;
 				SWIFT_OBJC_BRIDGING_HEADER = "High Space/High Space-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_VERSION = 3.0;
@@ -1273,7 +1273,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "Chris-Luttio.Sky-s-Melody-Tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Sky's Melody.app/Sky's Melody";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Defender.app/Defender";
 			};
 			name = Debug;
 		};
@@ -1286,14 +1286,14 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "Chris-Luttio.Sky-s-Melody-Tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Sky's Melody.app/Sky's Melody";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Defender.app/Defender";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		222DD82B1D48843100A70FA8 /* Build configuration list for PBXProject "Sky's Melody" */ = {
+		222DD82B1D48843100A70FA8 /* Build configuration list for PBXProject "Defender" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				222DD8441D48843100A70FA8 /* Debug */,
@@ -1302,7 +1302,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		222DD8461D48843100A70FA8 /* Build configuration list for PBXNativeTarget "Sky's Melody" */ = {
+		222DD8461D48843100A70FA8 /* Build configuration list for PBXNativeTarget "Defender" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				222DD8471D48843100A70FA8 /* Debug */,
@@ -1311,7 +1311,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		22C2BCAC1D59846C00C8F1D5 /* Build configuration list for PBXNativeTarget "Sky's Melody Tests" */ = {
+		22C2BCAC1D59846C00C8F1D5 /* Build configuration list for PBXNativeTarget "Defender Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				22C2BCAD1D59846C00C8F1D5 /* Debug */,

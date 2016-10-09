@@ -181,36 +181,15 @@ class Player: Actor, Interface {
     static var player: Player!
     
     var shield: Shield
-    var weapon: Weapon!
-    var laser: Weapon!
     var callback: (String) -> () = {_ in}
-    let spine: Skeleton
-    var fuel: Float = 100
     
-    var jumping = false
-    var canSideJump = false
-    var sideJumpNormal = float2()
-    
-    init(_ location: float2, _ weapon: Weapon) {
+    init(_ location: float2) {
         shield = Shield(amount: 1000)
-        self.weapon = weapon
-        self.laser = Weapon(weapon.grid, "dreath", DreathHiveTargetter(weapon.grid), Weapon.Stats(50, 25, 0.5, 10, 1000))
         let transform = Transform(location)
-        spine = Skeleton("spineboy", transform, float2(0, 0.4.m))
         super.init(Rect(transform, float2(0.4.m, 0.8.m)), Substance(Material(.wood), Mass(6, 0), Friction(.iron)))
         body.mask = 0b100001
-        weapon.actor = self
-        laser.actor = self
         body.object = self
         body.callback = { [unowned self] (body, collision) in
-            if !self.onObject {
-                self.onObject = collision.normal.y > FLT_EPSILON
-                if body.substance.mass.mass == 0 {
-                    self.canSideJump = true
-                    self.sideJumpNormal = collision.normal
-                }
-                self.jumping = !self.onObject
-            }
             if let tag = body.tag {
                 if tag == "goal" {
                     if let actor = body.object as? Actor {
@@ -241,58 +220,17 @@ class Player: Actor, Interface {
             let force = command.vector! / 10
             if abs(body.velocity.x) < 5.m {
                 body.velocity.x += force.x
-                spine.setDirection(force.x > 0 ? 1 : -1)
             }
-        }else if command.id == 1 {
-            if fuel > 0 {
-                fuel -= 5
-                body.velocity.y -= 0.75.m
-                playIfNot("jet1", 1.5)
-            }
-            
-        }else if command.id == 2 {
-            weapon.fireVertex = spine.getBoneLocation("gunTip")
-            weapon.fire()
-        }else if command.id == 3 {
-            laser.fireVertex = spine.getBoneLocation("gunTip")
-            laser.fire()
         }
     }
     
     override func update() {
         shield.update()
-        weapon.update()
-        laser.update()
-        
-        fuel += 50 * Time.time
-        
-        if !jumping {
-            if abs(body.velocity.x) > 0.2.m {
-                spine.setAnimation("run")
-            }else{
-                spine.setAnimation("idle")
-            }
-        }else{
-            spine.setAnimation("jump")
-        }
-        
-        spine.update()
-        
-        if let target = weapon.targetter.getTarget() {
-            let dl = target.transform.location - spine.getBoneLocation("gun")
-            let angle = atan2(dl.y, dl.x)
-            spine.rotateBone("gun", angle)
-        }
-        
-        spine.updateWorld()
-        
-        canSideJump = false
     }
     
     override func render() {
-        jumping = !onObject
         
-        spine.render()
+       
     }
 }
 

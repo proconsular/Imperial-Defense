@@ -21,90 +21,11 @@ extension DynamicText {
     
 }
 
-class StarshipScreen: Screen {
-    
-    let background: Display
-    let score: TextElement
-    
-    var levels: [Level]
-    
-    override init() {
-        background = Display(Rect(Camera.size / 2, Camera.size), GLTexture("galaxy"))
-        background.transform.assign(Camera.transform)
-        score = TextElement(float2(125, 60), DynamicText.defaultStyle(" ", float4(1), 32))
-        levels = []
-        for n in 0 ..< 5 {
-            levels.append(Level(1 + n * 2))
-        }
-        
-        super.init()
-        
-        let layer = InterfaceLayer()
-        
-        let count = 5
-        
-        let start = Camera.size.x / 2 - (Float(count - 1) * 1.m) / 2
-        
-        for n in 0 ..< count {
-            let planet = PlanetView(float2(start + Float(n) * 1.m, Camera.size.y / 2), levels[n])
-            planet.circle.color = float4(random(0.7, 1), random(0.7, 1), random(0.7, 1), 1)
-            layer.objects.append(planet)
-        }
-        
-        layers.append(layer)
-    }
-    
-    override func display() {
-        background.render()
-        super.display()
-        score.setText(DynamicText.defaultStyle("Pages: \(Score.pages)", float4(1), 48))
-        score.display()
-    }
-    
-}
-
-class PlanetView: InterfaceElement, Interface {
-    
-    let circle: Display
-    let shape: Circle
-    let transform: Transform
-    let level: Level
-    
-    init(_ location: float2, _ level: Level) {
-        self.level = level
-        transform = Transform(location)
-        transform.assign(Camera.transform)
-        shape = Circle(transform, 0.4.m)
-        circle = Display(shape, GLTexture("planet"))
-        super.init(location)
-    }
-    
-    func use(_ command: Command) {
-        if let point = command.vector {
-            if shape.getBounds().contains(point) {
-                UserInterface.set(index: 0)
-                UserInterface.space.push(PrincipalScreen(level))
-            }
-        }
-    }
-    
-    override func display() {
-        circle.render()
-    }
-    
-}
-
 class PrincipalScreen: Screen {
-    let corruption: TextElement
-    let depth: TextElement
-    let score: TextElement
     let game: Game
     
-    init(_ level: Level) {
-        corruption = TextElement(float2(Camera.size.x - 300, 125), DynamicText.defaultStyle(" ", float4(1), 32))
-        self.depth = TextElement(float2(325, 100), DynamicText.defaultStyle(" ", float4(1), 32))
-        score = TextElement(float2(325, 150), DynamicText.defaultStyle(" ", float4(1), 32))
-        game = Game(level)
+    override init() {
+        game = Game()
         
         super.init()
         
@@ -125,16 +46,6 @@ class PrincipalScreen: Screen {
     
     override func display() {
         layers.forEach{$0.display()}
-        
-        let dreath = game.level.dreathmap.totalDreath()
-        let dis = dreath / 100
-        corruption.setText(DynamicText.defaultStyle("Dreath: \(String(format: "%.f", dis))", float4(1), 48))
-        corruption.display()
-        let dp = game.level.depth == 0 ? "infinity" : "\(game.level.depth)"
-        depth.setText(DynamicText.defaultStyle("Depth: \(game.level.rooms.count - 1) of \(dp)", float4(1), 48))
-        depth.display()
-        score.setText(DynamicText.defaultStyle("Pages: \(Score.pages)", float4(1), 48))
-        score.display()
     }
     
 }
@@ -237,69 +148,20 @@ class StatusLayer: InterfaceLayer {
     let game: Game
     let status: Player
     let element: ShieldElement
-    let weapon: StatusElement
-    let laser: StatusElement
-    let ship: TextButton
-    let inventory: TextButton
-    let device: TextButton
     
     init(_ game: Game) {
         self.game = game
         self.status = game.player
         element = ShieldElement(status.shield)
-        weapon = StatusElement(status.weapon, float2())
-        laser = StatusElement(status.laser, float2(0, 30))
-        ship = TextButton(DynamicText.defaultStyle("ship", float4(1), 64.0), float2(Camera.size.x / 2, 50)) {
-            UserInterface.space.wipe()
-            UserInterface.set(index: 1)
-        }
-        inventory = TextButton(DynamicText.defaultStyle("inventory", float4(1), 64.0), float2(Camera.size.x / 2, 50)) {
-            UserInterface.space.push(InventoryScreen())
-        }
-        device = TextButton(DynamicText.defaultStyle("device", float4(1), 64.0), float2(Camera.size.x / 2, 50)) {
-            
-        }
+        
     }
     
     override func use(_ command: Command) {
-        if FixedRect.intersects(game.ship.rect.getBounds(), game.player.body.shape.getBounds()) && game.level.index == 0 {
-            ship.use(command)
-        }else if let _device = findDevice() {
-            device.event = {
-                if _device.name.lowercased() == "forge" {
-                    UserInterface.space.push(ForgeScreen(_device as! Forge))
-                }
-            }
-            device.use(command)
-        }else{
-            inventory.use(command)
-        }
-    }
-    
-    private func findDevice() -> Device? {
-        for actor in game.level.current.map.actors {
-            if let device = actor as? Device {
-                if device.isUsable(game.player.transform.location) {
-                    return device
-                }
-            }
-        }
-        return nil
+       
     }
     
     override func display() {
-        element.render()
-        weapon.render()
-        //laser.render()
-        if FixedRect.intersects(game.ship.rect.getBounds(), game.player.body.shape.getBounds()) && game.level.index == 0 {
-            ship.display()
-        }else if let _device = findDevice() {
-            device.text = DynamicText.defaultStyle("\(_device.name.lowercased())", float4(1), 64)
-            device.text.location = device.location
-            device.display()
-        }else{
-            inventory.display()
-        }
+        
     }
 }
 

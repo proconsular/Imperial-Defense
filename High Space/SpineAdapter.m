@@ -9,7 +9,7 @@
 #include "SpineAdapter.h"
 #include "spine.h"
 #include "extension.h"
-#import "Sky_s_Melody-Swift.h"
+#import "Defender-Swift.h"
 
 void _spAtlasPage_createTexture (spAtlasPage* self, const char* path) {
     NSString *name = [[NSString stringWithUTF8String:path] stringByDeletingPathExtension];

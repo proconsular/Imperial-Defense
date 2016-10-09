@@ -7,7 +7,7 @@
 //
 
 #import "SpineRenderer.h"
-#import "Sky_s_Melody-Swift.h"
+#import "Defender-Swift.h"
 
 @implementation SpineRenderer
 
