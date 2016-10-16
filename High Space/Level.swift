@@ -13,7 +13,6 @@ class Level {
     var current: Room!
     var index: Int = 0
     
-    var dreathmap: DreathMap!
     
     let depth: Int
     
@@ -23,7 +22,6 @@ class Level {
         rooms.append(createRoom(float2(), float2(1, 0)))
         current = rooms[0]
         Camera.bounds = current.size
-        dreathmap = DreathMap(self)
     }
     
     func createRoom(_ start: float2, _ direction: float2) -> Room {
@@ -58,7 +56,6 @@ class Level {
                     door.room = rooms.count - 1
                     changeRoom(index: door.room, other_door)
                     let amount = Float(10 * (rooms.count - 1))
-                    dreathmap.spawn(amount)
                 }
             }
         }
@@ -105,7 +102,6 @@ class Level {
     
     func update() {
         openDoor()
-        dreathmap.update()
         current.update()
     }
     

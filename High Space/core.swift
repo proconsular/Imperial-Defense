@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Accelerate
 
 let funmode = false
 
@@ -15,8 +14,6 @@ let funmode = false
     
     override init() {
         UserInterface.create()
-        
-        UserInterface.set(space: ScreenSpace())
         
         let shipspace = ScreenSpace()
         

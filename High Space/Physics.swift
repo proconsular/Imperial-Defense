@@ -14,7 +14,7 @@ let multiplier: Double = 2
 let framesPerSecond: Double = 60
 
 let dt: Double = 1.0 / (framesPerSecond * multiplier)
-let gravity = float2(0, 12.m)
+let gravity = float2(0, 0)
 
 class Simulation {
     

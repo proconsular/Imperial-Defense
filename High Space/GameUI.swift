@@ -50,6 +50,48 @@ class PrincipalScreen: Screen {
     
 }
 
+class StoreScreen: Screen {
+    var upgrades: [TextButton]
+    var points: TextElement
+    
+    override init() {
+        upgrades = []
+        
+        upgrades.append(TextButton(DynamicText.defaultStyle("sniper: 0", float4(1), 64), float2(Camera.size.x / 2, Camera.size.y / 2)) {
+            if Score.points >= 50 {
+                Score.points -= 50
+                Score.upgrade.upgrade()
+            }
+        })
+        
+        points = TextElement(float2(Camera.size.x / 2, 60), DynamicText.defaultStyle(" ", float4(1), 72.0))
+        
+        super.init()
+        
+        let layer = InterfaceLayer()
+        
+        upgrades.forEach{ layer.objects.append($0) }
+        
+        layer.objects.append(TextButton(DynamicText.defaultStyle("Next", float4(1), 64), float2(Camera.size.x / 2, Camera.size.y - 50)) {
+            UserInterface.space.wipe()
+            UserInterface.space.push(PrincipalScreen())
+        })
+        
+        layers.append(layer)
+        
+    }
+    
+    override func display() {
+        let text =  DynamicText.defaultStyle("sniper: \(Score.upgrade.range.amount)", float4(1), 64)
+        text.location = upgrades[0].location
+        upgrades[0].text = text
+        points.setText(DynamicText.defaultStyle("\(Score.points)", float4(1), 72.0))
+        points.display()
+        super.display()
+    }
+    
+}
+
 class InventoryScreen: Screen {
     
     override init() {
@@ -122,7 +164,26 @@ class EndScreen: Screen {
         layer.objects.append(TextElement(Camera.size / 2, DynamicText.defaultStyle(text, float4(1), 128)))
         layer.objects.append(TextButton(DynamicText.defaultStyle("Restart", float4(1), 86), Camera.size / 2 + float2(0, 400), {
             UserInterface.space.wipe()
-            UserInterface.set(index: 1)
+            UserInterface.space.push(PrincipalScreen())
+        }))
+        
+        layers.append(layer)
+    }
+    
+}
+
+class WinScreen: Screen {
+    
+    override init() {
+        super.init()
+        
+        let layer = InterfaceLayer()
+        
+        layer.objects.append(TextElement(Camera.size / 2, DynamicText.defaultStyle("You Won!", float4(1), 128)))
+        layer.objects.append(TextButton(DynamicText.defaultStyle("Next", float4(1), 86), Camera.size / 2 + float2(0, 400), {
+            Score.level += 1
+            UserInterface.space.wipe()
+            UserInterface.space.push(StoreScreen())
         }))
         
         layers.append(layer)
@@ -148,12 +209,15 @@ class StatusLayer: InterfaceLayer {
     let game: Game
     let status: Player
     let element: ShieldElement
+    let wave: TextElement
+    let points: TextElement
     
     init(_ game: Game) {
         self.game = game
         self.status = game.player
         element = ShieldElement(status.shield)
-        
+        wave = TextElement(float2(300, 100), DynamicText.defaultStyle(" ", float4(1), 48.0))
+        points = TextElement(float2(Camera.size.x / 2, 60), DynamicText.defaultStyle(" ", float4(1), 72.0))
     }
     
     override func use(_ command: Command) {
@@ -161,7 +225,11 @@ class StatusLayer: InterfaceLayer {
     }
     
     override func display() {
-        
+        element.render()
+        wave.setText(DynamicText.defaultStyle("waves: \(game.coordinator.count)", float4(1), 48.0))
+        wave.display()
+        points.setText(DynamicText.defaultStyle("\(Score.points)", float4(1), 72.0))
+        points.display()
     }
 }
 
@@ -197,40 +265,6 @@ class ShieldElement {
         level.render()
     }
 }
-
-class StatusElement {
-    let frame: Display
-    let level: Display
-    let rect: Rect
-    let transform: Transform
-    let status: Weapon
-    let size: float2
-    
-    init(_ status: Weapon, _ offset: float2) {
-        self.status = status
-        size = float2(550, 15)
-        frame = Display(Rect(float2(), size), GLTexture("white"))
-        frame.color = float4(0.3, 0.3, 0.3, 0.2)
-        rect = Rect(float2(), float2(size.x - 7, size.y - 3))
-        level = Display(rect, GLTexture("white"))
-        level.color = float4(1, 0.2, 0.1, 1)
-        transform = frame.scheme.hull.transform
-        rect.transform.assign(transform)
-        transform.assign(Camera.transform)
-        transform.location = float2(-size.x / 2 - 30 + Camera.size.x, 30) + offset
-    }
-    
-    func render() {
-        let rectsize = float2(size.x - 7, size.y - 3)
-        let adjust = rectsize.x * status.stats.power.percent
-        rect.setBounds(float2(adjust, rectsize.y))
-        rect.transform.location.x = rectsize.x / 2 - adjust / 2
-        level.visual.refresh()
-        frame.render()
-        level.render()
-    }
-}
-
 
 
 

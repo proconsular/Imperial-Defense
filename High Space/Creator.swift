@@ -58,14 +58,6 @@ class GoalMaker: MakerAttachment<Structure> {
     }
 }
 
-class SpawnerMaker: MakerAttachment<Character> {
-    
-    override func make(_ structure: Structure) -> Character? {
-        return DreathSpawner(float2(structure.transform.location.x, structure.transform.location.y ) + float2(0, -structure.rect.bounds.y / 2 - 0.5.m / 2))
-    }
-    
-}
-
 protocol SuperMaker {
     func make(_ offset: Float) -> [Actor]
 }

@@ -46,13 +46,10 @@
     @"Floater",
     @"Colony",
     @"bullet",
-    @"planet",
-    @"rock",
-    @"door",
-    @"starship",
-    @"book",
-    @"gem"];
-    
+    @"player",
+    @"soldier",
+    @"stonefloor",
+    @"rockfloor"];
     
     for (NSString *name in prefetched) {
         [self prefetch:name];

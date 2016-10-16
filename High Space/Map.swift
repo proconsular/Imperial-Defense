@@ -23,6 +23,8 @@ extension Array where Element: AnyObject {
 
 class Map {
     
+    static var current: Map!
+    
     let size: float2
     let grid: Grid
     var actors: [Actor]
