@@ -3,12 +3,10 @@
 //  Comm
 //
 //  Created by Chris Luttio on 8/30/15.
-//  Copyright © 2015 FishyTale Digital, Inc. All rights reserved.
+//  Copyright © 2017 Storiel, LLC. All rights reserved.
 //
 
 import Foundation
-import simd
-import Accelerate
 
 let multiplier: Double = 2
 let framesPerSecond: Double = 60
@@ -48,7 +46,7 @@ class Simulation {
         processor.process(dt, step(bodies, dt * speed))
     }
     
-    fileprivate func step(_ bodies: [Body], _ dt: Double) {
+    private func step(_ bodies: [Body], _ dt: Double) {
         let delta = Float(dt)
         let contacts = broadphaser.getContacts()
         

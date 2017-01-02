@@ -3,95 +3,10 @@
 //  Comm
 //
 //  Created by Chris Luttio on 9/1/15.
-//  Copyright © 2015 FishyTale Digital, Inc. All rights reserved.
+//  Copyright © 2017 Storiel, LLC. All rights reserved.
 //
 
 import Foundation
-
-typealias Callback = (Body, Collision) -> ()
-
-class Body {
-    
-    var shape: Hull
-    
-    var substance: Substance
-    
-    var velocity: float2 = float2()
-    var angular_velocity: Float = 0
-    
-    var force: float2 = float2 ()
-    var torque: Float = 0
-    
-    var callback: Callback
-    
-    var tag: String?
-    var relativeGravity: Float = 1
-    var timeStamp: Int = 0
-    var hidden = false
-    var mask: Int = 1
-    
-    var object: AnyObject?
-    
-    var location: float2 {
-        set { shape.transform.location = newValue }
-        get { return shape.transform.location }
-    }
-    
-    var orientation: Float {
-        set { shape.transform.orientation = newValue }
-        get { return shape.transform.orientation }
-    }
-    
-    init (_ shape: Hull, _ substance: Substance, callback: @escaping Callback = { _ in }) {
-        self.shape = shape
-        self.substance = substance
-        self.callback = callback
-    }
-    
-    func applyImpulse (_ impulse: float2, _ contact: float2) {
-        velocity += substance.mass.inv_mass * impulse
-        angular_velocity += substance.mass.inv_inertia * cross(contact - location, impulse).z
-    }
-    
-    func applyVelocity(_ dt: Float) {
-        if substance.mass.inv_mass == 0 { return }
-        location += velocity * dt
-        orientation += angular_velocity * dt
-        applyForces(dt)
-    }
-    
-    func applyForces(_ dt: Float) {
-        if substance.mass.inv_mass == 0 { return }
-        velocity += (force * substance.mass.inv_mass + gravity * relativeGravity) * (dt / 2)
-        angular_velocity += torque * substance.mass.inv_inertia * (dt / 2)
-    }
-    
-    func clearForces() {
-        force = float2 ()
-        torque = 0
-    }
-    
-    func addForce(_ force: float2) {
-        self.force += force
-    }
-    
-    func addVelocity(_ velocity: float2) {
-        self.velocity += velocity
-    }
-    
-    func getRelativeVelocity(_ contact: float2) -> float2 {
-         return velocity + crossff2(angular_velocity, contact - location)
-    }
-    
-    func getInverseMass(_ contact: float2, _ normal: float2) -> Float {
-        return substance.mass.inv_mass + sqr(cross(contact - location, normal).z) * substance.mass.inv_inertia
-    }
-    
-    func correct(_ correction: float2) {
-        location += substance.mass.inv_mass * correction
-    }
-    
-}
 
 struct Substance {
     
@@ -276,38 +191,38 @@ class BodyPair: Pair<Body>, Equatable {
         super.init(primary, secondary)
     }
     
-    fileprivate func getRelativeVelocity (_ contact: float2) -> float2 {
+    func getRelativeVelocity (_ contact: float2) -> float2 {
         return -primary.getRelativeVelocity(contact) + secondary.getRelativeVelocity(contact)
     }
     
-    fileprivate func getInverseMass (_ contact: float2, _ normal: float2) -> Float {
+    func getInverseMass (_ contact: float2, _ normal: float2) -> Float {
         return primary.getInverseMass(contact, normal) + secondary.getInverseMass(contact, normal)
     }
     
-    fileprivate func getInverseMass () -> Float {
+    func getInverseMass () -> Float {
         return primary.substance.mass.inv_mass + secondary.substance.mass.inv_mass
     }
     
-    fileprivate var hasInfiniteMass: Bool {
+    var hasInfiniteMass: Bool {
         return equal(primary.substance.mass.inv_mass + secondary.substance.mass.inv_mass, 0)
     }
     
-    fileprivate func applyImpulse (_ contact: float2, _ impulse: float2) {
+    func applyImpulse (_ contact: float2, _ impulse: float2) {
         primary.applyImpulse(-impulse, contact)
         secondary.applyImpulse(impulse, contact)
     }
     
-    fileprivate func clear() {
+    func clear() {
         primary.velocity = float2()
         secondary.velocity = float2()
     }
     
-    fileprivate func correct(_ correction: float2) {
+    func correct(_ correction: float2) {
         primary.correct(-correction)
         secondary.correct(correction)
     }
     
-    fileprivate func callback(_ collision: Collision) {
+    func callback(_ collision: Collision) {
         primary.callback(secondary, collision)
         secondary.callback(primary, collision)
     }
@@ -316,82 +231,4 @@ class BodyPair: Pair<Body>, Equatable {
 
 func == (prime: Manifold, secunde: Manifold) -> Bool {
     return prime.pair == secunde.pair
-}
-
-class Manifold: Equatable {
-    typealias Solve = (Body, Body) -> Collision?
-    
-    let percent: Float = 0.4, slop: Float = 0.05
-    
-    var pair: BodyPair
-    var collision: Collision
-    
-    init (_ pair: BodyPair){
-        self.pair = pair
-        collision = Collision()
-    }
-    
-    func solve() {
-        var solution: Collision?
-        if let prime = pair.primary.shape as? Shape<Edgeform>, let secunde = pair.secondary.shape as? Shape<Edgeform> {
-            solution = PolygonSolver.solve(prime, secunde)
-        }
-        if let prime = pair.primary.shape as? Shape<Radialform>, let secunde = pair.secondary.shape as? Shape<Radialform> {
-            solution = CircleSolver.solve(prime, secunde)
-        }
-        if let prime = pair.primary.shape as? Shape<Radialform>, let secunde = pair.secondary.shape as? Shape<Edgeform> {
-            solution = CirclePolygonSolver.solve(prime, secunde)
-        }
-        if let prime = pair.primary.shape as? Shape<Edgeform>, let secunde = pair.secondary.shape as? Shape<Radialform> {
-            solution = CirclePolygonSolver.solve(secunde, prime)
-            if let sol = solution {
-                solution!.normal = -sol.normal
-            }
-        }
-        
-        guard let col = solution else { return }
-        
-        collision = col
-        pair.callback(collision)
-    }
-    
-    func verify() -> Bool {
-        return collision.valid
-    }
-    
-    func process() {
-        guard !pair.hasInfiniteMass else { pair.clear(); return }
-        
-        for contact in collision.contacts {
-            let relative_velocity = pair.getRelativeVelocity(contact)
-            let relative_length = dot(relative_velocity, collision.normal)
-            
-            if relative_length > 0 { return }
-            
-            let relative_normal = relative_length * collision.normal
-            let tangent = normalize_safe(relative_velocity - relative_normal) ?? float2()
-            
-            let inversemass = 1.0 / (pair.getInverseMass(contact, collision.normal) * collision.count)
-            
-            let linearimpulse = -pair.rebound * inversemass * relative_normal
-            let totalimpulse = linearimpulse + tangent * getFriction(-dot(relative_velocity, tangent) * inversemass, length(linearimpulse))
-            
-            pair.applyImpulse(contact, totalimpulse)
-        }
-    }
-    
-    fileprivate func getFriction(_ tangentforce: Float, _ impulse: Float) -> Float {
-        guard abs(tangentforce) >= impulse * pair.still else { return tangentforce }
-        return -impulse * pair.inmotion
-    }
-    
-    func process (_ processedTime: Float, _ iterations: Int) {//
-        iterations.cycle(process)
-    }
-    
-    func applyCorrection() {
-        let scalar = max(collision.penetration - slop, 0) / pair.getInverseMass() * percent
-        pair.correct(scalar * collision.normal)
-    }
-    
 }

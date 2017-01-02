@@ -1,25 +1,12 @@
 //
 //  GameUI.swift
-//  Bot Bounce+
+//  Imperial Defence
 //
 //  Created by Chris Luttio on 12/16/15.
-//  Copyright © 2015 FishyTale Digital, Inc. All rights reserved.
+//  Copyright © 2017 Storiel, LLC. All rights reserved.
 //
 
 import Foundation
-
-extension DynamicText {
-    
-    var frame: float2 {
-        return float2(Float(self.attrString.size().width), Float(self.attrString.size().height))
-    }
-    
-    static func defaultStyle(_ string: String, _ color: float4, _ size: Float) -> DynamicText {
-        let string = NSAttributedString(string: string, attributes: [NSFontAttributeName: UIFont(name: "Metropolis-ExtraLight", size: CGFloat(size))!, NSForegroundColorAttributeName: UIColor(red: CGFloat(color.x), green: CGFloat(color.y), blue: CGFloat(color.z), alpha: CGFloat(color.w))])
-        return DynamicText(attributedString: string)
-    }
-    
-}
 
 class PrincipalScreen: Screen {
     let game: Game
@@ -33,7 +20,6 @@ class PrincipalScreen: Screen {
         
         layers.append(game)
         layers.append(StatusLayer(game))
-        //layers.append(InventoryView())
     }
     
     deinit {
@@ -50,29 +36,76 @@ class PrincipalScreen: Screen {
     
 }
 
-class StoreScreen: Screen {
-    var upgrades: [TextButton]
-    var points: TextElement
+class TitleScreen: Screen {
+    let background: Display
     
     override init() {
-        upgrades = []
-        
-        upgrades.append(TextButton(DynamicText.defaultStyle("sniper: 0", float4(1), 64), float2(Camera.size.x / 2, Camera.size.y / 2)) {
-            if Score.points >= 50 {
-                Score.points -= 50
-                Score.upgrade.upgrade()
-            }
-        })
-        
-        points = TextElement(float2(Camera.size.x / 2, 60), DynamicText.defaultStyle(" ", float4(1), 72.0))
+        background = Display(Rect(float2(Camera.size.x / 2, Camera.size.y / 2), Camera.size), GLTexture("stonefloor"))
+        background.scheme.layout.coordinates = [float2(0, 0), float2(2, 0) * 2, float2(2, 3) * 2, float2(0, 3) * 2]
+        background.color = float4(0.7, 0.7, 0.7, 1)
+        background.scheme.camera = false
         
         super.init()
         
         let layer = InterfaceLayer()
         
-        upgrades.forEach{ layer.objects.append($0) }
+        let spread: Float = 200
+        let size: Float = 72
         
-        layer.objects.append(TextButton(DynamicText.defaultStyle("Next", float4(1), 64), float2(Camera.size.x / 2, Camera.size.y - 50)) {
+        let style = FontStyle(defaultFont, float4(1), size)
+        
+        layer.objects.append(TextButton(Text("Story", style), float2(Camera.size.x / 2, Camera.size.y / 2 - spread)) {
+            UserInterface.space.wipe()
+            UserInterface.space.push(PrincipalScreen())
+        })
+        
+        layer.objects.append(TextButton(Text("Forever", style), float2(Camera.size.x / 2, Camera.size.y / 2)) {
+            UserInterface.space.wipe()
+            UserInterface.space.push(PrincipalScreen())
+        })
+        
+        layer.objects.append(TextButton(Text("Reset", style), float2(Camera.size.x / 2, Camera.size.y / 2 + spread)) {
+            UserInterface.space.wipe()
+            UserInterface.space.push(PrincipalScreen())
+        })
+        
+        layers.append(layer)
+    }
+    
+    override func display() {
+        background.render()
+        super.display()
+    }
+    
+}
+
+class StoreScreen: Screen {
+    let background: Display
+    let points: Text
+    
+    override init() {
+        background = Display(Rect(float2(Camera.size.x / 2, -Camera.size.y / 2), Camera.size), GLTexture("stonefloor"))
+        background.scheme.layout.coordinates = [float2(0, 0), float2(2, 0) * 2, float2(2, 3) * 2, float2(0, 3) * 2]
+        background.color = float4(0.7, 0.7, 0.7, 1)
+        
+        points = Text(" ", defaultStyle)
+        points.location = float2(Camera.size.x / 2, 60)
+        
+        super.init()
+        
+        let layer = InterfaceLayer()
+        
+        let spacing = float2(600, 400)
+        
+        layer.objects.append(UpgradeView(float2(Camera.size.x / 2 - spacing.x, Camera.size.y / 2 - spacing.y / 2), Data.info.upgrades[0]))
+        layer.objects.append(UpgradeView(float2(Camera.size.x / 2, Camera.size.y / 2 - spacing.y / 2), Data.info.upgrades[1]))
+        layer.objects.append(UpgradeView(float2(Camera.size.x / 2 + spacing.x, Camera.size.y / 2 - spacing.y / 2), Data.info.upgrades[2]))
+        
+        layer.objects.append(UpgradeView(float2(Camera.size.x / 2 - spacing.x, Camera.size.y / 2 + spacing.y / 2), Data.info.upgrades[3]))
+        layer.objects.append(UpgradeView(float2(Camera.size.x / 2, Camera.size.y / 2 + spacing.y / 2), Data.info.upgrades[4]))
+        layer.objects.append(UpgradeView(float2(Camera.size.x / 2 + spacing.x, Camera.size.y / 2 + spacing.y / 2), Data.info.upgrades[5]))
+        
+        layer.objects.append(TextButton(Text("Next", defaultStyle), float2(Camera.size.x / 2, Camera.size.y - 50)) {
             UserInterface.space.wipe()
             UserInterface.space.push(PrincipalScreen())
         })
@@ -82,62 +115,82 @@ class StoreScreen: Screen {
     }
     
     override func display() {
-        let text =  DynamicText.defaultStyle("sniper: \(Score.upgrade.range.amount)", float4(1), 64)
-        text.location = upgrades[0].location
-        upgrades[0].text = text
-        points.setText(DynamicText.defaultStyle("\(Score.points)", float4(1), 72.0))
-        points.display()
+        background.render()
+        points.setString("\(Data.info.points)")
+        points.render()
         super.display()
     }
-    
 }
 
-class InventoryScreen: Screen {
+class StoryScreen: Screen {
+    let background: Display
+    var text: Text
     
     override init() {
-        super.init()
-        layers.append(InventoryView())
+        background = Display(Rect(float2(Camera.size.x / 2, Camera.size.y / 2), Camera.size), GLTexture("white"))
+        background.scheme.layout.coordinates = [float2(0, 0), float2(2, 0) * 2, float2(2, 3) * 2, float2(0, 3) * 2]
+        background.color = float4(0.01, 0.01, 0.01, 1)
         
-        let i = InterfaceLayer()
-        i.objects.append(TextButton(DynamicText.defaultStyle("game", float4(1), 64), float2(Camera.size.x / 2, 50)) {
-            UserInterface.space.pop()
-        })
-        layers.append(i)
+        text = Text("This is where the story will go.\nHopefully there are line breaks. We'll see.", FontStyle(defaultFont, float4(1), 52.0), float2(300, 100))
+        text.location = float2(Camera.size.x / 2, 400)
+        super.init()
+    }
+    
+    override func display() {
+        background.render()
+        super.display()
+        text.render()
     }
     
 }
 
-class ForgeScreen: Screen {
-    let forgeview: ForgeView
-    let inventoryview: InventoryView
+class UpgradeView: InterfaceElement, Interface {
     
-    init(_ forge: Forge) {
-        forgeview = ForgeView(forge)
-        inventoryview = InventoryView()
-        super.init()
-        layers.append(forgeview)
-        inventoryview.location = float2(0, 300)
-        layers.append(inventoryview)
+    let upgrade: Upgrade
+    
+    let background: Display
+    var icon: Display?
+    
+    var text: Text!
+    var button: InteractiveElement!
+    
+    init(_ location: float2, _ upgrade: Upgrade) {
+        self.upgrade = upgrade
+        
+        background = Display(Circle(Transform(location + float2(0, -Camera.size.y)), 135), GLTexture("white"))
+        background.color = float4(0.2, 0.4, 0.3, 1)
+        
+        icon = Display(Rect(background.transform, float2(150)), GLTexture(upgrade.name.lowercased()))
+        
+        super.init(location)
+        
+        button = InteractiveElement(location, float2(300)) {
+            self.buy()
+        }
+        
+        text = Text("upgrade: amount", FontStyle(defaultFont, float4(1), 48))
+        text.location = location + float2(0, 175)
     }
     
-    override func update() {
-        super.update()
-        
-        if let fs = forgeview.selection, let isl = inventoryview.selection {
-            if forgeview.isBlank(index: fs) {
-                if !inventoryview.isBlank(index: isl) {
-                    forgeview.append(index: fs, item: inventoryview.remove(index: isl) as! Gem)
-                    forgeview.selection = nil
-                    inventoryview.selection = nil
-                }
-            }else if inventoryview.isBlank(index: isl) {
-                if !forgeview.isBlank(index: fs) {
-                    inventoryview.append(index: isl, forgeview.remove(index: fs))
-                    forgeview.selection = nil
-                    inventoryview.selection = nil
-                }
-            }
+    func buy() {
+        let cost = self.upgrade.computeCost()
+        if Data.info.points >= cost {
+            Data.info.points -= cost
+            self.upgrade.upgrade()
         }
+        Data.persist()
+    }
+    
+    func use(_ command: Command) {
+        button.use(command)
+    }
+    
+    override func display() {
+        super.display()
+        background.render()
+        icon?.render()
+        text.setString("\(upgrade.name): (\(upgrade.computeCost()))")
+        text.render()
     }
     
 }
@@ -161,10 +214,10 @@ class EndScreen: Screen {
             text = "You died."
         }
         
-        layer.objects.append(TextElement(Camera.size / 2, DynamicText.defaultStyle(text, float4(1), 128)))
-        layer.objects.append(TextButton(DynamicText.defaultStyle("Restart", float4(1), 86), Camera.size / 2 + float2(0, 400), {
+//        layer.objects.append(TextElement(Camera.size / 2, Text(text, FontStyle(defaultFont, float4(1), 128))))
+        layer.objects.append(TextButton(Text("Restart", FontStyle(defaultFont, float4(1), 86)), Camera.size / 2 + float2(0, 400), {
             UserInterface.space.wipe()
-            UserInterface.space.push(PrincipalScreen())
+            UserInterface.space.push(StoreScreen())
         }))
         
         layers.append(layer)
@@ -179,9 +232,10 @@ class WinScreen: Screen {
         
         let layer = InterfaceLayer()
         
-        layer.objects.append(TextElement(Camera.size / 2, DynamicText.defaultStyle("You Won!", float4(1), 128)))
-        layer.objects.append(TextButton(DynamicText.defaultStyle("Next", float4(1), 86), Camera.size / 2 + float2(0, 400), {
-            Score.level += 1
+//        layer.objects.append(TextElement(Camera.size / 2,  Text("You Won!", FontStyle(defaultFont, float4(1), 128))))
+        layer.objects.append(TextButton(Text("Next", FontStyle(defaultFont, float4(1), 86)), Camera.size / 2 + float2(0, 400), {
+            Data.info.level += 1
+            Data.persist()
             UserInterface.space.wipe()
             UserInterface.space.push(StoreScreen())
         }))
@@ -191,83 +245,109 @@ class WinScreen: Screen {
     
 }
 
-class PauseLayer: InterfaceLayer {
+class PauseScreen: Screen {
     
     override init() {
         super.init()
-        let base = Camera.size / 2 - float2(0, 200)
-        objects.append(Button("Resume", base))
-        objects.append(Button("Restart", base + float2(0, 200)))
-//        objects.append(Button("Menu", base + float2(0, 400)) {
-//            UserInterface.switchScreen(.menu)
-//        })
+        
+        let layer = InterfaceLayer()
+        
+        layer.objects.append(TextButton(Text("Resume", defaultStyle), Camera.size / 2 + float2(0, -75)) {
+            UserInterface.space.pop()
+        })
+        
+        layer.objects.append(TextButton(Text("Title", defaultStyle), Camera.size / 2 + float2(0, 75)) {
+            UserInterface.space.wipe()
+            UserInterface.space.push(TitleScreen())
+        })
+        
+        layers.append(layer)
     }
     
 }
 
 class StatusLayer: InterfaceLayer {
-    let game: Game
-    let status: Player
-    let element: ShieldElement
-    let wave: TextElement
-    let points: TextElement
+    let wave: Text
+    let points: Text
+    
+    let shield: DisplayElement
+    let laser: DisplayElement
     
     init(_ game: Game) {
-        self.game = game
-        self.status = game.player
-        element = ShieldElement(status.shield)
-        wave = TextElement(float2(300, 100), DynamicText.defaultStyle(" ", float4(1), 48.0))
-        points = TextElement(float2(Camera.size.x / 2, 60), DynamicText.defaultStyle(" ", float4(1), 72.0))
-    }
-    
-    override func use(_ command: Command) {
-       
+        shield = DisplayElement(float2(135, 25), float2(400, 22.5), 1, game.player.shield)
+        laser = DisplayElement(float2(Camera.size.x - 30, 30), float2(550, 15), -1, game.player.laser)
+        
+        wave = Text(" ", FontStyle(defaultFont, float4(1), 48.0))
+        wave.location = float2(300, 100)
+        points = Text(" ", FontStyle(defaultFont, float4(1), 72.0))
+        points.location = float2(Camera.size.x / 2, 60)
+        
+        super.init()
+        
+        objects.append(TextButton(Text("II", FontStyle(defaultFont, float4(1), 72.0)), float2(50), {
+            UserInterface.space.push(PauseScreen())
+        }))
     }
     
     override func display() {
-        element.render()
-        wave.setText(DynamicText.defaultStyle("waves: \(game.coordinator.count)", float4(1), 48.0))
-        wave.display()
-        points.setText(DynamicText.defaultStyle("\(Score.points)", float4(1), 72.0))
-        points.display()
+        super.display()
+        
+        shield.render()
+        
+        wave.setString("level: \(Data.info.level)")
+        wave.render()
+        
+        points.setString("\(Data.info.points)")
+        points.render()
+        
+        laser.render()
     }
 }
 
-class ShieldElement {
-    let frame: Display
-    let level: Display
-    let rect: Rect
-    let transform: Transform
-    let status: Shield
-    let size: float2
+protocol StatusItem {
+    var percent: Float { get }
+}
+
+class DisplayElement {
     
-    init(_ status: Shield) {
+    let status: StatusItem
+    
+    let transform: Transform
+    let frame, level: Display
+    let rect: Rect
+    let size: float2
+    let alignment: Int
+    
+    init(_ location: float2, _ size: float2, _ alignment: Int, _ status: StatusItem) {
         self.status = status
-        size = float2(650, 22.5)
+        self.size = size
+        self.alignment = alignment
+        
         frame = Display(Rect(float2(), size), GLTexture("white"))
         frame.color = float4(0.3, 0.3, 0.3, 0.2)
-        rect = Rect(float2(), float2(size.x - 7, size.y - 3))
+        
+        rect = Rect(float2(), float2(size.x, size.y))
         level = Display(rect, GLTexture("white"))
         level.color = float4(0.4, 1, 0.5, 1)
+        
         transform = frame.scheme.hull.transform
-        rect.transform.assign(transform)
         transform.assign(Camera.transform)
-        transform.location = float2(size.x / 2 + 30, 30)
+        transform.location = location + float2(size.x / 2 * Float(alignment), 0)
+        
+        rect.transform.assign(transform)
     }
     
     func render() {
-        let rectsize = float2(size.x - 7, size.y - 3)
-        let adjust = rectsize.x * status.points.percent
-        rect.setBounds(float2(adjust, rectsize.y))
-        rect.transform.location.x = -rectsize.x / 2 + adjust / 2
+        let adjust = size.x * status.percent
+        rect.setBounds(float2(adjust, size.y))
+        rect.transform.location.x = Float(alignment) * (-size.x / 2 + adjust / 2)
+        
         level.visual.refresh()
         frame.render()
         level.render()
     }
+    
 }
-
-
-
 
 
 

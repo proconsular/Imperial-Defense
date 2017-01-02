@@ -3,7 +3,7 @@
 //  Comm
 //
 //  Created by Chris Luttio on 8/21/15.
-//  Copyright (c) 2015 FishyTale Digital, Inc. All rights reserved.
+//  Copyright (c) 2017 Storiel, LLC. All rights reserved.
 //
 
 import Foundation
@@ -21,28 +21,37 @@ class Game: DisplayLayer {
     
     var barriers: [Barrier]
     
+    let points: Int
+    
+    var win_timer: Float = 0
+    
     init() {
+        points = Data.info.points
+        //Game.jump()
+        
+        //Data.level = 10
+        //Data.points = 100
         map = Map(float2(20.m, 40.m))
         Map.current = map
         
-        let cs = 3.m
+        let cs = 2.5.m
         castle = Display(Rect(float2(map.size.x / 2, -cs / 2), float2(map.size.x, cs)), GLTexture("stonefloor"))
-        castle.scheme.layout.coordinates = [float2(0, 0), float2(0.5, 0), float2(0.5, 2.5), float2(0, 2.5)]
-        castle.color = float4(0.75, 0.75, 0.75, 1)
+        let scale_c: Float = 2
+        castle.scheme.layout.coordinates = [float2(0, 0), float2(0.5, 0) * scale_c, float2(0.5, 3) * scale_c, float2(0, 3) * scale_c]
+        castle.color = float4(0.7, 0.7, 0.7, 1)
+        
         floor = Display(Rect(float2(map.size.x / 2, -map.size.y / 2), map.size), GLTexture("rockfloor"))
-        floor.scheme.layout.coordinates = [float2(0, 0), float2(6, 0), float2(6, 3), float2(0, 3)]
-        floor.color = float4(0.25, 0.25, 0.25, 1)
+        let scale_f: Float = 1
+        floor.scheme.layout.coordinates = [float2(0, 0), float2(6, 0) * scale_f, float2(6, 3) * scale_f, float2(0, 3) * scale_f]
+        floor.color = float4(0.5, 0.4, 0.4, 1)
         
         player = Player(float2(map.size.x / 2, -1.m))
         
         map.append(player)
-        
         map.append(Structure(float2(map.size.x / 2, 0), float2(map.size.x, 0.5.m)))
         map.append(Structure(float2(map.size.x / 2, -map.size.y), float2(map.size.x, 0.5.m)))
         map.append(Structure(float2(0, -map.size.y / 2), float2(0.5.m, map.size.y)))
         map.append(Structure(float2(map.size.x, -map.size.y / 2), float2(0.5.m, map.size.y)))
-        
-        //map.append(Soldier(float2(5.m, -10.m)))
         
         barriers = []
         
@@ -54,30 +63,40 @@ class Game: DisplayLayer {
         }
         
         Camera.clip = false
-        
         Camera.transform.location = float2(map.size.x / 2, 0) + float2(-Camera.size.x / 2, -Camera.size.y)
         
         physics = Simulation(map.grid)
         
-        coordinator = Coordinator(1 * (Score.level + 1))
+        coordinator = Coordinator()
+    }
+    
+    static func jump() {
+        Data.info.level = 21
+        Data.info.health.range.amount = 10
+        Data.info.machine.range.amount = 10
+        Data.info.movement.range.amount = 10
+        //Upgrades.bombgun.range.amount = 10
+        //Upgrades.sniper.range.amount = 10
+        Data.info.barrier.range.amount = 10
     }
     
     func victory() {
         UserInterface.space.push(WinScreen())
+        Data.persist()
     }
     
-    func death() {
+    func death() -> Bool {
         if player.shield.points.amount <= 0 {
-            UserInterface.space.push(EndScreen(ending: .lose))
+            return true
         }
-        map.actors.forEach{
-            if let s = $0 as? Soldier {
+        for actor in map.actors {
+            if let s = actor as? Soldier {
                 if s.body.location.y >= -4.m {
-                    UserInterface.space.push(EndScreen(ending: .lose))
-                    return
+                    return true
                 }
             }
         }
+        return false
     }
     
     func use(_ command: Command) {
@@ -86,9 +105,15 @@ class Game: DisplayLayer {
     
     func update() {
         if coordinator.waves.count == 0 {
-            victory()
+            win_timer += Time.time
+            if win_timer >= 2 {
+                victory()
+            }
         }
-        death()
+        if death() {
+            Data.info.points = points
+            UserInterface.space.push(EndScreen(ending: .lose))
+        }
         coordinator.update()
         map.update()
         physics.simulate()

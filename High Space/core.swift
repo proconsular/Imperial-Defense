@@ -3,23 +3,29 @@
 //  Comm
 //
 //  Created by Chris Luttio on 8/21/15.
-//  Copyright (c) 2015 FishyTale Digital, Inc. All rights reserved.
+//  Copyright (c) 2017 Storiel, LLC. All rights reserved.
 //
 
 import Foundation
 
 let funmode = false
 
+let defaultStyle = FontStyle("Metropolis-ExtraLight", float4(1), 72)
+let defaultFont = "Metropolis-ExtraLight"
+
 @objc class core: NSObject {
     
     override init() {
         UserInterface.create()
+        Data.create()
         
-        let shipspace = ScreenSpace()
+        let main = ScreenSpace()
         
-        shipspace.push(PrincipalScreen())
+        main.push(PrincipalScreen())
+        //main.push(TitleScreen())
+        //main.push(StoryScreen())
         
-        UserInterface.set(space: shipspace)
+        UserInterface.set(space: main)
         
         super.init()
     }

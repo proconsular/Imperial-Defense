@@ -3,7 +3,7 @@
 //  Raeximu
 //
 //  Created by Chris Luttio on 10/24/15.
-//  Copyright © 2015 FishyTale Digital, Inc. All rights reserved.
+//  Copyright © 2017 Storiel, LLC. All rights reserved.
 //
 
 import Foundation
@@ -48,10 +48,10 @@ struct Timer {
 
 class Processor {
     
-    fileprivate let limit: Double
+    private let limit: Double
     
-    fileprivate var startTime, deltaTime: Double
-    fileprivate var remainder: Double
+    private var startTime, deltaTime: Double
+    private var remainder: Double
     
     init (_ limit: Double) {
         self.limit = limit

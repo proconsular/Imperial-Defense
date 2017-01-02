@@ -1,13 +1,13 @@
 //
 //  Audio.m
-//  Bot Bounce
+//  Imperial Defence
 //
 //  Created by Chris Luttio on 4/18/14.
-//  Copyright (c) 2014 Evans Creative Studios. All rights reserved.
+//  Copyright (c) 2017 Storiel, LLC. All rights reserved.
 //
 
 #import "AudioLibrary.h"
-#import "Defender-Swift.h"
+#import "Imperial_Defense-Swift.h"
 
 @import OpenAL.al;
 
@@ -38,6 +38,8 @@
     [self loadAudio:@"shield-re1"];
     [self loadAudio:@"shoot1"];
     [self loadAudio:@"shoot2"];
+    [self loadAudio:@"shoot3"];
+    [self loadAudio:@"shoot4"];
     [self loadAudio:@"hit2"];
     [self loadAudio:@"hit5"];
     [self loadAudio:@"hit4"];
@@ -46,10 +48,14 @@
     [self loadAudio:@"hit8"];
     [self loadAudio:@"charge1"];
     [self loadAudio:@"charge2"];
-    [self loadAudio:@"jet1"];
     [self loadAudio:@"pickup1"];
     [self loadAudio:@"pickup2"];
     [self loadAudio:@"door1"];
+    [self loadAudio:@"laser"];
+    [self loadAudio:@"laser2"];
+    [self loadAudio:@"march1"];
+    [self loadAudio:@"break1"];
+    
     
     _hasMusic = YES;
     _hasSound = YES;

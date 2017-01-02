@@ -3,12 +3,12 @@
 //  eMotion Book
 //
 //  Created by Chris Luttio on 1/5/15.
-//  Copyright (c) 2015 FishyTale Digital, Inc. All rights reserved.
+//  Copyright (c) 2017 Storiel, LLC. All rights reserved.
 //
 
 #import "GameViewController.h"
 #import "Bridge.h"
-#import "Defender-Swift.h"
+#import "Imperial_Defense-Swift.h"
 #import "Shader.h"
 #import "ShaderLoader.h"
 

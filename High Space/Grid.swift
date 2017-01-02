@@ -3,7 +3,7 @@
 //  Sky's Melody
 //
 //  Created by Chris Luttio on 8/23/16.
-//  Copyright © 2016 Chris Luttio. All rights reserved.
+//  Copyright © 2017 Storiel, LLC. All rights reserved.
 //
 
 import Foundation
@@ -44,12 +44,12 @@ class Grid {
         }
     }
     
-    fileprivate func insert(_ actor: Actor) {
+    private func insert(_ actor: Actor) {
         let cells = getCells(actor.body.shape.getBounds())
         cells.forEach{ $0.append(actor) }
     }
     
-    fileprivate func getCell(_ location: int2) -> Cell? {
+    private func getCell(_ location: int2) -> Cell? {
         for cell in cells {
             if cell.placement.location == location {
                 return cell
@@ -65,7 +65,7 @@ class Grid {
         return int2(Int(x), Int(y))
     }
     
-    fileprivate func getCells(_ rect: FixedRect) -> [Cell] {
+    func getCells(_ rect: FixedRect) -> [Cell] {
         var c: [Cell] = []
         for cell in cells {
             if FixedRect.intersects(cell.mask, rect) {
@@ -76,15 +76,15 @@ class Grid {
     }
     
     func update() {
-        clean()
         relocate()
+        clean()
     }
     
     func getCellLocation(_ cell: Cell) -> float2 {
         return float2(Float(cell.placement.location.x), -Float(cell.placement.location.y)) * size
     }
     
-    fileprivate func clean() {
+    private func clean() {
         for cell in cells where cell.elements.count > 0 {
             cell.elements = cell.elements.filter{
                 return $0.element.alive
@@ -97,7 +97,7 @@ class Grid {
         return FixedRect.intersects(mask, actor.body.shape.getBounds())
     }
     
-    fileprivate func relocate() {
+    private func relocate() {
         for cell in cells where cell.elements.count > 0 {
             cell.elements = cell.elements.filter{ placed in
                 if FixedRect.intersects(cell.mask, placed.element.body.shape.getBounds()) { return true }
@@ -107,7 +107,7 @@ class Grid {
         }
     }
     
-    fileprivate func loop(_ action: (Placed<Actor>) -> ()) {
+    private func loop(_ action: (Placed<Actor>) -> ()) {
         for cell in cells {
             for placed in cell.elements {
                 action(placed)
@@ -148,12 +148,6 @@ class Cell {
     
     func append(_ element: Actor) {
         elements.append(Placed(placement, element))
-    }
-    
-    func getTree() -> Quadtree {
-        let tree = Quadtree(FixedRect(float2(Float(placement.location.x), Float(placement.location.y)) * 10.m + float2(5.m, -5.m), float2(10.m)))
-        elements.map{ $0.element }.forEach(tree.append)
-        return tree
     }
     
     var actors: [Actor] {

@@ -3,7 +3,7 @@
 //  Sky's Melody
 //
 //  Created by Chris Luttio on 8/29/16.
-//  Copyright © 2016 Chris Luttio. All rights reserved.
+//  Copyright © 2017 Storiel, LLC. All rights reserved.
 //
 
 import Foundation

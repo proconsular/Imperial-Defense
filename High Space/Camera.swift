@@ -3,7 +3,7 @@
 //  Relaci
 //
 //  Created by Chris Luttio on 9/16/14.
-//  Copyright (c) 2014 FishyTale Digital, Inc. All rights reserved.
+//  Copyright (c) 2017 Storiel, LLC. All rights reserved.
 //
 
 import UIKit
@@ -21,7 +21,7 @@ class Camera {
     static var clip = true
     static var bounds = float2()
     
-    static var mask: FixedRect { return FixedRect(Camera.transform.location, Camera.size) }
+    static var mask: FixedRect { return FixedRect(Camera.transform.location + Camera.size / 2, Camera.size) }
     
     static func contains (_ location: float2, _ bounds: float2) -> Bool {
         return
@@ -43,6 +43,10 @@ class Camera {
                 moveIntoRegion()
             }
         }
+    }
+    
+    static var matrix: GLKMatrix4 {
+        return GLKMatrix4MakeTranslation(transform.location.x, transform.location.y, 0)
     }
     
     private static func moveIntoRegion () {

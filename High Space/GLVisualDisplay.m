@@ -1,13 +1,13 @@
 //
 //  RawVisualDisplay.m
-//  Bot Bounce+
+//  Imperial Defence
 //
 //  Created by Chris Luttio on 12/30/15.
-//  Copyright © 2015 FishyTale Digital, Inc. All rights reserved.
+//  Copyright © 2017 Storiel, LLC. All rights reserved.
 //
 
 #import "GLVisualDisplay.h"
-#import "Defender-Swift.h"
+#import "Imperial_Defense-Swift.h"
 
 #define BUFFER_OFFSET(i) ((char *)NULL + (i))
 

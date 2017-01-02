@@ -1,9 +1,9 @@
 //
 //  Art.m
-//  Bot Bounce
+//  Imperial Defence
 //
 //  Created by Chris Luttio on 5/2/14.
-//  Copyright (c) 2014 Evans Creative Studios. All rights reserved.
+//  Copyright (c) 2017 Storiel, LLC. All rights reserved.
 //
 
 #import "TextureRepo.h"
@@ -49,7 +49,19 @@
     @"player",
     @"soldier",
     @"stonefloor",
-    @"rockfloor"];
+    @"rockfloor",
+    @"coin",
+    @"armor",
+    @"adv_soldier",
+    @"laser_soldier",
+    @"soldier_walk",
+    @"sniper",
+    @"machine",
+    @"bomb",
+    @"shield",
+    @"movement",
+    @"barrier",
+    @"castle"];
     
     for (NSString *name in prefetched) {
         [self prefetch:name];

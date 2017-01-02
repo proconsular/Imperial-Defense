@@ -1,9 +1,9 @@
 //
 //  UserInterface.swift
-//  Bot Bounce+
+//  Imperial Defence
 //
 //  Created by Chris Luttio on 12/16/15.
-//  Copyright © 2015 FishyTale Digital, Inc. All rights reserved.
+//  Copyright © 2017 Storiel, LLC. All rights reserved.
 //
 
 import Foundation
@@ -33,7 +33,10 @@ open class UserInterface {
     }
     
     static func update() {
-        controller.getCommands().forEach(space.use)
+        let commands = controller.getCommands()
+        for command in commands {
+            space.use(command)
+        }
         space.update()
     }
     
@@ -63,7 +66,9 @@ class ScreenSpace: Stack<Screen>, Interface {
     }
     
     func display() {
-        peek?.display()
+        for screen in contents {
+            screen.display()
+        }
     }
     
 }

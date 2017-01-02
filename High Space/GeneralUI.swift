@@ -1,9 +1,9 @@
 //
 //  GeneralUI.swift
-//  Bot Bounce+
+//  Imperial Defence
 //
 //  Created by Chris Luttio on 12/17/15.
-//  Copyright © 2015 FishyTale Digital, Inc. All rights reserved.
+//  Copyright © 2017 Storiel, LLC. All rights reserved.
 //
 
 import Foundation
@@ -59,20 +59,10 @@ class Button: InteractiveElement {
     
     var text: DynamicText?
     
-    init(_ text: String, _ location: float2, _ event: @escaping () -> () = {}) {
+    init(_ location: float2, _ event: @escaping () -> () = {}) {
         let loc = location
-        
-        if text != "" {
-            self.text = DynamicText.defaultStyle(text, float4(0, 0, 0, 1), 64.0)
-            self.text!.location = location
-        }
         
         super.init(loc, self.text!.bounds, event)
-    }
-    
-    init(name: String, _ location: float2, _ event: @escaping () -> ()) {
-        let loc = location
-        super.init(loc, float2(), event)
     }
     
     override func display() {
@@ -85,12 +75,12 @@ class Button: InteractiveElement {
 
 class TextButton: InteractiveElement {
     
-    var text: DynamicText
+    var text: Text
     
-    init(_ text: DynamicText, _ location: float2, _ event: @escaping () -> ()) {
+    init(_ text: Text, _ location: float2, _ event: @escaping () -> ()) {
         self.text = text
-        super.init(location, text.frame, event)
-        self.text.location = rect.location
+        super.init(location, text.size, event)
+        self.text.text.location = rect.location
     }
     
     override func display() {
@@ -99,31 +89,6 @@ class TextButton: InteractiveElement {
     }
     
 }
-
-class ToggleButton: Button {
-    
-    var texts: [DynamicText] = []
-    var index: Int = 0
-    
-    init(_ texts: [String], _ location: float2, _ event: @escaping () -> () = {}) {
-        super.init("", location, event)
-        
-        for text in texts {
-            let dt = DynamicText.defaultStyle(text, float4(0, 0, 0, 1), 128.0)
-            dt.location = rect.location + rect.bounds / 2 - dt.frame / 2 + float2(0, 25)
-            self.texts.append(dt)
-        }
-        
-    }
-    
-    override func display() {
-        guard active else { return }
-        super.display()
-        texts[index].render()
-    }
-    
-}
-
 
 
 

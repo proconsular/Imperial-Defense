@@ -1,9 +1,9 @@
 //
 //  TextureLoader.m
-//  Bot Bounce 2
+//  Imperial Defence
 //
 //  Created by Chris Luttio on 2/10/16.
-//  Copyright © 2016 FishyTale Digital, Inc. All rights reserved.
+//  Copyright © 2017 Storiel, LLC. All rights reserved.
 //
 
 #import "GLTextureLoader.h"

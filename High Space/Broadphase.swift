@@ -1,9 +1,9 @@
 //
 //  Broadphase.swift
-//  Bot Bounce+
+//  Imperial Defence
 //
 //  Created by Chris Luttio on 12/22/15.
-//  Copyright © 2015 FishyTale Digital, Inc. All rights reserved.
+//  Copyright © 2017 Storiel, LLC. All rights reserved.
 //
 
 import Foundation
@@ -62,27 +62,15 @@ class Broadphaser {
             contacts += process(cell.elements.map{ $0.element.body })
         }
         
-        //contacts = process(grid.actors.map{ $0.body }.sorted(by: sortBodies))
+        //contacts = process(grid.actors.map{ $0.body })
         
         return contacts
     }
     
-    fileprivate func execute(_ tree: Quadtree) -> [Manifold] {
+    private func process(_ bodies: [Body]) -> [Manifold] {
         var contacts: [Manifold] = []
         
-        contacts += process(tree.elements.map{ $0.body })
-        
-        for sector in tree.sectors {
-            contacts += execute(sector)
-        }
-        
-        return contacts
-    }
-    
-    fileprivate func process(_ bodies: [Body]) -> [Manifold] {
-        var contacts: [Manifold] = []
-        
-        bodies.sorted(by: sortBodies).match {
+        bodies.filter{ !$0.noncolliding }.sorted(by: sortBodies).match {
             if let contact = verify($0, $1) {
                 contacts.append(contact)
             }
@@ -91,11 +79,11 @@ class Broadphaser {
         return contacts
     }
     
-    fileprivate func sortBodies(_ prime: Body, _ secunde: Body) -> Bool {
+    private func sortBodies(_ prime: Body, _ secunde: Body) -> Bool {
         return prime.substance.mass.mass > secunde.substance.mass.mass
     }
     
-    fileprivate func verify(_ prime: Body, _ secunde: Body) -> Manifold? {
+    private func verify(_ prime: Body, _ secunde: Body) -> Manifold? {
         guard prime.substance.mass.mass != 0 else { return nil }
         if let contact = validateContact(prime, secunde) {
             contact.solve()
@@ -106,16 +94,12 @@ class Broadphaser {
         return nil
     }
     
-    fileprivate func validateContact (_ prime: Body, _ secunde: Body) -> Manifold? {
-        guard !prime.hidden && !secunde.hidden else { return nil }
-        guard prime.mask & secunde.mask > 0 else { return nil }
-        guard collide(prime, secunde) else { return nil }
+    private func validateContact (_ prime: Body, _ secunde: Body) -> Manifold? {
+        guard prime.canCollide(secunde) else { return nil }
         return Manifold(BodyPair(prime, secunde))
     }
     
-    fileprivate func collide(_ prime: Body, _ secunde: Body) -> Bool {
-        return FixedRect.intersects(prime.shape.getBounds(), secunde.shape.getBounds())
-    }
+    
     
 }
 

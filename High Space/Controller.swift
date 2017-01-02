@@ -3,7 +3,7 @@
 //  Relaci
 //
 //  Created by Chris Luttio on 9/16/14.
-//  Copyright (c) 2014 FishyTale Digital, Inc. All rights reserved.
+//  Copyright (c) 2017 Storiel, LLC. All rights reserved.
 //
 
 struct Command {

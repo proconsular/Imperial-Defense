@@ -3,11 +3,11 @@
 //  Sky's Melody Tests
 //
 //  Created by Chris Luttio on 8/8/16.
-//  Copyright © 2016 Chris Luttio. All rights reserved.
+//  Copyright © 2017 Storiel, LLC. All rights reserved.
 //
 
 import XCTest
-@testable import Sky_s_Melody
+@testable import Defender
 
 class Sky_s_Melody_Tests: XCTestCase {
     
