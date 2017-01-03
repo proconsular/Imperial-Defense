@@ -1,6 +1,6 @@
 //
 //  Book.m
-//  eMotion Book
+//  Imperial Defense
 //
 //  Created by Chris Luttio on 1/6/15.
 //  Copyright (c) 2017 Storiel, LLC. All rights reserved.
@@ -14,7 +14,7 @@
 #import "Imperial_Defense-Swift.h"
 
 @implementation Bridge {
-    core *swift;
+    MainGame *game;
 }
 
 static Bridge *sharedInstance;
@@ -33,17 +33,17 @@ static Bridge *sharedInstance;
     [TextureRepo sharedLibrary];
     [AudioLibrary sharedLibrary];
     
-    swift = [core new];
+    game = [MainGame new];
     
     return self;
 }
 
 -(void)update{
-    [swift update];
+    [game update];
 }
 
 -(void)display {
-    [swift display];
+    [game display];
 }
 
 @end

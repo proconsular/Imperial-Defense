@@ -1,6 +1,6 @@
 //
 //  Region.swift
-//  Comm
+//  Imperial Defense
 //
 //  Created by Chris Luttio on 8/21/15.
 //  Copyright (c) 2017 Storiel, LLC. All rights reserved.
@@ -16,8 +16,8 @@ class Game: DisplayLayer {
     let player: Player
     let map: Map
     
-    let castle: Display
-    let floor: Display
+    var castle: Display!
+    var floor: Display!
     
     var barriers: [Barrier]
     
@@ -26,16 +26,38 @@ class Game: DisplayLayer {
     var win_timer: Float = 0
     
     init() {
-        points = Data.info.points
-        //Game.jump()
+        barriers = []
         
-        //Data.level = 10
-        //Data.points = 100
         map = Map(float2(20.m, 40.m))
         Map.current = map
+        Camera.transform.location = float2(map.size.x / 2 - Camera.size.x / 2, -Camera.size.y)
+        physics = Simulation(map.grid)
+        player = Player(float2(map.size.x / 2, -1.m))
+        points = Data.info.points
+        coordinator = Coordinator()
         
-        let cs = 2.5.m
-        castle = Display(Rect(float2(map.size.x / 2, -cs / 2), float2(map.size.x, cs)), GLTexture("stonefloor"))
+        setupFloor(2.5.m)
+        createWalls(0.15.m)
+        createBarriers(3, -2.8.m, int2(10, 4))
+    }
+    
+    func createBarriers(_ amount: Int, _ height: Float, _ size: int2) {
+        for i in 0 ..< amount {
+            let div = map.size.x / Float(amount)
+            barriers.append(Barrier(float2(div / 2 + div * Float(i), height), size))
+        }
+    }
+    
+    func createWalls(_ width: Float) {
+        map.append(player)
+        map.append(Structure(float2(map.size.x / 2, 0), float2(map.size.x, width)))
+        map.append(Structure(float2(map.size.x / 2, -map.size.y), float2(map.size.x, width)))
+        map.append(Structure(float2(0, -map.size.y / 2), float2(width, map.size.y)))
+        map.append(Structure(float2(map.size.x, -map.size.y / 2), float2(width, map.size.y)))
+    }
+    
+    func setupFloor(_ height: Float) {
+        castle = Display(Rect(float2(map.size.x / 2, -height / 2), float2(map.size.x, height)), GLTexture("stonefloor"))
         let scale_c: Float = 2
         castle.scheme.layout.coordinates = [float2(0, 0), float2(0.5, 0) * scale_c, float2(0.5, 3) * scale_c, float2(0, 3) * scale_c]
         castle.color = float4(0.7, 0.7, 0.7, 1)
@@ -44,30 +66,6 @@ class Game: DisplayLayer {
         let scale_f: Float = 1
         floor.scheme.layout.coordinates = [float2(0, 0), float2(6, 0) * scale_f, float2(6, 3) * scale_f, float2(0, 3) * scale_f]
         floor.color = float4(0.5, 0.4, 0.4, 1)
-        
-        player = Player(float2(map.size.x / 2, -1.m))
-        
-        map.append(player)
-        map.append(Structure(float2(map.size.x / 2, 0), float2(map.size.x, 0.5.m)))
-        map.append(Structure(float2(map.size.x / 2, -map.size.y), float2(map.size.x, 0.5.m)))
-        map.append(Structure(float2(0, -map.size.y / 2), float2(0.5.m, map.size.y)))
-        map.append(Structure(float2(map.size.x, -map.size.y / 2), float2(0.5.m, map.size.y)))
-        
-        barriers = []
-        
-        let ba = 4
-        
-        for i in 0 ..< ba {
-            let div = map.size.x / Float(ba)
-            barriers.append(Barrier(float2(div / 2 + div * Float(i), -3.2.m), int2(10, 5)))
-        }
-        
-        Camera.clip = false
-        Camera.transform.location = float2(map.size.x / 2, 0) + float2(-Camera.size.x / 2, -Camera.size.y)
-        
-        physics = Simulation(map.grid)
-        
-        coordinator = Coordinator()
     }
     
     static func jump() {

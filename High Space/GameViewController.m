@@ -1,6 +1,6 @@
 //
 //  GameViewController.m
-//  eMotion Book
+//  Imperial Defense
 //
 //  Created by Chris Luttio on 1/5/15.
 //  Copyright (c) 2017 Storiel, LLC. All rights reserved.
@@ -21,7 +21,7 @@ GLint modelViewProjectionMatrix_Uniform;
 
 @implementation GameViewController
 
-- (void)viewDidLoad{
+-(void)viewDidLoad{
     [super viewDidLoad];
     
     self.context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES3];
@@ -34,33 +34,6 @@ GLint modelViewProjectionMatrix_Uniform;
     [self setPreferredFramesPerSecond:60];
     
     [self setupGL];
-}
-
-- (void)dealloc{
-    [self tearDownGL];
-    
-    if ([EAGLContext currentContext] == self.context) {
-        [EAGLContext setCurrentContext:nil];
-    }
-}
-
-- (void)didReceiveMemoryWarning{
-    [super didReceiveMemoryWarning];
-
-    if ([self isViewLoaded] && ([[self view] window] == nil)) {
-        self.view = nil;
-        
-        [self tearDownGL];
-        
-        if ([EAGLContext currentContext] == self.context) {
-            [EAGLContext setCurrentContext:nil];
-        }
-        self.context = nil;
-    }
-}
-
-- (BOOL)prefersStatusBarHidden {
-    return YES;
 }
 
 - (void)setupGL{
@@ -140,15 +113,6 @@ GLint modelViewProjectionMatrix_Uniform;
     [Interaction appendTouch:leftSide];
 }
 
--(void)tearDownGL{
-    [EAGLContext setCurrentContext:self.context];
-
-    if (_defaultprogram) {
-        glDeleteProgram(_defaultprogram);
-        _defaultprogram = 0;
-    }
-}
-
 -(void)update{
     [Time set:self.timeSinceLastUpdate];
     [[Bridge sharedInstance] update];
@@ -157,6 +121,42 @@ GLint modelViewProjectionMatrix_Uniform;
 -(void)glkView:(GLKView *)view drawInRect:(CGRect)rect{
     glClear(GL_COLOR_BUFFER_BIT);
     [[Bridge sharedInstance] display];
+}
+
+- (void)dealloc{
+    [self tearDownGL];
+    
+    if ([EAGLContext currentContext] == self.context) {
+        [EAGLContext setCurrentContext:nil];
+    }
+}
+
+-(void)tearDownGL{
+    [EAGLContext setCurrentContext:self.context];
+    
+    if (_defaultprogram) {
+        glDeleteProgram(_defaultprogram);
+        _defaultprogram = 0;
+    }
+}
+
+- (void)didReceiveMemoryWarning{
+    [super didReceiveMemoryWarning];
+    
+    if ([self isViewLoaded] && ([[self view] window] == nil)) {
+        self.view = nil;
+        
+        [self tearDownGL];
+        
+        if ([EAGLContext currentContext] == self.context) {
+            [EAGLContext setCurrentContext:nil];
+        }
+        self.context = nil;
+    }
+}
+
+- (BOOL)prefersStatusBarHidden {
+    return YES;
 }
 
 @end

@@ -1,6 +1,6 @@
 //
 //  Shader.fsh
-//  Imperial Defence
+//  Imperial Defense
 //
 //  Created by Chris Luttio on 4/10/14.
 //  Copyright (c) 2017 Storiel, LLC. All rights reserved.

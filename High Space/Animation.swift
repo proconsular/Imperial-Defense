@@ -1,6 +1,6 @@
 //
 //  Animation.swift
-//  Comm
+//  Imperial Defense
 //
 //  Created by Chris Luttio on 8/26/15.
 //  Copyright (c) 2017 Storiel, LLC. All rights reserved.

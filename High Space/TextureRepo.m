@@ -1,6 +1,6 @@
 //
 //  Art.m
-//  Imperial Defence
+//  Imperial Defense
 //
 //  Created by Chris Luttio on 5/2/14.
 //  Copyright (c) 2017 Storiel, LLC. All rights reserved.

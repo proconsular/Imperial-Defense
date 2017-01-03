@@ -1,6 +1,6 @@
 //
 //  GeneralUI.swift
-//  Imperial Defence
+//  Imperial Defense
 //
 //  Created by Chris Luttio on 12/17/15.
 //  Copyright © 2017 Storiel, LLC. All rights reserved.
@@ -29,6 +29,7 @@ class Trigger {
 
 class InteractiveElement: InterfaceElement, Interface {
     
+    var location: float2
     var rect: FixedRect
     var event: () -> ()
     var active = true
@@ -36,7 +37,7 @@ class InteractiveElement: InterfaceElement, Interface {
     init(_ location: float2, _ bounds: float2, _ event: @escaping () -> () = {}) {
         rect = FixedRect(location, bounds)
         self.event = event
-        super.init(location)
+        self.location = location
     }
     
     func use(_ command: Command) {
@@ -48,28 +49,7 @@ class InteractiveElement: InterfaceElement, Interface {
         }
     }
     
-    override func display() {
-        guard active else { return }
-        super.display()
-    }
-    
-}
-
-class Button: InteractiveElement {
-    
-    var text: DynamicText?
-    
-    init(_ location: float2, _ event: @escaping () -> () = {}) {
-        let loc = location
-        
-        super.init(loc, self.text!.bounds, event)
-    }
-    
-    override func display() {
-        guard active else { return }
-        super.display()
-        text?.render()
-    }
+    func render() {}
     
 }
 
@@ -80,10 +60,10 @@ class TextButton: InteractiveElement {
     init(_ text: Text, _ location: float2, _ event: @escaping () -> ()) {
         self.text = text
         super.init(location, text.size, event)
-        self.text.text.location = rect.location
+        self.text.location = rect.location
     }
     
-    override func display() {
+    override func render() {
         guard active else { return }
         text.render()
     }

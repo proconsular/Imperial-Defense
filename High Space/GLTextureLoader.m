@@ -1,6 +1,6 @@
 //
 //  TextureLoader.m
-//  Imperial Defence
+//  Imperial Defense
 //
 //  Created by Chris Luttio on 2/10/16.
 //  Copyright © 2017 Storiel, LLC. All rights reserved.

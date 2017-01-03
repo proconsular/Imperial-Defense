@@ -1,6 +1,6 @@
 //
 //  Book.h
-//  eMotion Book
+//  Imperial Defense
 //
 //  Created by Chris Luttio on 1/6/15.
 //  Copyright (c) 2017 Storiel, LLC. All rights reserved.

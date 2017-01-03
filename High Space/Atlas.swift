@@ -1,6 +1,6 @@
 //
 //  Atlas.swift
-//  Imperial Defence
+//  Imperial Defense
 //
 //  Created by Chris Luttio on 12/5/15.
 //  Copyright © 2017 Storiel, LLC. All rights reserved.

@@ -32,12 +32,16 @@ struct FontStyle {
     }
 }
 
-class Text {
+class Text: InterfaceElement {
     var string: String
     var style: FontStyle
     var text: DynamicText
     
-    init(_ string: String, _ style: FontStyle) {
+    convenience init(_ style: FontStyle) {
+        self.init(" ", style)
+    }
+    
+    init(_ string: String, _ style: FontStyle = defaultStyle) {
         self.string = string
         self.style = style
         self.text = DynamicText(attributedString: Text.computeString(string, style))
@@ -47,6 +51,11 @@ class Text {
         self.string = string
         self.style = style
         self.text = DynamicText(attributedString: Text.computeString(string, style), bounds: bounds)
+    }
+    
+    convenience init(_ location: float2, _ string: String, _ style: FontStyle) {
+        self.init(string, style)
+        self.location = location
     }
     
     private static func computeString(_ string: String, _ style: FontStyle) -> NSAttributedString {

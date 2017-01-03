@@ -30,8 +30,7 @@ class Interaction: UIGestureRecognizer {
     }
     
    
-    
-    fileprivate func isSelf (_ touch: UITouch) -> Bool {
+    private func isSelf (_ touch: UITouch) -> Bool {
         for press in Interaction.presses where press !== self {
             if let event = press.rawTouch , event === touch {
                 return true
@@ -71,7 +70,7 @@ class Interaction: UIGestureRecognizer {
         }
     }
     
-    fileprivate func update (_ touch: UITouch) {
+    private func update (_ touch: UITouch) {
         let point = touch.location(in: view)
         let scale = UIScreen.main.scale
         location = float2(Float(point.x * scale), Float(point.y * scale))

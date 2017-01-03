@@ -1,6 +1,6 @@
 //
 //  DataTypes.swift
-//  Comm
+//  Imperial Defense
 //
 //  Created by Chris Luttio on 9/1/15.
 //  Copyright © 2017 Storiel, LLC. All rights reserved.
@@ -97,9 +97,6 @@ struct Material {
     
     init (_ type: Type){
         var ntype = type
-        if funmode {
-            ntype = .superBall
-        }
         switch ntype {
         case .rock:
             density = 0.6

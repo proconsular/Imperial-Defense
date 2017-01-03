@@ -1,6 +1,6 @@
 //
 //  DynamicText.h
-//  Imperial Defence
+//  Imperial Defense
 //
 //  Created by Chris Luttio on 11/16/14.
 //  Copyright (c) 2017 Storiel, LLC. All rights reserved.

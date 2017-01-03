@@ -1,6 +1,6 @@
 //
 //  Broadphase.swift
-//  Imperial Defence
+//  Imperial Defense
 //
 //  Created by Chris Luttio on 12/22/15.
 //  Copyright © 2017 Storiel, LLC. All rights reserved.
