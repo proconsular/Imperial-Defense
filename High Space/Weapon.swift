@@ -29,7 +29,7 @@ struct BulletInfo {
     
 }
 
-class Weapon {
+class Weapon: StatusItem {
     
     var transform: Transform
     var direction: float2
@@ -41,19 +41,31 @@ class Weapon {
     
     var bullet_data: BulletInfo
     
+    var power: Float
+    
+    let drain: Float = 10
+    let recharge: Float = 50
+    
     init(_ transform: Transform, _ direction: float2, _ data: BulletInfo, _ tag: String) {
         self.transform = transform
         self.direction = direction
         self.bullet_data = data
         self.tag = tag
+        power = 100
+    }
+    
+    var percent: Float {
+        return power / 100
     }
     
     func update() {
         counter += Time.time
+        power += recharge * Time.time
+        power = clamp(power, min: 0, max: 100)
     }
     
     var canFire: Bool {
-        return counter >= bullet_data.rate
+        return counter >= bullet_data.rate && power >= drain
     }
     
     func fire() {
@@ -65,6 +77,7 @@ class Weapon {
             bullet.body.mask = 0b100
         }
         Map.current.append(bullet)
+        power -= drain
     }
     
 }

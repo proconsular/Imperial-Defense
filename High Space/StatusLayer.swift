@@ -13,34 +13,40 @@ class StatusLayer: InterfaceLayer {
     let points: Text
     
     let shield: PercentDisplay
-    let laser: PercentDisplay
+    let weapon: PercentDisplay
+    
+    let background: Display
     
     init(_ game: Game) {
-        shield = PercentDisplay(float2(135, 25), float2(400, 22.5), 1, game.player.shield)
-        laser = PercentDisplay(float2(Camera.size.x - 30, 30), float2(550, 15), -1, game.player.laser)
+        let size: Float = 80
+        
+        shield = PercentDisplay(float2(115, size / 2), size * 0.45, 18, float4(0, 0.6, 1, 1), 1, game.player.shield)
+        weapon = PercentDisplay(float2(Camera.size.x - 30, size / 2), size * 0.45, 14, float4(1, 0, 0, 1), -1, game.player.weapon)
         
         wave = Text(float2(300, 100), " ", FontStyle(defaultFont, float4(1), 48.0))
-        points = Text(float2(Camera.size.x / 2, 60), " ", FontStyle(defaultFont, float4(1), 72.0))
+        points = Text(float2(Camera.size.x / 2, 5 + size / 2), " ", FontStyle(defaultFont, float4(1), 72.0 * (size / 100)))
+        
+        background = Display(Rect(float2(Camera.size.x / 2, size / 2), float2(Camera.size.x, size)), GLTexture("GameUIBack"))
+        background.scheme.camera = false
         
         super.init()
         
-        objects.append(TextButton(Text("II"), float2(50), {
+        objects.append(Button(GLTexture("pause"), float2(50, size / 2), float2(size / 2), {
             UserInterface.push(PauseScreen())
         }))
     }
     
     override func display() {
+        background.render()
+        
         super.display()
         
         shield.render()
         
-        wave.setString("level: \(Data.info.level)")
-        wave.render()
-        
         points.setString("\(Data.info.points)")
         points.render()
         
-        laser.render()
+        weapon.render()
     }
 }
 
@@ -53,38 +59,44 @@ class PercentDisplay {
     let status: StatusItem
     
     let transform: Transform
-    let frame, level: Display
-    let rect: Rect
-    let size: float2
+    let frame: Display
     let alignment: Int
     
-    init(_ location: float2, _ size: float2, _ alignment: Int, _ status: StatusItem) {
+    var blocks: [Display]
+    
+    init(_ location: float2, _ height: Float, _ count: Int, _ color: float4, _ alignment: Int, _ status: StatusItem) {
         self.status = status
-        self.size = size
         self.alignment = alignment
         
-        frame = Display(Rect(float2(), size), GLTexture("white"))
-        frame.color = float4(0.3, 0.3, 0.3, 0.2)
+        blocks = []
         
-        rect = Rect(float2(), float2(size.x, size.y))
-        level = Display(rect, GLTexture("white"))
-        level.color = float4(0.4, 1, 0.5, 1)
+        let padding: Float = 10
+        let spacing: Float = 6
+        
+        let s = height - padding
+        let width = (s + spacing) * Float(count) + spacing
+        
+        for i in 0 ..< count {
+            let b = Display(Rect(location + Float(alignment) * float2(Float(i) * (s + spacing) + s / 2 + padding / 2, 0), float2(s)), GLTexture("white"))
+            b.color = color
+            b.scheme.camera = false
+            blocks.append(b)
+        }
+        
+        frame = Display(Rect(float2(), float2(width, height)), GLTexture("white"))
+        frame.color = float4(0.3, 0.3, 0.3, 1)
         
         transform = frame.scheme.hull.transform
         transform.assign(Camera.transform)
-        transform.location = location + float2(size.x / 2 * Float(alignment), 0)
-        
-        rect.transform.assign(transform)
+        transform.location = location + float2(width / 2 * Float(alignment), 0)
     }
-    
+   
     func render() {
-        let adjust = size.x * status.percent
-        rect.setBounds(float2(adjust, size.y))
-        rect.transform.location.x = Float(alignment) * (-size.x / 2 + adjust / 2)
-        
-        level.visual.refresh()
         frame.render()
-        level.render()
+        let visible = Int(Float(blocks.count) * status.percent)
+        for i in 0 ..< visible {
+            blocks[i].render()
+        }
     }
     
 }

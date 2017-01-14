@@ -19,7 +19,6 @@
     dispatch_once(&onceToken, ^{
         _sharedLibrary = [self new];
     });
-    
     return _sharedLibrary;
 }
 
@@ -61,7 +60,9 @@
     @"shield",
     @"movement",
     @"barrier",
-    @"castle"];
+    @"castle",
+    @"GameUIBack",
+    @"pause"];
     
     for (NSString *name in prefetched) {
         [self prefetch:name];

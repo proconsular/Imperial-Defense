@@ -70,6 +70,22 @@ class TextButton: InteractiveElement {
     
 }
 
+class Button: InteractiveElement {
+    
+    var display: Display
+    
+    init(_ texture: GLTexture, _ location: float2, _ bounds: float2, _ event: @escaping () -> ()) {
+        display = Display(Rect(Transform(location), bounds), texture)
+        display.scheme.camera = false
+        super.init(location, bounds, event)
+    }
+    
+    override func render() {
+        display.render()
+    }
+    
+}
+
 
 
 

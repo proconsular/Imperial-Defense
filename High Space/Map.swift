@@ -35,6 +35,7 @@ class Map {
         actors = []
         grid = Grid(5.m, size)
         bullets = []
+        Map.current = self
     }
     
     func append(_ element: Actor) {

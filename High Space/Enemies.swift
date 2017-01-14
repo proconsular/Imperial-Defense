@@ -35,8 +35,8 @@ class Soldier: Actor, Created {
     
     init(_ location: float2, _ color: float4) {
         self.color = color
-        let rect = Rect(location, float2(56, 106) * 1.1)
-        armor_image = Display(Rect(Transform(location), float2(78, 106) * 1.1), GLTexture("armor"))
+        let rect = Rect(location, float2(56, 106) * 1.2)
+        armor_image = Display(Rect(Transform(location), float2(78, 106) * 1.2), GLTexture("armor"))
         super.init(rect, Substance.getStandard(100))
         display.texture = GLTexture("soldier_walk").id
         weapon = Weapon(transform, float2(0, 1), BulletInfo(5, 10.m, 1, float2(0.4.m, 0.08.m), float4(1, 0, 0, 1)), "player")

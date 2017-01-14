@@ -21,6 +21,10 @@ class Camera {
     static var clip = true
     static var bounds = float2()
     
+    static func create(_ map: Map) {
+        transform.location = float2(map.size.x / 2 - Camera.size.x / 2, -Camera.size.y)
+    }
+    
     static var mask: FixedRect { return FixedRect(Camera.transform.location + Camera.size / 2, Camera.size) }
     
     static func contains (_ location: float2, _ bounds: float2) -> Bool {

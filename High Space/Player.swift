@@ -42,7 +42,7 @@ class Player: Actor, Interface {
         let up = Data.info.sniper.computeInfo()!
         let ma = Data.info.machine.computeInfo()!
         let bo = Data.info.bomb.computeInfo()!
-        let weapon = Weapon(transform, float2(0, -1), BulletInfo(up.damage + ma.damage + bo.damage + 3, 8.m + up.speed + ma.speed + bo.speed, 0.3 + up.rate + ma.rate + bo.rate, float2(0.4.m, 0.12.m), float4(0, 1, 0.5, 1)), "enemy")
+        let weapon = Weapon(transform, float2(0, -1), BulletInfo(up.damage + ma.damage + bo.damage + 3, 8.m + up.speed + ma.speed + bo.speed, 0.125, float2(0.4.m, 0.12.m) * 1.1, float4(0, 1, 0.5, 1)), "enemy")
         weapon.bullet_data.collide = bo.collide
         return weapon
     }

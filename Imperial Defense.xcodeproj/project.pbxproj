@@ -100,6 +100,9 @@
 		226DA14C1DD1A4FA0065EB00 /* movement.png in Resources */ = {isa = PBXBuildFile; fileRef = 226DA14B1DD1A4FA0065EB00 /* movement.png */; };
 		226DA14E1DD1A4FD0065EB00 /* shield.png in Resources */ = {isa = PBXBuildFile; fileRef = 226DA14D1DD1A4FD0065EB00 /* shield.png */; };
 		226DA1501DD1A5460065EB00 /* barrier.png in Resources */ = {isa = PBXBuildFile; fileRef = 226DA14F1DD1A5460065EB00 /* barrier.png */; };
+		226ECBA61E25FDC500334585 /* Scenery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226ECBA51E25FDC400334585 /* Scenery.swift */; };
+		226ECBAA1E29B9EC00334585 /* pause.png in Resources */ = {isa = PBXBuildFile; fileRef = 226ECBA91E29B9EC00334585 /* pause.png */; };
+		226ECBAC1E2AA71600334585 /* GameUIBack.png in Resources */ = {isa = PBXBuildFile; fileRef = 226ECBAB1E2AA71600334585 /* GameUIBack.png */; };
 		227016211E19FE0E0062442B /* Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227016201E19FE0E0062442B /* Text.swift */; };
 		227016231E1AFFD90062442B /* StatusLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227016221E1AFFD90062442B /* StatusLayer.swift */; };
 		227016251E1B021B0062442B /* UpgradeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227016241E1B021B0062442B /* UpgradeView.swift */; };
@@ -259,6 +262,9 @@
 		226DA14B1DD1A4FA0065EB00 /* movement.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = movement.png; sourceTree = "<group>"; };
 		226DA14D1DD1A4FD0065EB00 /* shield.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shield.png; sourceTree = "<group>"; };
 		226DA14F1DD1A5460065EB00 /* barrier.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = barrier.png; sourceTree = "<group>"; };
+		226ECBA51E25FDC400334585 /* Scenery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Scenery.swift; sourceTree = "<group>"; };
+		226ECBA91E29B9EC00334585 /* pause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pause.png; sourceTree = "<group>"; };
+		226ECBAB1E2AA71600334585 /* GameUIBack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GameUIBack.png; sourceTree = "<group>"; };
 		227016201E19FE0E0062442B /* Text.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Text.swift; sourceTree = "<group>"; };
 		227016221E1AFFD90062442B /* StatusLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusLayer.swift; sourceTree = "<group>"; };
 		227016241E1B021B0062442B /* UpgradeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpgradeView.swift; sourceTree = "<group>"; };
@@ -502,6 +508,8 @@
 				226DA1451DD19A570065EB00 /* sniper.png */,
 				2249C36D1DBC8E6700D4EEBF /* coin.png */,
 				226DA1471DD19ECB0065EB00 /* machine.png */,
+				226ECBA91E29B9EC00334585 /* pause.png */,
+				226ECBAB1E2AA71600334585 /* GameUIBack.png */,
 				226DA13F1DC854050065EB00 /* armor.png */,
 				226DA13D1DC853EC0065EB00 /* soldier_walk.png */,
 				226DA1491DD1A07A0065EB00 /* bomb.png */,
@@ -585,6 +593,7 @@
 				229232601D52F1BD00F47D02 /* auxiliary */,
 				222DD8661D48854600A70FA8 /* MainGame.swift */,
 				222DD8721D48854600A70FA8 /* Game.swift */,
+				226ECBA51E25FDC400334585 /* Scenery.swift */,
 				222DD8761D48854600A70FA8 /* GameViewController.h */,
 				222DD8771D48854600A70FA8 /* GameViewController.m */,
 			);
@@ -834,7 +843,7 @@
 				TargetAttributes = {
 					222DD82F1D48843100A70FA8 = {
 						CreatedOnToolsVersion = 7.3;
-						DevelopmentTeam = SN76JR46QZ;
+						DevelopmentTeam = FQJBX9GNNN;
 						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
 					};
@@ -877,9 +886,11 @@
 				22C4E56A1D73A99D0077DFCB /* shield-re1.wav in Resources */,
 				22B8C37C1D8546D700806C16 /* hit7.wav in Resources */,
 				22C4E5661D73A9940077DFCB /* jump1.wav in Resources */,
+				226ECBAA1E29B9EC00334585 /* pause.png in Resources */,
 				22D31C1B1D94D0DE00818AFA /* pickup1.wav in Resources */,
 				22D31C1C1D94D0DE00818AFA /* pickup2.wav in Resources */,
 				22D31C241D94D58D00818AFA /* door1.wav in Resources */,
+				226ECBAC1E2AA71600334585 /* GameUIBack.png in Resources */,
 				2251DEF21DAB4D730022D711 /* player.png in Resources */,
 				22B8C35D1D7D302400806C16 /* spineboy.atlas in Resources */,
 				22B8C36A1D84F6E000806C16 /* shoot2.wav in Resources */,
@@ -1014,6 +1025,7 @@
 				22032F3D1E0EFD7A001462C2 /* Transform.swift in Sources */,
 				22613D1F1DC555D400FECAB0 /* GLVisualDisplay.m in Sources */,
 				22613D201DC555D400FECAB0 /* Display.swift in Sources */,
+				226ECBA61E25FDC500334585 /* Scenery.swift in Sources */,
 				227016251E1B021B0062442B /* UpgradeView.swift in Sources */,
 				22613D221DC555D400FECAB0 /* Shader.m in Sources */,
 				22613D241DC555D400FECAB0 /* ShaderLoader.m in Sources */,
@@ -1128,7 +1140,7 @@
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = SN76JR46QZ;
+				DEVELOPMENT_TEAM = FQJBX9GNNN;
 				GCC_NO_COMMON_BLOCKS = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_UNROLL_LOOPS = NO;
@@ -1138,7 +1150,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LLVM_LTO = YES_THIN;
 				OTHER_CFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = "Chris-Luttio.Defender";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.storiel.imperial-defense";
 				PRODUCT_NAME = "Imperial Defense";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1158,7 +1170,7 @@
 				CLANG_USE_OPTIMIZATION_PROFILE = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = SN76JR46QZ;
+				DEVELOPMENT_TEAM = FQJBX9GNNN;
 				GCC_NO_COMMON_BLOCKS = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_UNROLL_LOOPS = NO;
@@ -1168,7 +1180,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LLVM_LTO = YES_THIN;
 				OTHER_CFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = "Chris-Luttio.Defender";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.storiel.imperial-defense";
 				PRODUCT_NAME = "Imperial Defense";
 				SWIFT_OBJC_BRIDGING_HEADER = "High Space/High Space-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
