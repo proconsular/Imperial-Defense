@@ -62,7 +62,8 @@ class Game: DisplayLayer {
     }
     
     func victory() {
-        UserInterface.space.push(WinScreen())
+        UserInterface.space.push(EndScreen(true))
+        Data.info.level += 1
         Data.persist()
     }
     
@@ -93,7 +94,7 @@ class Game: DisplayLayer {
         }
         if death() {
             Data.info.points = points
-            UserInterface.space.push(EndScreen(ending: .lose))
+            UserInterface.space.push(EndScreen(false))
         }
         coordinator.update()
         map.update()

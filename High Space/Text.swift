@@ -53,6 +53,11 @@ class Text: InterfaceElement {
         self.text = DynamicText(attributedString: Text.computeString(string, style), bounds: bounds)
     }
     
+    convenience init(_ location: float2, _ string: String, _ style: FontStyle, _ bounds: float2) {
+        self.init(string, style, bounds)
+        self.location = location
+    }
+    
     convenience init(_ location: float2, _ string: String, _ style: FontStyle) {
         self.init(string, style)
         self.location = location

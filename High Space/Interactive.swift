@@ -49,6 +49,10 @@ class InteractiveElement: InterfaceElement, Interface {
         }
     }
     
+    func update() {
+        rect.location = location
+    }
+    
     func render() {}
     
 }
@@ -61,6 +65,11 @@ class TextButton: InteractiveElement {
         self.text = text
         super.init(location, text.size, event)
         self.text.location = rect.location
+    }
+    
+    override func update() {
+        super.update()
+        text.location = location
     }
     
     override func render() {

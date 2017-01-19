@@ -19,8 +19,9 @@ let defaultFont = "Metropolis-ExtraLight"
         
         let main = ScreenSpace()
         
-        main.push(PrincipalScreen())
-        //main.push(TitleScreen())
+        //main.push(Splash())
+        //main.push(PrincipalScreen())
+        main.push(TitleScreen())
         //main.push(StoryScreen())
         
         UserInterface.set(space: main)

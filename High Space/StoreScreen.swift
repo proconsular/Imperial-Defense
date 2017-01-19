@@ -13,9 +13,9 @@ class StoreScreen: Screen {
     let points: Text
     
     override init() {
-        background = Display(Rect(float2(Camera.size.x / 2, -Camera.size.y / 2), Camera.size), GLTexture("stonefloor"))
+        background = Display(Rect(float2(Camera.size.x / 2, -Camera.size.y / 2), Camera.size), GLTexture())
         background.scheme.layout.coordinates = [float2(0, 0), float2(2, 0) * 2, float2(2, 3) * 2, float2(0, 3) * 2]
-        background.color = float4(0.7, 0.7, 0.7, 1)
+        background.color = float4(0.1, 0.1, 0.1, 1)
         
         points = Text(" ", defaultStyle)
         points.location = float2(Camera.size.x / 2, 60)
@@ -24,20 +24,28 @@ class StoreScreen: Screen {
         
         let layer = InterfaceLayer()
         
-        let spacing = float2(600, 400)
+        let uspacing = float2(600, 400)
         
-        layer.objects.append(UpgradeView(float2(Camera.size.x / 2 - spacing.x, Camera.size.y / 2 - spacing.y / 2), Data.info.upgrades[0]))
-        layer.objects.append(UpgradeView(float2(Camera.size.x / 2, Camera.size.y / 2 - spacing.y / 2), Data.info.upgrades[1]))
-        layer.objects.append(UpgradeView(float2(Camera.size.x / 2 + spacing.x, Camera.size.y / 2 - spacing.y / 2), Data.info.upgrades[2]))
+        layer.objects.append(UpgradeView(float2(Camera.size.x / 2 - uspacing.x, Camera.size.y / 2 - uspacing.y / 2), Data.info.upgrades[0]))
+        layer.objects.append(UpgradeView(float2(Camera.size.x / 2, Camera.size.y / 2 - uspacing.y / 2), Data.info.upgrades[1]))
+        layer.objects.append(UpgradeView(float2(Camera.size.x / 2 + uspacing.x, Camera.size.y / 2 - uspacing.y / 2), Data.info.upgrades[2]))
         
-        layer.objects.append(UpgradeView(float2(Camera.size.x / 2 - spacing.x, Camera.size.y / 2 + spacing.y / 2), Data.info.upgrades[3]))
-        layer.objects.append(UpgradeView(float2(Camera.size.x / 2, Camera.size.y / 2 + spacing.y / 2), Data.info.upgrades[4]))
-        layer.objects.append(UpgradeView(float2(Camera.size.x / 2 + spacing.x, Camera.size.y / 2 + spacing.y / 2), Data.info.upgrades[5]))
+        layer.objects.append(UpgradeView(float2(Camera.size.x / 2 - uspacing.x, Camera.size.y / 2 + uspacing.y / 2), Data.info.upgrades[3]))
+        layer.objects.append(UpgradeView(float2(Camera.size.x / 2, Camera.size.y / 2 + uspacing.y / 2), Data.info.upgrades[4]))
+        layer.objects.append(UpgradeView(float2(Camera.size.x / 2 + uspacing.x, Camera.size.y / 2 + uspacing.y / 2), Data.info.upgrades[5]))
         
-        layer.objects.append(TextButton(Text("Next", defaultStyle), float2(Camera.size.x / 2, Camera.size.y - 50)) {
+        let spacing = float2(350, 0)
+        let offset = float2(0, 450)
+        
+        layer.objects.append(TextButton(Text("Menu", FontStyle(defaultFont, float4(1), 64)), Camera.size / 2 + offset - spacing, {
+            UserInterface.space.wipe()
+            UserInterface.space.push(TitleScreen())
+        }))
+        
+        layer.objects.append(TextButton(Text("Play", FontStyle(defaultFont, float4(1), 64)), Camera.size / 2 + offset + spacing, {
             UserInterface.space.wipe()
             UserInterface.space.push(PrincipalScreen())
-        })
+        }))
         
         layers.append(layer)
         

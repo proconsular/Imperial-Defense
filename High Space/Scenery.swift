@@ -16,11 +16,11 @@ class Scenery {
     init(_ map: Map) {
         let height = 2.5.m
         let cr = Rect(float2(map.size.x / 2, -height / 2), float2(map.size.x, height))
-        castle = Background(cr, float2(1, 6), "stonefloor")
-        castle.display.color = float4(0.7, 0.7, 0.7, 1)
+        castle = Background(cr, float2(12, 2), "stonefloor")
+        castle.display.color = float4(1, 1, 1, 1)
         
         let fr = Rect(float2(map.size.x / 2, -map.size.y / 2), map.size)
-        floor = Background(fr, float2(6, 3), "rockfloor")
+        floor = Background(fr, float2(3, 6) * 4, "rockfloor")
         floor.display.color = float4(0.5, 0.4, 0.4, 1)
     }
     
@@ -37,7 +37,7 @@ class Background {
     
     init(_ rect: Rect, _ scale: float2, _ texture: String) {
         display = Display(rect, GLTexture(texture))
-        display.scheme.layout.coordinates = [float2(0, 0), float2(scale.x, 0), scale, float2(0, scale.y)]
+        display.scheme.layout.coordinates = [float2(0, 0),  float2(0, scale.y), scale, float2(scale.x, 0)]
     }
     
 }

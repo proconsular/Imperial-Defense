@@ -62,7 +62,8 @@
     @"barrier",
     @"castle",
     @"GameUIBack",
-    @"pause"];
+    @"pause",
+    @"play_back"];
     
     for (NSString *name in prefetched) {
         [self prefetch:name];

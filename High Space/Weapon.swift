@@ -1,6 +1,6 @@
 //
 //  Weapon.swift
-//  Defender
+//  Imperial Defense
 //
 //  Created by Chris Luttio on 10/9/16.
 //  Copyright © 2017 Storiel, LLC. All rights reserved.
