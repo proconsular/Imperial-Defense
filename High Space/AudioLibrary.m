@@ -55,6 +55,11 @@
     [self loadAudio:@"laser2"];
     [self loadAudio:@"march1"];
     [self loadAudio:@"break1"];
+    [self loadAudio:@"shield_weak"];
+    [self loadAudio:@"shield_break"];
+    [self loadAudio:@"power_full"];
+    [self loadAudio:@"power_low"];
+    [self loadAudio:@"death"];
     
     
     _hasMusic = YES;

@@ -63,6 +63,7 @@
     @"castle",
     @"GameUIBack",
     @"pause",
+    @"Splash",
     @"play_back"];
     
     for (NSString *name in prefetched) {

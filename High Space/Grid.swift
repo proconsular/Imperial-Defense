@@ -8,10 +8,10 @@
 
 import Foundation
 
-
 class Grid {
     let size: Float
     let bounds: float2
+    let index_bounds: int2
     var cells: [Cell]
     var actors: [Actor]
     var mask: FixedRect
@@ -19,18 +19,19 @@ class Grid {
     init(_ size: Float, _ bounds: float2) {
         self.size = size
         self.bounds = bounds
+        self.index_bounds = int2(Int32(Int(bounds.x / size)), Int32(Int(bounds.y / size)))
         mask = FixedRect(float2(bounds.x / 2, -bounds.y / 2), bounds)
         cells = []
         actors = []
-        for n in 0 ..< Int(bounds.x / size) {
-            for m in 0 ..< Int(bounds.y / size) {
-                cells.append(Cell(Placement(int2(n, m)), size))
+        for n in 0 ..< index_bounds.x {
+            for m in 0 ..< index_bounds.y {
+                cells.append(Cell(Placement(int2(Int32(n), Int32(m))), size))
             }
         }
     }
     
     func append(_ actor: Actor) {
-        let cells = getCells(actor.body.shape.getBounds())
+        let cells = getCells(actor.bounds)
         cells.forEach{ $0.append(actor) }
         if cells.count > 0 {
             actors.append(actor)
@@ -39,36 +40,32 @@ class Grid {
     
     func remove(_ actor: Actor) {
         actors.removeObject(actor)
-        for cell in cells {
+        if let location = transform(actor.body.location), let cell = getCell(location) {
             cell.elements = cell.elements.filter{ $0.element !== actor }
         }
     }
     
     private func insert(_ actor: Actor) {
-        let cells = getCells(actor.body.shape.getBounds())
-        cells.forEach{ $0.append(actor) }
+        getCells(actor.bounds).forEach{ $0.append(actor) }
     }
     
     private func getCell(_ location: int2) -> Cell? {
-        for cell in cells {
-            if cell.placement.location == location {
-                return cell
-            }
-        }
-        return nil
+        if location.x < 0 || location.x >= index_bounds.x { return nil }
+        if location.y < 0 || location.y >= index_bounds.y { return nil }
+        return cells[Int(location.x + location.y * index_bounds.x)]
     }
     
     func transform(_ location: float2) -> int2? {
         let x = location.x / size
         let y = location.y / size
         if !x.isFinite || !y.isFinite { return nil }
-        return int2(Int(x), Int(y))
+        return int2(Int32(Int(x)), Int32(Int(y)))
     }
     
     func getCells(_ rect: FixedRect) -> [Cell] {
         var c: [Cell] = []
         for cell in cells {
-            if FixedRect.intersects(cell.mask, rect) {
+            if cell.mask.intersects(rect) {
                 c.append(cell)
             }
         }
@@ -79,17 +76,9 @@ class Grid {
         relocate()
         clean()
     }
-    
-    func getCellLocation(_ cell: Cell) -> float2 {
-        return float2(Float(cell.placement.location.x), -Float(cell.placement.location.y)) * size
-    }
-    
+  
     private func clean() {
-        for cell in cells where cell.elements.count > 0 {
-            cell.elements = cell.elements.filter{
-                return $0.element.alive
-            }
-        }
+        cells.forEach{ $0.clean() }
         actors = actors.filter{ $0.alive && contains(actor: $0) }
     }
     
@@ -98,12 +87,9 @@ class Grid {
     }
     
     private func relocate() {
-        for cell in cells where cell.elements.count > 0 {
-            cell.elements = cell.elements.filter{ placed in
-                if FixedRect.intersects(cell.mask, placed.element.body.shape.getBounds()) { return true }
-                insert(placed.element)
-                return false
-            }
+        for cell in cells {
+            let uncontained = cell.removeUncontainedElements().map{ $0.element }
+            uncontained.forEach(insert)
         }
     }
     
@@ -117,8 +103,7 @@ class Grid {
     
     func getVisibleCells() -> [Cell] {
         return cells.filter{
-            let rect = FixedRect(getCellLocation($0), float2(size + 2.m))
-            return Camera.contains(rect)
+            return Camera.contains(FixedRect($0.location, float2(size + 2.m)))
         }
     }
 }
@@ -136,14 +121,16 @@ class Placed<Element> {
 class Cell {
     let size: Float
     let placement: Placement
+    let location: float2
     let mask: FixedRect
     var elements: [Placed<Actor>]
     
     init(_ placement: Placement, _ size: Float) {
         self.size = size
         self.placement = placement
-        mask = FixedRect(float2(Float(placement.location.x), -Float(placement.location.y)) * size + float2(size, -size) / 2, float2(size))
         elements = []
+        location = float2(Float(placement.location.x), -Float(placement.location.y)) * size
+        mask = FixedRect(location + float2(size, -size) / 2, float2(size))
     }
     
     func append(_ element: Actor) {
@@ -152,6 +139,24 @@ class Cell {
     
     var actors: [Actor] {
         return elements.map{ $0.element }
+    }
+    
+    func clean() {
+        elements = elements.filter{ $0.element.alive }
+    }
+    
+    func contains(_ placed: Placed<Actor>) -> Bool {
+        return mask.intersects(placed.element.body.shape.getBounds())
+    }
+    
+    func removeUncontainedElements() -> [Placed<Actor>] {
+        var uncontained: [Placed<Actor>] = []
+        elements = elements.filter{
+            if contains($0) { return true }
+            uncontained.append($0)
+            return false
+        }
+        return uncontained
     }
 }
 

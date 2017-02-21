@@ -10,26 +10,26 @@ import Foundation
 
 struct Substance {
     
-    var material: Material
+    var material: PhysicalMaterial
     var mass: Mass
     var friction: Friction
     
-    init(_ material: Material, _ mass: Mass, _ friction: Friction) {
+    init(_ material: PhysicalMaterial, _ mass: Mass, _ friction: Friction) {
         self.material = material
         self.mass = mass
         self.friction = friction
     }
     
     static var Solid: Substance {
-        return Substance(Material(.static), Mass.Immovable, Friction(.ice))
+        return Substance(PhysicalMaterial(.static), Mass.Immovable, Friction(.ice))
     }
     
     static func getStandard(_ mass: Float) -> Substance {
-        return Substance(Material(.static), Mass.fixed(mass), Friction(.ice))
+        return Substance(PhysicalMaterial(.static), Mass.fixed(mass), Friction(.ice))
     }
     
     static func StandardRotating(_ mass: Float, _ inverse_interia: Float) -> Substance {
-        return Substance(Material(.static), Mass(mass, 1 / inverse_interia), Friction(.ice))
+        return Substance(PhysicalMaterial(.static), Mass(mass, 1 / inverse_interia), Friction(.ice))
     }
     
 }
@@ -87,7 +87,7 @@ struct Mass {
     }
 }
 
-struct Material {
+struct PhysicalMaterial {
     
     enum `Type` {
         case rock, wood, `static`, bouncyBall, superBall

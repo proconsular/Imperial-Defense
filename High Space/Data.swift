@@ -30,6 +30,8 @@ struct GameInfo {
     var level: Int
     var points: Int
     var weapon: Int
+    var bank: Int
+    var wave: Int
     
     var upgrades: [Upgrade]
     
@@ -38,6 +40,8 @@ struct GameInfo {
         level = 0
         points = 0
         weapon = 0
+        bank = 0
+        wave = 0
         upgrades = []
     }
     

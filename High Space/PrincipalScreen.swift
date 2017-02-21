@@ -12,7 +12,7 @@ class PrincipalScreen: Screen {
     let game: Game
     
     override init() {
-        game = Game()
+        game = Game(1)
         
         super.init()
         

@@ -18,9 +18,19 @@ class Game: DisplayLayer {
     
     let points: Int
     
-    var win_delay_timer: Float = 0
+    var end_timer: Float = 0
+    var wave_pause_timer: Float = 0
+    var pausing: Bool = false
     
-    init() {
+    var mode: Int
+    
+    var barriers: [Barrier]
+    
+    init(_ mode: Int) {
+        self.mode = mode
+        
+        Data.info.level = 0
+        
         map = Map(float2(20.m, 40.m))
         
         Camera.create(map)
@@ -29,9 +39,12 @@ class Game: DisplayLayer {
         map.append(player)
         
         points = Data.info.points
-        coordinator = Coordinator()
+        coordinator = Coordinator(mode)
+        coordinator.setWave(max(Data.info.wave - 1, 0))
         
         scenery = Scenery(map)
+        
+        barriers = []
         
         createWalls(0.15.m)
         createBarriers(3, -2.8.m, int2(10, 4))
@@ -40,7 +53,7 @@ class Game: DisplayLayer {
     func createBarriers(_ amount: Int, _ height: Float, _ size: int2) {
         for i in 0 ..< amount {
             let div = map.size.x / Float(amount)
-            let _ = Barrier(float2(div / 2 + div * Float(i), height), size)
+            barriers.append(Barrier(float2(div / 2 + div * Float(i), height), size))
         }
     }
     
@@ -49,16 +62,6 @@ class Game: DisplayLayer {
         map.append(Structure(float2(map.size.x / 2, -map.size.y), float2(map.size.x, width)))
         map.append(Structure(float2(0, -map.size.y / 2), float2(width, map.size.y)))
         map.append(Structure(float2(map.size.x, -map.size.y / 2), float2(width, map.size.y)))
-    }
-    
-    static func jump() {
-        Data.info.level = 21
-        Data.info.health.range.amount = 10
-        Data.info.machine.range.amount = 10
-        Data.info.movement.range.amount = 10
-        //Upgrades.bombgun.range.amount = 10
-        //Upgrades.sniper.range.amount = 10
-        Data.info.barrier.range.amount = 10
     }
     
     func victory() {
@@ -87,15 +90,33 @@ class Game: DisplayLayer {
     
     func update() {
         if coordinator.waves.count == 0 {
-            win_delay_timer += Time.time
-            if win_delay_timer >= 2 {
+            end_timer += Time.time
+            if end_timer >= 2 {
                 victory()
             }
         }
         if death() {
-            Data.info.points = points
+            play("death")
             UserInterface.space.push(EndScreen(false))
         }
+        
+        if coordinator.empty {
+            Data.info.wave += 1
+            Data.persist()
+            if Data.info.points >= 50 {
+                wave_pause_timer = 1
+                pausing = true
+            }
+        }
+        
+        if pausing {
+            wave_pause_timer -= Time.time
+            if wave_pause_timer <= 0 {
+                UserInterface.push(BonusScreen(self))
+                pausing = false
+            }
+        }
+        
         coordinator.update()
         map.update()
         physics.simulate()

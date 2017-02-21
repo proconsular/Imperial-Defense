@@ -20,6 +20,10 @@ class Display {
         visual = Visual(scheme)
     }
     
+    func refresh() {
+        visual.refresh()
+    }
+    
     func render() {
         visual.render()
     }

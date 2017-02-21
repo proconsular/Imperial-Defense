@@ -12,25 +12,27 @@ class Player: Actor, Interface {
     static var player: Player!
     
     var shield: Shield
-    var weapon: Weapon!
+    var weapon: PlayerWeapon!
     var bomb: Weapon!
     var laser: LaserWeapon!
     var damaged = false
-    var speed: Float
+    var speed: Float = 10.m
+    var acceleration: Float = 7.m
+    var drag: Float = 0.7
+    var firing = false
+    var full = false
     
     var dmg_counter: Float = 0
     
     init(_ location: float2) {
-        shield = Shield(amount: Float(100 + Data.info.health.computeAmount()))
+        shield = Shield(amount: Float(100))
         let transform = Transform(location)
         
         weapon = Player.setupWeapon(transform)
         bomb = Player.setupBomb(transform)
         laser = Player.setupLaser(transform)
         
-        speed = 4.m + Data.info.movement.computeSpeed()
-        
-        super.init(Rect(transform, float2(0.8.m, 1.4.m)), Substance(Material(.wood), Mass(10, 0), Friction(.iron)))
+        super.init(Rect(transform, float2(0.8.m, 1.4.m)), Substance(PhysicalMaterial(.wood), Mass(10, 0), Friction(.iron)))
         body.mask = 0b10
         body.object = self
         display.texture = GLTexture("soldier").id
@@ -38,12 +40,13 @@ class Player: Actor, Interface {
         order = 100
     }
     
-    private static func setupWeapon(_ transform: Transform) -> Weapon {
-        let up = Data.info.sniper.computeInfo()!
-        let ma = Data.info.machine.computeInfo()!
-        let bo = Data.info.bomb.computeInfo()!
-        let weapon = Weapon(transform, float2(0, -1), BulletInfo(up.damage + ma.damage + bo.damage + 3, 8.m + up.speed + ma.speed + bo.speed, 0.125, float2(0.4.m, 0.12.m) * 1.1, float4(0, 1, 0.5, 1)), "enemy")
-        weapon.bullet_data.collide = bo.collide
+    private static func setupWeapon(_ transform: Transform) -> PlayerWeapon {
+        let damage = 15
+        let speed = 14.m
+        let rate = 0.1075
+        let size = float2(0.4.m, 0.12.m) * 1.2
+        let weapon = PlayerWeapon(transform, float2(0, -1), BulletInfo(damage, speed, Float(rate), size, float4(0, 1, 0.5, 1)), "enemy")
+        //weapon.bullet_data.collide = bo.collide
         return weapon
     }
     
@@ -79,27 +82,18 @@ class Player: Actor, Interface {
     
     func use(_ command: Command) {
         if command.id == 0 {
-            let force = command.vector! / 2
+            let force = command.vector! / 1000
             if abs(body.velocity.x) < speed {
-                body.velocity.x += force.x
+                body.velocity.x += force.x * acceleration
             }
         }else if command.id == 1 {
             if weapon.canFire {
-                weapon.fire()
                 let shoot = Audio("shoot2")
+                shoot.pitch = weapon.isHighPower ? 0.6 : 1
                 shoot.start()
+                weapon.fire()
             }
-        }else if command.id == 2 {
-            if Data.info.level > 10 {
-                if bomb.canFire {
-                    bomb.fire()
-                    play("shoot2", 0.4)
-                }
-            }
-        }else if command.id == 3 {
-            if Data.info.level > 20 {
-                laser.fire()
-            }
+            firing = true
         }
     }
     
@@ -111,6 +105,12 @@ class Player: Actor, Interface {
     
     override func update() {
         shield.update()
+        
+        if weapon.isHighPower && !firing && !full {
+            playIfNot("power_full")
+            full = true
+        }
+        
         weapon.update()
         bomb.update()
         laser.laser.transform.location = transform.location + float2(0, -0.75.m)
@@ -125,11 +125,20 @@ class Player: Actor, Interface {
             }else{
                 display.color = arc4random() % 3 == 0 ? float4(1, 0, 0, 1) : float4(1)
             }
-            display.visual.refresh()
+            display.refresh()
         }
         
-        body.velocity.x *= 0.75
+        if firing {
+            body.velocity.x *= drag * 0.8
+        }else {
+            body.velocity.x *= drag
+        }
+        
         body.velocity.y = 0
+        
+        full = weapon.isNormalPower && !weapon.isHighPower ? false : full
+        
+        firing = false
     }
     
     override func render() {

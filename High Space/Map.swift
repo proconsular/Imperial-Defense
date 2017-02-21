@@ -8,19 +8,6 @@
 
 import Foundation
 
-extension Array where Element: AnyObject {
-    
-    mutating func removeObject(_ element: Element) {
-        for n in 0 ..< self.count {
-            if self[n] === element {
-                self.remove(at: n)
-                return
-            }
-        }
-    }
-    
-}
-
 class Map {
     
     static var current: Map!

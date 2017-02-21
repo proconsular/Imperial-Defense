@@ -17,11 +17,16 @@ class Soldier: Actor, Created {
     var weapon: Weapon!
     var rate: Float = 0.3
     var counter: Float = 0
-    var health: Int = 25
+    var health: Int = 5
     var weight: Int = 1
     
     var armor: Int = 0
-    var shield: Int = 0
+    
+    var max_shield: Float = 15
+    var shield: Float
+    var recharge: Float = 40
+    var recharge_timer: Float = 0
+    var recharge_rate: Float = 1.5
     
     var hit_opacity: Float = 0
     
@@ -37,29 +42,31 @@ class Soldier: Actor, Created {
         self.color = color
         let rect = Rect(location, float2(56, 106) * 1.2)
         armor_image = Display(Rect(Transform(location), float2(78, 106) * 1.2), GLTexture("armor"))
+        shield = max_shield
         super.init(rect, Substance.getStandard(100))
         display.texture = GLTexture("soldier_walk").id
-        weapon = Weapon(transform, float2(0, 1), BulletInfo(5, 10.m, 1, float2(0.4.m, 0.08.m), float4(1, 0, 0, 1)), "player")
+        weapon = Weapon(transform, float2(0, 1), BulletInfo(10, 8.m, 2.5, float2(0.5.m, 0.14.m), float4(1, 0.25, 0, 1)), "player")
         weapon.offset = float2(-0.275.m, -0.5.m)
         body.mask = 0b100
         body.object = self
         body.noncolliding = true
+        
     }
     
     func damage(amount: Int) {
-        let hasArmor = armor > 0
-        health -= max(amount - armor, 0)
-        armor -= amount
-        if armor < 0 {
-            armor = 0
+        let last_shield = shield
+        health = max(health - (amount - Int(shield)), 0)
+        shield = max(shield - Float(amount), 0)
+        if last_shield > 0 && shield <= 0 {
+            let explosion = Explosion(transform.location, 1.m)
+            explosion.color = float4(0.2, 0.6, 1, 1)
+            Map.current.append(explosion)
         }
-        if hasArmor && armor <= 0 {
-            play("break1", 0.6)
-        }
-        hit_opacity += Float(amount)
+        //hit_opacity += Float(amount)
         let a = Audio("hit2")
         a.volume = 0.5
         a.start()
+        recharge_timer = 0
     }
     
     override func update() {
@@ -68,15 +75,20 @@ class Soldier: Actor, Created {
         move()
         if health <= 0 {
             alive = false
-            Data.info.points += weight
+            //Data.info.points += weight
             death()
         }
         display.color = color - float4(0, hit_opacity, hit_opacity, 0)
         display.visual.refresh()
-        hit_opacity += -4.5 * Time.time
-        hit_opacity = clamp(hit_opacity, min: 0, max: 1)
+//        hit_opacity += -4.5 * Time.time
+//        hit_opacity = clamp(hit_opacity, min: 0, max: 1)
         if !inView(0.95) && spaceInFront() {
             body.location.y += 0.005.m
+        }
+        recharge_timer += Time.time
+        if recharge_timer >= recharge_rate {
+            shield += recharge * Time.time
+            shield = clamp(shield, min: 0, max: max_shield)
         }
     }
     
@@ -84,20 +96,35 @@ class Soldier: Actor, Created {
         let a = Audio("explosion1")
         a.volume = 1
         a.start()
-        let c = arc4random() % 5 + 5
-        for _ in 0 ..< c {
-            let p = Particle(body.location, random(0.03.m, 0.04.m))
-            p.rate = 2.5
-            let angle = random(-Float.pi, Float.pi)
-            let mag = random(2, 6) * 1.m
-            p.body.velocity = float2(cos(angle), sin(angle)) * mag
-            Map.current.append(p)
-        }
+        genCoins()
+        genParticles()
         score()
     }
     
+    func genCoins() {
+        let c = arc4random() % 2
+        for _ in 0 ..< c {
+            let p = Coin(body.location, 1)
+            let angle = random(-Float.pi, Float.pi)
+            let mag = random(2, 4) * 1.m
+            p.body.velocity = float2(cos(angle), sin(angle)) * mag
+            Map.current.append(p)
+        }
+    }
+    
+    func genParticles() {
+        let c = arc4random() % 3 + 3
+        for _ in 0 ..< c {
+            let p = Particle(body.location, 0.05.m)
+            let angle = random(-Float.pi, Float.pi)
+            let mag = random(2, 4) * 1.m
+            p.body.velocity = float2(cos(angle), sin(angle)) * mag
+            Map.current.append(p)
+        }
+    }
+    
     func score() {
-        Map.current.append(TextParticle(transform.location, "+\(weight)", 64))
+        //Map.current.append(TextParticle(transform.location, "+\(weight)", 64))
     }
     
     func move() {
@@ -150,10 +177,12 @@ class Soldier: Actor, Created {
     
     override func render() {
         super.render()
-        if armor > 0 {
-            armor_image.transform.location = transform.location
-            armor_image.render()
+        if shield > 0 {
+            display.color = float4(0.2, 0.6, 1, 1) * float4(shield / max_shield + (shield > 0 ? 0.4 : 0)) * 0.9
+            display.visual.refresh()
+            display.render()
         }
+        
     }
     
 }
@@ -327,10 +356,7 @@ class LaserSoldier: Soldier {
     
     override func fire() {
         if hasLineOfSight() && inView() {
-            //wait += Time.time
-            //if wait >= 2 {
-                firing = true
-            //}
+            firing = true
         }
     }
     
@@ -351,20 +377,29 @@ class Coordinator {
     let legion_gen: LegionGenerator
     var difficulty: Difficulty
     
-    init() {
+    init(_ mode: Int) {
         difficulty = Difficulty(Data.info.level)
         legion_gen = LegionGenerator(difficulty)
-        count = difficulty.waves
+        count = mode == 0 ? difficulty.waves : 100
         Coordinator.wave = 0
         waves = []
-        next()
+    }
+    
+    func setWave(_ wave: Int) {
+        Coordinator.wave = wave
+        difficulty.wave = wave
+        count = 100 - wave
     }
     
     func next() {
         count -= 1
         Coordinator.wave += 1
-        difficulty.wave += 1
+        difficulty.wave = Coordinator.wave
         waves.append(legion_gen.create())
+    }
+    
+    var empty: Bool {
+        return waves.first?.health ?? 0 <= 0
     }
     
     func update() {
@@ -376,6 +411,8 @@ class Coordinator {
                     next()
                 }
             }
+        }else{
+            next()
         }
     }
     
@@ -393,12 +430,6 @@ class Legion: Battalion {
     
     init(_ rows: [Row]) {
         self.rows = rows
-        
-//        for i in 0 ..< clamp(amount, min: 0, max: 10) {
-//            let local = Float(i) * 0.025 + Float(wave) * 0.05
-//            let level = local + Float(Data.info.level) * 0.01
-//            //rows.append(Row(float2(location.x, location.y - Float(i) * 1.25.m), clamp(level, min: 0, max: 1)))
-//        }
     }
     
     func update() {
@@ -424,55 +455,6 @@ class Row: Battalion {
     init(_ soldiers: [Soldier]) {
         self.soldiers = soldiers
         amount = soldiers.count
-        //create(location, level)
-    }
-    
-    func create(_ location: float2, _ level: Float) {
-        let start = location + float2(-Float(amount) / 2 * 1.m, 0)
-        for i in 0 ..< amount {
-            let loc = start + float2(Float(i) * 1.m, 0)
-            let soldier = selectType(loc, level, i)
-            
-            soldiers.append(soldier)
-            Map.current.append(soldier)
-        }
-    }
-    
-    func selectType(_ loc: float2, _ level: Float, _ i: Int) -> Soldier {
-        var soldier: Soldier
-        if computeChance(30, level) && Data.info.level >= 10 {
-            soldier = Captain(loc)
-        }else if computeChance(30, level) && Data.info.level >= 5 {
-            soldier = Sniper(loc)
-        }else if computeChance(30, level) && Data.info.level >= 15 {
-            soldier = Bomber(loc)
-        }else if computeChance(30, level) && Data.info.level >= 20 {
-            soldier = LaserSoldier(loc)
-        }else{
-            let ra = random(0.8, 1)
-            soldier = Soldier(loc, float4(ra, ra, ra, 1))
-        }
-        
-        if computeChance(20, level) && Data.info.level >= 7 {
-            soldier.armor = 40
-        }
-        
-        if computeChance(40, level) && Data.info.level >= 12 {
-            soldier.armor = 80
-            soldier.armor_image.color = float4(0, 0, 0.5, 1)
-        }
-        
-        if computeChance(40, level) && Data.info.level >= 25 {
-            soldier.armor = 200
-            soldier.armor_image.color = float4(0.5, 0, 0, 1)
-        }
-        
-        return soldier
-    }
-    
-    func computeChance(_ max: Float, _ level: Float) -> Bool {
-        let gradient = UInt32(max * (1 - level))
-        return (gradient > 0 ? Int(arc4random() % gradient) : 0) == 0
     }
     
     func update() {

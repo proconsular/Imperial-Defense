@@ -31,4 +31,8 @@ class Actor {
     func render() {
         display.render()
     }
+    
+    var bounds: FixedRect {
+        return body.shape.getBounds()
+    }
 }

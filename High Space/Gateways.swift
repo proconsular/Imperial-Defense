@@ -30,6 +30,8 @@ class GameDefaultsGateway: Gateway<GameInfo> {
         info.level = defaults.integer(forKey: "level")
         info.points = defaults.integer(forKey: "points")
         info.weapon = defaults.integer(forKey: "weapon")
+        info.bank = defaults.integer(forKey: "bank")
+        info.wave = defaults.integer(forKey: "wave")
         
         for upgrade in info.upgrades {
             upgrade.range.amount = defaults.float(forKey: upgrade.name)
@@ -43,6 +45,8 @@ class GameDefaultsGateway: Gateway<GameInfo> {
         defaults.set(item.level, forKey: "level")
         defaults.set(item.points, forKey: "points")
         defaults.set(item.weapon, forKey: "weapon")
+        defaults.set(item.bank, forKey: "bank")
+        defaults.set(item.wave, forKey: "wave")
         for upgrade in item.upgrades {
             defaults.set(upgrade.range.amount, forKey: upgrade.name)
         }

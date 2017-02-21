@@ -13,7 +13,7 @@ class Bullet: Actor {
     
     init(_ location: float2, _ direction: float2, _ tag: String, _ info: BulletInfo) {
         self.info = info
-        super.init(Rect(location, info.size), Substance(Material(.wood), Mass(0.05, 0), Friction(.iron)))
+        super.init(Rect(location, info.size), Substance(PhysicalMaterial(.wood), Mass(0.05, 0), Friction(.iron)))
         display.scheme.info.texture = GLTexture("bullet").id
         display.color = info.color
         body.noncolliding = true

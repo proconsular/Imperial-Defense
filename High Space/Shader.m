@@ -35,11 +35,9 @@
 }
 
 -(Shader *)setProperties:(NSDictionary *)properties{
-    
     for (NSString *key in properties.allKeys) {
         [self setProperty:key value:[properties[key] floatValue]];
     }
-    
     return self;
 }
 

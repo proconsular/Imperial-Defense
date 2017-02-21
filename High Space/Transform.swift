@@ -10,6 +10,7 @@ import Foundation
 
 class Transform {
     var location: float2
+    var scale: float2
     var matrix: float2x2
     private(set) var parent: Transform?
     var children: [Transform]
@@ -17,6 +18,7 @@ class Transform {
     init(_ location: float2 = float2(), _ orientation: Float = 0) {
         matrix = float2x2(1)
         children = []
+        scale = float2(1)
         self.location = location
         self.orientation = orientation
     }
@@ -27,7 +29,7 @@ class Transform {
     }
     
     func apply(_ vertex: float2) -> float2 {
-        return matrix * vertex + location
+        return matrix * (vertex * scale) + location
     }
     
     var orientation: Float {
@@ -45,6 +47,7 @@ class Transform {
             if let parent = parent?.global {
                 master.location += parent.location
                 master.orientation += parent.orientation
+                //master.scale = parent.scale
             }
             return master
         }

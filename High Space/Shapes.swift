@@ -25,6 +25,10 @@ struct FixedRect {
         return true
     }
     
+    func intersects(_ other: FixedRect) -> Bool {
+        return FixedRect.intersects(self, other)
+    }
+    
     var bounds: float2 {
         return halfbounds * 2
     }

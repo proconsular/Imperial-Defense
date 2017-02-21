@@ -50,4 +50,8 @@ class Barrier {
         }
     }
     
+    func destroy() {
+        walls.forEach{ $0.alive = false }
+    }
+    
 }

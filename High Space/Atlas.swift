@@ -51,7 +51,7 @@ class AtlasTexture {
     unowned let atlas: Atlas
     let info: [String: Float]
     let location, bounds: float2
-    fileprivate(set) var coordinates: [float2]
+    private(set) var coordinates: [float2]
     
     init (_ name: String, _ atlas: Atlas) {
         self.atlas = atlas
@@ -63,7 +63,7 @@ class AtlasTexture {
         coordinates = computeCoordinates()
     }
     
-    fileprivate func computeCoordinates () -> [float2] {
+    private func computeCoordinates () -> [float2] {
         var coordinates: [float2] = []
         
         coordinates.append(float2(location.x / atlas.bounds.x, location.y / atlas.bounds.y))

@@ -24,7 +24,7 @@ class StoreScreen: Screen {
         
         let layer = InterfaceLayer()
         
-        let uspacing = float2(600, 400)
+        let uspacing = float2(600, 300)
         
         layer.objects.append(UpgradeView(float2(Camera.size.x / 2 - uspacing.x, Camera.size.y / 2 - uspacing.y / 2), Data.info.upgrades[0]))
         layer.objects.append(UpgradeView(float2(Camera.size.x / 2, Camera.size.y / 2 - uspacing.y / 2), Data.info.upgrades[1]))

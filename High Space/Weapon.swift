@@ -29,43 +29,31 @@ struct BulletInfo {
     
 }
 
-class Weapon: StatusItem {
+class Weapon {
     
     var transform: Transform
     var direction: float2
     var offset: float2 = float2()
-   
+    
     var tag: String
     
     var counter: Float = 0
     
     var bullet_data: BulletInfo
     
-    var power: Float
-    
-    let drain: Float = 10
-    let recharge: Float = 50
-    
     init(_ transform: Transform, _ direction: float2, _ data: BulletInfo, _ tag: String) {
         self.transform = transform
         self.direction = direction
         self.bullet_data = data
         self.tag = tag
-        power = 100
-    }
-    
-    var percent: Float {
-        return power / 100
     }
     
     func update() {
         counter += Time.time
-        power += recharge * Time.time
-        power = clamp(power, min: 0, max: 100)
     }
     
     var canFire: Bool {
-        return counter >= bullet_data.rate && power >= drain
+        return counter >= bullet_data.rate
     }
     
     func fire() {
@@ -77,7 +65,88 @@ class Weapon: StatusItem {
             bullet.body.mask = 0b100
         }
         Map.current.append(bullet)
+    }
+    
+}
+
+class PlayerWeapon: Weapon, StatusItem {
+    
+    var power: Float
+    
+    let drain: Float = 30
+    let recharge: Float = 200
+    let max_power: Float = 175
+    
+    var rate_modifier: Float = 1
+    
+    var fired = true
+    
+    override init(_ transform: Transform, _ direction: float2, _ data: BulletInfo, _ tag: String) {
+        power = max_power
+        super.init(transform, direction, data, tag)
+    }
+    
+    func overcharge(amount: Float) {
+        power = max_power * amount
+    }
+    
+    var percent: Float {
+        return power / max_power
+    }
+    
+    var color: float4 {
+        let red = rate_modifier > 1 ? 0.5 : 1
+        let green = rate_modifier < 1 ? 0.5 : 0
+        return float4(Float(red), Float(green), 0, 1)
+    }
+    
+    override func update() {
+        super.update()
+       
+        bullet_data.size = float2(0.4.m, 0.12.m) * 1.2
+        
+        if isNormalPower {
+            rate_modifier = 1
+        }
+        
+        if isLowPower {
+            rate_modifier = 1.5
+        }
+        
+        if isHighPower {
+            rate_modifier = 0.75
+            bullet_data.size = float2(0.4.m, 0.12.m) * 1.6
+        }
+        
+        if power < max_power {
+            power += recharge * (1.0 / rate_modifier) * Time.time
+            power = clamp(power, min: 0, max: max_power)
+        }
+       
+        fired = false
+    }
+    
+    var isNormalPower: Bool {
+        return power > drain
+    }
+    
+    var isHighPower: Bool {
+        return power >= max_power - drain
+    }
+    
+    var isLowPower: Bool {
+        return power <= drain
+    }
+    
+    override var canFire: Bool {
+        return counter >= bullet_data.rate * rate_modifier && power >= drain
+    }
+    
+    override func fire() {
+        super.fire()
         power -= drain
+        fired = true
+        
     }
     
 }
@@ -134,6 +203,10 @@ class LaserWeapon: StatusItem {
     
     var percent: Float {
         return power / 5
+    }
+    
+    var color: float4 {
+        return float4(0)
     }
     
     func fire() {

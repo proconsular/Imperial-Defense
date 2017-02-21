@@ -25,11 +25,11 @@ class Difficulty {
     }
     
     var size: Int {
-        return clamp((Data.info.level / 4) + 1, min: 1, max: 10)
+        return clamp((wave / 4) + 3, min: 1, max: 10)
     }
     
     var amount: Int {
-        return min(3 + Int(grade * 30), 18)
+        return min(5 + Int(grade * 30), 18)
     }
     
     var grade: Float {
@@ -37,8 +37,8 @@ class Difficulty {
     }
     
     var speed: Float {
-        let rate = 0.5 - Float(wave) * 0.001 - Float(level / 4) * 0.02
-        return clamp(rate, min: 0.25, max: 1)
+        let rate = 0.2 - min(grade * 0.0125, 0.05)
+        return clamp(Float(rate), min: 0.15, max: 1)
     }
     
 }
@@ -193,16 +193,16 @@ class ChanceTable {
     init() {
         soldiers = []
         soldiers.append(Creator(Soldier.init, Chance(0,  0)))
-        soldiers.append(Creator(Sniper.init, Chance(30, 3)))
-        soldiers.append(Creator(Captain.init, Chance(30, 6)))
-        soldiers.append(Creator(Bomber.init, Chance(30, 9)))
-        soldiers.append(Creator(LaserSoldier.init, Chance(30, 19)))
+//        soldiers.append(Creator(Sniper.init, Chance(30, 3)))
+//        soldiers.append(Creator(Captain.init, Chance(30, 6)))
+//        soldiers.append(Creator(Bomber.init, Chance(30, 9)))
+//        soldiers.append(Creator(LaserSoldier.init, Chance(30, 19)))
         soldiers.reverse()
         
         armor = []
-        armor.append(ArmorAugmentor(40, float4(1), Chance(20, 7)))
-        armor.append(ArmorAugmentor(80, float4(0, 0, 0.5, 1), Chance(40, 12)))
-        armor.append(ArmorAugmentor(200, float4(0.5, 0, 0, 1), Chance(20, 25)))
+//        armor.append(ArmorAugmentor(40, float4(1), Chance(20, 7)))
+//        armor.append(ArmorAugmentor(80, float4(0, 0, 0.5, 1), Chance(40, 12)))
+//        armor.append(ArmorAugmentor(200, float4(0.5, 0, 0, 1), Chance(20, 25)))
     }
     
 }

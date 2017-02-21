@@ -24,10 +24,11 @@ class EndScreen: Screen {
         let layer = InterfaceLayer()
         
         layer.objects.append(Text(Camera.size / 2 + float2(0, -100), win ? "Victory!" : "Defeat!", FontStyle(defaultFont, float4(1), 144)))
-        layer.objects.append(Text(Camera.size / 2 + float2(-200, 100), "Level \(Data.info.level + 1)", FontStyle(defaultFont, float4(1), 72)))
+        //layer.objects.append(Text(Camera.size / 2 + float2(-200, 100), "Level \(Data.info.level + 1)", FontStyle(defaultFont, float4(1), 72)))
+        layer.objects.append(Text(Camera.size / 2 + float2(-200, 100), "Wave \(Coordinator.wave)", FontStyle(defaultFont, float4(1), 72)))
         layer.objects.append(Text(Camera.size / 2 + float2(200, 100), "Points \(Data.info.points)", FontStyle(defaultFont, float4(1), 72)))
         
-        let spacing = float2(350, 0)
+        let spacing = float2(250, 0)
         let offset = float2(0, 450)
         
         layer.objects.append(TextButton(Text("Menu", FontStyle(defaultFont, float4(1), 64)), Camera.size / 2 + offset - spacing, {
@@ -35,15 +36,44 @@ class EndScreen: Screen {
             UserInterface.space.push(TitleScreen())
         }))
         
-        layer.objects.append(TextButton(Text("Upgrades", FontStyle(defaultFont, float4(1), 64)), Camera.size / 2 + offset, {
-            UserInterface.space.wipe()
-            UserInterface.space.push(StoreScreen())
-        }))
+//        layer.objects.append(TextButton(Text("Upgrades", FontStyle(defaultFont, float4(1), 64)), Camera.size / 2 + offset, {
+//            UserInterface.space.wipe()
+//            UserInterface.space.push(StoreScreen())
+//        }))
         
-        layer.objects.append(TextButton(Text("Play", FontStyle(defaultFont, float4(1), 64)), Camera.size / 2 + offset + spacing, {
-            UserInterface.space.wipe()
-            UserInterface.space.push(PrincipalScreen())
-        }))
+        if Data.info.points >= 100 {
+            layer.objects.append(TextButton(Text("Continue (100)", FontStyle(defaultFont, float4(1), 64)), Camera.size / 2 + offset + spacing, {
+                if Data.info.points >= 100 {
+                    Data.info.points -= 100
+                    Data.persist()
+                    let wave = Coordinator.wave
+                    let pr = PrincipalScreen()
+                    pr.game.coordinator.setWave(wave)
+                    
+                    UserInterface.space.wipe()
+                    UserInterface.space.push(pr)
+                    
+                    
+                }
+            }))
+        }else{
+            layer.objects.append(TextButton(Text("Play", FontStyle(defaultFont, float4(1), 64)), Camera.size / 2 + offset + spacing, {
+                if !win {
+                    Data.info.points = Data.info.bank
+                    Data.info.bank = 0
+                    Data.persist()
+                }
+                let wave = Coordinator.wave
+                Data.info.wave = wave > 0 ? wave - 1 : 0
+                Data.persist()
+                let pr = PrincipalScreen()
+                pr.game.coordinator.setWave(Data.info.wave)
+                
+                UserInterface.space.wipe()
+                UserInterface.space.push(pr)
+            }))
+        }
+        
         
         layers.append(layer)
     }

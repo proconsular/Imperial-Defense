@@ -121,33 +121,43 @@ class GameDisplay: InterfaceElement, Interface {
     let info: InfoDisplay
     
     let reset: TextButton
+    let upgrades: TextButton
     
     var alpha: Float
     
     init() {
         alpha = 1
         location = float2()
-        background = Display(Rect(Camera.size / 2, Camera.size), GLTexture("play_back"))
+        background = Display(Rect(Camera.size / 2, Camera.size), GLTexture())
+        background.color = float4(0.1, 0.1, 0.1, 1)
         background.scheme.camera = false
         info = InfoDisplay(float2(Camera.size.x / 2, Camera.size.y / 2))
-        reset = TextButton(Text("reset", FontStyle(defaultFont, float4(1), 48.0)), float2(Camera.size.x / 2, Camera.size.y / 2 + 100)) {
+       
+        upgrades = TextButton(Text("upgrades", FontStyle(defaultFont, float4(1), 48.0)), float2(Camera.size.x / 2 - 150, Camera.size.y / 2 + 100)) {
+            UserInterface.space.wipe()
+            UserInterface.space.push(StoreScreen())
+        }
+        
+        reset = TextButton(Text("reset", FontStyle(defaultFont, float4(1), 48.0)), float2(Camera.size.x / 2 + 150, Camera.size.y / 2 + 100)) {
             Data.info = GameInfo.Default
             Data.persist()
         }
     }
     
     func use(_ command: Command) {
+        upgrades.use(command)
         reset.use(command)
     }
     
     func render() {
-        background.color = float4(1, 1, 1, alpha)
-        background.visual.refresh()
+        //background.color = float4(1, 1, 1, alpha)
+        //background.visual.refresh()
         background.render()
-        info.text.text.display.color = float4(1, 1, 1, alpha)
-        info.text.text.display.refresh()
+        //info.text.text.display.color = float4(1, 1, 1, alpha)
+        //info.text.text.display.refresh()
         info.render()
         reset.render()
+        upgrades.render()
     }
     
 }
