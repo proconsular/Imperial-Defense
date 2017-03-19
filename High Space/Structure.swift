@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Structure: Actor {
+class Structure: Entity {
     let rect: Rect
     
     init(_ location: float2, _ bounds: float2) {

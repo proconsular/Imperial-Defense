@@ -96,7 +96,7 @@ struct PhysicalMaterial {
     var density, restitution: Float
     
     init (_ type: Type){
-        var ntype = type
+        let ntype = type
         switch ntype {
         case .rock:
             density = 0.6

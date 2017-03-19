@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Particle: Actor {
+class Particle: Entity {
     
     var opacity: Float = 1
     var rate: Float = 1
@@ -18,32 +18,33 @@ class Particle: Actor {
         super.init(Rect(Transform(location), float2(size)), Substance.getStandard(0.01))
         body.mask = 0b0
         color = float4(1, 1, 1, 1)
-        order = 1
+        display.scheme.schemes[0].order = 1
         body.noncolliding = true
     }
     
     override func update() {
         super.update()
-        opacity += -rate * Time.time
+        opacity += -rate * Time.delta
         opacity = clamp(opacity, min: 0, max: 1)
         if opacity <= FLT_EPSILON {
             alive = false
         }
+        display.color = float4(opacity) * color
     }
     
     override func render() {
-        display.color = float4(opacity) * color
         display.visual.refresh()
         super.render()
     }
     
 }
 
-class Explosion: Actor {
+class Explosion: Entity {
     
     var opacity: Float = 1
     var radius: Float
     var color: float4 = float4(1)
+    var rate: Float = 0.75
     var circle: Circle
     
     init(_ location: float2, _ radius: Float) {
@@ -51,29 +52,29 @@ class Explosion: Actor {
         circle = Circle(Transform(location), 0)
         super.init(circle, Substance.getStandard(1))
         body.mask = 0b0
-        order = 2
+        display.scheme.schemes[0].order = 2
         body.noncolliding = true
     }
     
     override func update() {
         super.update()
-        opacity *= 0.75
+        opacity *= rate
         opacity = clamp(opacity, min: 0, max: 1)
         if opacity <= FLT_EPSILON {
             alive = false
         }
         circle.setRadius(radius * (1 - opacity))
+        display.color = float4(opacity) * color
     }
     
     override func render() {
-        display.color = float4(opacity) * color
         display.visual.refresh()
         super.render()
     }
     
 }
 
-class TextParticle: Actor {
+class TextParticle: Entity {
     
     var opacity: Float = 1
     var rate: Float = 2.5
@@ -86,21 +87,22 @@ class TextParticle: Actor {
         super.init(Rect(Transform(location), float2(size)), Substance.getStandard(0.01))
         body.mask = 0b0
         color = float4(1, 1, 1, 1)
-        order = 1
+        display.scheme.schemes[0].order  = 1
         body.noncolliding = true
+        //display = text.text.display.display
     }
     
     override func update() {
         super.update()
-        opacity += -rate * Time.time
+        opacity += -rate * Time.delta
         opacity = clamp(opacity, min: 0, max: 1)
         if opacity <= FLT_EPSILON {
             alive = false
         }
+        text.text.display.color = color * float4(opacity)
     }
     
     override func render() {
-        text.text.display.color = color * float4(opacity)
         text.text.display.refresh()
         text.render()
     }

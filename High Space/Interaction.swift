@@ -32,7 +32,7 @@ class Interaction: UIGestureRecognizer {
    
     private func isSelf (_ touch: UITouch) -> Bool {
         for press in Interaction.presses where press !== self {
-            if let event = press.rawTouch , event === touch {
+            if let event = press.rawTouch, event === touch {
                 return true
             }
         }
@@ -43,7 +43,6 @@ class Interaction: UIGestureRecognizer {
         guard rawTouch == nil else { return }
         for touch in touches where touch.phase == .began {
             guard !isSelf(touch) else { continue }
-            
             update(touch)
             rawTouch = touch
             break

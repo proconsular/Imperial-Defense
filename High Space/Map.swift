@@ -14,27 +14,28 @@ class Map {
     
     let size: float2
     let grid: Grid
-    var actors: [Actor]
+    let actorate: Actorate
     var bullets: [Bullet]
+    let renderer: Renderer
     
     init(_ size: float2) {
         self.size = size
-        actors = []
-        grid = Grid(5.m, size)
+        actorate = Actorate()
+        grid = Grid(5.m, size, actorate)
         bullets = []
-        Map.current = self
+        renderer = Renderer(actorate)
     }
     
-    func append(_ element: Actor) {
+    func append(_ element: Entity) {
         if let bullet = element as? Bullet {
             bullets.append(bullet)
         }
-        actors.append(element)
+        actorate.append(element)
         grid.append(element)
     }
     
-    func remove(_ element: Actor) {
-        actors.removeObject(element)
+    func remove(_ element: Entity) {
+        actorate.remove(element)
         grid.remove(element)
     }
     
@@ -47,7 +48,7 @@ class Map {
     
     func updateBullets() {
         for b in bullets {
-            for a in actors {
+            for a in actorate.actors {
                 if !(a is Bullet) {
                     if b.body.mask & a.body.mask > 0 && b.body.collide(a.body) {
                         b.body.callback(a.body, Collision())
@@ -58,12 +59,12 @@ class Map {
         bullets = bullets.filter{ $0.alive }
     }
     
-    func getActors(rect: FixedRect) -> [Actor] {
-        var list: [Actor] = []
+    func getActors(rect: FixedRect) -> [Entity] {
+        var list: [Entity] = []
         let cells = grid.getCells(rect)
         for cell in cells {
-            for actor in cell.actors {
-                if FixedRect.intersects(actor.body.shape.getBounds(), rect) {
+            for actor in cell.elements {
+                if actor.bounds.intersects(rect) {
                     list.append(actor)
                 }
             }
@@ -72,22 +73,23 @@ class Map {
     }
     
     private func updateObjects() {
-        actors.forEach {
+        actorate.actors.forEach {
             $0.update()
             $0.onObject = false
         }
     }
     
     private func clean() {
-        actors = actors.filter{ $0.alive && grid.contains(actor: $0) }
+        actorate.actors = actorate.actors.filter{ $0.alive && grid.contains(actor: $0) }
     }
     
     func render() {
-        actors.sorted{ $0.order < $1.order }.forEach{
-           // if Camera.visible($0.transform.location) {
-                $0.render()
-           // }
-        }
+//        actorate.actors.sorted{ $0.order < $1.order }.forEach{
+//           // if Camera.visible($0.transform.location) {
+//                $0.render()
+//           // }
+//        }
+        renderer.render()
     }
     
 }

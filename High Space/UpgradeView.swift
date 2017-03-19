@@ -39,11 +39,11 @@ class UpgradeView: InterfaceElement, Interface {
     
     func buy() {
         let cost = self.upgrade.computeCost()
-        if Data.info.points >= cost {
-            Data.info.points -= cost
+        if GameData.info.points >= cost {
+            GameData.info.points -= cost
             self.upgrade.upgrade()
         }
-        Data.persist()
+        GameData.persist()
     }
     
     func use(_ command: Command) {

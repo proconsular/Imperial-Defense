@@ -15,7 +15,7 @@ import Foundation
     init(_ location: float2, _ bounds: float2, _ texture: GLuint) {
         rect = Rect(location, bounds)
         display = Display(rect, GLTexture(texture))
-        display.transform.assign(Camera.transform)
+        display.transform.assign(Camera.current.transform)
     }
     
     override convenience init() {
@@ -55,8 +55,8 @@ import Foundation
     }
     
     var texture: GLuint {
-        get { return display.scheme.texture }
-        set { display.scheme.info.texture = newValue }
+        get { return display.scheme.schemes[0].texture }
+        set { display.scheme.schemes[0].info.texture = newValue }
     }
     
     func setMatrix(_ row0: float2, _ row1: float2) {
@@ -74,7 +74,7 @@ import Foundation
             coors = coors.successor()
             coordinates.append(vertex)
         }
-        display.scheme.layout.coordinates = coordinates
+        display.scheme.schemes[0].layout.coordinates = coordinates
     }
     
     func setVertices(_ vertices: UnsafePointer<Float>, _ length: Int) {
@@ -88,6 +88,6 @@ import Foundation
             vert = vert.successor()
             verts.append(vertex)
         }
-        display.scheme.vertices = verts
+        display.scheme.schemes[0].vertices = verts
     }
 }

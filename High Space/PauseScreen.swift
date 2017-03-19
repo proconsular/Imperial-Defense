@@ -15,19 +15,20 @@ class PauseScreen: Screen {
     override init() {
         UserInterface.controller.push(PointController(0))
         
-        background = Display(Rect(Camera.size / 2, Camera.size), GLTexture())
-        background.scheme.camera = false
+        background = Display(GameScreen.size / 2, GameScreen.size, GLTexture())
+        background.camera = false
         background.color = float4(0.75) * float4(0, 0, 0, 1)
         
         super.init()
         
         let layer = InterfaceLayer()
         
-        layer.objects.append(TextButton(Text("Resume", FontStyle(defaultFont, float4(1), 84)), Camera.size / 2 + float2(0, -100)) {
+        layer.objects.append(TextButton(Text("Resume", FontStyle(defaultFont, float4(1), 84)), GameScreen.size / 2 + float2(0, -100) + float2(0, -GameScreen.size.y)) {
             UserInterface.space.pop()
         })
         
-        layer.objects.append(TextButton(Text("Menu", FontStyle(defaultFont, float4(1), 84)), Camera.size / 2 + float2(0, 100)) {
+        
+        layer.objects.append(TextButton(Text("Menu", FontStyle(defaultFont, float4(1), 84)), GameScreen.size / 2 + float2(0, 100) + float2(0, -GameScreen.size.y)) {
             UserInterface.space.wipe()
             UserInterface.space.push(TitleScreen())
         })
@@ -45,9 +46,6 @@ class PauseScreen: Screen {
     }
     
 }
-
-
-
 
 
 

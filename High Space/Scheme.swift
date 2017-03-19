@@ -17,12 +17,14 @@ class VisualScheme: Scheme {
     var layout: TextureLayout
     var info: VisualInfo
     var camera: Bool
+    var order: Int
     
     init(_ hull: Hull, _ layout: TextureLayout, _ info: VisualInfo) {
         self.hull = hull
         self.layout = layout
         self.info = info
         camera = true
+        order = 0
     }
     
     convenience init(_ hull: Hull, _ info: VisualInfo) {
@@ -77,7 +79,7 @@ class VisualRectScheme: VisualScheme {
 class VisualSchemeGroup: Scheme {
     var schemes: [VisualScheme]
     
-    init(schemes: [VisualScheme]) {
+    init(_ schemes: [VisualScheme]) {
         self.schemes = schemes
     }
     

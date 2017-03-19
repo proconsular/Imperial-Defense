@@ -42,7 +42,7 @@ class RawVisualSchemeGroup: NSObject, RawScheme {
                     color.y,
                     color.z,
                     color.w
-                    ])
+                ])
             }
             
             compiled.append(contentsOf: array)
@@ -54,12 +54,14 @@ class RawVisualSchemeGroup: NSObject, RawScheme {
     func getIndicesArray() -> [UInt16] {
         var indices: [UInt16] = []
         
+        var offset = 0
         for (index, scheme) in group.schemes.enumerated() {
             let raw = scheme.getRawScheme() as! RawVisualScheme
-            indices.append(contentsOf: raw.getIndicesArray(index * 4))
+            indices.append(contentsOf: raw.getIndicesArray(offset))
             if index < group.schemes.count - 1 {
                 indices.append(UInt16.max)
             }
+            offset += scheme.coordinates.count
         }
         
         index_count = Int32(indices.count)
@@ -94,7 +96,7 @@ class RawVisualSchemeGroup: NSObject, RawScheme {
     }
     
     func getMatrix() -> GLKMatrix4 {
-        return GLKMatrix4Rotate(GLKMatrix4MakeTranslation(0, 0, 0), 0, 0, 0, 1)
+        return GLKMatrix4Rotate(GLKMatrix4MakeTranslation(0, Camera.size.y, 0), 0, 0, 0, 1)
     }
     
     func getTexture() -> GLuint {

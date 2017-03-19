@@ -29,7 +29,7 @@ class Transform {
     }
     
     func apply(_ vertex: float2) -> float2 {
-        return matrix * (vertex * scale) + location
+        return (matrix * (vertex * scale) + location) * GameScreen.scale.y
     }
     
     var orientation: Float {

@@ -24,7 +24,7 @@ class Lighting {
         Graphics.bindDefault()
     }
     
-    func getFaces(_ light: Light, _ objects: [Actor]) {
+    func getFaces(_ light: Light, _ objects: [Entity]) {
         let shapes = objects.map{ $0.body.shape as! Shape<Edgeform> }
         var faces = light.getFaces(shapes)
         if faces.count > 10 {
@@ -34,20 +34,20 @@ class Lighting {
         light.faces = faces
     }
     
-    func findObjects(_ light: Light, _ terrain: Grid) -> [Actor] {
-        var objects: [Actor] = []
+    func findObjects(_ light: Light, _ terrain: Grid) -> [Entity] {
+        var objects: [Entity] = []
         terrain.cells.forEach{
-            $0.elements.map{ $0.element }.filter{ Lighting.inView(light, $0) }.forEach{ objects.append($0) }
+            $0.elements.filter{ Lighting.inView(light, $0) }.forEach{ objects.append($0) }
         }
         return objects
     }
     
-    fileprivate static func inView(_ light: Light, _ actor: Actor) -> Bool {
+    fileprivate static func inView(_ light: Light, _ actor: Entity) -> Bool {
         return (actor.transform.location - light.location).length < light.radius
     }
     
     fileprivate func isVisible(_ light: Light) -> Bool {
-        return Camera.distance(light.location) < light.radius * 2
+        return Camera.current.distance(light.location) < light.radius * 2
     }
 }
 

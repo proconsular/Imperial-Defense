@@ -29,11 +29,16 @@
 -(void)setupDisplay{
     glGenVertexArraysOES(1, &_vao);
     glBindVertexArrayOES(_vao);
-
+    
     _vbo = [GLVisualDisplay createBuffer:[_scheme getCompiledBufferData] :[_scheme getCompiledBufferDataSize] :GL_ARRAY_BUFFER :GL_DYNAMIC_DRAW];
     _ibo = [GLVisualDisplay createBuffer:[_scheme getIndices] :[_scheme getIndexBufferSize] :GL_ELEMENT_ARRAY_BUFFER :GL_STATIC_DRAW];
     
     [self setupStates];
+    
+    GLenum error = glGetError();
+    if (error != 0) {
+        NSLog(@"%u", error);
+    }
 }
 
 +(unsigned int)createBuffer:(void *)data :(GLsizeiptr)size :(GLenum)BUFFER_TYPE :(GLenum)RENDER_TYPE{
@@ -49,7 +54,7 @@
 
 -(void)setupStates{
     [GLVisualDisplay enable:GLKVertexAttribPosition :2 :GL_FALSE :32 :0];
-    [GLVisualDisplay enable:GLKVertexAttribTexCoord0:2 :GL_TRUE  :32 :8];
+    [GLVisualDisplay enable:GLKVertexAttribTexCoord0:2 :GL_FALSE :32 :8];
     [GLVisualDisplay enable:GLKVertexAttribColor    :4 :GL_FALSE :32 :16];
 }
 

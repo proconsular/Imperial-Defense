@@ -7,7 +7,9 @@
 //
 
 #import "GLTextureLoader.h"
+#import "Imperial_Defense-Swift.h"
 @import UIKit;
+@import simd;
 
 @implementation GLTextureLoader
 
@@ -33,7 +35,7 @@ static GLuint sampler;
     
     int width, height;
     [GLTextureLoader storeImmutableTexture:[GLTextureLoader getImageData:name :&width :&height] :width :height :format];
-    return [[Texture alloc] initWithTexture:texture bounds:vector2((float)width, (float)height)];
+    return [[Texture alloc] init:texture :vector2((float)width, (float)height)];
 }
 
 +(GLuint)createTexture{

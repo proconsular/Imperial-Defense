@@ -16,44 +16,46 @@ class Camera {
         return float2 (Float(bounds.width * scaleFactor), Float(bounds.height * scaleFactor))
     }
     
-    static var transform = Transform()
-    static var follow: Transform?
-    static var clip = true
-    static var bounds = float2()
+    static var current: Camera!
     
-    static func create(_ map: Map) {
+    var transform = Transform()
+    var follow: Transform?
+    var clip = true
+    var bounds = float2()
+    
+    init(_ map: Map) {
         transform.location = float2(map.size.x / 2 - Camera.size.x / 2, -Camera.size.y)
     }
     
-    static var mask: FixedRect { return FixedRect(Camera.transform.location + Camera.size / 2, Camera.size) }
+    var mask: FixedRect { return FixedRect(transform.location + Camera.size / 2, Camera.size) }
     
-    static func contains (_ location: float2, _ bounds: float2) -> Bool {
+    func contains (_ location: float2, _ bounds: float2) -> Bool {
         return
-            location.x + bounds.x >= Camera.transform.location.x &&
-            location.x <= Camera.transform.location.x + size.x &&
-            location.y + bounds.y >= Camera.transform.location.y &&
-            location.y <= Camera.transform.location.y + size.y
+            location.x + bounds.x >= transform.location.x &&
+            location.x <= transform.location.x + Camera.size.x &&
+            location.y + bounds.y >= transform.location.y &&
+            location.y <= transform.location.y + Camera.size.y
     }
     
-    static func contains (_ rect: FixedRect) -> Bool {
-        return FixedRect.intersects(Camera.mask, rect)
+    func contains (_ rect: FixedRect) -> Bool {
+        return FixedRect.intersects(mask, rect)
     }
     
-    static func update() {
+    func update() {
         if let transform = follow {
-            let dl = transform.location - Camera.transform.location - Camera.size / 2
-            Camera.transform.location += dl / 4
-            if Camera.clip {
+            let dl = transform.location - transform.location - Camera.size / 2
+            transform.location += dl / 4
+            if clip {
                 moveIntoRegion()
             }
         }
     }
     
-    static var matrix: GLKMatrix4 {
+    var matrix: GLKMatrix4 {
         return GLKMatrix4MakeTranslation(transform.location.x, transform.location.y, 0)
     }
     
-    private static func moveIntoRegion () {
+    private func moveIntoRegion () {
         if transform.location.y + Camera.size.y > 0 {
             transform.location.y += -(transform.location.y + Camera.size.y)
         }
@@ -68,12 +70,12 @@ class Camera {
         }
     }
     
-    static func distance(_ location: float2) -> Float {
-        return (location - Camera.transform.location - Camera.size / 2).length
+    func distance(_ location: float2) -> Float {
+        return (location - transform.location - Camera.size / 2).length
     }
     
-    static func visible(_ location: float2) -> Bool {
-        return Camera.distance(location) <= Camera.size.length + 5.m
+    func visible(_ location: float2) -> Bool {
+        return distance(location) <= Camera.size.length + 5.m
     }
     
 }

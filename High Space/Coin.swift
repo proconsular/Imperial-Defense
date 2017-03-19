@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Coin: Actor {
+class Coin: Entity {
     
     let points: Int
     var counter: Float
@@ -21,7 +21,7 @@ class Coin: Actor {
         super.init(Rect(Transform(location), float2(0.4.m)), Substance.getStandard(0.01))
         display.texture = GLTexture("coin").id
         body.mask = 0b0
-        order = -1
+        display.scheme.schemes[0].order  = -1
         body.noncolliding = true
     }
     
@@ -44,13 +44,13 @@ class Coin: Actor {
         body.velocity *= 0.95
         if FixedRect.intersects(body.shape.getBounds(), Player.player.body.shape.getBounds()) {
             alive = false
-            Map.current.append(TextParticle(transform.location, "+\(points)", 64))
-            Data.info.points += points
+            //Map.current.append(TextParticle(transform.location, "+\(points)", 64))
+            GameData.info.points += points
             let c = Audio("pickup1")
             c.volume = 0.4
             c.start()
         }
-        counter -= Time.time
+        counter -= Time.delta
         if counter <= 0 {
             alive = false
         }

@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Data {
+class GameData {
     static var info = GameInfo.Default
     
     private static var gateway: Gateway<GameInfo> = GameDefaultsGateway()

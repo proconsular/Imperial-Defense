@@ -37,7 +37,7 @@ class Atlas {
     }
     
     func bind() {
-        glBindTexture(UInt32(GL_TEXTURE_2D), texture.texture)
+        glBindTexture(UInt32(GL_TEXTURE_2D), GLuint(texture.id))
     }
     
     func act() {

@@ -130,7 +130,7 @@ class GameDisplay: InterfaceElement, Interface {
         location = float2()
         background = Display(Rect(Camera.size / 2, Camera.size), GLTexture())
         background.color = float4(0.1, 0.1, 0.1, 1)
-        background.scheme.camera = false
+        background.camera = false
         info = InfoDisplay(float2(Camera.size.x / 2, Camera.size.y / 2))
        
         upgrades = TextButton(Text("upgrades", FontStyle(defaultFont, float4(1), 48.0)), float2(Camera.size.x / 2 - 150, Camera.size.y / 2 + 100)) {
@@ -139,8 +139,8 @@ class GameDisplay: InterfaceElement, Interface {
         }
         
         reset = TextButton(Text("reset", FontStyle(defaultFont, float4(1), 48.0)), float2(Camera.size.x / 2 + 150, Camera.size.y / 2 + 100)) {
-            Data.info = GameInfo.Default
-            Data.persist()
+            GameData.info = GameInfo.Default
+            GameData.persist()
         }
     }
     
@@ -171,7 +171,7 @@ class InfoDisplay {
     }
     
     func render() {
-        text.setString("Level \(Data.info.level + 1) Points \(Data.info.points)")
+        text.setString("Level \(GameData.info.level + 1) Points \(GameData.info.points)")
         text.render()
     }
     

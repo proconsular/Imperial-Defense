@@ -156,8 +156,8 @@ class HorizontialMovementController: Controller {
         return command
     }
     
-    fileprivate func check (_ value: inout Float, _ location: float2, _ operation: (Float, Float) -> Bool, _ function: (Float, Float) -> Float) {
-        value = function (velocity, value)
+    private func check(_ value: inout Float, _ location: float2, _ operation: (Float, Float) -> Bool, _ function: (Float, Float) -> Float) {
+        value = function(velocity, value)
         if operation (value, 0) {
             if abs (value - velocity) >= range {
                 reset(location)
@@ -165,7 +165,7 @@ class HorizontialMovementController: Controller {
         }
     }
     
-    fileprivate func reset (_ location: float2) {
+    private func reset(_ location: float2) {
         velocity = 0
         values = (0, 0)
         previous = location.x
@@ -179,9 +179,9 @@ class PointController: Controller {
         self.id = id
     }
     
-    func apply (_ location: float2) -> Command? {
+    func apply(_ location: float2) -> Command? {
         var command = Command(id)
-        command.vector = location
+        command.vector = location * 1 / GameScreen.scale.y
         return command
     }
     

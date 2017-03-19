@@ -57,7 +57,7 @@ class Processor {
         self.limit = limit
         deltaTime = 0
         remainder = 0
-        startTime = Date.timeIntervalSinceReferenceDate
+        startTime = CACurrentMediaTime()
     }
     
     func process (_ frameTime: Double, _ step: @autoclosure () -> ()) {
@@ -79,7 +79,7 @@ class Processor {
     }
     
     func computePastTime () -> Double {
-        let currentTime = Date.timeIntervalSinceReferenceDate
+        let currentTime = CACurrentMediaTime()
         let time = currentTime - startTime
         startTime = currentTime
         return time

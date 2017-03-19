@@ -14,7 +14,7 @@ class StoryScreen: Screen {
     
     override init() {
         background = Display(Rect(float2(Camera.size.x / 2, Camera.size.y / 2), Camera.size), GLTexture("white"))
-        background.scheme.layout.coordinates = [float2(0, 0), float2(2, 0) * 2, float2(2, 3) * 2, float2(0, 3) * 2]
+        background.scheme.schemes[0].layout.coordinates = [float2(0, 0), float2(2, 0) * 2, float2(2, 3) * 2, float2(0, 3) * 2]
         background.color = float4(0.01, 0.01, 0.01, 1)
         
         text = Text("This is where the story will go.\nHopefully there are line breaks. We'll see.", FontStyle(defaultFont, float4(1), 52.0), float2(300, 100))

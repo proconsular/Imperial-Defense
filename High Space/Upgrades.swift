@@ -35,13 +35,13 @@ class BulletUpgrade: Upgrade {
     }
     
     override func computeCost() -> Int {
-        return super.computeCost() + Int(20 * Float(Data.info.weapon))
+        return super.computeCost() + Int(20 * Float(GameData.info.weapon))
     }
     
     override func upgrade() {
         super.upgrade()
-        Data.info.weapon += 1
-        Data.persist()
+        GameData.info.weapon += 1
+        GameData.persist()
     }
     
 }

@@ -37,7 +37,7 @@ class Background {
     
     init(_ rect: Rect, _ scale: float2, _ texture: String) {
         display = Display(rect, GLTexture(texture))
-        display.scheme.layout.coordinates = [float2(0, 0),  float2(0, scale.y), scale, float2(scale.x, 0)]
+        display.scheme.schemes[0].layout.coordinates = [float2(0, 0),  float2(0, scale.y), scale, float2(scale.x, 0)]
     }
     
 }

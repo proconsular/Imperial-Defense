@@ -7,9 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Texture.h"
 @import OpenGLES;
 @import CoreGraphics;
+
+@class Texture;
 
 @interface GLTextureLoader : NSObject
 

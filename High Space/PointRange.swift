@@ -25,6 +25,10 @@ struct PointRange {
         amount = max(amount + value, 0)
     }
     
+    mutating func recharge(_ value: Float) {
+        amount = min(amount + value, limit)
+    }
+    
     mutating func overcharge(amount: Float) {
         self.amount = limit * amount
     }

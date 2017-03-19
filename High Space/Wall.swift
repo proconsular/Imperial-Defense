@@ -14,11 +14,11 @@ class Wall: Structure {
     var max: Int
     
     init(_ location: float2) {
-        health = 25 + Data.info.barrier.computeAmount()
+        health = 25 + GameData.info.barrier.computeAmount()
         max = health
         super.init(location, float2(0.2.m))
         display.texture = GLTexture("castle").id
-        display.scheme.layout.coordinates = [float2(0, 0), float2(0.25, 0), float2(0.25, 0.25), float2(0, 0.25)]
+        display.scheme.schemes[0].layout.coordinates = [float2(0, 0), float2(0.25, 0), float2(0.25, 0.25), float2(0, 0.25)]
         display.color = float4(1, 1, 1, 1)
         body.object = self
         body.mask = 0b1

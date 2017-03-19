@@ -14,7 +14,7 @@ class StoreScreen: Screen {
     
     override init() {
         background = Display(Rect(float2(Camera.size.x / 2, -Camera.size.y / 2), Camera.size), GLTexture())
-        background.scheme.layout.coordinates = [float2(0, 0), float2(2, 0) * 2, float2(2, 3) * 2, float2(0, 3) * 2]
+        background.scheme.schemes[0].layout.coordinates = [float2(0, 0), float2(2, 0) * 2, float2(2, 3) * 2, float2(0, 3) * 2]
         background.color = float4(0.1, 0.1, 0.1, 1)
         
         points = Text(" ", defaultStyle)
@@ -26,13 +26,13 @@ class StoreScreen: Screen {
         
         let uspacing = float2(600, 300)
         
-        layer.objects.append(UpgradeView(float2(Camera.size.x / 2 - uspacing.x, Camera.size.y / 2 - uspacing.y / 2), Data.info.upgrades[0]))
-        layer.objects.append(UpgradeView(float2(Camera.size.x / 2, Camera.size.y / 2 - uspacing.y / 2), Data.info.upgrades[1]))
-        layer.objects.append(UpgradeView(float2(Camera.size.x / 2 + uspacing.x, Camera.size.y / 2 - uspacing.y / 2), Data.info.upgrades[2]))
+        layer.objects.append(UpgradeView(float2(Camera.size.x / 2 - uspacing.x, Camera.size.y / 2 - uspacing.y / 2), GameData.info.upgrades[0]))
+        layer.objects.append(UpgradeView(float2(Camera.size.x / 2, Camera.size.y / 2 - uspacing.y / 2), GameData.info.upgrades[1]))
+        layer.objects.append(UpgradeView(float2(Camera.size.x / 2 + uspacing.x, Camera.size.y / 2 - uspacing.y / 2), GameData.info.upgrades[2]))
         
-        layer.objects.append(UpgradeView(float2(Camera.size.x / 2 - uspacing.x, Camera.size.y / 2 + uspacing.y / 2), Data.info.upgrades[3]))
-        layer.objects.append(UpgradeView(float2(Camera.size.x / 2, Camera.size.y / 2 + uspacing.y / 2), Data.info.upgrades[4]))
-        layer.objects.append(UpgradeView(float2(Camera.size.x / 2 + uspacing.x, Camera.size.y / 2 + uspacing.y / 2), Data.info.upgrades[5]))
+        layer.objects.append(UpgradeView(float2(Camera.size.x / 2 - uspacing.x, Camera.size.y / 2 + uspacing.y / 2), GameData.info.upgrades[3]))
+        layer.objects.append(UpgradeView(float2(Camera.size.x / 2, Camera.size.y / 2 + uspacing.y / 2), GameData.info.upgrades[4]))
+        layer.objects.append(UpgradeView(float2(Camera.size.x / 2 + uspacing.x, Camera.size.y / 2 + uspacing.y / 2), GameData.info.upgrades[5]))
         
         let spacing = float2(350, 0)
         let offset = float2(0, 450)
@@ -53,7 +53,7 @@ class StoreScreen: Screen {
     
     override func display() {
         background.render()
-        points.setString("\(Data.info.points)")
+        points.setString("\(GameData.info.points)")
         points.render()
         super.display()
     }

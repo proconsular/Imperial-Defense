@@ -12,230 +12,201 @@ protocol Created {
     init(_ location: float2)
 }
 
-class Soldier: Actor, Created {
-    
-    var weapon: Weapon!
-    var rate: Float = 0.3
-    var counter: Float = 0
-    var health: Int = 5
-    var weight: Int = 1
-    
-    var armor: Int = 0
-    
-    var max_shield: Float = 15
-    var shield: Float
-    var recharge: Float = 40
-    var recharge_timer: Float = 0
-    var recharge_rate: Float = 1.5
-    
-    var hit_opacity: Float = 0
+class Soldier: Entity, Created {
     
     var color: float4
+    var weapon: Weapon?
+    var health: Health
     
-    var armor_image: Display!
+    var terminator: ActorTerminationDelegate?
+    var animator: SoldierAnimator?
+    var drop: Drop?
     
     required convenience init(_ location: float2) {
-        self.init(location, float4(1))
+        let shield = Shield(Float(15), Float(1.5), Float(40))
+        let health = Health(5, shield)
+        self.init(location, health, float4(1))
+        animator = MarchAnimator(self, 0.1, 0.075.m)
+        let bullet = BulletInfo(10, 8.m, 2.5, float2(0.5.m, 0.14.m), float4(1, 0.25, 0, 1))
+        weapon = Weapon(transform, float2(0, 1), bullet, "player")
+        weapon?.offset = float2(-0.275.m, -0.5.m)
     }
     
-    init(_ location: float2, _ color: float4) {
+    init(_ location: float2, _ health: Health, _ color: float4) {
         self.color = color
         let rect = Rect(location, float2(56, 106) * 1.2)
-        armor_image = Display(Rect(Transform(location), float2(78, 106) * 1.2), GLTexture("armor"))
-        shield = max_shield
+        
+        self.health = health
+        
         super.init(rect, Substance.getStandard(100))
+        
         display.texture = GLTexture("soldier_walk").id
-        weapon = Weapon(transform, float2(0, 1), BulletInfo(10, 8.m, 2.5, float2(0.5.m, 0.14.m), float4(1, 0.25, 0, 1)), "player")
-        weapon.offset = float2(-0.275.m, -0.5.m)
+        display.color = color
+        
         body.mask = 0b100
         body.object = self
         body.noncolliding = true
         
+        terminator = SoldierTerminator(self)
     }
     
     func damage(amount: Int) {
-        let last_shield = shield
-        health = max(health - (amount - Int(shield)), 0)
-        shield = max(shield - Float(amount), 0)
-        if last_shield > 0 && shield <= 0 {
-            let explosion = Explosion(transform.location, 1.m)
-            explosion.color = float4(0.2, 0.6, 1, 1)
-            Map.current.append(explosion)
-        }
-        //hit_opacity += Float(amount)
+        health.damage(Float(amount))
         let a = Audio("hit2")
         a.volume = 0.5
         a.start()
-        recharge_timer = 0
     }
     
     override func update() {
         super.update()
-        weapon.update()
-        move()
-        if health <= 0 {
+        weapon?.update()
+        animator?.animate()
+        if health.percent <= 0 {
             alive = false
-            //Data.info.points += weight
-            death()
+            terminator?.terminate()
         }
-        display.color = color - float4(0, hit_opacity, hit_opacity, 0)
-        display.visual.refresh()
-//        hit_opacity += -4.5 * Time.time
-//        hit_opacity = clamp(hit_opacity, min: 0, max: 1)
-        if !inView(0.95) && spaceInFront() {
-            body.location.y += 0.005.m
+        if let shield = health.shield {
+            if shield.broke {
+                shield.explode(transform)
+            }
+            shield.update()
+            display.color = shield.apply(color)
         }
-        recharge_timer += Time.time
-        if recharge_timer >= recharge_rate {
-            shield += recharge * Time.time
-            shield = clamp(shield, min: 0, max: max_shield)
-        }
-    }
-    
-    func death() {
-        let a = Audio("explosion1")
-        a.volume = 1
-        a.start()
-        genCoins()
-        genParticles()
-        score()
-    }
-    
-    func genCoins() {
-        let c = arc4random() % 2
-        for _ in 0 ..< c {
-            let p = Coin(body.location, 1)
-            let angle = random(-Float.pi, Float.pi)
-            let mag = random(2, 4) * 1.m
-            p.body.velocity = float2(cos(angle), sin(angle)) * mag
-            Map.current.append(p)
-        }
-    }
-    
-    func genParticles() {
-        let c = arc4random() % 3 + 3
-        for _ in 0 ..< c {
-            let p = Particle(body.location, 0.05.m)
-            let angle = random(-Float.pi, Float.pi)
-            let mag = random(2, 4) * 1.m
-            p.body.velocity = float2(cos(angle), sin(angle)) * mag
-            Map.current.append(p)
-        }
-    }
-    
-    func score() {
-        //Map.current.append(TextParticle(transform.location, "+\(weight)", 64))
-    }
-    
-    func move() {
-        counter += Time.time
-        if counter >= rate * 0.75 {
-            counter = 0
-            body.location.y += 0.075.m
-            display.scheme.layout.flip(vector: float2(-1, 0))
-            display.visual.refresh()
-            let a = Audio("march1")
-            a.volume = 0.3
-            a.start()
-        }
+        fire()
     }
     
     func fire() {
         if arc4random() % 100 >= 98 {
-            if hasLineOfSight() {
-                if weapon.canFire {
-                    weapon.fire()
-                    play("shoot3")
+            if ActorUtility.hasLineOfSight(self) {
+                if let weapon = weapon {
+                    if weapon.canFire {
+                        weapon.fire()
+                        play("shoot3")
+                    }
                 }
             }
         }
     }
     
-    func hasLineOfSight() -> Bool {
-        let actors = Map.current.getActors(rect: FixedRect(float2(transform.location.x, transform.location.y + Camera.size.y / 2 + body.shape.getBounds().bounds.y), float2(0.5.m, Camera.size.y)))
-        for a in actors {
-            if a is Soldier {
-                return false
+}
+
+class Scout: Soldier {
+    
+    required init(_ location: float2) {
+        super.init(location, Health(5, nil), float4(0.5, 0.5, 0.5, 1))
+        animator = MarchAnimator(self, 0.075, 0.125.m)
+        let bullet = BulletInfo(10, 8.m, 0.25, float2(0.5.m, 0.14.m), float4(1, 0.75, 0, 1))
+        weapon = Weapon(transform, float2(0, 1), bullet, "player")
+        weapon?.offset = float2(-0.275.m, -0.5.m)
+    }
+    
+}
+
+class Banker: Soldier {
+    
+    required init(_ location: float2) {
+        let shield = Shield(Float(30), Float(0.25), Float(80))
+        super.init(location, Health(30, shield), float4(1, 1, 0.25, 1))
+        animator = MarchAnimator(self,  0.1, 0.075.m)
+        drop = CoinDrop(Int(arc4random() % 3) + 3, 1)
+    }
+    
+    override func update() {
+        super.update()
+        if health.percent <= 0.5 {
+            if random(0, 1) <= 0.25 {
+                animator = MarchAnimator(self, 0.025, -0.1.m)
             }
         }
-        return true
-    }
-    
-    func spaceInFront() -> Bool {
-        let actors = Map.current.getActors(rect: FixedRect(float2(transform.location.x, transform.location.y + body.shape.getBounds().bounds.y), float2(0.5.m, 1.m)))
-        for a in actors {
-            if a is Soldier {
-                return false
-            }
+        if transform.location.y < -Camera.size.y * 2 {
+            alive = false
         }
-        return true
-    }
-    
-    func inView(_ percent: Float = 0.9) -> Bool {
-        return Camera.contains(body.shape.getBounds()) && transform.location.y > -Camera.size.y * percent
-    }
-    
-    override func render() {
-        super.render()
-        if shield > 0 {
-            display.color = float4(0.2, 0.6, 1, 1) * float4(shield / max_shield + (shield > 0 ? 0.4 : 0)) * 0.9
-            display.visual.refresh()
-            display.render()
-        }
-        
     }
     
 }
 
 class Captain: Soldier {
     
-    var rage: Float
-    var direction: Int = 1
-    var width: Float = 10.m
+    var rushed: Bool
     
     required init(_ location: float2) {
-        rage = 0
-        super.init(location, float4(0, 0, 1, 1))
-        weapon.bullet_data.rate = 0.2
-        health = 70
-        weight = 10
-        display.texture = GLTexture("adv_soldier").id
+        rushed = false
+        super.init(location, Health(30, Shield(Float(30), Float(2.0), Float(30))), float4(1, 0.5, 0.5, 1))
+        animator = MarchAnimator(self, 0.1, 0.075.m)
+        let bullet = BulletInfo(20, 6.m, 1.0, float2(0.5.m, 0.14.m) * 1.2, float4(1, 0, 0, 1))
+        weapon = Weapon(transform, float2(0, 1), bullet, "player")
+        weapon?.offset = float2(-0.275.m, -0.5.m)
     }
     
     override func update() {
         super.update()
-        if rage > 0.3 && hasLineOfSight() {
-            rate = clamp(0.5 - 0.4 * (1 - rage), min: 0.2, max: 1)
+        
+        if transform.location.y >= -Camera.size.y * 0.75 {
+            if !rushed {
+                if random(0, 1) <= 0.1 {
+                    rush(2.m)
+                    rushed = true
+                }
+            }
         }
-        display.color = float4(0.5 + 0.7 * rage, 0, 0.5 * (1 - rage), 1)
-        display.visual.refresh()
-        if rage >= 0.3 {
-            if weapon.canFire && inView() && hasLineOfSight() {
-                weapon.fire()
-                play("shoot3")
+        
+    }
+    
+    func rush(_ radius: Float) {
+        let actors = Map.current.getActors(rect: FixedRect(transform.location, float2(radius)))
+        for actor in actors {
+            if let soldier = actor as? Soldier, let marcher = soldier.animator as? MarchAnimator {
+                marcher.sprint = 1.5
+            }
+        }
+        let ex = Explosion(transform.location, radius)
+        ex.color = float4(1, 0, 0, 1)
+        Map.current.append(ex)
+    }
+    
+}
+
+class Healer: Soldier {
+    
+    var timer: Timer!
+    
+    required init(_ location: float2) {
+        super.init(location, Health(15, Shield(Float(15), Float(1.0), Float(50))), float4(0.25, 1, 0.25, 1))
+        animator = MarchAnimator(self,  0.1, 0.075.m)
+        timer = Timer(2) { [unowned self] in
+            if random(0, 1) <= 0.1 {
+                self.heal(2.m)
             }
         }
     }
     
-    override func death() {
-        let a = Audio("explosion1")
-        a.volume = 1
-        a.pitch = 0.8
-        a.start()
-        let c = arc4random() % 5 + 10
-        for _ in 0 ..< c {
-            let p = Particle(body.location, random(0.03.m, 0.05.m))
-            p.color = float4(1, 0, 0, 1)
-            let angle = random(-Float.pi, Float.pi)
-            let mag = random(2, 6) * 1.m
-            p.body.velocity = float2(cos(angle), sin(angle)) * mag
-            Map.current.append(p)
+    override func update() {
+        super.update()
+        timer.update(Time.delta)
+    }
+  
+    func heal(_ radius: Float) {
+        let actors = Map.current.getActors(rect: FixedRect(transform.location, float2(radius)))
+        for actor in actors {
+            if let soldier = actor as? Soldier {
+                soldier.health.shield?.points.increase(30)
+            }
         }
-        score()
+        let ex = Explosion(transform.location, radius)
+        ex.color = float4(0, 0, 1, 1)
+        Map.current.append(ex)
     }
     
-    override func fire() {
-       
+}
+
+class Heavy: Soldier {
+    
+    required init(_ location: float2) {
+        super.init(location, Health(30, Shield(Float(60), Float(2.0), Float(30))), float4(0.5, 0.5, 1, 1))
+        animator = MarchAnimator(self, 0.1, 0.075.m)
+        let bullet = BulletInfo(30, 6.m, 1.5, float2(0.5.m, 0.14.m) * 1.4, float4(1, 0, 1, 1))
+        weapon = Weapon(transform, float2(0, 1), bullet, "player")
+        weapon?.offset = float2(-0.275.m, -0.5.m)
     }
     
 }
@@ -243,130 +214,134 @@ class Captain: Soldier {
 class Sniper: Soldier {
     
     required init(_ location: float2) {
-        super.init(location, float4(1, 1, 0, 1))
-        weight = 5
-        weapon.bullet_data = BulletInfo(20, 20.m, 1, float2(0.6.m, 0.04.m), float4(1, 1, 0, 1))
-        display.texture = GLTexture("adv_soldier").id
+        super.init(location, Health(45, Shield(Float(20), Float(0.5), Float(60))), float4(1, 0.5, 1, 1))
+        animator = MarchAnimator(self, 0.1, 0.075.m)
+        let bullet = BulletInfo(50, 10.m, 2.0, float2(0.6.m, 0.1.m), float4(0, 1, 1, 1))
+        weapon = Weapon(transform, float2(0, 1), bullet, "player")
+        weapon?.offset = float2(-0.275.m, -0.5.m)
     }
     
-    override func death() {
+}
+
+protocol SoldierAnimator {
+    func animate()
+}
+
+class MarchAnimator: SoldierAnimator {
+    
+    unowned let soldier: Soldier
+    
+    var rate: Float
+    var speed: Float
+    
+    var counter: Float
+    var sprint: Float
+    
+    init(_ soldier: Soldier, _ rate: Float, _ speed: Float) {
+        self.soldier = soldier
+        self.rate = rate
+        self.speed = speed
+        counter = 0
+        sprint = 0
+    }
+    
+    func animate() {
+        if ActorUtility.spaceInFront(soldier, float2(0.5.m, 0)) {
+            counter += Time.delta
+            
+            var final_rate = rate
+            
+            if sprint > 0 {
+                sprint -= Time.delta
+                final_rate = 0.05
+            }
+            
+            if counter >= final_rate {
+                counter = 0
+                soldier.body.location.y += speed
+                soldier.display.scheme.schemes[0].layout.flip(vector: float2(-1, 1))
+                if soldier.body.location.y > -Camera.size.y {
+                    play("march1")
+                }
+            }
+        }
+    }
+    
+}
+
+protocol ActorTerminationDelegate {
+    func terminate()
+}
+
+protocol Drop {
+    func release(_ location: float2)
+}
+
+class CoinDrop: Drop {
+    
+    let amount: Int
+    let chance: Float
+    
+    init(_ amount: Int, _ chance: Float) {
+        self.amount = amount
+        self.chance = chance
+    }
+    
+    func release(_ location: float2) {
+        guard random(0, 1) <= chance else { return }
+        for _ in 0 ..< amount {
+            let coin = Coin(location, 1)
+            let angle = random(-Float.pi, Float.pi)
+            let mag = random(2, 4) * 1.m
+            coin.body.velocity = float2(cos(angle), sin(angle)) * mag
+            Map.current.append(coin)
+        }
+    }
+    
+}
+
+class SoldierTerminator: ActorTerminationDelegate {
+    
+    unowned let soldier: Soldier
+    
+    init(_ soldier: Soldier) {
+        self.soldier = soldier
+    }
+    
+    func terminate() {
         let a = Audio("explosion1")
         a.volume = 1
-        a.pitch = 1.2
         a.start()
-        let c = arc4random() % 5 + 10
-        for _ in 0 ..< c {
-            let p = Particle(body.location, random(0.03.m, 0.05.m))
-            p.color = float4(1, 1, 0, 1)
-            let angle = random(-Float.pi, Float.pi)
-            let mag = random(2, 6) * 1.m
-            p.body.velocity = float2(cos(angle), sin(angle)) * mag
-            Map.current.append(p)
-        }
-        score()
-    }
-    
-    override func fire() {
-        weapon.direction = normalize(Player.player.body.location - body.location)
-        if weapon.canFire && inView() {
-            weapon.fire()
-            play("shoot1", 1.2)
-        }
+        soldier.drop?.release(soldier.transform.location)
     }
     
 }
 
-class Bomber: Soldier {
+class ActorUtility {
     
-    required init(_ location: float2) {
-        super.init(location, float4(0, 1, 0, 1))
-        health = 60
-        weight = 10
-        var data = BulletInfo(5, 5.m, 2, float2(0.5.m), float4(0, 0, 0, 1))
-        data.collide = {
-            let actors = Map.current.getActors(rect: FixedRect($0.body.location, float2(2.m)))
-            for a in actors {
-                if let s = a as? Player {
-                    s.hit(amount: 10)
-                }
-                if let bar = a as? Wall {
-                    bar.health -= 10
+    static func hasLineOfSight(_ actor: Entity) -> Bool {
+        let actors = Map.current.getActors(rect: FixedRect(float2(actor.transform.location.x, actor.transform.location.y + Camera.size.y / 2 + actor.body.shape.getBounds().bounds.y), float2(0.5.m, Camera.size.y)))
+        for a in actors {
+            if a is Soldier {
+                return false
+            }
+        }
+        return true
+    }
+    
+    static func spaceInFront(_ actor: Entity, _ bounds: float2) -> Bool {
+        let actors = Map.current.getActors(rect: FixedRect(float2(actor.transform.location.x, actor.transform.location.y + actor.body.shape.getBounds().bounds.y / 2), bounds))
+        for a in actors {
+            if a !== actor {
+                if a is Soldier {
+                    return false
                 }
             }
-            Map.current.append(Explosion($0.body.location, 2.m))
-            let a = Audio("explosion1")
-            a.volume = 1
-            a.pitch = 0.6
-            a.start()
         }
-        weapon.bullet_data = data
-        display.texture = GLTexture("adv_soldier").id
-    }
-    
-    override func fire() {
-        if inView() {
-            super.fire()
-        }
+        return true
     }
     
 }
-
-class LaserSoldier: Soldier {
-    
-    var laser: LaserWeapon
-    var firing = false
-    var wait: Float = 0
-    
-    required init(_ location: float2) {
-        let lase = Laser(location, 0.1.m, -1)
-        laser = LaserWeapon(lase) {
-            if let player = $0 as? Player {
-                player.hit(amount: 10)
-            }
-            if let wall = $0 as? Wall {
-                wall.health -= 5
-            }
-        }
-        laser.limit = 2
-        laser.rate = 0.2
-        laser.power = 0
-        super.init(location, float4(1, 0.8, 1, 1))
-        weight = 30
-        health = 60
-        display.texture = GLTexture("laser_soldier").id
-    }
-    
-    override func update() {
-        if firing {
-            laser.fire()
-        }
-        laser.laser.transform.location = transform.location + float2(0, 0.75.m) + float2(-0.25.m, -0.5.m)
-        laser.update()
-        
-        let amount = laser.power / laser.limit
-        
-        color = float4(1, 1 - 1.2 * amount * amount * amount, 1, 1)
-        
-        super.update()
-        
-        if laser.power <= 0 {
-            firing = false
-        }
-    }
-    
-    override func fire() {
-        if hasLineOfSight() && inView() {
-            firing = true
-        }
-    }
-    
-    override func render() {
-        super.render()
-        laser.render()
-    }
-    
-}
-
 
 class Coordinator {
     var waves: [Battalion]
@@ -378,7 +353,7 @@ class Coordinator {
     var difficulty: Difficulty
     
     init(_ mode: Int) {
-        difficulty = Difficulty(Data.info.level)
+        difficulty = Difficulty(GameData.info.level)
         legion_gen = LegionGenerator(difficulty)
         count = mode == 0 ? difficulty.waves : 100
         Coordinator.wave = 0
@@ -459,17 +434,6 @@ class Row: Battalion {
     
     func update() {
         soldiers = soldiers.filter{ $0.alive }
-        soldiers.forEach{
-            if let captain = $0 as? Captain {
-                captain.rage = 1 - Float(health - 1) / Float(amount)
-            }
-            fire()
-        }
-    }
-    
-    func fire() {
-            let index = Int(arc4random()) % soldiers.count
-            soldiers[index].fire()
     }
     
     var health: Int {

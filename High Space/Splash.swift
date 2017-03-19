@@ -15,7 +15,7 @@ class Splash: Screen {
     override init() {
         background = Display(Rect(Camera.size / 2, Camera.size), GLTexture("Splash"))
         //background.color = float4(0.05, 0.05, 0.075, 1)
-        background.scheme.camera = false
+        background.camera = false
         
         super.init()
         
@@ -27,11 +27,11 @@ class Splash: Screen {
         let margin: Float = 35
         
         let storiel = Text(float2(Camera.size.x / 2, margin), "a storiel game", smallstyle)
-        storiel.text.display.display.scheme.camera = false
+        storiel.text.display.display.camera = false
         let copyright = Text(float2(Camera.size.x / 2, Camera.size.y - margin), "Copyright © 2017 Storiel, LLC. All rights reserved.", smallstyle)
-        copyright.text.display.display.scheme.camera = false
+        copyright.text.display.display.camera = false
         let title = Text(float2(Camera.size.x / 2, Camera.size.y / 2), "Imperial Defense", titlestyle)
-        title.text.display.display.scheme.camera = false
+        title.text.display.display.camera = false
         
         layer.objects.append(storiel)
         layer.objects.append(copyright)

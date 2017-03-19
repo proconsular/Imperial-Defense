@@ -49,7 +49,7 @@ class Weapon {
     }
     
     func update() {
-        counter += Time.time
+        counter += Time.delta
     }
     
     var canFire: Bool {
@@ -69,7 +69,29 @@ class Weapon {
     
 }
 
-class PlayerWeapon: Weapon, StatusItem {
+class PlayerWeaponDisplayAdapter: StatusItem {
+    
+    var weapon: PlayerWeapon
+    
+    init(_ weapon: PlayerWeapon) {
+        self.weapon = weapon
+    }
+    
+    var percent: Float {
+        return weapon.power / weapon.max_power
+    }
+    
+    var color: float4 {
+        return weapon.color
+    }
+    
+    func update() {
+        
+    }
+    
+}
+
+class PlayerWeapon: Weapon {
     
     var power: Float
     
@@ -119,7 +141,7 @@ class PlayerWeapon: Weapon, StatusItem {
         }
         
         if power < max_power {
-            power += recharge * (1.0 / rate_modifier) * Time.time
+            power += recharge * (1.0 / rate_modifier) * Time.delta
             power = clamp(power, min: 0, max: max_power)
         }
        
@@ -219,7 +241,7 @@ class LaserWeapon: StatusItem {
             usable = true
         }
         if isFiring && usable {
-            power -= 2 * Time.time
+            power -= 2 * Time.delta
             let actors = Map.current.getActors(rect: laser.rect.getBounds())
             for a in actors {
                 callback(a)
@@ -235,7 +257,7 @@ class LaserWeapon: StatusItem {
             usable = false
         }
         if !isFiring || !usable {
-            power += rate * Time.time
+            power += rate * Time.delta
         }
         power = clamp(power, min: 0, max: limit)
     }

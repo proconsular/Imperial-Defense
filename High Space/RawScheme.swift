@@ -111,11 +111,17 @@ class RawVisualScheme: NSObject, RawScheme {
     func getMatrix() -> GLKMatrix4 {
         let global = scheme.hull.transform.global
         let local = scheme.hull.transform
-        let location = global.location - (scheme.camera ? Camera.transform.location : float2())
+        var location = global.location
+        if Camera.current != nil {
+            location -= (scheme.camera ? Camera.current.transform.location : float2())
+        }
         let orientation = global.orientation
         let translation = GLKMatrix4MakeTranslation(location.x, location.y, 0);
-        let matrix = GLKMatrix4RotateZ(GLKMatrix4Scale(translation, local.scale.x, local.scale.y, 1), orientation)
-        return matrix
+        let scale = GLKMatrix4MakeScale(local.scale.x, local.scale.y, 1)
+        let rotation = GLKMatrix4MakeRotation(orientation, 0, 0, 1)
+        let ts = GLKMatrix4Multiply(scale, translation)
+        let tsr = GLKMatrix4Multiply(ts, rotation)
+        return tsr
     }
     
     func getTexture() -> GLuint {

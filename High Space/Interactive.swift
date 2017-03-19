@@ -35,9 +35,9 @@ class InteractiveElement: InterfaceElement, Interface {
     var active = true
     
     init(_ location: float2, _ bounds: float2, _ event: @escaping () -> () = {}) {
-        rect = FixedRect(location, bounds)
+        rect = FixedRect(location + float2(0, GameScreen.size.y), bounds)
         self.event = event
-        self.location = location
+        self.location = rect.location
     }
     
     func use(_ command: Command) {
@@ -63,12 +63,12 @@ class TextButton: InteractiveElement {
     
     init(_ text: Text, _ location: float2, _ event: @escaping () -> ()) {
         self.text = text
-        super.init(location, text.size, event)
-        self.text.location = rect.location
+        super.init(location , text.size, event)
+        self.text.location = location
     }
     
     override func update() {
-        super.update()
+        //super.update()
         text.location = location
     }
     
@@ -85,7 +85,7 @@ class Button: InteractiveElement {
     
     init(_ texture: GLTexture, _ location: float2, _ bounds: float2, _ event: @escaping () -> ()) {
         display = Display(Rect(Transform(location), bounds), texture)
-        display.scheme.camera = false
+        display.camera = false
         super.init(location, bounds, event)
     }
     

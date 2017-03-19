@@ -1,5 +1,5 @@
 //
-//  Data.swift
+//  GameData.swift
 //  Imperial Defense
 //
 //  Created by Chris Luttio on 11/16/16.
@@ -21,7 +21,7 @@ class Difficulty {
     }
     
     var waves: Int {
-        return Data.info.level / 5 + 1
+        return GameData.info.level / 5 + 1
     }
     
     var size: Int {
@@ -29,7 +29,7 @@ class Difficulty {
     }
     
     var amount: Int {
-        return min(5 + Int(grade * 30), 18)
+        return min(5 + Int(grade * 10), 18)
     }
     
     var grade: Float {
@@ -100,24 +100,17 @@ class SoldierGenerator {
     }
     
     func create(_ location: float2) -> Soldier {
-        let grade = difficulty.grade
-        
         var soldier: Soldier!
         
-        for creator in ChanceTable.main.soldiers {
-            if creator.chance.spawnable(grade) {
+        var index = 0
+        while soldier == nil {
+            let creator = ChanceTable.main.soldiers[index]
+            let row = difficulty.row == 0 ? -1 : difficulty.row == difficulty.size - 1 ? 1 : 0
+            if creator.chance.spawnable(difficulty.wave, row) {
                 soldier = creator.create(location)
-                break
             }
+            index = (index + 1) % ChanceTable.main.soldiers.count
         }
-        
-        for augmentor in ChanceTable.main.armor {
-            if augmentor.chance.spawnable(grade) {
-                augmentor.augment(soldier)
-            }
-        }
-        
-        soldier.rate = difficulty.speed
         
         return soldier
     }
@@ -126,25 +119,28 @@ class SoldierGenerator {
 
 class Chance {
     
-    let level: Int
-    let probability: Float
+    let wave: Int
+    let row: Int
+    let rank: Int
     
-    init(_ probability: Float, _ level: Int = 0) {
-        self.probability = probability
-        self.level = level
+    init(_ wave: Int, _ rank: Int, _ row: Int) {
+        self.wave = wave
+        self.rank = rank
+        self.row = row
     }
     
-    func spawnable(_ grade: Float) -> Bool {
-        return willSpawn(grade) && unlocked
+    func spawnable(_ wave: Int, _ row: Int) -> Bool {
+        return self.row == row && isUnlocked(wave) && willSpawn(wave)
     }
     
-    private func willSpawn(_ grade: Float) -> Bool {
-        let gradient = UInt32(probability * (1 - grade))
-        return (gradient > 0 ? Int(arc4random() % gradient) : 0) == 0
+    func willSpawn(_ wave: Int) -> Bool {
+        let rank_weight: Float = 1 - Float(rank) / 10
+        let wave_weight: Float = (Float(wave) - Float(self.wave)) / (Float(100) - Float(self.wave))
+        return random(0, 1) <= wave_weight + rank_weight
     }
     
-    var unlocked: Bool {
-        return Data.info.level >= level
+    func isUnlocked(_ wave: Int) -> Bool {
+        return wave >= self.wave
     }
     
 }
@@ -178,8 +174,8 @@ class ArmorAugmentor {
     }
     
     func augment(_ soldier: Soldier) {
-        soldier.armor = weight
-        soldier.armor_image.color = color
+//        soldier.armor = weight
+//        soldier.armor_image.color = color
     }
     
 }
@@ -192,11 +188,16 @@ class ChanceTable {
     
     init() {
         soldiers = []
-        soldiers.append(Creator(Soldier.init, Chance(0,  0)))
-//        soldiers.append(Creator(Sniper.init, Chance(30, 3)))
-//        soldiers.append(Creator(Captain.init, Chance(30, 6)))
-//        soldiers.append(Creator(Bomber.init, Chance(30, 9)))
-//        soldiers.append(Creator(LaserSoldier.init, Chance(30, 19)))
+        soldiers.append(Creator(Scout.init,     Chance(0, 0, -1)))
+        //soldiers.append(Creator(Scout.init,     Chance(0, 5, 0)))
+        soldiers.append(Creator(Soldier.init,   Chance(0, 1, -1)))
+        soldiers.append(Creator(Soldier.init,   Chance(0, 0, 0)))
+        soldiers.append(Creator(Soldier.init,   Chance(0, 0, 1)))
+        soldiers.append(Creator(Banker.init,    Chance(0, 5, 1)))
+        soldiers.append(Creator(Captain.init,   Chance(10, 10, 0)))
+        soldiers.append(Creator(Healer.init,    Chance(10, 10, 0)))
+        soldiers.append(Creator(Heavy.init,     Chance(10, 10, 1)))
+        soldiers.append(Creator(Sniper.init,    Chance(10, 10, 1)))
         soldiers.reverse()
         
         armor = []

@@ -54,7 +54,7 @@ class Radialform: Form {
     
     init(_ radius: Float) {
         self.radius = radius
-        vertices = computeVertices(radius).centered
+        vertices = computeVertices(radius).centered.reversed()
     }
     
     private func computeVertices(_ radius: Float) -> [float2] {

@@ -8,8 +8,8 @@
 
 #import "TextureRepo.h"
 #import "GameViewController.h"
-#import "Texture.h"
 #import "GLTextureLoader.h"
+#import "Imperial_Defense-Swift.h"
 
 @implementation TextureRepo
 
@@ -87,7 +87,7 @@
 
 -(GLuint)textureWithName:(NSString *)name{
     Texture *des = _textures[name];
-    return des.texture;
+    return des.id;
 }
 
 -(Texture *)descriptionWithName:(NSString *)name {

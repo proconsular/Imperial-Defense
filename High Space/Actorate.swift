@@ -8,14 +8,24 @@
 
 import Foundation
 
-class Actorate {
+class Actorate: RenderList {
     
-    var actors: [Actor]
+    var actors: [Entity]
     
     init() {
         actors = []
     }
     
+    func append(_ actor: Entity) {
+        actors.append(actor)
+    }
     
+    func remove(_ actor: Entity) {
+        actors.removeObject(actor)
+    }
+    
+    func getDisplays() -> [Display] {
+        return actors.map{ $0.display }
+    }
     
 }

@@ -17,7 +17,7 @@ class LightingSystem {
     init (_ grid: Grid) {
         ambient = Display(Rect(Camera.size / 2, Camera.size), GLTexture("white"))
         ambient.color = float4(0.1, 0.1, 0.1, 0.7)
-        ambient.transform.assign(Camera.transform)
+        //ambient.transform.assign(Camera.transform)
         
         lighting = Lighting(grid)
         light = Light(float2(2.m, -2.m), 1.25, -0.005, 40000, -0.0001, float4(1, 1, 1, 1))

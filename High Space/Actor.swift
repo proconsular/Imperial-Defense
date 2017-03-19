@@ -8,22 +8,25 @@
 
 import Foundation
 
-class Actor {
+protocol Actor {
+    var alive: Bool { get set }
+    func update()
+}
+
+class Entity: Actor {
     let transform: Transform
     
-    let display: Display
+    var display: Display
     let body: Body
     
     var onObject = false
     var alive = true
     
-    var order = 0
-    
     init(_ hull: Hull, _ substance: Substance) {
         self.transform = hull.transform
         display = Display(hull, GLTexture("white"))
         body = Body(hull, substance)
-        display.scheme.camera = true
+        display.camera = true
     }
     
     func update() {}

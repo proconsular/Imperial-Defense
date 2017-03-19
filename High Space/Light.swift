@@ -95,7 +95,7 @@ class Light {
     }
     
     func transform(_ location: float2) -> float2 {
-        let t = location - Camera.transform.location
+        let t = location - Camera.current.transform.location
         return float2(t.x, Camera.size.y - t.y) * float2(0.96, 0.96)
     }
     

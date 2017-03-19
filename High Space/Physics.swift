@@ -16,10 +16,10 @@ let gravity = float2(0, 0)
 
 class Simulation {
     
-    fileprivate let iterations = 3
+    private let iterations = 3
     
     var speedLimit = 1.0
-    fileprivate var speed = 1.0
+    var speed = 1.0
     
     var processor = Processor(0.2)
     var broadphaser: Broadphaser
@@ -42,7 +42,7 @@ class Simulation {
     }
     
     func simulate() {
-        let bodies = grid.actors.map{ $0.body }
+        let bodies = grid.actorate.actors.map{ $0.body }
         processor.process(dt, step(bodies, dt * speed))
     }
     
@@ -56,6 +56,7 @@ class Simulation {
             $0.applyVelocity(delta)
             $0.clearForces()
         }
+        
         contacts.forEach{ $0.applyCorrection() }
     }
     

@@ -13,6 +13,7 @@ class StatusLayer: InterfaceLayer {
     let points: Text
     
     let shield: PercentDisplay
+    let stamina: PercentDisplay
     let weapon: PercentDisplay
     
     let background: Display
@@ -23,20 +24,30 @@ class StatusLayer: InterfaceLayer {
         self.game = game
         let size: Float = 80
         
-        shield = PercentDisplay(float2(115, size / 2), size * 0.45, 18, 1, game.player.shield)
-        weapon = PercentDisplay(float2(Camera.size.x - 30, size / 2), size * 0.45, 14, -1, game.player.weapon)
+        let sh = LifeDisplayAdapter(game.player.health.shield!, float4(0, 0.65, 1, 1))
+        sh.warnings.append(ShieldLowPowerWarning(float4(1, 0, 0, 1), 0.125, 0.33))
+        shield = PercentDisplay(float2(115, size / 2) + float2(0, -GameScreen.size.y), size * 0.45, 18, 1, sh)
+        shield.frame.color = float4(0)
         
-        wave = Text(float2(300, 100), " ", FontStyle(defaultFont, float4(1), 48.0))
-        points = Text(float2(Camera.size.x / 2, 5 + size / 2), " ", FontStyle(defaultFont, float4(1), 72.0 * (size / 100)))
+        stamina = PercentDisplay(float2(115, size / 2) + float2(0, -GameScreen.size.y), size * 0.45, 18, 1, LifeDisplayAdapter(game.player.health.stamina, float4(0, 1, 0.65, 1)))
+        weapon = PercentDisplay(float2(GameScreen.size.x - 30, size / 2) + float2(0, -GameScreen.size.y), size * 0.45, 14, -1, PlayerWeaponDisplayAdapter(game.player.weapon))
         
-        background = Display(Rect(float2(Camera.size.x / 2, size / 2), float2(Camera.size.x, size)), GLTexture("GameUIBack"))
-        background.scheme.camera = false
+        wave = Text(float2(300, 100) + float2(0, -GameScreen.size.y), " ", FontStyle(defaultFont, float4(1), 48.0))
+        points = Text(float2(GameScreen.size.x / 2, 5 + size / 2) + float2(0, -GameScreen.size.y), " ", FontStyle(defaultFont, float4(1), 72.0 * (size / 100)))
+        
+        background = Display(float2(GameScreen.size.x / 2, size / 2) , float2(GameScreen.size.x, size), GLTexture("GameUIBack"))
+        //background.camera = false
         
         super.init()
         
-        objects.append(Button(GLTexture("pause"), float2(50, size / 2), float2(size / 2), {
+        objects.append(Button(GLTexture("pause"), float2(50, size / 2) + float2(0, -GameScreen.size.y), float2(size / 2), {
             UserInterface.push(PauseScreen())
         }))
+    }
+    
+    override func update() {
+        shield.update()
+        weapon.update()
     }
     
     override func display() {
@@ -44,9 +55,10 @@ class StatusLayer: InterfaceLayer {
         
         super.display()
         
+        stamina.render()
         shield.render()
         
-        points.setString("\(Coordinator.wave) : \(Data.info.points) : \(Data.info.bank)")
+        points.setString("\(Coordinator.wave) : \(GameData.info.points)")
         points.render()
         
         weapon.render()
@@ -56,6 +68,7 @@ class StatusLayer: InterfaceLayer {
 protocol StatusItem {
     var percent: Float { get }
     var color: float4 { get }
+    func update()
 }
 
 class PercentDisplay {
@@ -81,20 +94,26 @@ class PercentDisplay {
         let width = (s + spacing) * Float(count) + spacing
         
         for i in 0 ..< count {
-            let b = Display(Rect(location + Float(alignment) * float2(Float(i) * (s + spacing) + s / 2 + padding / 2, 0), float2(s)), GLTexture("white"))
+            let loc = location + Float(alignment) * float2(Float(i) * (s + spacing) + s / 2 + padding / 2, 0)
+            let size = float2(s)
+            let b = Display(Rect(loc, size), GLTexture("white"))
             b.color = status.color
-            b.scheme.camera = false
+            //b.camera = false
             blocks.append(b)
         }
         
         frame = Display(Rect(float2(), float2(width, height)), GLTexture("white"))
         frame.color = float4(0.3, 0.3, 0.3, 1)
         
-        transform = frame.scheme.hull.transform
-        transform.assign(Camera.transform)
+        transform = frame.scheme.schemes[0].hull.transform
+        transform.assign(Camera.current.transform)
         transform.location = location + float2(width / 2 * Float(alignment), 0)
     }
-   
+    
+    func update() {
+        status.update()
+    }
+    
     func render() {
         frame.render()
         let visible = clamp(Int(Float(blocks.count) * status.percent), min: 0, max: blocks.count)
