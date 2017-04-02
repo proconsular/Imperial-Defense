@@ -33,12 +33,11 @@ class Difficulty {
     }
     
     var grade: Float {
-        return Float(level) * 0.01 + Float(wave) * 0.0125 + Float(row) * 0.025
+        return Float(level) * 0.01 + Float(wave) * 0.00625 + Float(row) * 0.025
     }
     
     var speed: Float {
-        let rate = 0.2 - min(grade * 0.0125, 0.05)
-        return clamp(Float(rate), min: 0.15, max: 1)
+        return clamp(Float(grade * 0.1), min: 0, max: 0.3)
     }
     
 }
@@ -112,6 +111,10 @@ class SoldierGenerator {
             index = (index + 1) % ChanceTable.main.soldiers.count
         }
         
+        if let marcher = soldier.animator as? MarchAnimator {
+            marcher.rate -= difficulty.speed
+        }
+        
         return soldier
     }
     
@@ -121,9 +124,9 @@ class Chance {
     
     let wave: Int
     let row: Int
-    let rank: Int
+    let rank: Float
     
-    init(_ wave: Int, _ rank: Int, _ row: Int) {
+    init(_ wave: Int, _ rank: Float, _ row: Int) {
         self.wave = wave
         self.rank = rank
         self.row = row
@@ -134,9 +137,7 @@ class Chance {
     }
     
     func willSpawn(_ wave: Int) -> Bool {
-        let rank_weight: Float = 1 - Float(rank) / 10
-        let wave_weight: Float = (Float(wave) - Float(self.wave)) / (Float(100) - Float(self.wave))
-        return random(0, 1) <= wave_weight + rank_weight
+        return rank >= random(0, 1)
     }
     
     func isUnlocked(_ wave: Int) -> Bool {
@@ -188,17 +189,19 @@ class ChanceTable {
     
     init() {
         soldiers = []
-        soldiers.append(Creator(Scout.init,     Chance(0, 0, -1)))
-        //soldiers.append(Creator(Scout.init,     Chance(0, 5, 0)))
-        soldiers.append(Creator(Soldier.init,   Chance(0, 1, -1)))
-        soldiers.append(Creator(Soldier.init,   Chance(0, 0, 0)))
-        soldiers.append(Creator(Soldier.init,   Chance(0, 0, 1)))
-        soldiers.append(Creator(Banker.init,    Chance(0, 5, 1)))
-        soldiers.append(Creator(Captain.init,   Chance(10, 10, 0)))
-        soldiers.append(Creator(Healer.init,    Chance(10, 10, 0)))
-        soldiers.append(Creator(Heavy.init,     Chance(10, 10, 1)))
-        soldiers.append(Creator(Sniper.init,    Chance(10, 10, 1)))
-        soldiers.reverse()
+        soldiers.append(Creator(Scout.init,     Chance(0, 0.75, -1)))
+        
+        soldiers.append(Creator(Soldier.init,   Chance(0, 0.5, -1)))
+        soldiers.append(Creator(Soldier.init,   Chance(0, 0.75, 0)))
+        soldiers.append(Creator(Soldier.init,   Chance(0, 0.5, 1)))
+        
+        soldiers.append(Creator(Banker.init,    Chance(0, 0.75, 1)))
+        
+        soldiers.append(Creator(Captain.init,   Chance(5, 0.25, 0)))
+        soldiers.append(Creator(Healer.init,    Chance(15, 0.25, 0)))
+        soldiers.append(Creator(Heavy.init,     Chance(30, 0.25, 1)))
+        soldiers.append(Creator(Sniper.init,    Chance(40, 0.5, 1)))
+        //soldiers.reverse()
         
         armor = []
 //        armor.append(ArmorAugmentor(40, float4(1), Chance(20, 7)))

@@ -13,29 +13,27 @@ class StoreScreen: Screen {
     let points: Text
     
     override init() {
-        background = Display(Rect(float2(Camera.size.x / 2, -Camera.size.y / 2), Camera.size), GLTexture())
+        UserInterface.controller.push(PointController(0))
+        
+        background = Display(float2(GameScreen.size.x / 2, GameScreen.size.y / 2), GameScreen.size, GLTexture())
         background.scheme.schemes[0].layout.coordinates = [float2(0, 0), float2(2, 0) * 2, float2(2, 3) * 2, float2(0, 3) * 2]
         background.color = float4(0.1, 0.1, 0.1, 1)
         
         points = Text(" ", defaultStyle)
-        points.location = float2(Camera.size.x / 2, 60)
+        points.location = float2(Camera.size.x / 2, 60 - GameScreen.size.y)
         
         super.init()
         
         let layer = InterfaceLayer()
         
-        let uspacing = float2(600, 300)
+        let uspacing = float2(600, 0)
         
-        layer.objects.append(UpgradeView(float2(Camera.size.x / 2 - uspacing.x, Camera.size.y / 2 - uspacing.y / 2), GameData.info.upgrades[0]))
-        layer.objects.append(UpgradeView(float2(Camera.size.x / 2, Camera.size.y / 2 - uspacing.y / 2), GameData.info.upgrades[1]))
-        layer.objects.append(UpgradeView(float2(Camera.size.x / 2 + uspacing.x, Camera.size.y / 2 - uspacing.y / 2), GameData.info.upgrades[2]))
-        
-        layer.objects.append(UpgradeView(float2(Camera.size.x / 2 - uspacing.x, Camera.size.y / 2 + uspacing.y / 2), GameData.info.upgrades[3]))
-        layer.objects.append(UpgradeView(float2(Camera.size.x / 2, Camera.size.y / 2 + uspacing.y / 2), GameData.info.upgrades[4]))
-        layer.objects.append(UpgradeView(float2(Camera.size.x / 2 + uspacing.x, Camera.size.y / 2 + uspacing.y / 2), GameData.info.upgrades[5]))
+        layer.objects.append(UpgradeView(float2(GameScreen.size.x / 2 - uspacing.x, GameScreen.size.y / 2 - uspacing.y / 2), upgrader.firepower))
+        layer.objects.append(UpgradeView(float2(GameScreen.size.x / 2, GameScreen.size.y / 2 - uspacing.y / 2), upgrader.shieldpower))
+        layer.objects.append(UpgradeView(float2(GameScreen.size.x / 2 + uspacing.x, GameScreen.size.y / 2 - uspacing.y / 2), upgrader.barrier))
         
         let spacing = float2(350, 0)
-        let offset = float2(0, 450)
+        let offset = float2(0, 450 - GameScreen.size.y)
         
         layer.objects.append(TextButton(Text("Menu", FontStyle(defaultFont, float4(1), 64)), Camera.size / 2 + offset - spacing, {
             UserInterface.space.wipe()
@@ -49,6 +47,10 @@ class StoreScreen: Screen {
         
         layers.append(layer)
         
+    }
+    
+    deinit {
+        UserInterface.controller.reduce()
     }
     
     override func display() {

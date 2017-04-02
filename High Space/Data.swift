@@ -32,8 +32,7 @@ struct GameInfo {
     var weapon: Int
     var bank: Int
     var wave: Int
-    
-    var upgrades: [Upgrade]
+    var upgrades: [String: Int]
     
     init() {
         name = "default"
@@ -42,7 +41,7 @@ struct GameInfo {
         weapon = 0
         bank = 0
         wave = 0
-        upgrades = []
+        upgrades = ["Gun": 0, "Shield": 0, "Barrier": 0]
     }
     
     mutating func progress() {
@@ -50,34 +49,15 @@ struct GameInfo {
     }
     
     static var Default: GameInfo {
-        var info = GameInfo()
-        info.upgrades.append(contentsOf: [SniperBulletUpgrade(), MachineGunUpgrade(), BombGunUpgrade(), HealthUpgrade(), BarrierUpgrade(), MovementUpgrade()])
-        return info
+        return GameInfo()
     }
     
-    var sniper: SniperBulletUpgrade {
-        return upgrades[0] as! SniperBulletUpgrade
+    mutating func record(_ upgrader: Upgrader) {
+        for u in upgrader.upgrades {
+            upgrades[u.name] = Int(u.range.amount)
+        }
     }
     
-    var machine: MachineGunUpgrade {
-        return upgrades[1] as! MachineGunUpgrade
-    }
-    
-    var bomb: BombGunUpgrade {
-        return upgrades[2] as! BombGunUpgrade
-    }
-    
-    var health: HealthUpgrade {
-        return upgrades[3] as! HealthUpgrade
-    }
-    
-    var barrier: BarrierUpgrade {
-        return upgrades[4] as! BarrierUpgrade
-    }
-    
-    var movement: MovementUpgrade {
-        return upgrades[5] as! MovementUpgrade
-    }
 }
 
 

@@ -12,37 +12,43 @@ class UpgradeView: InterfaceElement, Interface {
     
     var location: float2
     
-    let upgrade: Upgrade
-    
     let background: Display
     var icon: Display?
     
     var text: Text!
     var button: InteractiveElement!
     
+    var fade: Float = 1
+    var fade_velo: Float = 0
+    var fade_acc: Float = 0
+    var direction: Float = -1
+    
+    var upgrade: Upgrade
+    
     init(_ location: float2, _ upgrade: Upgrade) {
         self.location = location
         self.upgrade = upgrade
         
-        background = Display(Circle(Transform(location + float2(0, -Camera.size.y)), 135), GLTexture("white"))
+        background = Display(Circle(Transform(location + float2(0, -GameScreen.size.y)), 135), GLTexture("white"))
         background.color = float4(0.2, 0.4, 0.3, 1)
         
         icon = Display(Rect(background.transform, float2(150)), GLTexture(upgrade.name.lowercased()))
         
-        button = InteractiveElement(location, float2(300)) {
+        button = InteractiveElement(location + float2(0, -GameScreen.size.y), float2(300)) {
             self.buy()
         }
         
-        text = Text("upgrade: amount", FontStyle(defaultFont, float4(1), 48))
-        text.location = location + float2(0, 175)
+        text = Text("\(upgrade.name)", FontStyle(defaultFont, float4(1), 48))
+        text.location = location + float2(0, 175) + float2(0, -GameScreen.size.y)
     }
     
     func buy() {
         let cost = self.upgrade.computeCost()
-        if GameData.info.points >= cost {
+        if GameData.info.points >= cost && upgrade.range.amount < upgrade.range.limit {
             GameData.info.points -= cost
             self.upgrade.upgrade()
         }
+        GameData.info.record(upgrader)
         GameData.persist()
     }
     
@@ -51,9 +57,30 @@ class UpgradeView: InterfaceElement, Interface {
     }
     
     func render() {
+        
+        fade_acc += 0.01 * direction * Time.delta
+        fade_acc *= 0.9
+        
+        fade_velo += fade_acc
+        fade_velo *= 0.95
+        
+//        fade_velo += 0.05 * direction * Time.delta
+//        fade_velo *= 0.98
+//        
+        fade += fade_velo
+        
+        if fade < 0.5 {
+            direction = 1
+        }
+        if fade > 0.9 {
+            direction = -1
+        }
+        
+        background.color = float4(0.3, 0.65, 0.1, 1) * fade
+        background.refresh()
         background.render()
         icon?.render()
-        text.setString("\(upgrade.name): (\(upgrade.computeCost()))")
+        text.setString("\(upgrade.name) \(upgrade.range.amount)")
         text.render()
     }
     

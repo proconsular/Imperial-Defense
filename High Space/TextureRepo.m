@@ -54,7 +54,7 @@
     @"adv_soldier",
     @"laser_soldier",
     @"soldier_walk",
-    @"sniper",
+    @"gun",
     @"machine",
     @"bomb",
     @"shield",

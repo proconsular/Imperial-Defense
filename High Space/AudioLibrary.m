@@ -60,6 +60,9 @@
     [self loadAudio:@"power_full"];
     [self loadAudio:@"power_low"];
     [self loadAudio:@"death"];
+    [self loadAudio:@"0 Title" :44100];
+    [self loadAudio:@"1 Battle" :44100];
+    [self loadAudio:@"2 Imperial" :44100];
     
     
     _hasMusic = YES;

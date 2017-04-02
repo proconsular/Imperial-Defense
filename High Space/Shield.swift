@@ -64,7 +64,9 @@ class ShieldLowPowerWarning: PowerWarning {
             if counter >= frequency {
                 counter = 0
                 active = !active
-                play("shield_weak")
+                let a = Audio("shield_weak")
+                a.volume = sound_volume
+                a.start()
             }
         }else{
             active = false
@@ -86,14 +88,31 @@ class ShieldAudio: ShieldDelegate {
     
     func recover(_ percent: Float) {
         if percent <= 0.9 {
-            play("shield-re1")
+            let a = Audio("shield-re1")
+            a.volume = sound_volume
+            a.start()
         }
     }
     
     func damage() {
-        playIfNot("hit8", 0.65)
+        let a = Audio("hit8")
+        a.volume = sound_volume
+        a.pitch = 0.65
+        if !a.playing {
+            a.start()
+        }
     }
     
+}
+
+struct ShieldPower {
+    var amount: Float
+    var recharge: Float
+    
+    init(_ amount: Float, _ recharge: Float) {
+        self.amount = amount
+        self.recharge = recharge
+    }
 }
 
 class Shield: Life {
@@ -101,13 +120,17 @@ class Shield: Life {
     var timer: Timer!
     var damaged = false
     var broke = false
-    var recharge: Float
     
     var delegate: ShieldDelegate?
     
+    var power: ShieldPower
+    
+    var mods: [ShieldPower]
+    
     init(_ amount: Float, _ timeout: Float, _ recharge: Float) {
-        self.recharge = recharge
+        power = ShieldPower(amount, recharge)
         points = PointRange(amount)
+        mods = []
         timer = Timer(timeout, recover)
     }
     
@@ -132,16 +155,28 @@ class Shield: Life {
     }
     
     func update() {
+        let final = computeFinalPower()
         if damaged {
             timer.update(Time.delta)
         }else{
-            points.recharge(recharge * Time.delta)
+            points.limit = final.amount
+            points.recharge(final.recharge * Time.delta)
         }
         broke = false
     }
     
+    func computeFinalPower() -> ShieldPower {
+        var final = power
+        for m in mods {
+            final.amount += m.amount
+            final.recharge += m.recharge
+        }
+        return final
+    }
+    
     func apply(_ color: float4) -> float4 {
-        let percent = (points.percent + (points.amount > 0 ? 0.4 : 0)) * 0.9
+        let final = computeFinalPower()
+        let percent = ((points.amount / final.amount) + (points.amount > 0 ? 0.4 : 0)) * 0.9
         return (color - float4(percent * 0.6)) + float4(0.2, 0.6, 1, 1) * float4(percent)
     }
     

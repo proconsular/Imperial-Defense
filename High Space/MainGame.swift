@@ -10,6 +10,7 @@ import Foundation
 
 let defaultStyle = FontStyle("Metropolis-ExtraLight", float4(1), 72)
 let defaultFont = "Metropolis-ExtraLight"
+let sound_volume: Float = 0.01
 
 @objc class MainGame: NSObject {
     
@@ -66,14 +67,32 @@ class GameExperiment: GameInterface {
     
 }
 
+var upgrader: Upgrader!
+
 class GameBase: GameInterface {
     
     init() {
+        upgrader = Upgrader()
+        
         UserInterface.create()
         GameData.create()
         
+        for u in upgrader.upgrades {
+            u.range.amount = Float(GameData.info.upgrades[u.name]!)
+        }
+        
+        GameData.info.level = 0
+        //GameData.info.points = 2000
+        GameData.info.wave = 0
+        
+        upgrader.firepower.range.amount = 0
+        upgrader.shieldpower.range.amount = 0
+        upgrader.barrier.range.amount = 0
+        
+        
         let main = ScreenSpace()
         main.push(PrincipalScreen())
+        //main.push(StoreScreen())
         UserInterface.set(space: main)
     }
     

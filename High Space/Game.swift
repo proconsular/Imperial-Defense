@@ -15,6 +15,24 @@ class GameScreen {
     }
 }
 
+class Upgrader {
+    
+    let firepower: FirePowerUpgrade
+    let shieldpower: ShieldUpgrade
+    let barrier: BarrierUpgrade
+    
+    var upgrades: [Upgrade]
+    
+    init() {
+        firepower = FirePowerUpgrade(Impact(15, 2.5.m))
+        shieldpower = ShieldUpgrade(ShieldPower(140, 100))
+        barrier = BarrierUpgrade(BarrierLayout(100, 2))
+        
+        upgrades = [firepower, shieldpower, barrier]
+    }
+    
+}
+
 class Game: DisplayLayer {
     
     let physics: Simulation
@@ -32,6 +50,8 @@ class Game: DisplayLayer {
     var end_timer: Float = 0
     var wave_pause_timer: Float = 0
     var pausing: Bool = false
+    
+    var complete: Bool = false
    
     var mode: Int
     
@@ -41,14 +61,21 @@ class Game: DisplayLayer {
         Time.scale = 1
         self.mode = mode
         
-        GameData.info.level = 0
-        
         map = Map(float2(20.m, 40.m))
         
         Map.current = map
         Camera.current = Camera(map)
         physics = Simulation(map.grid)
-        player = Player(float2(map.size.x / 2, -1.m))
+        
+        let shield = Shield(Float(40), Float(2), Float(20))
+        shield.delegate = ShieldAudio()
+        let health = Health(30, shield)
+        upgrader.shieldpower.apply(shield)
+        
+        let firer = Firer(0.1075, Impact(15, 14.m), Casing(float2(0.4.m, 0.12.m) * 1.2, float4(0, 1, 0.5, 1), "enemy"))
+        upgrader.firepower.apply(firer)
+        
+        player = Player(float2(map.size.x / 2, -1.m), health, firer)
         map.append(player)
         
         points = GameData.info.points
@@ -57,18 +84,23 @@ class Game: DisplayLayer {
         
         scenery = Scenery(map)
         
+        end_timer = 2
         barriers = []
         
         player_interface = PlayerInterface(player, 10.m, 7.m)
         
         createWalls(0.15.m)
-        createBarriers(3, -2.8.m, int2(10, 4))
-    }
-    
-    func createBarriers(_ amount: Int, _ height: Float, _ size: int2) {
-        for i in 0 ..< amount {
-            let div = map.size.x / Float(amount)
-            barriers.append(Barrier(float2(div / 2 + div * Float(i), height), size))
+        
+        let constructor = BarrierConstructor(BarrierLayout(10, 2))
+        upgrader.barrier.apply(constructor)
+        barriers = constructor.construct(-2.8.m, int2(10, 4))
+        
+        let audio = Audio("2 Imperial")
+        if !audio.playing {
+            audio.loop = true
+            audio.volume = 1
+            audio.pitch = 1
+            audio.start()
         }
     }
     
@@ -100,14 +132,33 @@ class Game: DisplayLayer {
             UserInterface.space.push(EndScreen(false))
         }
         
-        coordinator.update()
+        if !complete {
+            coordinator.update()
+        }
+        
         map.update()
         physics.simulate()
         Camera.current.update()
         
         if coordinator.empty {
-            GameData.info.wave += 1
-            GameData.persist()
+            complete = true
+        }
+        
+        if complete {
+            end_timer -= Time.delta
+            if end_timer <= 0 {
+                end()
+            }
+        }
+    }
+    
+    func end() {
+        GameData.info.wave += 1
+        GameData.persist()
+        if GameData.info.wave >= 50 {
+            UserInterface.space.push(EndScreen(true))
+        }else{
+            UserInterface.space.push(StoreScreen())
         }
     }
     

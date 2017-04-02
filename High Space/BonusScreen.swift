@@ -22,12 +22,12 @@ class BonusScreen: Screen {
         let spacing = float2(550, 0)
         let offset = float2(0, 400)
         
-        background = Display(Rect(Camera.size / 2, Camera.size), GLTexture())
+        background = Display(GameScreen.size / 2, GameScreen.size, GLTexture())
         background.camera = false
         background.color = float4(0.75) * float4(0, 0, 0, 1)
         
         timer = 10
-        text = Text(Camera.size / 2 - offset, "Time: 0", defaultStyle)
+        text = Text(GameScreen.size / 2 - offset + float2(0, -GameScreen.size.y), "Time: 0", defaultStyle)
         
         super.init()
         
@@ -35,36 +35,8 @@ class BonusScreen: Screen {
         
 //        layer.objects.append(text)
       
-        layer.objects.append(TextButton(Text("Repair (50)", FontStyle(defaultFont, float4(1), 52)), Camera.size / 2 - spacing) {
-            if GameData.info.points >= 50 {
-                GameData.info.points -= 50
-                game.barriers.forEach{ $0.destroy() }
-                game.createBarriers(3, -2.8.m, int2(10, 4))
-            }
-        })
-        
-        layer.objects.append(TextButton(Text("Super Shield (75)", FontStyle(defaultFont, float4(1), 52)), Camera.size / 2) {
-            if GameData.info.points >= 75 {
-                GameData.info.points -= 75
-                game.player.health.shield?.points.overcharge(amount: 2)
-            }
-        })
-        
-        layer.objects.append(TextButton(Text("Super Power (100)", FontStyle(defaultFont, float4(1), 52)), Camera.size / 2 + spacing) {
-            if GameData.info.points >= 100 {
-                GameData.info.points -= 100
-                game.player.weapon.overcharge(amount: 25)
-            }
-        })
-        
-        layer.objects.append(TextButton(Text("Save Half"), Camera.size / 2 + offset - float2(200, 0)) {
-            GameData.info.bank += GameData.info.points / 2
-            GameData.info.points = GameData.info.points / 2
-            GameData.persist()
-            UserInterface.space.pop()
-        })
-        
-        layer.objects.append(TextButton(Text("Continue"), Camera.size / 2 + offset + float2(200, 0)) {
+      
+        layer.objects.append(TextButton(Text("Continue"), GameScreen.size / 2 + offset + float2(0, -GameScreen.size.y)) {
             UserInterface.space.pop()
         })
         

@@ -9,49 +9,133 @@
 import Foundation
 
 class Bullet: Entity {
-    var info: BulletInfo
+    var impact: Impact
+    var casing: Casing
     
-    init(_ location: float2, _ direction: float2, _ tag: String, _ info: BulletInfo) {
-        self.info = info
-        super.init(Rect(location, info.size), Substance(PhysicalMaterial(.wood), Mass(0.05, 0), Friction(.iron)))
+    init(_ location: float2, _ direction: float2, _ impact: Impact, _ casing: Casing) {
+        self.impact = impact
+        self.casing = casing
+        
+        super.init(Rect(location, casing.size), Substance(PhysicalMaterial(.wood), Mass(0.05, 0), Friction(.iron)))
+        
         display.scheme.schemes[0].info.texture = GLTexture("bullet").id
-        display.color = info.color
+        display.color = casing.color
+        
         body.noncolliding = true
         body.callback = { (body, collision) in
-            if !self.alive {
-                return
-            }
-            if tag == "enemy" {
-                if let char = body.object as? Soldier {
-                    char.damage(amount: self.info.damage)
-                    //play("hit1", 1.5)
-                }
-                if !(body.object is Player) {
-                    self.alive = false
-                }
-            }
-            if tag == "player" {
-                if let pla = body.object as? Player {
-                    pla.hit(amount: self.info.damage)
-                }
-                if !(body.object is Soldier) {
-                    self.alive = false
-                }
-            }
-            if let char = body.object as? Wall {
-                char.health -= self.info.damage
-                //play("hit1", 1.5)
-            }
-            self.info.collide(self)
+            self.hit(body, collision)
         }
-        body.velocity = info.speed * direction
+        
+        body.velocity = impact.speed * direction
         body.orientation = atan2(direction.y, direction.x)
-        body.mask = 0b01111
+        body.mask = casing.tag == "player" ? 0b11 : 0b100
         body.object = self
     }
     
-    override func update() {
-        super.update()
+    func hit(_ body: Body, _ collision: Collision) {
+        if !self.alive {
+            return
+        }
+        if self.casing.tag == "enemy" {
+            if let char = body.object as? Soldier {
+                char.damage(amount: Int(impact.damage))
+            }
+            if !(body.object is Player) {
+                self.alive = false
+            }
+        }
+        if self.casing.tag == "player" {
+            if let pla = body.object as? Player {
+                pla.hit(amount: Int(impact.damage))
+            }
+            if !(body.object is Soldier) {
+                self.alive = false
+            }
+        }
+        if let char = body.object as? Wall {
+            char.health -= Int(impact.damage)
+        }
     }
     
 }
+
+struct Impact {
+    var damage: Float
+    var speed: Float
+    
+    init(_ damage: Float, _ speed: Float) {
+        self.damage = damage
+        self.speed = speed
+    }
+    
+}
+
+struct Casing {
+    var size: float2
+    var color: float4
+    var tag: String
+    
+    init(_ size: float2, _ color: float4, _ tag: String) {
+        self.size = size
+        self.color = color
+        self.tag = tag
+    }
+}
+
+class Firer {
+    
+    var rate: Float
+    var counter: Float
+    
+    var impact: Impact
+    var casing: Casing
+    
+    var mods: [Impact]
+    
+    init(_ rate: Float, _ impact: Impact, _ casing: Casing) {
+        self.rate = rate
+        self.impact = impact
+        self.casing = casing
+        mods = []
+        counter = 0
+    }
+    
+    func update() {
+        counter += Time.delta
+    }
+    
+    func fire(_ location: float2, _ direction: float2) {
+        let bullet = Bullet(location, direction, computeFinalImpact(), casing)
+        Map.current.append(bullet)
+        counter = 0
+    }
+    
+    func computeFinalImpact() -> Impact {
+        var final = impact
+        for i in mods {
+            final.damage += i.damage
+            final.speed += i.speed
+        }
+        return final
+    }
+    
+    var operable: Bool {
+        return counter >= rate
+    }
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

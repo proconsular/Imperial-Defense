@@ -27,8 +27,8 @@ class Soldier: Entity, Created {
         let health = Health(5, shield)
         self.init(location, health, float4(1))
         animator = MarchAnimator(self, 0.1, 0.075.m)
-        let bullet = BulletInfo(10, 8.m, 2.5, float2(0.5.m, 0.14.m), float4(1, 0.25, 0, 1))
-        weapon = Weapon(transform, float2(0, 1), bullet, "player")
+        let firer = Firer(2.5, Impact(10, 8.m), Casing(float2(0.5.m, 0.14.m), float4(1, 0.25, 0, 1), "player"))
+        weapon = Weapon(transform, float2(0, 1), firer)
         weapon?.offset = float2(-0.275.m, -0.5.m)
     }
     
@@ -51,9 +51,10 @@ class Soldier: Entity, Created {
     }
     
     func damage(amount: Int) {
+        if transform.location.y < -GameScreen.size.y + 0.5.m { return }
         health.damage(Float(amount))
         let a = Audio("hit2")
-        a.volume = 0.5
+        a.volume = sound_volume
         a.start()
     }
     
@@ -81,7 +82,9 @@ class Soldier: Entity, Created {
                 if let weapon = weapon {
                     if weapon.canFire {
                         weapon.fire()
-                        play("shoot3")
+                        let s = Audio("shoot3")
+                        s.volume = sound_volume
+                        s.start()
                     }
                 }
             }
@@ -95,8 +98,8 @@ class Scout: Soldier {
     required init(_ location: float2) {
         super.init(location, Health(5, nil), float4(0.5, 0.5, 0.5, 1))
         animator = MarchAnimator(self, 0.075, 0.125.m)
-        let bullet = BulletInfo(10, 8.m, 0.25, float2(0.5.m, 0.14.m), float4(1, 0.75, 0, 1))
-        weapon = Weapon(transform, float2(0, 1), bullet, "player")
+        let firer = Firer(0.25, Impact(10, 8.m), Casing(float2(0.5.m, 0.14.m), float4(1, 0.75, 0, 1), "player"))
+        weapon = Weapon(transform, float2(0, 1), firer)
         weapon?.offset = float2(-0.275.m, -0.5.m)
     }
     
@@ -105,19 +108,22 @@ class Scout: Soldier {
 class Banker: Soldier {
     
     required init(_ location: float2) {
-        let shield = Shield(Float(30), Float(0.25), Float(80))
-        super.init(location, Health(30, shield), float4(1, 1, 0.25, 1))
+        let shield = Shield(Float(15), Float(2.0), Float(80))
+        super.init(location, Health(45, shield), float4(1, 1, 0.25, 1))
         animator = MarchAnimator(self,  0.1, 0.075.m)
-        drop = CoinDrop(Int(arc4random() % 3) + 3, 1)
+        drop = CoinDrop(Int(arc4random() % 5) + 3, 1)
     }
     
     override func update() {
         super.update()
-        if health.percent <= 0.5 {
-            if random(0, 1) <= 0.25 {
-                animator = MarchAnimator(self, 0.025, -0.1.m)
+        if transform.location.y >= -GameScreen.size.y + 2.m {
+            if health.percent <= 0.5 {
+                if 0.25 >= random(0, 1) {
+                    animator = MarchAnimator(self, 0.025, -0.1.m)
+                }
             }
         }
+        
         if transform.location.y < -Camera.size.y * 2 {
             alive = false
         }
@@ -133,8 +139,8 @@ class Captain: Soldier {
         rushed = false
         super.init(location, Health(30, Shield(Float(30), Float(2.0), Float(30))), float4(1, 0.5, 0.5, 1))
         animator = MarchAnimator(self, 0.1, 0.075.m)
-        let bullet = BulletInfo(20, 6.m, 1.0, float2(0.5.m, 0.14.m) * 1.2, float4(1, 0, 0, 1))
-        weapon = Weapon(transform, float2(0, 1), bullet, "player")
+        let firer = Firer(1.0, Impact(20, 6.m), Casing(float2(0.5.m, 0.14.m) * 1.2, float4(1, 0, 0, 1), "player"))
+        weapon = Weapon(transform, float2(0, 1), firer)
         weapon?.offset = float2(-0.275.m, -0.5.m)
     }
     
@@ -144,7 +150,7 @@ class Captain: Soldier {
         if transform.location.y >= -Camera.size.y * 0.75 {
             if !rushed {
                 if random(0, 1) <= 0.1 {
-                    rush(2.m)
+                    rush(3.m)
                     rushed = true
                 }
             }
@@ -156,7 +162,7 @@ class Captain: Soldier {
         let actors = Map.current.getActors(rect: FixedRect(transform.location, float2(radius)))
         for actor in actors {
             if let soldier = actor as? Soldier, let marcher = soldier.animator as? MarchAnimator {
-                marcher.sprint = 1.5
+                marcher.sprint = 1
             }
         }
         let ex = Explosion(transform.location, radius)
@@ -204,8 +210,8 @@ class Heavy: Soldier {
     required init(_ location: float2) {
         super.init(location, Health(30, Shield(Float(60), Float(2.0), Float(30))), float4(0.5, 0.5, 1, 1))
         animator = MarchAnimator(self, 0.1, 0.075.m)
-        let bullet = BulletInfo(30, 6.m, 1.5, float2(0.5.m, 0.14.m) * 1.4, float4(1, 0, 1, 1))
-        weapon = Weapon(transform, float2(0, 1), bullet, "player")
+        let firer = Firer(1.5, Impact(30, 6.m), Casing(float2(0.5.m, 0.14.m) * 1.4, float4(1, 0, 1, 1), "player"))
+        weapon = Weapon(transform, float2(0, 1), firer)
         weapon?.offset = float2(-0.275.m, -0.5.m)
     }
     
@@ -216,8 +222,8 @@ class Sniper: Soldier {
     required init(_ location: float2) {
         super.init(location, Health(45, Shield(Float(20), Float(0.5), Float(60))), float4(1, 0.5, 1, 1))
         animator = MarchAnimator(self, 0.1, 0.075.m)
-        let bullet = BulletInfo(50, 10.m, 2.0, float2(0.6.m, 0.1.m), float4(0, 1, 1, 1))
-        weapon = Weapon(transform, float2(0, 1), bullet, "player")
+        let firer = Firer(2.0, Impact(50, 10.m), Casing(float2(0.6.m, 0.1.m), float4(0, 1, 1, 1), "player"))
+        weapon = Weapon(transform, float2(0, 1), firer)
         weapon?.offset = float2(-0.275.m, -0.5.m)
     }
     
@@ -253,7 +259,7 @@ class MarchAnimator: SoldierAnimator {
             
             if sprint > 0 {
                 sprint -= Time.delta
-                final_rate = 0.05
+                final_rate = 0.035
             }
             
             if counter >= final_rate {
@@ -261,7 +267,7 @@ class MarchAnimator: SoldierAnimator {
                 soldier.body.location.y += speed
                 soldier.display.scheme.schemes[0].layout.flip(vector: float2(-1, 1))
                 if soldier.body.location.y > -Camera.size.y {
-                    play("march1")
+                    //play("march1", 0.1)
                 }
             }
         }
@@ -310,7 +316,7 @@ class SoldierTerminator: ActorTerminationDelegate {
     
     func terminate() {
         let a = Audio("explosion1")
-        a.volume = 1
+        a.volume = sound_volume
         a.start()
         soldier.drop?.release(soldier.transform.location)
     }

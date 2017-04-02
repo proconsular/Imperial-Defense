@@ -8,63 +8,30 @@
 
 import Foundation
 
-struct BulletInfo {
-    
-    var damage: Int
-    var speed: Float
-    var rate: Float
-    
-    var size: float2
-    var color: float4
-    
-    var collide: (Bullet) -> () = {_ in}
-    
-    init(_ damage: Int, _ speed: Float, _ rate: Float, _ size: float2, _ color: float4) {
-        self.damage = damage
-        self.speed = speed
-        self.rate = rate
-        self.size = size
-        self.color = color
-    }
-    
-}
-
 class Weapon {
     
     var transform: Transform
     var direction: float2
     var offset: float2 = float2()
     
-    var tag: String
+    var firer: Firer
     
-    var counter: Float = 0
-    
-    var bullet_data: BulletInfo
-    
-    init(_ transform: Transform, _ direction: float2, _ data: BulletInfo, _ tag: String) {
+    init(_ transform: Transform, _ direction: float2, _ firer: Firer) {
         self.transform = transform
         self.direction = direction
-        self.bullet_data = data
-        self.tag = tag
+        self.firer = firer
     }
     
     func update() {
-        counter += Time.delta
-    }
-    
-    var canFire: Bool {
-        return counter >= bullet_data.rate
+        firer.update()
     }
     
     func fire() {
-        counter = 0
-        let bullet = Bullet(transform.location + 0.75.m * direction + offset, direction, tag, bullet_data)
-        if tag == "player" {
-            bullet.body.mask = 0b11
-        }else{
-            bullet.body.mask = 0b100
-        }
-        Map.current.append(bullet)
+        firer.fire(transform.location + 0.75.m * direction + offset, direction)
+    }
+    
+    var canFire: Bool {
+        return firer.operable
     }
     
 }
@@ -78,7 +45,7 @@ class PlayerWeaponDisplayAdapter: StatusItem {
     }
     
     var percent: Float {
-        return weapon.power / weapon.max_power
+        return weapon.percent
     }
     
     var color: float4 {
@@ -91,29 +58,57 @@ class PlayerWeaponDisplayAdapter: StatusItem {
     
 }
 
+struct Power {
+    
+    var amount: Float
+    var limit: Float
+    
+    var recharge: Float
+    var drain: Float
+    
+    init(_ limit: Float, _ recharge: Float, _ drain: Float) {
+        self.limit = limit
+        self.amount = limit
+        self.recharge = recharge
+        self.drain = drain
+    }
+    
+    mutating func use() {
+        amount = max(amount - drain, 0)
+    }
+    
+    mutating func charge(_ mod: Float = 1) {
+        if amount < limit {
+            amount += recharge * mod * Time.delta
+            amount = clamp(amount, min: 0, max: limit)
+        }
+    }
+    
+    var percent: Float {
+        return amount / limit
+    }
+    
+    var usable: Bool {
+        return amount >= drain
+    }
+    
+}
+
 class PlayerWeapon: Weapon {
     
-    var power: Float
-    
-    let drain: Float = 30
-    let recharge: Float = 200
-    let max_power: Float = 175
+    var power: Power
     
     var rate_modifier: Float = 1
     
     var fired = true
     
-    override init(_ transform: Transform, _ direction: float2, _ data: BulletInfo, _ tag: String) {
-        power = max_power
-        super.init(transform, direction, data, tag)
-    }
-    
-    func overcharge(amount: Float) {
-        power = max_power * amount
+    init(_ transform: Transform, _ direction: float2, _ power: Power, _ firer: Firer) {
+        self.power = power
+        super.init(transform, direction, firer)
     }
     
     var percent: Float {
-        return power / max_power
+        return power.percent
     }
     
     var color: float4 {
@@ -125,50 +120,46 @@ class PlayerWeapon: Weapon {
     override func update() {
         super.update()
        
-        bullet_data.size = float2(0.4.m, 0.12.m) * 1.2
+        firer.casing.size = float2(0.4.m, 0.12.m) * 1.2
         
         if isNormalPower {
             rate_modifier = 1
         }
         
         if isLowPower {
-            rate_modifier = 1.5
+            rate_modifier = 2
         }
         
         if isHighPower {
             rate_modifier = 0.75
-            bullet_data.size = float2(0.4.m, 0.12.m) * 1.6
+            firer.casing.size = float2(0.4.m, 0.12.m) * 1.6
         }
         
-        if power < max_power {
-            power += recharge * (1.0 / rate_modifier) * Time.delta
-            power = clamp(power, min: 0, max: max_power)
-        }
-       
+        power.charge(1 / rate_modifier)
+        
         fired = false
     }
     
     var isNormalPower: Bool {
-        return power > drain
+        return power.amount > power.drain
     }
     
     var isHighPower: Bool {
-        return power >= max_power - drain
+        return power.amount >= power.limit - power.drain
     }
     
     var isLowPower: Bool {
-        return power <= drain
+        return power.amount <= power.drain
     }
     
     override var canFire: Bool {
-        return counter >= bullet_data.rate * rate_modifier && power >= drain
+        return firer.counter >= firer.rate * rate_modifier && power.usable
     }
     
     override func fire() {
         super.fire()
-        power -= drain
+        power.use()
         fired = true
-        
     }
     
 }

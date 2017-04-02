@@ -14,7 +14,7 @@ class Wall: Structure {
     var max: Int
     
     init(_ location: float2) {
-        health = 25 + GameData.info.barrier.computeAmount()
+        health = 25
         max = health
         super.init(location, float2(0.2.m))
         display.texture = GLTexture("castle").id

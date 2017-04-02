@@ -30,6 +30,7 @@ class PlayerInterface: Interface {
             if player.weapon.canFire {
                 let shoot = Audio("shoot2")
                 shoot.pitch = player.weapon.isHighPower ? 0.6 : 1
+                shoot.volume = sound_volume
                 shoot.start()
                 player.weapon.fire()
             }
@@ -108,14 +109,11 @@ class Player: Entity {
     var affector: Affector
     var terminator: ActorTerminationDelegate?
     
-    init(_ location: float2) {
-        let shield = Shield(Float(70), Float(2), Float(40))
-        shield.delegate = ShieldAudio()
-        health = Health(30, shield)
+    init(_ location: float2, _ health: Health, _ firer: Firer) {
+        self.health = health
         
         let transform = Transform(location)
-        
-        weapon = PlayerWeapon(transform, float2(0, -1), BulletInfo(15, 14.m, Float(0.1075), float2(0.4.m, 0.12.m) * 1.2, float4(0, 1, 0.5, 1)), "enemy")
+        weapon = PlayerWeapon(transform, float2(0, -1), Power(175, 200, 30), firer)
         
         affector = Affector()
         
@@ -133,7 +131,9 @@ class Player: Entity {
     
     func hit(amount: Int) {
         health.damage(Float(amount))
-        play("hit1")
+        let h = Audio("hit1")
+        h.volume = sound_volume
+        h.start()
         affector.damaged = true
     }
     
@@ -146,7 +146,16 @@ class Player: Entity {
             }
             shield.update()
         }
+        let per = weapon.percent
         weapon.update()
+        if !firing {
+            if per < 1 && weapon.percent >= 1 {
+                let audio = Audio("power_full")
+                audio.volume = sound_volume
+                audio.start()
+            }
+        }
+        
         body.velocity.x *= drag
         if firing {
             body.velocity.x *= 0.8
