@@ -8,9 +8,55 @@
 
 import Foundation
 
+class ScoreDisplay {
+    
+    var plate: Display
+    var crystal: Display
+    var text: Text
+    
+    init(_ location: float2, _ bounds: float2) {
+        plate = Display(location, bounds, GLTexture())
+        plate.color = float4(0.1, 0.1, 0.1, 1)
+        let spacing = bounds.x * 0.25
+        crystal = Display(location + float2(-spacing, 0), float2(64), GLTexture("Crystal"))
+        let anim = TextureAnimator(1, 4, 1, float2(1))
+        crystal.coordinates = anim.coordinates
+        text = Text(location + float2(spacing, 0) + float2(0, -GameScreen.size.y), "0", FontStyle(defaultFont, float4(1), 72.0 * (bounds.y / 100)))
+    }
+    
+    func render() {
+        plate.render()
+        crystal.render()
+        text.setString("\(GameData.info.points)")
+        text.render()
+    }
+    
+}
+
+
+class WaveDisplay {
+    
+    var plate: Display
+    var text: Text
+    
+    init(_ location: float2, _ bounds: float2) {
+        plate = Display(location, bounds, GLTexture())
+        plate.color = float4(0.1, 0.1, 0.1, 1)
+        text = Text(location + float2(0, -GameScreen.size.y), "0", FontStyle(defaultFont, float4(1), 72.0 * (bounds.y / 100)))
+    }
+    
+    func render() {
+        plate.render()
+        let wave = GameData.info.wave + 1
+        text.setString("Legion \(wave.roman)")
+        text.render()
+    }
+    
+}
+
 class StatusLayer: InterfaceLayer {
-    let wave: Text
-    let points: Text
+    let score: ScoreDisplay
+    let wave: WaveDisplay
     
     let shield: PercentDisplay
     let stamina: PercentDisplay
@@ -26,21 +72,25 @@ class StatusLayer: InterfaceLayer {
         
         let sh = LifeDisplayAdapter(game.player.health.shield!, float4(0, 0.65, 1, 1))
         sh.warnings.append(ShieldLowPowerWarning(float4(1, 0, 0, 1), 0.125, 0.33))
-        shield = PercentDisplay(float2(115, size / 2) + float2(0, -GameScreen.size.y), size * 0.45, 18, 1, sh)
+        shield = PercentDisplay(float2(115, size / 2) + float2(0, -GameScreen.size.y), size * 0.375, 18, 1, sh)
         shield.frame.color = float4(0)
         
-        stamina = PercentDisplay(float2(115, size / 2) + float2(0, -GameScreen.size.y), size * 0.45, 18, 1, LifeDisplayAdapter(game.player.health.stamina, float4(0, 1, 0.65, 1)))
-        weapon = PercentDisplay(float2(GameScreen.size.x - 30, size / 2) + float2(0, -GameScreen.size.y), size * 0.45, 14, -1, PlayerWeaponDisplayAdapter(game.player.weapon))
+        stamina = PercentDisplay(float2(115, size / 2) + float2(0, -GameScreen.size.y), size * 0.375, 18, 1, LifeDisplayAdapter(game.player.health.stamina, float4(0, 1, 0.65, 1)))
+        weapon = PercentDisplay(float2(GameScreen.size.x - 30, size / 2) + float2(0, -GameScreen.size.y), size * 0.375, 14, -1, PlayerWeaponDisplayAdapter(game.player.weapon))
         
-        wave = Text(float2(300, 100) + float2(0, -GameScreen.size.y), " ", FontStyle(defaultFont, float4(1), 48.0))
-        points = Text(float2(GameScreen.size.x / 2, 5 + size / 2) + float2(0, -GameScreen.size.y), " ", FontStyle(defaultFont, float4(1), 72.0 * (size / 100)))
+//        wave = Text(float2(300, 100) + float2(0, -GameScreen.size.y), " ", FontStyle(defaultFont, float4(1), 48.0))
+//        points = Text(float2(GameScreen.size.x / 2, 5 + size / 2) + float2(0, -GameScreen.size.y), " ", FontStyle(defaultFont, float4(1), 72.0 * (size / 100) * 0.8))
+//        
+        
+        score = ScoreDisplay(float2(GameScreen.size.x / 2 - 200, size / 2), float2(114, size / 2))
+        wave = WaveDisplay(float2(GameScreen.size.x / 2 + 200, size / 2), float2(184, size / 2))
         
         background = Display(float2(GameScreen.size.x / 2, size / 2) , float2(GameScreen.size.x, size), GLTexture("GameUIBack"))
         //background.camera = false
         
         super.init()
         
-        objects.append(Button(GLTexture("pause"), float2(50, size / 2) + float2(0, -GameScreen.size.y), float2(size / 2), {
+        objects.append(Button(GLTexture("pause"), float2(50, size / 2) + float2(0, -GameScreen.size.y), float2(size / 2) * 0.8, {
             UserInterface.push(PauseScreen())
         }))
     }
@@ -58,8 +108,12 @@ class StatusLayer: InterfaceLayer {
         stamina.render()
         shield.render()
         
-        points.setString("\(Coordinator.wave) : \(GameData.info.points)")
-        points.render()
+//        points.setString("\(Coordinator.wave) : \(GameData.info.points)")
+//        points.render()
+//        
+        
+        score.render()
+        wave.render()
         
         weapon.render()
     }

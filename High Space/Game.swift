@@ -33,6 +33,8 @@ class Upgrader {
     
 }
 
+let playgame: Bool = true
+
 class Game: DisplayLayer {
     
     let physics: Simulation
@@ -55,7 +57,7 @@ class Game: DisplayLayer {
    
     var mode: Int
     
-    var barriers: [Barrier]
+    var barriers: [Wall]
     
     init(_ mode: Int) {
         Time.scale = 1
@@ -75,7 +77,7 @@ class Game: DisplayLayer {
         let firer = Firer(0.1075, Impact(15, 14.m), Casing(float2(0.4.m, 0.12.m) * 1.2, float4(0, 1, 0.5, 1), "enemy"))
         upgrader.firepower.apply(firer)
         
-        player = Player(float2(map.size.x / 2, -1.m), health, firer)
+        player = Player(float2(map.size.x / 2, -1.5.m), health, firer)
         map.append(player)
         
         points = GameData.info.points
@@ -93,15 +95,15 @@ class Game: DisplayLayer {
         
         let constructor = BarrierConstructor(BarrierLayout(10, 2))
         upgrader.barrier.apply(constructor)
-        barriers = constructor.construct(-2.8.m, int2(10, 4))
+        barriers = constructor.construct(-2.4.m, int2(10, 4))
         
-        let audio = Audio("2 Imperial")
-        if !audio.playing {
-            audio.loop = true
-            audio.volume = 1
-            audio.pitch = 1
-            audio.start()
-        }
+//        let audio = Audio("2 Imperial")
+//        if !audio.playing {
+//            audio.loop = true
+//            audio.volume = 0.5
+//            audio.pitch = 1
+//            audio.start()
+//        }
     }
     
     func createWalls(_ width: Float) {
@@ -132,22 +134,25 @@ class Game: DisplayLayer {
             UserInterface.space.push(EndScreen(false))
         }
         
-        if !complete {
-            coordinator.update()
+        if playgame {
+            if !complete {
+                coordinator.update()
+            }
         }
         
         map.update()
         physics.simulate()
         Camera.current.update()
         
-        if coordinator.empty {
-            complete = true
-        }
-        
-        if complete {
-            end_timer -= Time.delta
-            if end_timer <= 0 {
-                end()
+        if playgame {
+            if coordinator.empty {
+                complete = true
+            }
+            if complete {
+                end_timer -= Time.delta
+                if end_timer <= 0 {
+                    end()
+                }
             }
         }
     }

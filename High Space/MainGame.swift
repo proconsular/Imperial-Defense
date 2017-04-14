@@ -10,7 +10,7 @@ import Foundation
 
 let defaultStyle = FontStyle("Metropolis-ExtraLight", float4(1), 72)
 let defaultFont = "Metropolis-ExtraLight"
-let sound_volume: Float = 0.01
+let sound_volume: Float = 0.1
 
 @objc class MainGame: NSObject {
     

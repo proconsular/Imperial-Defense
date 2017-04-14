@@ -57,7 +57,7 @@ class LegionGenerator {
         
         for i in 0 ..< difficulty.size {
             difficulty.row = i
-            rows.append(row_gen.create(float2(Map.current.size.x / 2, -12.m - Float(i) * 1.25.m)))
+            rows.append(row_gen.create(float2(Map.current.size.x / 2, -12.m - Float(i) * 2.m)))
         }
         
         return Legion(rows)
@@ -78,9 +78,9 @@ class RowGenerator {
     func create(_ location: float2) -> Row {
         var soldiers: [Soldier] = []
         let amount = difficulty.amount
-        let start = location + float2(-Float(amount) / 2 * 1.m, 0)
+        let start = location + float2(-Float(amount) / 2 * 1.5.m, 0)
         for i in 0 ..< amount {
-            let loc = start + float2(Float(i) * 1.m, 0)
+            let loc = start + float2(Float(i) * 1.5.m, 0)
             let soldier = sol_gen.create(loc)
             soldiers.append(soldier)
             Map.current.append(soldier)

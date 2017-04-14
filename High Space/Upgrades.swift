@@ -93,12 +93,16 @@ class BarrierConstructor {
         mods = []
     }
     
-    func construct(_ height: Float, _ size: int2) -> [Barrier] {
+    func construct(_ height: Float, _ size: int2) -> [Wall] {
         let final = computeFinalLayout()
-        var barriers: [Barrier] = []
+        var barriers: [Wall] = []
         for i in 0 ..< final.amount {
             let div = Map.current.size.x / Float(final.amount)
-            barriers.append(Barrier(float2(div / 2 + div * Float(i), height), size))
+            let dis = 3.m
+            let loc = div + Float(i * final.amount) * dis - dis
+            let wall = Wall(float2(loc, height))
+            barriers.append(wall)
+            Map.current.append(wall)
         }
         return barriers
     }

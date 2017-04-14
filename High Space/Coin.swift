@@ -18,8 +18,10 @@ class Coin: Entity {
     init(_ location: float2, _ points: Int) {
         self.points = points
         counter = timeout
-        super.init(Rect(Transform(location), float2(0.4.m)), Substance.getStandard(0.01))
-        display.texture = GLTexture("coin").id
+        super.init(Rect(Transform(location), float2(0.6.m)), Substance.getStandard(0.01))
+        display.texture = GLTexture("Crystal").id
+        let anim = TextureAnimator(4, 4, 1, float2(1))
+        display.coordinates = anim.coordinates
         body.mask = 0b0
         display.scheme.schemes[0].order  = -1
         body.noncolliding = true
@@ -50,12 +52,6 @@ class Coin: Entity {
             c.volume = 0.4
             c.start()
         }
-        counter -= Time.delta
-        if counter <= 0 {
-            alive = false
-        }
-        display.color = float4(counter / timeout)
-        display.refresh()
     }
     
 }

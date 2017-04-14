@@ -24,6 +24,14 @@
 		22032F581E0F02F0001462C2 /* Gateways.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22032F571E0F02F0001462C2 /* Gateways.swift */; };
 		22032F5A1E0F030D001462C2 /* PointRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22032F591E0F030D001462C2 /* PointRange.swift */; };
 		22032F5C1E0F0342001462C2 /* Bullet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22032F5B1E0F0342001462C2 /* Bullet.swift */; };
+		2205EE971E9AC90300DEFFF2 /* Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2205EE961E9AC90300DEFFF2 /* Animation.swift */; };
+		2205EEC61E9EEE6A00DEFFF2 /* Crystal.png in Resources */ = {isa = PBXBuildFile; fileRef = 2205EEC51E9EEE6A00DEFFF2 /* Crystal.png */; };
+		2205EED61E9F50C300DEFFF2 /* soldier_walk.png in Resources */ = {isa = PBXBuildFile; fileRef = 2205EED51E9F50C300DEFFF2 /* soldier_walk.png */; };
+		2205EED81E9F5B5B00DEFFF2 /* Player.png in Resources */ = {isa = PBXBuildFile; fileRef = 2205EED71E9F5B5B00DEFFF2 /* Player.png */; };
+		2205EEDA1EA013E000DEFFF2 /* stonefloor.png in Resources */ = {isa = PBXBuildFile; fileRef = 2205EED91EA013E000DEFFF2 /* stonefloor.png */; };
+		2205EEDC1EA018F100DEFFF2 /* barrier_castle.png in Resources */ = {isa = PBXBuildFile; fileRef = 2205EEDB1EA018F100DEFFF2 /* barrier_castle.png */; };
+		2205EEDE1EA025B100DEFFF2 /* rockfloor.png in Resources */ = {isa = PBXBuildFile; fileRef = 2205EEDD1EA025B100DEFFF2 /* rockfloor.png */; };
+		2205EEE61EA09F0300DEFFF2 /* GameUIBack.png in Resources */ = {isa = PBXBuildFile; fileRef = 2205EEE51EA09F0300DEFFF2 /* GameUIBack.png */; };
 		221A5F0C1D9866B5004B1516 /* Segan.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 221A5F0B1D9866B5004B1516 /* Segan.ttf */; };
 		221A5F0E1D986A39004B1516 /* Aaargh.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 221A5F0D1D98695C004B1516 /* Aaargh.ttf */; };
 		221A5F101D986B21004B1516 /* Adamina-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 221A5F0F1D986A8C004B1516 /* Adamina-Regular.ttf */; };
@@ -52,7 +60,6 @@
 		2249C35A1DBC66DA00D4EEBF /* march1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2249C3591DBC66DA00D4EEBF /* march1.wav */; };
 		2249C3621DBC6A3900D4EEBF /* hit2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2249C3611DBC6A3900D4EEBF /* hit2.wav */; };
 		2249C3741DBDCB3B00D4EEBF /* soldier.png in Resources */ = {isa = PBXBuildFile; fileRef = 2249C3731DBDCB3B00D4EEBF /* soldier.png */; };
-		2251DEF21DAB4D730022D711 /* player.png in Resources */ = {isa = PBXBuildFile; fileRef = 2251DEF01DAB4D730022D711 /* player.png */; };
 		225B15BA1E862B1E008F8D55 /* 0 Title.wav in Resources */ = {isa = PBXBuildFile; fileRef = 225B15B91E862B1E008F8D55 /* 0 Title.wav */; };
 		225B15BC1E862EE3008F8D55 /* 1 Battle.wav in Resources */ = {isa = PBXBuildFile; fileRef = 225B15BB1E862EE3008F8D55 /* 1 Battle.wav */; };
 		225D2E8F1DC068E200E46E56 /* castle.png in Resources */ = {isa = PBXBuildFile; fileRef = 225D2E8E1DC068E200E46E56 /* castle.png */; };
@@ -107,7 +114,6 @@
 		22613D321DC5584700FECAB0 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22722BA11D488C5A00BFA78A /* OpenGLES.framework */; };
 		226DA1341DC584790065EB00 /* Body.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226DA1331DC584790065EB00 /* Body.swift */; };
 		226DA1361DC584AA0065EB00 /* Manifold.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226DA1351DC584AA0065EB00 /* Manifold.swift */; };
-		226DA13E1DC853EC0065EB00 /* soldier_walk.png in Resources */ = {isa = PBXBuildFile; fileRef = 226DA13D1DC853EC0065EB00 /* soldier_walk.png */; };
 		226DA1401DC854050065EB00 /* armor.png in Resources */ = {isa = PBXBuildFile; fileRef = 226DA13F1DC854050065EB00 /* armor.png */; };
 		226DA1421DC855630065EB00 /* adv_soldier.png in Resources */ = {isa = PBXBuildFile; fileRef = 226DA1411DC855630065EB00 /* adv_soldier.png */; };
 		226DA1441DC8556A0065EB00 /* laser_soldier.png in Resources */ = {isa = PBXBuildFile; fileRef = 226DA1431DC8556A0065EB00 /* laser_soldier.png */; };
@@ -119,8 +125,6 @@
 		226DA1501DD1A5460065EB00 /* barrier.png in Resources */ = {isa = PBXBuildFile; fileRef = 226DA14F1DD1A5460065EB00 /* barrier.png */; };
 		226ECBA61E25FDC500334585 /* Scenery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226ECBA51E25FDC400334585 /* Scenery.swift */; };
 		226ECBAA1E29B9EC00334585 /* pause.png in Resources */ = {isa = PBXBuildFile; fileRef = 226ECBA91E29B9EC00334585 /* pause.png */; };
-		226ECBAC1E2AA71600334585 /* GameUIBack.png in Resources */ = {isa = PBXBuildFile; fileRef = 226ECBAB1E2AA71600334585 /* GameUIBack.png */; };
-		226ECBB41E2C947E00334585 /* stonefloor.png in Resources */ = {isa = PBXBuildFile; fileRef = 226ECBB31E2C947E00334585 /* stonefloor.png */; };
 		226ECBB61E2CA1AB00334585 /* Splash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226ECBB51E2CA1AB00334585 /* Splash.swift */; };
 		227016211E19FE0E0062442B /* Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227016201E19FE0E0062442B /* Text.swift */; };
 		227016231E1AFFD90062442B /* StatusLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227016221E1AFFD90062442B /* StatusLayer.swift */; };
@@ -159,7 +163,6 @@
 		22C159B21E8F3D510001DB65 /* 2 Imperial.wav in Resources */ = {isa = PBXBuildFile; fileRef = 22C159B11E8F3D510001DB65 /* 2 Imperial.wav */; };
 		22C2BCB61D60244000C8F1D5 /* galaxy.png in Resources */ = {isa = PBXBuildFile; fileRef = 22C2BCB51D60244000C8F1D5 /* galaxy.png */; };
 		22C456AD1E2F0BA60003FBA8 /* TitleUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C456AC1E2F0BA60003FBA8 /* TitleUI.swift */; };
-		22C456B11E2FE05D0003FBA8 /* rockfloor.png in Resources */ = {isa = PBXBuildFile; fileRef = 22C456B01E2FE05D0003FBA8 /* rockfloor.png */; };
 		22C456B31E3058EC0003FBA8 /* coin.png in Resources */ = {isa = PBXBuildFile; fileRef = 22C456B21E3058EC0003FBA8 /* coin.png */; };
 		22C4E5561D6FD39F0077DFCB /* Floater.png in Resources */ = {isa = PBXBuildFile; fileRef = 22C4E5551D6FD39F0077DFCB /* Floater.png */; };
 		22C4E55E1D728F2F0077DFCB /* Spawner.png in Resources */ = {isa = PBXBuildFile; fileRef = 22C4E55D1D728F2F0077DFCB /* Spawner.png */; };
@@ -201,6 +204,14 @@
 		22032F571E0F02F0001462C2 /* Gateways.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gateways.swift; sourceTree = "<group>"; };
 		22032F591E0F030D001462C2 /* PointRange.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PointRange.swift; sourceTree = "<group>"; };
 		22032F5B1E0F0342001462C2 /* Bullet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bullet.swift; sourceTree = "<group>"; };
+		2205EE961E9AC90300DEFFF2 /* Animation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Animation.swift; sourceTree = "<group>"; };
+		2205EEC51E9EEE6A00DEFFF2 /* Crystal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Crystal.png; sourceTree = "<group>"; };
+		2205EED51E9F50C300DEFFF2 /* soldier_walk.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = soldier_walk.png; sourceTree = "<group>"; };
+		2205EED71E9F5B5B00DEFFF2 /* Player.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Player.png; sourceTree = "<group>"; };
+		2205EED91EA013E000DEFFF2 /* stonefloor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stonefloor.png; sourceTree = "<group>"; };
+		2205EEDB1EA018F100DEFFF2 /* barrier_castle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = barrier_castle.png; sourceTree = "<group>"; };
+		2205EEDD1EA025B100DEFFF2 /* rockfloor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rockfloor.png; sourceTree = "<group>"; };
+		2205EEE51EA09F0300DEFFF2 /* GameUIBack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GameUIBack.png; sourceTree = "<group>"; };
 		221A5F0B1D9866B5004B1516 /* Segan.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Segan.ttf; sourceTree = "<group>"; };
 		221A5F0D1D98695C004B1516 /* Aaargh.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Aaargh.ttf; sourceTree = "<group>"; };
 		221A5F0F1D986A8C004B1516 /* Adamina-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Adamina-Regular.ttf"; sourceTree = "<group>"; };
@@ -278,7 +289,6 @@
 		2249C3731DBDCB3B00D4EEBF /* soldier.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = soldier.png; sourceTree = "<group>"; };
 		2251DEEC1DAB249F0022D711 /* Enemies.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Enemies.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		2251DEEE1DAB43350022D711 /* Weapon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Weapon.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		2251DEF01DAB4D730022D711 /* player.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = player.png; sourceTree = "<group>"; };
 		225B15B91E862B1E008F8D55 /* 0 Title.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "0 Title.wav"; sourceTree = "<group>"; };
 		225B15BB1E862EE3008F8D55 /* 1 Battle.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "1 Battle.wav"; sourceTree = "<group>"; };
 		225D2E8E1DC068E200E46E56 /* castle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = castle.png; sourceTree = "<group>"; };
@@ -289,7 +299,6 @@
 		225E516B1DC55D180065EECF /* PhysicsTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhysicsTypes.swift; sourceTree = "<group>"; };
 		226DA1331DC584790065EB00 /* Body.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Body.swift; sourceTree = "<group>"; };
 		226DA1351DC584AA0065EB00 /* Manifold.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Manifold.swift; sourceTree = "<group>"; };
-		226DA13D1DC853EC0065EB00 /* soldier_walk.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = soldier_walk.png; sourceTree = "<group>"; };
 		226DA13F1DC854050065EB00 /* armor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = armor.png; sourceTree = "<group>"; };
 		226DA1411DC855630065EB00 /* adv_soldier.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = adv_soldier.png; sourceTree = "<group>"; };
 		226DA1431DC8556A0065EB00 /* laser_soldier.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = laser_soldier.png; sourceTree = "<group>"; };
@@ -301,8 +310,6 @@
 		226DA14F1DD1A5460065EB00 /* barrier.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = barrier.png; sourceTree = "<group>"; };
 		226ECBA51E25FDC400334585 /* Scenery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Scenery.swift; sourceTree = "<group>"; };
 		226ECBA91E29B9EC00334585 /* pause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pause.png; sourceTree = "<group>"; };
-		226ECBAB1E2AA71600334585 /* GameUIBack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GameUIBack.png; sourceTree = "<group>"; };
-		226ECBB31E2C947E00334585 /* stonefloor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stonefloor.png; sourceTree = "<group>"; };
 		226ECBB51E2CA1AB00334585 /* Splash.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Splash.swift; sourceTree = "<group>"; };
 		227016201E19FE0E0062442B /* Text.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Text.swift; sourceTree = "<group>"; };
 		227016221E1AFFD90062442B /* StatusLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusLayer.swift; sourceTree = "<group>"; };
@@ -348,7 +355,6 @@
 		22C2BCA71D59846C00C8F1D5 /* Sky_s_Melody_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sky_s_Melody_Tests.swift; sourceTree = "<group>"; };
 		22C2BCB51D60244000C8F1D5 /* galaxy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = galaxy.png; sourceTree = "<group>"; };
 		22C456AC1E2F0BA60003FBA8 /* TitleUI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleUI.swift; sourceTree = "<group>"; };
-		22C456B01E2FE05D0003FBA8 /* rockfloor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rockfloor.png; sourceTree = "<group>"; };
 		22C456B21E3058EC0003FBA8 /* coin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = coin.png; sourceTree = "<group>"; };
 		22C4E5551D6FD39F0077DFCB /* Floater.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Floater.png; sourceTree = "<group>"; };
 		22C4E5591D7278350077DFCB /* RectSolver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RectSolver.swift; sourceTree = "<group>"; };
@@ -557,24 +563,26 @@
 				22D31C151D94CC6400818AFA /* starship.png */,
 				22D31C171D94CD6600818AFA /* book.png */,
 				22D31C211D94D36300818AFA /* gem.png */,
-				2251DEF01DAB4D730022D711 /* player.png */,
 				2249C3731DBDCB3B00D4EEBF /* soldier.png */,
 				226DA1451DD19A570065EB00 /* gun.png */,
 				2235A7821E2D5BB5002877F1 /* play_back.png */,
 				226DA1471DD19ECB0065EB00 /* machine.png */,
 				226ECBA91E29B9EC00334585 /* pause.png */,
-				226ECBB31E2C947E00334585 /* stonefloor.png */,
-				226ECBAB1E2AA71600334585 /* GameUIBack.png */,
+				2205EEDB1EA018F100DEFFF2 /* barrier_castle.png */,
 				226DA13F1DC854050065EB00 /* armor.png */,
 				22C456B21E3058EC0003FBA8 /* coin.png */,
-				226DA13D1DC853EC0065EB00 /* soldier_walk.png */,
+				2205EED51E9F50C300DEFFF2 /* soldier_walk.png */,
+				2205EEDD1EA025B100DEFFF2 /* rockfloor.png */,
+				2205EEC51E9EEE6A00DEFFF2 /* Crystal.png */,
+				2205EEE51EA09F0300DEFFF2 /* GameUIBack.png */,
+				2205EED71E9F5B5B00DEFFF2 /* Player.png */,
+				2205EED91EA013E000DEFFF2 /* stonefloor.png */,
 				2229864E1E48025000389B49 /* shield_weak.wav */,
 				226DA1491DD1A07A0065EB00 /* bomb.png */,
 				226DA14B1DD1A4FA0065EB00 /* movement.png */,
 				226DA14F1DD1A5460065EB00 /* barrier.png */,
 				226DA1411DC855630065EB00 /* adv_soldier.png */,
 				225D2E8E1DC068E200E46E56 /* castle.png */,
-				22C456B01E2FE05D0003FBA8 /* rockfloor.png */,
 				226DA14D1DD1A4FD0065EB00 /* shield.png */,
 				226DA1431DC8556A0065EB00 /* laser_soldier.png */,
 				22AE086E1E41B9C300948CC2 /* Splash.png */,
@@ -784,6 +792,7 @@
 				22429FD01E542CAD004BCBD0 /* Experimental.swift */,
 				222FA5F41E5DFCE200D4A931 /* Render.swift */,
 				222FA5F81E6549C300D4A931 /* Framebuffer.swift */,
+				2205EE961E9AC90300DEFFF2 /* Animation.swift */,
 			);
 			name = visual;
 			sourceTree = "<group>";
@@ -965,8 +974,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				2229865D1E4C464C00389B49 /* Media.xcassets in Resources */,
+				2205EEDE1EA025B100DEFFF2 /* rockfloor.png in Resources */,
 				22B8C35F1D7D302400806C16 /* spineboy.png in Resources */,
 				2249C35A1DBC66DA00D4EEBF /* march1.wav in Resources */,
+				2205EED61E9F50C300DEFFF2 /* soldier_walk.png in Resources */,
 				221A5F101D986B21004B1516 /* Adamina-Regular.ttf in Resources */,
 				221A5F0E1D986A39004B1516 /* Aaargh.ttf in Resources */,
 				221A5F121D986C60004B1516 /* Metropolis-ExtraLight.otf in Resources */,
@@ -985,13 +996,10 @@
 				22D31C1C1D94D0DE00818AFA /* pickup2.wav in Resources */,
 				2229864F1E48025000389B49 /* shield_weak.wav in Resources */,
 				22D31C241D94D58D00818AFA /* door1.wav in Resources */,
-				226ECBAC1E2AA71600334585 /* GameUIBack.png in Resources */,
-				2251DEF21DAB4D730022D711 /* player.png in Resources */,
 				22B8C35D1D7D302400806C16 /* spineboy.atlas in Resources */,
 				22B8C36A1D84F6E000806C16 /* shoot2.wav in Resources */,
 				2249C3741DBDCB3B00D4EEBF /* soldier.png in Resources */,
 				22C2BCB61D60244000C8F1D5 /* galaxy.png in Resources */,
-				226ECBB41E2C947E00334585 /* stonefloor.png in Resources */,
 				22D31C1E1D94D0E700818AFA /* jet1.wav in Resources */,
 				2235A7831E2D5BB5002877F1 /* play_back.png in Resources */,
 				226DA1461DD19A570065EB00 /* gun.png in Resources */,
@@ -1004,6 +1012,7 @@
 				225B15BA1E862B1E008F8D55 /* 0 Title.wav in Resources */,
 				226DA1421DC855630065EB00 /* adv_soldier.png in Resources */,
 				222986591E48156B00389B49 /* power_full.wav in Resources */,
+				2205EEDC1EA018F100DEFFF2 /* barrier_castle.png in Resources */,
 				222986571E4806EA00389B49 /* shield_break.wav in Resources */,
 				22B8C37A1D85465B00806C16 /* hit6.wav in Resources */,
 				22C4E5681D73A9990077DFCB /* make1.wav in Resources */,
@@ -1011,6 +1020,7 @@
 				22D31C181D94CD6600818AFA /* book.png in Resources */,
 				22B8C3741D85424600806C16 /* hit5.wav in Resources */,
 				2271AAE01DB9C2DB00C87152 /* hit1.wav in Resources */,
+				2205EEC61E9EEE6A00DEFFF2 /* Crystal.png in Resources */,
 				22C4E55E1D728F2F0077DFCB /* Spawner.png in Resources */,
 				22D31C141D94BFE800818AFA /* door.png in Resources */,
 				22C4E56C1D73A9A20077DFCB /* shoot1.wav in Resources */,
@@ -1018,16 +1028,15 @@
 				22C159B21E8F3D510001DB65 /* 2 Imperial.wav in Resources */,
 				22B8C3781D85465400806C16 /* charge2.wav in Resources */,
 				225D2E8F1DC068E200E46E56 /* castle.png in Resources */,
-				226DA13E1DC853EC0065EB00 /* soldier_walk.png in Resources */,
 				22C4E5641D73A98E0077DFCB /* explosion1.wav in Resources */,
 				22D31C161D94CC6400818AFA /* starship.png in Resources */,
 				22B8C3681D8262C400806C16 /* spineboy.json in Resources */,
+				2205EEE61EA09F0300DEFFF2 /* GameUIBack.png in Resources */,
 				22722C171D488D2700BFA78A /* white.png in Resources */,
 				22B8C3761D8544A900806C16 /* charge1.wav in Resources */,
 				226DA1481DD19ECB0065EB00 /* machine.png in Resources */,
 				2271AACC1DB41B6C00C87152 /* laser2.wav in Resources */,
 				22C4E5601D72970C0077DFCB /* Colony.png in Resources */,
-				22C456B11E2FE05D0003FBA8 /* rockfloor.png in Resources */,
 				222986561E4806EA00389B49 /* power_low.wav in Resources */,
 				2229865F1E4C466500389B49 /* Launch Screen.storyboard in Resources */,
 				226DA14E1DD1A4FD0065EB00 /* shield.png in Resources */,
@@ -1037,8 +1046,10 @@
 				222DD8F01D48854700A70FA8 /* Lighting.vsh in Resources */,
 				2271AADE1DB7B6DB00C87152 /* shoot4.wav in Resources */,
 				22CA678E1D90E307007CB4D3 /* planet.png in Resources */,
+				2205EED81E9F5B5B00DEFFF2 /* Player.png in Resources */,
 				221A5F0C1D9866B5004B1516 /* Segan.ttf in Resources */,
 				2271AADD1DB7B6DB00C87152 /* shoot3.wav in Resources */,
+				2205EEDA1EA013E000DEFFF2 /* stonefloor.png in Resources */,
 				225B15BC1E862EE3008F8D55 /* 1 Battle.wav in Resources */,
 				22AE086F1E41B9C300948CC2 /* Splash.png in Resources */,
 				22C4E5561D6FD39F0077DFCB /* Floater.png in Resources */,
@@ -1062,6 +1073,7 @@
 				22A3852B1DC55FDD00055BAF /* LightingSystem.swift in Sources */,
 				227016331E1B04CD0062442B /* Screen.swift in Sources */,
 				22613CEE1DC555D400FECAB0 /* AppDelegate.m in Sources */,
+				2205EE971E9AC90300DEFFF2 /* Animation.swift in Sources */,
 				226DA1361DC584AA0065EB00 /* Manifold.swift in Sources */,
 				22613CEF1DC555D400FECAB0 /* Aux.swift in Sources */,
 				22613CF01DC555D400FECAB0 /* Utlity.swift in Sources */,

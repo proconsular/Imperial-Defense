@@ -22,6 +22,15 @@ class Soldier: Entity, Created {
     var animator: SoldierAnimator?
     var drop: Drop?
     
+    var animation: TextureAnimator
+    
+    var anim: Float = 0
+    
+    var willFire: Bool = false
+    var fired: Bool = false
+    var fire_time: Float = 0
+    var de_time: Float = 0
+    
     required convenience init(_ location: float2) {
         let shield = Shield(Float(15), Float(1.5), Float(40))
         let health = Health(5, shield)
@@ -34,14 +43,17 @@ class Soldier: Entity, Created {
     
     init(_ location: float2, _ health: Health, _ color: float4) {
         self.color = color
-        let rect = Rect(location, float2(56, 106) * 1.2)
-        
+        let rect = Rect(location, float2(150, 150))
         self.health = health
+        
+        animation = TextureAnimator(12, 12, 3, float2(1))
+        animation.offset = 12
         
         super.init(rect, Substance.getStandard(100))
         
         display.texture = GLTexture("soldier_walk").id
         display.color = color
+        display.coordinates = animation.coordinates
         
         body.mask = 0b100
         body.object = self
@@ -60,6 +72,14 @@ class Soldier: Entity, Created {
     
     override func update() {
         super.update()
+        
+        anim += Time.delta
+        if anim >= 0.1 {
+            anim = 0
+            animation.animate()
+            display.coordinates = animation.coordinates
+        }
+        
         weapon?.update()
         animator?.animate()
         if health.percent <= 0 {
@@ -71,9 +91,26 @@ class Soldier: Entity, Created {
                 shield.explode(transform)
             }
             shield.update()
-            display.color = shield.apply(color)
+            //display.color = shield.apply(color)
         }
         fire()
+        if willFire {
+            fire_time += Time.delta
+            if fire_time >= 0.3 {
+                fire_time = 0
+                willFire = false
+                fired = true
+                shoot()
+            }
+        }
+        if fired {
+            de_time += Time.delta
+            if de_time >= 0.3 {
+                de_time = 0
+                fired = false
+                animation.offset = 12
+            }
+        }
     }
     
     func fire() {
@@ -81,14 +118,19 @@ class Soldier: Entity, Created {
             if ActorUtility.hasLineOfSight(self) {
                 if let weapon = weapon {
                     if weapon.canFire {
-                        weapon.fire()
-                        let s = Audio("shoot3")
-                        s.volume = sound_volume
-                        s.start()
+                        willFire = true
+                        animation.offset = 24
                     }
                 }
             }
         }
+    }
+    
+    func shoot() {
+        weapon!.fire()
+        let s = Audio("shoot3")
+        s.volume = sound_volume
+        s.start()
     }
     
 }
@@ -265,7 +307,7 @@ class MarchAnimator: SoldierAnimator {
             if counter >= final_rate {
                 counter = 0
                 soldier.body.location.y += speed
-                soldier.display.scheme.schemes[0].layout.flip(vector: float2(-1, 1))
+                //soldier.display.scheme.schemes[0].layout.flip(vector: float2(-1, 1))
                 if soldier.body.location.y > -Camera.size.y {
                     //play("march1", 0.1)
                 }

@@ -109,6 +109,10 @@ class Player: Entity {
     var affector: Affector
     var terminator: ActorTerminationDelegate?
     
+    let animator: TextureAnimator
+    
+    var anim_timer: Float = 0
+    
     init(_ location: float2, _ health: Health, _ firer: Firer) {
         self.health = health
         
@@ -117,11 +121,14 @@ class Player: Entity {
         
         affector = Affector()
         
-        super.init(Rect(transform, float2(0.8.m, 1.4.m)), Substance(PhysicalMaterial(.wood), Mass(10, 0), Friction(.iron)))
+        animator = TextureAnimator(5, 8, 4, float2(1))
+        
+        super.init(Rect(transform, float2(48, 48) * 4), Substance(PhysicalMaterial(.wood), Mass(10, 0), Friction(.iron)))
        
         body.mask = 0b10
         body.object = self
-        display.texture = GLTexture("soldier").id
+        display.texture = GLTexture("Player").id
+        display.coordinates = animator.coordinates
         
         Player.player = self
         display.scheme.schemes[0].order  = 100
@@ -139,7 +146,8 @@ class Player: Entity {
     
     override func update() {
         if let shield = health.shield {
-            display.color = shield.apply(float4(1))
+            display.color = float4(1)
+            //display.color = shield.apply(float4(1))
             display.color = affector.apply(display.color)
             if shield.broke {
                 shield.explode(transform)
@@ -165,6 +173,17 @@ class Player: Entity {
             alive = false
             terminator?.terminate()
         }
+        
+        if abs(body.velocity.x) >= 2 {
+            anim_timer += Time.delta
+            if anim_timer >= 0.1 {
+                anim_timer = 0
+                animator.animate()
+            }
+        }else{
+            animator.index = 0
+        }
+        display.coordinates = animator.coordinates
     }
     
 }

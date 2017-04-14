@@ -45,6 +45,11 @@ class Display: Render {
         visual.render()
     }
     
+    var coordinates: [float2] {
+        get { return scheme.schemes[0].coordinates }
+        set { scheme.schemes[0].layout.coordinates = newValue }
+    }
+    
     var color: float4 {
         get { return scheme.schemes[0].color }
         set { scheme.schemes[0].info.color = newValue }
