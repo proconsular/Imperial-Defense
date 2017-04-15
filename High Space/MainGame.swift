@@ -8,8 +8,8 @@
 
 import Foundation
 
-let defaultStyle = FontStyle("Metropolis-ExtraLight", float4(1), 72)
-let defaultFont = "Metropolis-ExtraLight"
+let defaultFont = "PixelFJ8pt1Normal"
+let defaultStyle = FontStyle(defaultFont, float4(1), 72)
 let sound_volume: Float = 0.1
 
 @objc class MainGame: NSObject {
@@ -17,6 +17,15 @@ let sound_volume: Float = 0.1
     let interface: GameInterface
     
     override init() {
+        
+//        let f = UIFont.familyNames
+//        for m in f {
+//            for n in UIFont.fontNames(forFamilyName: m) {
+//                print(n.description)
+//            }
+//        }
+        
+        
         GameScreen.create()
         interface = GameBase()
         super.init()

@@ -15,13 +15,14 @@ class ScoreDisplay {
     var text: Text
     
     init(_ location: float2, _ bounds: float2) {
-        plate = Display(location, bounds, GLTexture())
-        plate.color = float4(0.1, 0.1, 0.1, 1)
-        let spacing = bounds.x * 0.25
+        plate = Display(location, float2(bounds.x, 76 * bounds.y / 40), GLTexture("Plates"))
+        let a = TextureAnimator(1, 1, 2, float2(1))
+        plate.coordinates = a.coordinates
+        let spacing = bounds.x * 0.2
         crystal = Display(location + float2(-spacing, 0), float2(64), GLTexture("Crystal"))
         let anim = TextureAnimator(1, 4, 1, float2(1))
         crystal.coordinates = anim.coordinates
-        text = Text(location + float2(spacing, 0) + float2(0, -GameScreen.size.y), "0", FontStyle(defaultFont, float4(1), 72.0 * (bounds.y / 100)))
+        text = Text(location + float2(spacing, 0) + float2(0, -GameScreen.size.y), "0", FontStyle(defaultFont, float4(1), 48.0 * (bounds.y / 100)))
     }
     
     func render() {
@@ -33,22 +34,23 @@ class ScoreDisplay {
     
 }
 
-
 class WaveDisplay {
     
     var plate: Display
     var text: Text
     
     init(_ location: float2, _ bounds: float2) {
-        plate = Display(location, bounds, GLTexture())
-        plate.color = float4(0.1, 0.1, 0.1, 1)
-        text = Text(location + float2(0, -GameScreen.size.y), "0", FontStyle(defaultFont, float4(1), 72.0 * (bounds.y / 100)))
+        plate = Display(location, float2(bounds.x, 76 * bounds.y / 40), GLTexture("Plates"))
+        let a = TextureAnimator(1, 1, 2, float2(1))
+        a.index = 0
+        plate.coordinates = a.coordinates
+        text = Text(location + float2(0, -GameScreen.size.y), "0", FontStyle(defaultFont, float4(1), 48.0 * (bounds.y / 100)))
     }
     
     func render() {
         plate.render()
         let wave = GameData.info.wave + 1
-        text.setString("Legion \(wave.roman)")
+        text.setString("Legio \(wave.roman)")
         text.render()
     }
     
@@ -70,20 +72,16 @@ class StatusLayer: InterfaceLayer {
         self.game = game
         let size: Float = 80
         
-        let sh = LifeDisplayAdapter(game.player.health.shield!, float4(0, 0.65, 1, 1))
+        let sh = LifeDisplayAdapter(game.player.health.shield!, float4(48 / 255, 181 / 255, 206 / 255, 1))
         sh.warnings.append(ShieldLowPowerWarning(float4(1, 0, 0, 1), 0.125, 0.33))
-        shield = PercentDisplay(float2(115, size / 2) + float2(0, -GameScreen.size.y), size * 0.375, 18, 1, sh)
+        shield = PercentDisplay(float2(115, size / 2) + float2(0, -GameScreen.size.y), size * 0.37, 18, 1, sh)
         shield.frame.color = float4(0)
         
-        stamina = PercentDisplay(float2(115, size / 2) + float2(0, -GameScreen.size.y), size * 0.375, 18, 1, LifeDisplayAdapter(game.player.health.stamina, float4(0, 1, 0.65, 1)))
-        weapon = PercentDisplay(float2(GameScreen.size.x - 30, size / 2) + float2(0, -GameScreen.size.y), size * 0.375, 14, -1, PlayerWeaponDisplayAdapter(game.player.weapon))
+        stamina = PercentDisplay(float2(115, size / 2) + float2(0, -GameScreen.size.y), size * 0.37, 18, 1, LifeDisplayAdapter(game.player.health.stamina, float4(53 / 255, 215 / 255, 83 / 255, 1)))
+        weapon = PercentDisplay(float2(GameScreen.size.x - 30, size / 2) + float2(0, -GameScreen.size.y), size * 0.375, 18, -1, PlayerWeaponDisplayAdapter(game.player.weapon))
         
-//        wave = Text(float2(300, 100) + float2(0, -GameScreen.size.y), " ", FontStyle(defaultFont, float4(1), 48.0))
-//        points = Text(float2(GameScreen.size.x / 2, 5 + size / 2) + float2(0, -GameScreen.size.y), " ", FontStyle(defaultFont, float4(1), 72.0 * (size / 100) * 0.8))
-//        
-        
-        score = ScoreDisplay(float2(GameScreen.size.x / 2 - 200, size / 2), float2(114, size / 2))
-        wave = WaveDisplay(float2(GameScreen.size.x / 2 + 200, size / 2), float2(184, size / 2))
+        score = ScoreDisplay(float2(GameScreen.size.x / 2 - 200, size / 2), float2(200, size / 2))
+        wave = WaveDisplay(float2(GameScreen.size.x / 2 + 200, size / 2), float2(224, size / 2))
         
         background = Display(float2(GameScreen.size.x / 2, size / 2) , float2(GameScreen.size.x, size), GLTexture("GameUIBack"))
         //background.camera = false
@@ -157,7 +155,7 @@ class PercentDisplay {
         }
         
         frame = Display(Rect(float2(), float2(width, height)), GLTexture("white"))
-        frame.color = float4(0.3, 0.3, 0.3, 1)
+        frame.color = float4(0.1, 0.1, 0.1, 1)
         
         transform = frame.scheme.schemes[0].hull.transform
         transform.assign(Camera.current.transform)

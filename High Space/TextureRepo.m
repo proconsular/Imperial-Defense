@@ -73,6 +73,7 @@
     [self prefetch:@"soldier_walk"];
     [self prefetch:@"barrier_castle"];
     [self prefetch:@"Crystal"];
+    [self prefetch:@"Plates"];
     
     return self;
 }
