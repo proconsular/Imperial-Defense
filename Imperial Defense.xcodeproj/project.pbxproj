@@ -34,6 +34,7 @@
 		2205EEE61EA09F0300DEFFF2 /* GameUIBack.png in Resources */ = {isa = PBXBuildFile; fileRef = 2205EEE51EA09F0300DEFFF2 /* GameUIBack.png */; };
 		2205EEEC1EA0BDCA00DEFFF2 /* Pixel.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2205EEEB1EA0BDBE00DEFFF2 /* Pixel.ttf */; };
 		2205EEF21EA1AFC800DEFFF2 /* Plates.png in Resources */ = {isa = PBXBuildFile; fileRef = 2205EEF11EA1AFC800DEFFF2 /* Plates.png */; };
+		2205EEF41EA451D600DEFFF2 /* StartLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2205EEF31EA451D600DEFFF2 /* StartLayer.swift */; };
 		221A5F0C1D9866B5004B1516 /* Segan.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 221A5F0B1D9866B5004B1516 /* Segan.ttf */; };
 		221A5F0E1D986A39004B1516 /* Aaargh.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 221A5F0D1D98695C004B1516 /* Aaargh.ttf */; };
 		221A5F101D986B21004B1516 /* Adamina-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 221A5F0F1D986A8C004B1516 /* Adamina-Regular.ttf */; };
@@ -216,6 +217,7 @@
 		2205EEE51EA09F0300DEFFF2 /* GameUIBack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GameUIBack.png; sourceTree = "<group>"; };
 		2205EEEB1EA0BDBE00DEFFF2 /* Pixel.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Pixel.ttf; sourceTree = "<group>"; };
 		2205EEF11EA1AFC800DEFFF2 /* Plates.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Plates.png; sourceTree = "<group>"; };
+		2205EEF31EA451D600DEFFF2 /* StartLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartLayer.swift; sourceTree = "<group>"; };
 		221A5F0B1D9866B5004B1516 /* Segan.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Segan.ttf; sourceTree = "<group>"; };
 		221A5F0D1D98695C004B1516 /* Aaargh.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Aaargh.ttf; sourceTree = "<group>"; };
 		221A5F0F1D986A8C004B1516 /* Adamina-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Adamina-Regular.ttf"; sourceTree = "<group>"; };
@@ -609,6 +611,7 @@
 				226ECBB51E2CA1AB00334585 /* Splash.swift */,
 				22C456AC1E2F0BA60003FBA8 /* TitleUI.swift */,
 				225DC2D61E5034ED0068B566 /* BonusScreen.swift */,
+				2205EEF31EA451D600DEFFF2 /* StartLayer.swift */,
 			);
 			name = GameUI;
 			sourceTree = "<group>";
@@ -1134,6 +1137,7 @@
 				225DC2D51E5016980068B566 /* Shield.swift in Sources */,
 				227016271E1B023D0062442B /* EndScreen.swift in Sources */,
 				222FA5F91E6549C300D4A931 /* Framebuffer.swift in Sources */,
+				2205EEF41EA451D600DEFFF2 /* StartLayer.swift in Sources */,
 				22A385291DC55FDD00055BAF /* Light.swift in Sources */,
 				227016311E1B04B70062442B /* ScreenSpace.swift in Sources */,
 				22032F541E0F0187001462C2 /* Actor.swift in Sources */,

@@ -45,6 +45,11 @@ class Display: Render {
         visual.render()
     }
     
+    var order: Int {
+        get { return scheme.schemes[0].order }
+        set { scheme.schemes[0].order = newValue }
+    }
+    
     var coordinates: [float2] {
         get { return scheme.schemes[0].coordinates }
         set { scheme.schemes[0].layout.coordinates = newValue }

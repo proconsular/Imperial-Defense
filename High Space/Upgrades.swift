@@ -23,7 +23,7 @@ class Upgrade {
     }
     
     func computeCost() -> Int {
-        return Int(20)
+        return Int(4)
     }
 }
 
@@ -93,14 +93,13 @@ class BarrierConstructor {
         mods = []
     }
     
-    func construct(_ height: Float, _ size: int2) -> [Wall] {
+    func construct(_ height: Float) -> [Wall] {
         let final = computeFinalLayout()
         var barriers: [Wall] = []
         for i in 0 ..< final.amount {
-            let div = Map.current.size.x / Float(final.amount)
-            let dis = 3.m
-            let loc = div + Float(i * final.amount) * dis - dis
-            let wall = Wall(float2(loc, height))
+            let dis = 4.m
+            let loc = Map.current.size.x / 2 + Float(i - final.amount / 2) * dis + dis / 2
+            let wall = Wall(float2(loc, height), Int(final.health))
             barriers.append(wall)
             Map.current.append(wall)
         }

@@ -13,27 +13,25 @@ class Coin: Entity {
     let points: Int
     var counter: Float
     
-    let timeout: Float = 4.5
+    let timeout: Float = 1
     
     init(_ location: float2, _ points: Int) {
         self.points = points
         counter = timeout
-        super.init(Rect(Transform(location), float2(0.6.m)), Substance.getStandard(0.01))
+        let rect = Rect(Transform(location), float2(0.6.m))
+        super.init(rect, rect, Substance.getStandard(0.01))
         display.texture = GLTexture("Crystal").id
         let anim = TextureAnimator(4, 4, 1, float2(1))
         display.coordinates = anim.coordinates
         body.mask = 0b0
-        display.scheme.schemes[0].order  = -1
+        display.order = -1
         body.noncolliding = true
     }
     
     override func update() {
-        super.update()
         if body.location.y > -0.5.m {
             body.location.y = -0.5.m
             body.velocity.y = 0
-        }else{
-            body.velocity.y += 1.m
         }
         if body.location.x <= 1.m {
             body.location.x = 1.m
@@ -44,14 +42,18 @@ class Coin: Entity {
             body.velocity.x = 0
         }
         body.velocity *= 0.95
-        if FixedRect.intersects(body.shape.getBounds(), Player.player.body.shape.getBounds()) {
-            alive = false
-            //Map.current.append(TextParticle(transform.location, "+\(points)", 64))
-            GameData.info.points += points
-            let c = Audio("pickup1")
-            c.volume = 0.4
-            c.start()
+        counter -= Time.delta
+        if counter <= 0 {
+            pickup()
         }
+    }
+    
+    func pickup() {
+        alive = false
+        GameData.info.points += points
+        let c = Audio("pickup1")
+        c.volume = 0.4
+        c.start()
     }
     
 }

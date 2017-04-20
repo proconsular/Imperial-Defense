@@ -123,15 +123,18 @@ class Player: Entity {
         
         animator = TextureAnimator(5, 8, 4, float2(1))
         
-        super.init(Rect(transform, float2(48, 48) * 4), Substance(PhysicalMaterial(.wood), Mass(10, 0), Friction(.iron)))
-       
+        let image = Rect(transform, float2(48, 48) * 4)
+        let bodyhall = Rect(transform, float2(100, 100))
+        
+        super.init(image, bodyhall, Substance(PhysicalMaterial(.wood), Mass(10, 0), Friction(.iron)))
+        
         body.mask = 0b10
         body.object = self
         display.texture = GLTexture("Player").id
         display.coordinates = animator.coordinates
         
         Player.player = self
-        display.scheme.schemes[0].order  = 100
+        display.order  = 100
         
         terminator = ExplosionTerminator(self, 3.m, float4(1, 1, 1, 1))
     }

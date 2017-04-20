@@ -22,10 +22,10 @@ class Entity: Actor {
     var onObject = false
     var alive = true
     
-    init(_ hull: Hull, _ substance: Substance) {
+    init(_ hull: Hull, _ bodyhull: Hull, _ substance: Substance) {
         self.transform = hull.transform
         display = Display(hull, GLTexture("white"))
-        body = Body(hull, substance)
+        body = Body(bodyhull, substance)
         display.camera = true
     }
     

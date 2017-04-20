@@ -36,11 +36,6 @@ class EndScreen: Screen {
             UserInterface.space.push(TitleScreen())
         }))
         
-//        layer.objects.append(TextButton(Text("Upgrades", FontStyle(defaultFont, float4(1), 64)), Camera.size / 2 + offset, {
-//            UserInterface.space.wipe()
-//            UserInterface.space.push(StoreScreen())
-//        }))
-        
         layer.objects.append(TextButton(Text("Play", FontStyle(defaultFont, float4(1), 64)), GameScreen.size / 2 + offset + spacing, {
             let pr = PrincipalScreen()
             UserInterface.space.wipe()

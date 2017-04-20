@@ -26,7 +26,7 @@ class Upgrader {
     init() {
         firepower = FirePowerUpgrade(Impact(15, 2.5.m))
         shieldpower = ShieldUpgrade(ShieldPower(140, 100))
-        barrier = BarrierUpgrade(BarrierLayout(100, 2))
+        barrier = BarrierUpgrade(BarrierLayout(500, 2))
         
         upgrades = [firepower, shieldpower, barrier]
     }
@@ -59,6 +59,9 @@ class Game: DisplayLayer {
     
     var barriers: [Wall]
     
+    var start_timer: Float = 0
+    var starting: Bool = true
+    
     init(_ mode: Int) {
         Time.scale = 1
         self.mode = mode
@@ -83,6 +86,14 @@ class Game: DisplayLayer {
         points = GameData.info.points
         coordinator = Coordinator(mode)
         coordinator.setWave(max(GameData.info.wave, 0))
+        coordinator.next()
+        
+        let legion = coordinator.waves[0] as! Legion
+        legion.rows.forEach{
+            $0.soldiers.forEach{
+                $0.behavior.stack.push(MarchBehavior(MarchAnimator($0, $0.animation, 0.025, 0.25.m)))
+            }
+        }
         
         scenery = Scenery(map)
         
@@ -93,9 +104,9 @@ class Game: DisplayLayer {
         
         createWalls(0.15.m)
         
-        let constructor = BarrierConstructor(BarrierLayout(10, 2))
+        let constructor = BarrierConstructor(BarrierLayout(500, 2))
         upgrader.barrier.apply(constructor)
-        barriers = constructor.construct(-2.4.m, int2(10, 4))
+        barriers = constructor.construct(-2.4.m)
         
 //        let audio = Audio("2 Imperial")
 //        if !audio.playing {
@@ -154,6 +165,22 @@ class Game: DisplayLayer {
                     end()
                 }
             }
+        }
+        
+        if starting {
+            start_timer += Time.delta
+            if start_timer >= 2 {
+                physics.halt()
+                starting = false
+                UserInterface.space.push(StartPrompt())
+                let legion = coordinator.waves[0] as! Legion
+                legion.rows.forEach{
+                    $0.soldiers.forEach{
+                        $0.behavior.stack.pop()
+                    }
+                }
+            }
+            
         }
     }
     

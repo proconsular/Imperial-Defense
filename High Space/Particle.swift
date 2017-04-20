@@ -15,7 +15,8 @@ class Particle: Entity {
     var color: float4 = float4(1)
     
     init(_ location: float2, _ size: Float) {
-        super.init(Rect(Transform(location), float2(size)), Substance.getStandard(0.01))
+        let rect = Rect(Transform(location), float2(size))
+        super.init(rect, rect, Substance.getStandard(0.01))
         body.mask = 0b0
         color = float4(1, 1, 1, 1)
         display.scheme.schemes[0].order = 1
@@ -50,7 +51,7 @@ class Explosion: Entity {
     init(_ location: float2, _ radius: Float) {
         self.radius = radius
         circle = Circle(Transform(location), 0)
-        super.init(circle, Substance.getStandard(1))
+        super.init(circle, circle, Substance.getStandard(1))
         body.mask = 0b0
         display.scheme.schemes[0].order = 2
         body.noncolliding = true
@@ -84,7 +85,8 @@ class TextParticle: Entity {
     init(_ location: float2, _ string: String, _ size: Float) {
         text = Text(string, FontStyle(defaultFont, float4(1), size))
         text.location = location + float2(0, Camera.size.y)
-        super.init(Rect(Transform(location), float2(size)), Substance.getStandard(0.01))
+        let rect = Rect(Transform(location), float2(size))
+        super.init(rect, rect, Substance.getStandard(0.01))
         body.mask = 0b0
         color = float4(1, 1, 1, 1)
         display.scheme.schemes[0].order  = 1

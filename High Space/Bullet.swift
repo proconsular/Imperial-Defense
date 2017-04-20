@@ -16,7 +16,8 @@ class Bullet: Entity {
         self.impact = impact
         self.casing = casing
         
-        super.init(Rect(location, casing.size), Substance(PhysicalMaterial(.wood), Mass(0.05, 0), Friction(.iron)))
+        let rect = Rect(location, casing.size)
+        super.init(rect, rect, Substance(PhysicalMaterial(.wood), Mass(0.05, 0), Friction(.iron)))
         
         display.scheme.schemes[0].info.texture = GLTexture("bullet").id
         display.color = casing.color

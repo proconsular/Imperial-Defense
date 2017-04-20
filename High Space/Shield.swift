@@ -160,7 +160,9 @@ class Shield: Life {
             timer.update(Time.delta)
         }else{
             points.limit = final.amount
-            points.recharge(final.recharge * Time.delta)
+            if points.amount < points.limit {
+                 points.recharge(final.recharge * Time.delta)
+            }
         }
         broke = false
     }

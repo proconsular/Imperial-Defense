@@ -42,4 +42,8 @@ class TextureAnimator {
         index = (offset ?? 0) + (index + 1) % length
     }
     
+    var x: Int {
+        return index % width
+    }
+    
 }

@@ -12,6 +12,50 @@ protocol Created {
     init(_ location: float2)
 }
 
+class ComplexBehavior: Behavior {
+    
+    var alive: Bool = true
+    var behaviors: [Behavior]
+    
+    init() {
+        behaviors = []
+    }
+    
+    func update() {
+        behaviors.forEach{
+            $0.update()
+        }
+    }
+    
+    func append(_ behavior: Behavior) {
+        behaviors.append(behavior)
+    }
+    
+}
+
+class SerialBehavior: Behavior {
+    
+    var alive: Bool = true
+    var stack: Stack<Behavior>
+    
+    init() {
+        stack = Stack<Behavior>()
+    }
+    
+    func update() {
+        let active = stack.peek!
+        active.update()
+        if !active.alive {
+            stack.pop()
+        }
+    }
+    
+    var behavior: Behavior {
+        return stack.peek!
+    }
+    
+}
+
 class Soldier: Entity, Created {
     
     var color: float4
@@ -19,8 +63,9 @@ class Soldier: Entity, Created {
     var health: Health
     
     var terminator: ActorTerminationDelegate?
-    var animator: SoldierAnimator?
     var drop: Drop?
+    
+    var behavior: SerialBehavior
     
     var animation: TextureAnimator
     
@@ -35,21 +80,30 @@ class Soldier: Entity, Created {
         let shield = Shield(Float(15), Float(1.5), Float(40))
         let health = Health(5, shield)
         self.init(location, health, float4(1))
-        animator = MarchAnimator(self, 0.1, 0.075.m)
-        let firer = Firer(2.5, Impact(10, 8.m), Casing(float2(0.5.m, 0.14.m), float4(1, 0.25, 0, 1), "player"))
+        let firer = Firer(2, Impact(15, 8.m), Casing(float2(0.5.m, 0.14.m), float4(1, 0.25, 0, 1), "player"))
         weapon = Weapon(transform, float2(0, 1), firer)
         weapon?.offset = float2(-0.275.m, -0.5.m)
+        
+        if let behavior = behavior.behavior as? ComplexBehavior {
+            behavior.append(MarchBehavior(MarchAnimator(self, animation, 0.025, 0.125.m)))
+            behavior.append(ShootBehavior(weapon!, self))
+        }
     }
     
     init(_ location: float2, _ health: Health, _ color: float4) {
         self.color = color
         let rect = Rect(location, float2(150, 150))
+        let bodyhull = Rect(location, float2(75, 100))
+        bodyhull.transform = rect.transform
         self.health = health
         
         animation = TextureAnimator(12, 12, 3, float2(1))
         animation.offset = 12
         
-        super.init(rect, Substance.getStandard(100))
+        behavior = SerialBehavior()
+        behavior.stack.push(ComplexBehavior())
+        
+        super.init(rect, bodyhull, Substance.getStandard(100))
         
         display.texture = GLTexture("soldier_walk").id
         display.color = color
@@ -73,64 +127,110 @@ class Soldier: Entity, Created {
     override func update() {
         super.update()
         
-        anim += Time.delta
-        if anim >= 0.1 {
-            anim = 0
-            animation.animate()
-            display.coordinates = animation.coordinates
-        }
-        
         weapon?.update()
-        animator?.animate()
+        behavior.update()
+        
+        terminate()
+        
+        updateShield()
+        
+        display.coordinates = animation.coordinates
+    }
+    
+    func terminate() {
         if health.percent <= 0 {
             alive = false
             terminator?.terminate()
         }
+    }
+    
+    func updateShield() {
         if let shield = health.shield {
             if shield.broke {
                 shield.explode(transform)
             }
             shield.update()
-            //display.color = shield.apply(color)
         }
-        fire()
-        if willFire {
-            fire_time += Time.delta
-            if fire_time >= 0.3 {
-                fire_time = 0
-                willFire = false
-                fired = true
-                shoot()
-            }
+    }
+    
+}
+
+protocol Behavior {
+    var alive: Bool { get set }
+    func update()
+}
+
+class MarchBehavior: Behavior {
+    
+    var alive: Bool = true
+    var animator: SoldierAnimator
+    
+    init(_ animator: SoldierAnimator) {
+        self.animator = animator
+    }
+    
+    func update() {
+        animator.animate()
+    }
+    
+}
+
+class ShootBehavior: Behavior {
+    
+    var alive: Bool = true
+    var weapon: Weapon
+    var soldier: Soldier
+    
+    init(_ weapon: Weapon, _ soldier: Soldier) {
+        self.weapon = weapon
+        self.soldier = soldier
+    }
+    
+    func update() {
+        if shouldFire() && canSee() {
+            fire()
         }
-        if fired {
-            de_time += Time.delta
-            if de_time >= 0.3 {
-                de_time = 0
-                fired = false
-                animation.offset = 12
-            }
-        }
+    }
+    
+    func shouldFire() -> Bool {
+        let dl = Player.player.body.location - soldier.body.location
+        let d = min(dl.x / 1.m, 1)
+        let roll = (1 - d) * 0.2
+        return random(0, 1) < (0.05 + roll)
+    }
+    
+    func canSee() -> Bool {
+        return ActorUtility.hasLineOfSight(soldier)
     }
     
     func fire() {
-        if arc4random() % 100 >= 98 {
-            if ActorUtility.hasLineOfSight(self) {
-                if let weapon = weapon {
-                    if weapon.canFire {
-                        willFire = true
-                        animation.offset = 24
-                    }
-                }
-            }
+        if weapon.canFire {
+            weapon.fire()
+            let s = Audio("shoot3")
+            s.volume = sound_volume
+            s.start()
         }
     }
     
-    func shoot() {
-        weapon!.fire()
-        let s = Audio("shoot3")
-        s.volume = sound_volume
-        s.start()
+}
+
+class TemporaryBehavior: Behavior {
+    
+    var alive: Bool = true
+    var counter: Float
+    var behavior: Behavior
+    
+    init(_ behavior: Behavior, _ count: Float) {
+        self.counter = count
+        self.behavior = behavior
+    }
+    
+    func update() {
+        behavior.update()
+        counter -= Time.delta
+        if counter <= 0 {
+            alive = false
+        }
     }
     
 }
@@ -139,10 +239,14 @@ class Scout: Soldier {
     
     required init(_ location: float2) {
         super.init(location, Health(5, nil), float4(0.5, 0.5, 0.5, 1))
-        animator = MarchAnimator(self, 0.075, 0.125.m)
         let firer = Firer(0.25, Impact(10, 8.m), Casing(float2(0.5.m, 0.14.m), float4(1, 0.75, 0, 1), "player"))
         weapon = Weapon(transform, float2(0, 1), firer)
         weapon?.offset = float2(-0.275.m, -0.5.m)
+        
+        if let behavior = behavior.behavior as? ComplexBehavior {
+            behavior.append(MarchBehavior(MarchAnimator(self, animation, 0.015, 0.15.m)))
+            behavior.append(ShootBehavior(weapon!, self))
+        }
     }
     
 }
@@ -150,22 +254,16 @@ class Scout: Soldier {
 class Banker: Soldier {
     
     required init(_ location: float2) {
-        let shield = Shield(Float(15), Float(2.0), Float(80))
+        let shield = Shield(Float(15), Float(2.0), Float(15))
         super.init(location, Health(45, shield), float4(1, 1, 0.25, 1))
-        animator = MarchAnimator(self,  0.1, 0.075.m)
-        drop = CoinDrop(Int(arc4random() % 5) + 3, 1)
+        drop = CoinDrop(Int(arc4random() % 2) + 1, 1)
+        if let behavior = behavior.behavior as? ComplexBehavior {
+            behavior.append(MarchBehavior(MarchAnimator(self, animation, 0.025, 0.125.m)))
+        }
     }
     
     override func update() {
         super.update()
-        if transform.location.y >= -GameScreen.size.y + 2.m {
-            if health.percent <= 0.5 {
-                if 0.25 >= random(0, 1) {
-                    animator = MarchAnimator(self, 0.025, -0.1.m)
-                }
-            }
-        }
-        
         if transform.location.y < -Camera.size.y * 2 {
             alive = false
         }
@@ -175,36 +273,50 @@ class Banker: Soldier {
 
 class Captain: Soldier {
     
-    var rushed: Bool
-    
     required init(_ location: float2) {
-        rushed = false
         super.init(location, Health(30, Shield(Float(30), Float(2.0), Float(30))), float4(1, 0.5, 0.5, 1))
-        animator = MarchAnimator(self, 0.1, 0.075.m)
         let firer = Firer(1.0, Impact(20, 6.m), Casing(float2(0.5.m, 0.14.m) * 1.2, float4(1, 0, 0, 1), "player"))
         weapon = Weapon(transform, float2(0, 1), firer)
         weapon?.offset = float2(-0.275.m, -0.5.m)
+        
+        if let behavior = behavior.behavior as? ComplexBehavior {
+            behavior.append(MarchBehavior(MarchAnimator(self, animation, 0.025, 0.125.m)))
+            behavior.append(ShootBehavior(weapon!, self))
+            behavior.append(RushBehavior(transform, 4.m))
+        }
     }
     
-    override func update() {
-        super.update()
-        
-        if transform.location.y >= -Camera.size.y * 0.75 {
+}
+
+class RushBehavior: Behavior {
+    
+    var alive = true
+    var rushed: Bool
+    var transform: Transform
+    var radius: Float
+    
+    init(_ transform: Transform, _ radius: Float) {
+        rushed = false
+        self.radius = radius
+        self.transform = transform
+    }
+    
+    func update() {
+        if transform.location.y >= -Camera.size.y {
             if !rushed {
-                if random(0, 1) <= 0.1 {
-                    rush(3.m)
+                if random(0, 1) <= 0.2 {
+                    rush(radius)
                     rushed = true
                 }
             }
         }
-        
     }
     
     func rush(_ radius: Float) {
         let actors = Map.current.getActors(rect: FixedRect(transform.location, float2(radius)))
         for actor in actors {
-            if let soldier = actor as? Soldier, let marcher = soldier.animator as? MarchAnimator {
-                marcher.sprint = 1
+            if let soldier = actor as? Soldier {
+                soldier.behavior.stack.push(TemporaryBehavior(MarchBehavior(MarchAnimator(soldier, soldier.animation, 0.0075, 0.125.m)), 2))
             }
         }
         let ex = Explosion(transform.location, radius)
@@ -220,11 +332,13 @@ class Healer: Soldier {
     
     required init(_ location: float2) {
         super.init(location, Health(15, Shield(Float(15), Float(1.0), Float(50))), float4(0.25, 1, 0.25, 1))
-        animator = MarchAnimator(self,  0.1, 0.075.m)
-        timer = Timer(2) { [unowned self] in
+        timer = Timer(3) { [unowned self] in
             if random(0, 1) <= 0.1 {
                 self.heal(2.m)
             }
+        }
+        if let behavior = behavior.behavior as? ComplexBehavior {
+            behavior.append(MarchBehavior(MarchAnimator(self, animation, 0.025, 0.125.m)))
         }
     }
     
@@ -237,7 +351,7 @@ class Healer: Soldier {
         let actors = Map.current.getActors(rect: FixedRect(transform.location, float2(radius)))
         for actor in actors {
             if let soldier = actor as? Soldier {
-                soldier.health.shield?.points.increase(30)
+                soldier.health.shield?.points.increase(15)
             }
         }
         let ex = Explosion(transform.location, radius)
@@ -251,10 +365,14 @@ class Heavy: Soldier {
     
     required init(_ location: float2) {
         super.init(location, Health(30, Shield(Float(60), Float(2.0), Float(30))), float4(0.5, 0.5, 1, 1))
-        animator = MarchAnimator(self, 0.1, 0.075.m)
         let firer = Firer(1.5, Impact(30, 6.m), Casing(float2(0.5.m, 0.14.m) * 1.4, float4(1, 0, 1, 1), "player"))
         weapon = Weapon(transform, float2(0, 1), firer)
         weapon?.offset = float2(-0.275.m, -0.5.m)
+        
+        if let behavior = behavior.behavior as? ComplexBehavior {
+            behavior.append(MarchBehavior(MarchAnimator(self, animation, 0.025, 0.125.m)))
+            behavior.append(ShootBehavior(weapon!, self))
+        }
     }
     
 }
@@ -263,10 +381,14 @@ class Sniper: Soldier {
     
     required init(_ location: float2) {
         super.init(location, Health(45, Shield(Float(20), Float(0.5), Float(60))), float4(1, 0.5, 1, 1))
-        animator = MarchAnimator(self, 0.1, 0.075.m)
         let firer = Firer(2.0, Impact(50, 10.m), Casing(float2(0.6.m, 0.1.m), float4(0, 1, 1, 1), "player"))
         weapon = Weapon(transform, float2(0, 1), firer)
         weapon?.offset = float2(-0.275.m, -0.5.m)
+        
+        if let behavior = behavior.behavior as? ComplexBehavior {
+            behavior.append(MarchBehavior(MarchAnimator(self, animation, 0.035, 0.125.m)))
+            behavior.append(ShootBehavior(weapon!, self))
+        }
     }
     
 }
@@ -285,10 +407,13 @@ class MarchAnimator: SoldierAnimator {
     var counter: Float
     var sprint: Float
     
-    init(_ soldier: Soldier, _ rate: Float, _ speed: Float) {
+    var animation: TextureAnimator
+    
+    init(_ soldier: Soldier, _ animation: TextureAnimator, _ rate: Float, _ speed: Float) {
         self.soldier = soldier
         self.rate = rate
         self.speed = speed
+        self.animation = animation
         counter = 0
         sprint = 0
     }
@@ -306,11 +431,18 @@ class MarchAnimator: SoldierAnimator {
             
             if counter >= final_rate {
                 counter = 0
-                soldier.body.location.y += speed
-                //soldier.display.scheme.schemes[0].layout.flip(vector: float2(-1, 1))
-                if soldier.body.location.y > -Camera.size.y {
-                    //play("march1", 0.1)
+                
+                animation.animate()
+                
+                if animation.x == 2 || animation.x == 8 {
+                    soldier.body.location.y += speed
+                    
+                    if soldier.body.location.y > -Camera.size.y {
+                        
+                    }
                 }
+                
+                
             }
         }
     }

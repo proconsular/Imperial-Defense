@@ -13,8 +13,8 @@ class Wall: Structure {
     var health: Int
     var max: Int
     
-    init(_ location: float2) {
-        health = 500
+    init(_ location: float2, _ health: Int) {
+        self.health = health
         max = health
         super.init(location, float2(64, 32) * 4)
         display.texture = GLTexture("barrier_castle").id

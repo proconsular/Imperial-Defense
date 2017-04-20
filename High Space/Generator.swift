@@ -25,11 +25,11 @@ class Difficulty {
     }
     
     var size: Int {
-        return clamp((wave / 4) + 3, min: 1, max: 10)
+        return clamp((wave / 4) + 4, min: 1, max: 10)
     }
     
     var amount: Int {
-        return min(5 + Int(grade * 10), 18)
+        return min(8 + Int(grade * 10), 18)
     }
     
     var grade: Float {
@@ -42,14 +42,36 @@ class Difficulty {
     
 }
 
-class LegionGenerator {
+class GenerationContext {
     
-    let row_gen: RowGenerator
+    var banker: Int
+    
+    init() {
+        banker = 0
+    }
+    
+}
+
+class Generator {
+    
+    var context: GenerationContext
     var difficulty: Difficulty
     
-    init(_ difficulty: Difficulty) {
+    init(_ context: GenerationContext, _ difficulty: Difficulty) {
+        self.context = context
         self.difficulty = difficulty
-        self.row_gen = RowGenerator(difficulty)
+    }
+    
+}
+
+class LegionGenerator: Generator {
+    
+    let row_gen: RowGenerator
+    
+    init(_ difficulty: Difficulty) {
+        let context = GenerationContext()
+        self.row_gen = RowGenerator(context, difficulty)
+        super.init(context, difficulty)
     }
     
     func create() -> Legion {
@@ -57,7 +79,9 @@ class LegionGenerator {
         
         for i in 0 ..< difficulty.size {
             difficulty.row = i
-            rows.append(row_gen.create(float2(Map.current.size.x / 2, -12.m - Float(i) * 2.m)))
+            let row = row_gen.create(float2(Map.current.size.x / 2, -12.m - Float(i) * 0.5.m))
+            row.soldiers.forEach{ $0.display.order += -i }
+            rows.append(row)
         }
         
         return Legion(rows)
@@ -65,23 +89,23 @@ class LegionGenerator {
     
 }
 
-class RowGenerator {
+class RowGenerator: Generator {
     
     let sol_gen: SoldierGenerator
-    var difficulty: Difficulty
     
-    init(_ difficulty: Difficulty) {
-        self.difficulty = difficulty
-        sol_gen = SoldierGenerator(difficulty)
+    override init(_ context: GenerationContext, _ difficulty: Difficulty) {
+        sol_gen = SoldierGenerator(context, difficulty)
+        super.init(context, difficulty)
     }
     
     func create(_ location: float2) -> Row {
         var soldiers: [Soldier] = []
         let amount = difficulty.amount
-        let start = location + float2(-Float(amount) / 2 * 1.5.m, 0)
+        let start = location + float2(-Float(amount) / 2 * 1.m, 0)
         for i in 0 ..< amount {
-            let loc = start + float2(Float(i) * 1.5.m, 0)
+            let loc = start + float2(Float(i) * 1.m, 0)
             let soldier = sol_gen.create(loc)
+            
             soldiers.append(soldier)
             Map.current.append(soldier)
         }
@@ -90,13 +114,7 @@ class RowGenerator {
     
 }
 
-class SoldierGenerator {
-    
-    var difficulty: Difficulty
-    
-    init(_ difficulty: Difficulty) {
-        self.difficulty = difficulty
-    }
+class SoldierGenerator: Generator {
     
     func create(_ location: float2) -> Soldier {
         var soldier: Soldier!
@@ -106,14 +124,21 @@ class SoldierGenerator {
             let creator = ChanceTable.main.soldiers[index]
             let row = difficulty.row == 0 ? -1 : difficulty.row == difficulty.size - 1 ? 1 : 0
             if creator.chance.spawnable(difficulty.wave, row) {
-                soldier = creator.create(location)
+                let new = creator.create(location)
+                if !(new is Banker) {
+                    soldier = new
+                }
+                if (new is Banker && context.banker == 0) {
+                    soldier = new
+                    context.banker += 1
+                }
             }
             index = (index + 1) % ChanceTable.main.soldiers.count
         }
         
-        if let marcher = soldier.animator as? MarchAnimator {
-            marcher.rate -= difficulty.speed
-        }
+//        if let marcher = soldier.animator as? MarchAnimator {
+//            marcher.rate -= difficulty.speed
+//        }
         
         return soldier
     }
@@ -125,11 +150,13 @@ class Chance {
     let wave: Int
     let row: Int
     let rank: Float
+    let amount: Int
     
-    init(_ wave: Int, _ rank: Float, _ row: Int) {
+    init(_ wave: Int, _ rank: Float, _ row: Int, _ amount: Int = 0) {
         self.wave = wave
         self.rank = rank
         self.row = row
+        self.amount = amount
     }
     
     func spawnable(_ wave: Int, _ row: Int) -> Bool {
@@ -195,7 +222,7 @@ class ChanceTable {
         soldiers.append(Creator(Soldier.init,   Chance(0, 0.75, 0)))
         soldiers.append(Creator(Soldier.init,   Chance(0, 0.5, 1)))
         
-        soldiers.append(Creator(Banker.init,    Chance(0, 0.75, 1)))
+        soldiers.append(Creator(Banker.init,    Chance(0, 0.75, 1, 1)))
         
         soldiers.append(Creator(Captain.init,   Chance(5, 0.25, 0)))
         soldiers.append(Creator(Healer.init,    Chance(15, 0.25, 0)))
