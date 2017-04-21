@@ -99,7 +99,8 @@ class GameBase: GameInterface {
         upgrader.barrier.range.amount = 0
         
         let main = ScreenSpace()
-        main.push(PrincipalScreen())
+        main.push(Splash())
+        //main.push(PrincipalScreen())
         //main.push(StoreScreen())
         UserInterface.set(space: main)
     }

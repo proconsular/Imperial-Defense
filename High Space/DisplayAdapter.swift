@@ -15,7 +15,7 @@ import Foundation
     init(_ location: float2, _ bounds: float2, _ texture: GLuint) {
         rect = Rect(location, bounds)
         display = Display(rect, GLTexture(texture))
-        display.transform.assign(Camera.current.transform)
+        //display.transform.assign(Camera.current.transform)
     }
     
     override convenience init() {

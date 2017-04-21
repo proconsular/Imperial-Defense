@@ -39,3 +39,38 @@ class StartPrompt: Screen {
     }
     
 }
+
+class EndPrompt: Screen {
+    
+    override init() {
+        UserInterface.controller.push(PointController(0))
+        
+        super.init()
+        
+        let layer = InterfaceLayer()
+        
+        let wave = GameData.info.wave + 1
+        layer.objects.append(Text(GameScreen.size / 2 + float2(0, -100) + float2(0, -GameScreen.size.y), "Legio \(wave.roman)", FontStyle(defaultFont, float4(1), 144)))
+        
+        layer.objects.append(Text(GameScreen.size / 2 + float2(0, 100) + float2(0, -GameScreen.size.y), "Legio \(wave.roman) has been destroyed.", FontStyle(defaultFont, float4(1), 36)))
+        
+        let offset = float2(0, 350)
+        
+        layer.objects.append(TextButton(Text("Forge", FontStyle(defaultFont, float4(1), 64)), GameScreen.size / 2 + offset + float2(-300, -GameScreen.size.y), {
+            UserInterface.space.wipe()
+            UserInterface.push(StoreScreen())
+        }))
+        
+        layer.objects.append(TextButton(Text("Play", FontStyle(defaultFont, float4(1), 64)), GameScreen.size / 2 + offset + float2(300, -GameScreen.size.y), {
+            UserInterface.space.wipe()
+            UserInterface.push(PrincipalScreen())
+        }))
+        
+        layers.append(layer)
+    }
+    
+    deinit {
+        UserInterface.controller.reduce()
+    }
+    
+}

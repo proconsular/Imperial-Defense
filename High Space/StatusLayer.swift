@@ -34,6 +34,34 @@ class ScoreDisplay {
     
 }
 
+class LegionDisplay {
+    
+    var plate: Display
+    var soldier: Display
+    var text: Text
+    let game: Game
+    
+    init(_ location: float2, _ bounds: float2, _ game: Game) {
+        plate = Display(location, float2(bounds.x, 76 * bounds.y / 40), GLTexture("Plates"))
+        let a = TextureAnimator(1, 1, 2, float2(1))
+        plate.coordinates = a.coordinates
+        let spacing = bounds.x * 0.2
+        soldier = Display(location + float2(-spacing, 0), float2(64), GLTexture("soldier_walk"))
+        let anim = TextureAnimator(5, 12, 3, float2(1))
+        soldier.coordinates = anim.coordinates
+        text = Text(location + float2(spacing, 0) + float2(0, -GameScreen.size.y), "0", FontStyle(defaultFont, float4(1), 48.0 * (bounds.y / 100)))
+        self.game = game
+    }
+    
+    func render() {
+        plate.render()
+        soldier.render()
+        text.setString("\(game.coordinator.waves.first?.health ?? 0)")
+        text.render()
+    }
+    
+}
+
 class WaveDisplay {
     
     var plate: Display
@@ -59,6 +87,7 @@ class WaveDisplay {
 class StatusLayer: InterfaceLayer {
     let score: ScoreDisplay
     let wave: WaveDisplay
+    let legion: LegionDisplay
     
     let shield: PercentDisplay
     let stamina: PercentDisplay
@@ -74,17 +103,17 @@ class StatusLayer: InterfaceLayer {
         
         let sh = LifeDisplayAdapter(game.player.health.shield!, float4(48 / 255, 181 / 255, 206 / 255, 1))
         sh.warnings.append(ShieldLowPowerWarning(float4(1, 0, 0, 1), 0.125, 0.33))
-        shield = PercentDisplay(float2(115, size / 2) + float2(0, -GameScreen.size.y), size * 0.37, 18, 1, sh)
+        shield = PercentDisplay(float2(100, size / 2) + float2(0, -GameScreen.size.y), size * 0.37, 18, 1, sh)
         shield.frame.color = float4(0)
         
-        stamina = PercentDisplay(float2(115, size / 2) + float2(0, -GameScreen.size.y), size * 0.37, 18, 1, LifeDisplayAdapter(game.player.health.stamina, float4(53 / 255, 215 / 255, 83 / 255, 1)))
-        weapon = PercentDisplay(float2(GameScreen.size.x - 30, size / 2) + float2(0, -GameScreen.size.y), size * 0.375, 18, -1, PlayerWeaponDisplayAdapter(game.player.weapon))
+        stamina = PercentDisplay(float2(100, size / 2) + float2(0, -GameScreen.size.y), size * 0.37, 18, 1, LifeDisplayAdapter(game.player.health.stamina, float4(53 / 255, 215 / 255, 83 / 255, 1)))
+        weapon = PercentDisplay(float2(GameScreen.size.x - 20, size / 2) + float2(0, -GameScreen.size.y), size * 0.375, 18, -1, PlayerWeaponDisplayAdapter(game.player.weapon))
         
-        score = ScoreDisplay(float2(GameScreen.size.x / 2 - 200, size / 2), float2(200, size / 2))
-        wave = WaveDisplay(float2(GameScreen.size.x / 2 + 200, size / 2), float2(224, size / 2))
+        score = ScoreDisplay(float2(GameScreen.size.x / 2 - 200, size / 2), float2(180, size / 2))
+        wave = WaveDisplay(float2(GameScreen.size.x / 2, size / 2), float2(224, size / 2))
+        legion = LegionDisplay(float2(GameScreen.size.x / 2 + 200, size / 2), float2(180, size / 2), game)
         
         background = Display(float2(GameScreen.size.x / 2, size / 2) , float2(GameScreen.size.x, size), GLTexture("GameUIBack"))
-        //background.camera = false
         
         super.init()
         
@@ -106,12 +135,9 @@ class StatusLayer: InterfaceLayer {
         stamina.render()
         shield.render()
         
-//        points.setString("\(Coordinator.wave) : \(GameData.info.points)")
-//        points.render()
-//        
-        
         score.render()
         wave.render()
+        legion.render()
         
         weapon.render()
     }
@@ -146,7 +172,7 @@ class PercentDisplay {
         let width = (s + spacing) * Float(count) + spacing
         
         for i in 0 ..< count {
-            let loc = location + Float(alignment) * float2(Float(i) * (s + spacing) + s / 2 + padding / 2, 0)
+            let loc = location + Float(alignment) * float2(Float(i) * (s + spacing) + s / 2 + padding / 2 + 1, 0)
             let size = float2(s)
             let b = Display(Rect(loc, size), GLTexture("white"))
             b.color = status.color

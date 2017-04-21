@@ -185,13 +185,13 @@ class Game: DisplayLayer {
     }
     
     func end() {
-        GameData.info.wave += 1
-        GameData.persist()
         if GameData.info.wave >= 50 {
             UserInterface.space.push(EndScreen(true))
         }else{
-            UserInterface.space.push(StoreScreen())
+            UserInterface.space.push(EndPrompt())
         }
+        GameData.info.wave += 1
+        GameData.persist()
     }
     
     func display() {

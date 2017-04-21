@@ -30,7 +30,7 @@ class UpgradeView: InterfaceElement, Interface {
         self.upgrade = upgrade
         
         background = Display(Circle(Transform(location + float2(0, -GameScreen.size.y)), 135), GLTexture("white"))
-        background.color = float4(0.2, 0.4, 0.3, 1)
+        background.color = float4(133 / 255, 35 / 255, 38 / 255, 1)
         
         icon = Display(Rect(background.transform, float2(150)), GLTexture(upgrade.name.lowercased()))
         
@@ -39,7 +39,7 @@ class UpgradeView: InterfaceElement, Interface {
         }
         
         text = Text("\(upgrade.name)", FontStyle(defaultFont, float4(1), 48))
-        text.location = location + float2(0, 175) + float2(0, -GameScreen.size.y)
+        text.location = location + float2(0, 210) + float2(0, -GameScreen.size.y)
     }
     
     func buy() {
@@ -76,11 +76,11 @@ class UpgradeView: InterfaceElement, Interface {
             direction = -1
         }
         
-        background.color = float4(0.3, 0.65, 0.1, 1) * fade
+        background.color = float4(133 / 255, 35 / 255, 38 / 255, 1) * fade
         background.refresh()
         background.render()
         icon?.render()
-        text.setString("\(upgrade.name) \(upgrade.range.amount)")
+        text.setString("\(upgrade.name) \(Int(upgrade.range.amount).roman)")
         text.render()
     }
     

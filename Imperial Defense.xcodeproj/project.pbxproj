@@ -35,6 +35,8 @@
 		2205EEEC1EA0BDCA00DEFFF2 /* Pixel.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2205EEEB1EA0BDBE00DEFFF2 /* Pixel.ttf */; };
 		2205EEF21EA1AFC800DEFFF2 /* Plates.png in Resources */ = {isa = PBXBuildFile; fileRef = 2205EEF11EA1AFC800DEFFF2 /* Plates.png */; };
 		2205EEF41EA451D600DEFFF2 /* StartLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2205EEF31EA451D600DEFFF2 /* StartLayer.swift */; };
+		2205EEFC1EA9B9CC00DEFFF2 /* Forge.png in Resources */ = {isa = PBXBuildFile; fileRef = 2205EEFB1EA9B9CC00DEFFF2 /* Forge.png */; };
+		2205EEFE1EA9C7B600DEFFF2 /* Splash.png in Resources */ = {isa = PBXBuildFile; fileRef = 2205EEFD1EA9C7B600DEFFF2 /* Splash.png */; };
 		221A5F0C1D9866B5004B1516 /* Segan.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 221A5F0B1D9866B5004B1516 /* Segan.ttf */; };
 		221A5F0E1D986A39004B1516 /* Aaargh.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 221A5F0D1D98695C004B1516 /* Aaargh.ttf */; };
 		221A5F101D986B21004B1516 /* Adamina-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 221A5F0F1D986A8C004B1516 /* Adamina-Regular.ttf */; };
@@ -151,7 +153,6 @@
 		22A3852A1DC55FDD00055BAF /* Lighting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A385271DC55FDD00055BAF /* Lighting.swift */; };
 		22A3852B1DC55FDD00055BAF /* LightingSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A385281DC55FDD00055BAF /* LightingSystem.swift */; };
 		22A9944E1DDD62F4009F6660 /* Generator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A9944D1DDD62F4009F6660 /* Generator.swift */; };
-		22AE086F1E41B9C300948CC2 /* Splash.png in Resources */ = {isa = PBXBuildFile; fileRef = 22AE086E1E41B9C300948CC2 /* Splash.png */; };
 		22B8C35D1D7D302400806C16 /* spineboy.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 22B8C35A1D7D302400806C16 /* spineboy.atlas */; };
 		22B8C35F1D7D302400806C16 /* spineboy.png in Resources */ = {isa = PBXBuildFile; fileRef = 22B8C35C1D7D302400806C16 /* spineboy.png */; };
 		22B8C3681D8262C400806C16 /* spineboy.json in Resources */ = {isa = PBXBuildFile; fileRef = 22B8C3671D8262C400806C16 /* spineboy.json */; };
@@ -218,6 +219,8 @@
 		2205EEEB1EA0BDBE00DEFFF2 /* Pixel.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Pixel.ttf; sourceTree = "<group>"; };
 		2205EEF11EA1AFC800DEFFF2 /* Plates.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Plates.png; sourceTree = "<group>"; };
 		2205EEF31EA451D600DEFFF2 /* StartLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartLayer.swift; sourceTree = "<group>"; };
+		2205EEFB1EA9B9CC00DEFFF2 /* Forge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Forge.png; sourceTree = "<group>"; };
+		2205EEFD1EA9C7B600DEFFF2 /* Splash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Splash.png; sourceTree = "<group>"; };
 		221A5F0B1D9866B5004B1516 /* Segan.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Segan.ttf; sourceTree = "<group>"; };
 		221A5F0D1D98695C004B1516 /* Aaargh.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Aaargh.ttf; sourceTree = "<group>"; };
 		221A5F0F1D986A8C004B1516 /* Adamina-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Adamina-Regular.ttf"; sourceTree = "<group>"; };
@@ -344,7 +347,6 @@
 		22A9944D1DDD62F4009F6660 /* Generator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Generator.swift; sourceTree = "<group>"; };
 		22A9F80B1D5806650097FD61 /* Display.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Display.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		22A9F80D1D5818DD0097FD61 /* Structure.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Structure.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		22AE086E1E41B9C300948CC2 /* Splash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Splash.png; sourceTree = "<group>"; };
 		22B8C35A1D7D302400806C16 /* spineboy.atlas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = spineboy.atlas; sourceTree = "<group>"; };
 		22B8C35C1D7D302400806C16 /* spineboy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spineboy.png; sourceTree = "<group>"; };
 		22B8C3671D8262C400806C16 /* spineboy.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = spineboy.json; sourceTree = "<group>"; };
@@ -583,16 +585,17 @@
 				2205EEF11EA1AFC800DEFFF2 /* Plates.png */,
 				2205EEE51EA09F0300DEFFF2 /* GameUIBack.png */,
 				2205EED71E9F5B5B00DEFFF2 /* Player.png */,
+				2205EEFB1EA9B9CC00DEFFF2 /* Forge.png */,
 				2205EED91EA013E000DEFFF2 /* stonefloor.png */,
 				2229864E1E48025000389B49 /* shield_weak.wav */,
 				226DA1491DD1A07A0065EB00 /* bomb.png */,
+				2205EEFD1EA9C7B600DEFFF2 /* Splash.png */,
 				226DA14B1DD1A4FA0065EB00 /* movement.png */,
 				226DA14F1DD1A5460065EB00 /* barrier.png */,
 				226DA1411DC855630065EB00 /* adv_soldier.png */,
 				225D2E8E1DC068E200E46E56 /* castle.png */,
 				226DA14D1DD1A4FD0065EB00 /* shield.png */,
 				226DA1431DC8556A0065EB00 /* laser_soldier.png */,
-				22AE086E1E41B9C300948CC2 /* Splash.png */,
 			);
 			name = textures;
 			sourceTree = "<group>";
@@ -1030,6 +1033,7 @@
 				22D31C221D94D36300818AFA /* gem.png in Resources */,
 				22D31C181D94CD6600818AFA /* book.png in Resources */,
 				22B8C3741D85424600806C16 /* hit5.wav in Resources */,
+				2205EEFE1EA9C7B600DEFFF2 /* Splash.png in Resources */,
 				2271AAE01DB9C2DB00C87152 /* hit1.wav in Resources */,
 				2205EEC61E9EEE6A00DEFFF2 /* Crystal.png in Resources */,
 				22C4E55E1D728F2F0077DFCB /* Spawner.png in Resources */,
@@ -1061,8 +1065,8 @@
 				221A5F0C1D9866B5004B1516 /* Segan.ttf in Resources */,
 				2271AADD1DB7B6DB00C87152 /* shoot3.wav in Resources */,
 				2205EEDA1EA013E000DEFFF2 /* stonefloor.png in Resources */,
+				2205EEFC1EA9B9CC00DEFFF2 /* Forge.png in Resources */,
 				225B15BC1E862EE3008F8D55 /* 1 Battle.wav in Resources */,
-				22AE086F1E41B9C300948CC2 /* Splash.png in Resources */,
 				22C4E5561D6FD39F0077DFCB /* Floater.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

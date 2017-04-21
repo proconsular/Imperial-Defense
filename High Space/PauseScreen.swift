@@ -27,10 +27,9 @@ class PauseScreen: Screen {
             UserInterface.space.pop()
         })
         
-        
         layer.objects.append(TextButton(Text("Menu", FontStyle(defaultFont, float4(1), 84)), GameScreen.size / 2 + float2(0, 100) + float2(0, -GameScreen.size.y)) {
             UserInterface.space.wipe()
-            UserInterface.space.push(TitleScreen())
+            UserInterface.space.push(Splash())
         })
         
         layers.append(layer)

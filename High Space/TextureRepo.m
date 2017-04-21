@@ -67,6 +67,7 @@
     [self prefetch:@"play_back"];
     [self prefetch:@"coin"];
     [self prefetch:@"gun"];
+    [self prefetch:@"Forge"];
     
     [GLTextureLoader setSampler:pixel_sampler];
     
