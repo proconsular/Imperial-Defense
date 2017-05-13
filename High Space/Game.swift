@@ -91,7 +91,7 @@ class Game: DisplayLayer {
         let legion = coordinator.waves[0] as! Legion
         legion.rows.forEach{
             $0.soldiers.forEach{
-                $0.behavior.stack.push(MarchBehavior(MarchAnimator($0, $0.animation, 0.025, 0.25.m)))
+                $0.behavior.push(TemporaryBehavior(MarchBehavior($0, BaseMarchAnimator($0.body, 0.025, 0.2.m)), 2))
             }
         }
         
@@ -173,23 +173,18 @@ class Game: DisplayLayer {
                 physics.halt()
                 starting = false
                 UserInterface.space.push(StartPrompt())
-                let legion = coordinator.waves[0] as! Legion
-                legion.rows.forEach{
-                    $0.soldiers.forEach{
-                        $0.behavior.stack.pop()
-                    }
-                }
             }
             
         }
     }
     
     func end() {
-        if GameData.info.wave >= 50 {
-            UserInterface.space.push(EndScreen(true))
+        if GameData.info.wave >= 49 {
+            UserInterface.space.push(GameCompleteScreen())
         }else{
             UserInterface.space.push(EndPrompt())
         }
+        play("victory")
         GameData.info.wave += 1
         GameData.persist()
     }

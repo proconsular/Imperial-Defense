@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct TextureLayout {
+struct HullLayout: TextureLayout {
     var coordinates: [float2]
     
     init(_ coordinates: [float2]) {
@@ -19,7 +19,7 @@ struct TextureLayout {
         if hull is Rect {
             self.coordinates = [float2(0, 0), float2(0, 1), float2(1, 1), float2(1, 0)]
         }else{
-            self.coordinates = TextureLayout.generateCoordinates(hull)
+            self.coordinates = HullLayout.generateCoordinates(hull)
         }
     }
     

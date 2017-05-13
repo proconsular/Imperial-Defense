@@ -47,7 +47,6 @@ class TitleLayer: InterfaceLayer {
         
         super.init()
         
-        
         buttons.append(TextButton(Text("Friends"), float2(Camera.size.x / 2 - offset.x, Camera.size.y / 2 + offset.y)) {
             self.current = 0
         })
@@ -69,7 +68,6 @@ class TitleLayer: InterfaceLayer {
         }
         
         objects.append(Text(float2(Camera.size.x / 2, 50), "Imperial Defense", FontStyle(defaultFont, float4(1), 48.0)))
-        
     }
     
     override func update() {

@@ -54,7 +54,7 @@ class Bullet: Entity {
             }
         }
         if let char = body.object as? Wall {
-            char.health -= Int(impact.damage)
+            char.damage(Int(impact.damage))
         }
     }
     

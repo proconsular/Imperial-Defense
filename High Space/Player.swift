@@ -121,7 +121,8 @@ class Player: Entity {
         
         affector = Affector()
         
-        animator = TextureAnimator(5, 8, 4, float2(1))
+        animator = TextureAnimator(SheetLayout(0, 8, 4))
+        animator.append(SheetAnimation(0, 5, 8, 1))
         
         let image = Rect(transform, float2(48, 48) * 4)
         let bodyhall = Rect(transform, float2(100, 100))
@@ -184,7 +185,7 @@ class Player: Entity {
                 animator.animate()
             }
         }else{
-            animator.index = 0
+            animator.current.index = 0
         }
         display.coordinates = animator.coordinates
     }

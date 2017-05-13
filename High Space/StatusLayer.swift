@@ -8,6 +8,18 @@
 
 import Foundation
 
+class TextPlate {
+    
+    var plate: Display
+    var text: Text
+    
+    init(_ location: float2, _ bounds: float2) {
+        plate = Display(location, float2(bounds.x, bounds.y * 76 / 40), GLTexture())
+        text = Text(location + float2(bounds.x * 0.2, 0) + float2(0, -GameScreen.size.y), "0", FontStyle(defaultFont, float4(1), 48.0 * (bounds.y / 100)))
+    }
+    
+}
+
 class ScoreDisplay {
     
     var plate: Display
@@ -16,12 +28,10 @@ class ScoreDisplay {
     
     init(_ location: float2, _ bounds: float2) {
         plate = Display(location, float2(bounds.x, 76 * bounds.y / 40), GLTexture("Plates"))
-        let a = TextureAnimator(1, 1, 2, float2(1))
-        plate.coordinates = a.coordinates
+        plate.coordinates = SheetLayout(0, 1, 2).coordinates
         let spacing = bounds.x * 0.2
         crystal = Display(location + float2(-spacing, 0), float2(64), GLTexture("Crystal"))
-        let anim = TextureAnimator(1, 4, 1, float2(1))
-        crystal.coordinates = anim.coordinates
+        crystal.coordinates = SheetLayout(0, 4, 1).coordinates
         text = Text(location + float2(spacing, 0) + float2(0, -GameScreen.size.y), "0", FontStyle(defaultFont, float4(1), 48.0 * (bounds.y / 100)))
     }
     
@@ -43,12 +53,10 @@ class LegionDisplay {
     
     init(_ location: float2, _ bounds: float2, _ game: Game) {
         plate = Display(location, float2(bounds.x, 76 * bounds.y / 40), GLTexture("Plates"))
-        let a = TextureAnimator(1, 1, 2, float2(1))
-        plate.coordinates = a.coordinates
+        plate.coordinates = SheetLayout(0, 1, 2).coordinates
         let spacing = bounds.x * 0.2
         soldier = Display(location + float2(-spacing, 0), float2(64), GLTexture("soldier_walk"))
-        let anim = TextureAnimator(5, 12, 3, float2(1))
-        soldier.coordinates = anim.coordinates
+        soldier.coordinates = SheetLayout(0, 12, 3).coordinates
         text = Text(location + float2(spacing, 0) + float2(0, -GameScreen.size.y), "0", FontStyle(defaultFont, float4(1), 48.0 * (bounds.y / 100)))
         self.game = game
     }
@@ -69,9 +77,7 @@ class WaveDisplay {
     
     init(_ location: float2, _ bounds: float2) {
         plate = Display(location, float2(bounds.x, 76 * bounds.y / 40), GLTexture("Plates"))
-        let a = TextureAnimator(1, 1, 2, float2(1))
-        a.index = 0
-        plate.coordinates = a.coordinates
+        plate.coordinates = SheetLayout(0, 1, 2).coordinates
         text = Text(location + float2(0, -GameScreen.size.y), "0", FontStyle(defaultFont, float4(1), 48.0 * (bounds.y / 100)))
     }
     

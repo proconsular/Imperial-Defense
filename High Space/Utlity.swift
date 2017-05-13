@@ -11,6 +11,7 @@ import Foundation
 func play(_ name: String, _ pitch: Float = 1) {
     let audio = Audio(name)
     audio.pitch = pitch
+    audio.volume = sound_volume
     audio.start()
 }
 
@@ -18,6 +19,7 @@ func playIfNot(_ name: String, _ pitch: Float = 1) {
     let audio = Audio(name)
     if !audio.playing {
         audio.pitch = pitch
+        audio.volume = sound_volume
         audio.start()
     }
 }

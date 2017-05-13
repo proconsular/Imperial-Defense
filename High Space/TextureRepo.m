@@ -72,9 +72,12 @@
     [GLTextureLoader setSampler:pixel_sampler];
     
     [self prefetch:@"soldier_walk"];
+    [self prefetch:@"Soldier3"];
+    [self prefetch:@"NewSoldier"];
     [self prefetch:@"barrier_castle"];
     [self prefetch:@"Crystal"];
     [self prefetch:@"Plates"];
+    [self prefetch:@"SaveFile"];
     
     return self;
 }

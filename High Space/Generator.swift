@@ -79,7 +79,7 @@ class LegionGenerator: Generator {
         
         for i in 0 ..< difficulty.size {
             difficulty.row = i
-            let row = row_gen.create(float2(Map.current.size.x / 2, -12.m - Float(i) * 0.5.m))
+            let row = row_gen.create(float2(Map.current.size.x / 2, -12.m - Float(i) * 1.25.m))
             row.soldiers.forEach{ $0.display.order += -i }
             rows.append(row)
         }
@@ -101,9 +101,9 @@ class RowGenerator: Generator {
     func create(_ location: float2) -> Row {
         var soldiers: [Soldier] = []
         let amount = difficulty.amount
-        let start = location + float2(-Float(amount) / 2 * 1.m, 0)
+        let start = location + float2(-Float(amount) / 2 * 0.85.m, 0)
         for i in 0 ..< amount {
-            let loc = start + float2(Float(i) * 1.m, 0)
+            let loc = start + float2(Float(i) * 0.85.m, 0)
             let soldier = sol_gen.create(loc)
             
             soldiers.append(soldier)
@@ -218,9 +218,9 @@ class ChanceTable {
         soldiers = []
         soldiers.append(Creator(Scout.init,     Chance(0, 0.75, -1)))
         
-        soldiers.append(Creator(Soldier.init,   Chance(0, 0.5, -1)))
-        soldiers.append(Creator(Soldier.init,   Chance(0, 0.75, 0)))
-        soldiers.append(Creator(Soldier.init,   Chance(0, 0.5, 1)))
+        soldiers.append(Creator(Infrantry.init,   Chance(0, 0.5, -1)))
+        soldiers.append(Creator(Infrantry.init,   Chance(0, 0.75, 0)))
+        soldiers.append(Creator(Infrantry.init,   Chance(0, 0.5, 1)))
         
         soldiers.append(Creator(Banker.init,    Chance(0, 0.75, 1, 1)))
         

@@ -60,10 +60,15 @@
     [self loadAudio:@"power_full"];
     [self loadAudio:@"power_low"];
     [self loadAudio:@"death"];
+    [self loadAudio:@"barrier_hit"];
+    [self loadAudio:@"enemy_hit"];
+    [self loadAudio:@"barrier_ruin"];
+    [self loadAudio:@"barrier_destroy"];
+    [self loadAudio:@"charge"];
+    [self loadAudio:@"victory"];
     [self loadAudio:@"0 Title" :44100];
     [self loadAudio:@"1 Battle" :44100];
     [self loadAudio:@"2 Imperial" :44100];
-    
     
     _hasMusic = YES;
     _hasSound = YES;

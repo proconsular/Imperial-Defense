@@ -14,12 +14,12 @@ protocol Scheme {
 
 class VisualScheme: Scheme {
     var hull: Hull
-    var layout: TextureLayout
+    var layout: HullLayout
     var info: VisualInfo
     var camera: Bool
     var order: Int
     
-    init(_ hull: Hull, _ layout: TextureLayout, _ info: VisualInfo) {
+    init(_ hull: Hull, _ layout: HullLayout, _ info: VisualInfo) {
         self.hull = hull
         self.layout = layout
         self.info = info
@@ -28,7 +28,7 @@ class VisualScheme: Scheme {
     }
     
     convenience init(_ hull: Hull, _ info: VisualInfo) {
-        self.init(hull, TextureLayout(hull), info)
+        self.init(hull, HullLayout(hull), info)
     }
     
     func getRawScheme() -> RawScheme {
@@ -59,19 +59,19 @@ class VisualScheme: Scheme {
 
 class VisualRectScheme: VisualScheme {
     
-    init(_ location: float2, _ bounds: float2, _ layout: TextureLayout, _ texture: VisualInfo) {
+    init(_ location: float2, _ bounds: float2, _ layout: HullLayout, _ texture: VisualInfo) {
         let rect = Rect(Transform(location), bounds)
         super.init(rect, layout, texture)
     }
     
-    init(_ location: float2, _ bounds: float2, _ layout: TextureLayout, _ texture: String) {
+    init(_ location: float2, _ bounds: float2, _ layout: HullLayout, _ texture: String) {
         let rect = Rect(Transform(location), bounds)
         super.init(rect, layout, VisualInfo(0))
     }
     
     convenience init(_ location: float2, _ bounds: float2, _ texture: String) {
         let rect = Rect(Transform(location), bounds)
-        self.init(location, bounds, TextureLayout(rect), texture)
+        self.init(location, bounds, HullLayout(rect), texture)
     }
     
 }

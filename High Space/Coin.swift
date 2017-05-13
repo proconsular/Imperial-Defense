@@ -21,8 +21,7 @@ class Coin: Entity {
         let rect = Rect(Transform(location), float2(0.6.m))
         super.init(rect, rect, Substance.getStandard(0.01))
         display.texture = GLTexture("Crystal").id
-        let anim = TextureAnimator(4, 4, 1, float2(1))
-        display.coordinates = anim.coordinates
+        display.coordinates = SheetLayout(0, 4, 1).coordinates
         body.mask = 0b0
         display.order = -1
         body.noncolliding = true
