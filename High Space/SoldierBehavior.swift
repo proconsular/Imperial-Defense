@@ -58,7 +58,7 @@ class RushBehavior: Behavior {
         let actors = Map.current.getActors(rect: FixedRect(transform.location, float2(radius)))
         for actor in actors {
             if let soldier = actor as? Soldier {
-                let animator = BaseMarchAnimator(soldier.body, 0.05, 0.15.m)
+                let animator = BaseMarchAnimator(soldier.body, 0.025, 0.175.m)
                 soldier.behavior.push(TemporaryBehavior(MarchBehavior(soldier, animator), 6))
             }
         }

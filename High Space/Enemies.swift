@@ -60,6 +60,7 @@ class SoldierTerminator: ActorTerminationDelegate {
     func terminate() {
         let a = Audio("explosion1")
         a.volume = sound_volume
+        a.pitch = random(0.9, 1.1)
         a.start()
         soldier.drop?.release(soldier.transform.location)
     }

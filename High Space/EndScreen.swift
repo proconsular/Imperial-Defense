@@ -33,20 +33,18 @@ class EndScreen: Screen {
         
         layer.objects.append(TextButton(Text("Menu", FontStyle(defaultFont, float4(1), 64)), GameScreen.size / 2 + offset - spacing, {
             UserInterface.space.wipe()
+            UserInterface.controller.reduce()
             UserInterface.space.push(Splash())
         }))
         
         layer.objects.append(TextButton(Text("Play", FontStyle(defaultFont, float4(1), 64)), GameScreen.size / 2 + offset + spacing, {
+            UserInterface.controller.reduce()
             let pr = PrincipalScreen()
             UserInterface.space.wipe()
             UserInterface.space.push(pr)
         }))
         
         layers.append(layer)
-    }
-    
-    deinit {
-        UserInterface.controller.reduce()
     }
     
     override func display() {

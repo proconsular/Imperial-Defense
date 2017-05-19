@@ -14,7 +14,7 @@ in lowp vec4 color;
 in lowp vec2 texCoord0;
 
 out lowp vec4 colorVarying;
-out lowp vec2 texCoord0_Varying;
+out highp vec2 texCoord0_Varying;
 
 uniform highp mat4 modelViewProjectionMatrix;
 

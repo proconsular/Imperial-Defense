@@ -91,7 +91,7 @@ class GameBase: GameInterface {
         }
         
         GameData.info.level = 0
-//        GameData.info.points = 0
+        //GameData.info.points = 90
 //        GameData.info.wave = 0
 //        
 //        upgrader.firepower.range.amount = 0

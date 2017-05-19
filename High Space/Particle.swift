@@ -27,7 +27,7 @@ class Particle: Entity {
         super.update()
         opacity += -rate * Time.delta
         opacity = clamp(opacity, min: 0, max: 1)
-        if opacity <= FLT_EPSILON {
+        if opacity <= Float.ulpOfOne {
             alive = false
         }
         display.color = float4(opacity) * color
@@ -61,7 +61,7 @@ class Explosion: Entity {
         super.update()
         opacity *= rate
         opacity = clamp(opacity, min: 0, max: 1)
-        if opacity <= FLT_EPSILON {
+        if opacity <= Float.ulpOfOne {
             alive = false
         }
         circle.setRadius(radius * (1 - opacity))

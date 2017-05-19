@@ -15,6 +15,8 @@ class Splash: Screen {
     let audio: Audio
     
     override init() {
+        UserInterface.controller.push(PointController(0))
+        
         background = Display(Rect(Camera.size / 2 + float2(0, -GameScreen.size.y), Camera.size), GLTexture("Splash"))
         save = SaveDisplay(float2(GameScreen.size.x / 4, GameScreen.size.y * 2.5 / 4))
         
@@ -44,6 +46,7 @@ class Splash: Screen {
         layer.objects.append(title)
         layer.objects.append(TextButton(Text("Tap to Play", FontStyle(defaultFont, float4(1, 1, 1, 1), 72)), float2(Camera.size.x / 2, Camera.size.y / 2 + 50) + float2(0, -GameScreen.size.y)) {
             UserInterface.space.wipe()
+            UserInterface.controller.reduce()
             UserInterface.space.push(PrincipalScreen())
         })
         

@@ -31,6 +31,10 @@ class Wall: Structure {
         if health <= 0 {
             play("barrier_destroy")
             alive = false
+            let count = Int(random(5, 10))
+            for _ in 0 ..< count {
+                makeParts()
+            }
         }
     }
     
@@ -54,7 +58,29 @@ class Wall: Structure {
         
         if index != sheet.index {
             play("barrier_ruin")
+            let count = Int(random(5, 10))
+            for _ in 0 ..< count {
+                makeParts()
+            }
         }
+        
+        let count = Int(random(5, 10))
+        for _ in 0 ..< count {
+            makeParts()
+        }
+    }
+    
+    func makeParts() {
+        let width: Float = 64 * 4
+        let height: Float = 32 * 4
+        let spark = Particle(transform.location + float2(random(-width / 2, width / 2), random(-height / 2, 0)), random(4, 9))
+        let col = random(0.5, 0.75)
+        spark.color = float4(col, col, col, 1)
+        let velo: Float = 400
+        spark.body.relativeGravity = 1
+        spark.rate = 2.5
+        spark.body.velocity = float2(random(-velo, velo) / 2, random(-velo, -velo / 2))
+        Map.current.append(spark)
     }
     
 }

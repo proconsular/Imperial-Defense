@@ -35,19 +35,17 @@ class StoreScreen: Screen {
         
         layer.objects.append(TextButton(Text("Menu", FontStyle(defaultFont, float4(1), 64)), Camera.size / 2 + offset - spacing, {
             UserInterface.space.wipe()
+            UserInterface.controller.reduce()
             UserInterface.space.push(Splash())
         }))
         
         layer.objects.append(TextButton(Text("Play", FontStyle(defaultFont, float4(1), 64)), Camera.size / 2 + offset + spacing, {
             UserInterface.space.wipe()
+            UserInterface.controller.reduce()
             UserInterface.space.push(PrincipalScreen())
         }))
         
         layers.append(layer)
-    }
-    
-    deinit {
-        UserInterface.controller.reduce()
     }
     
     override func display() {

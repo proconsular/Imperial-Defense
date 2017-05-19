@@ -62,9 +62,63 @@ class Texture: NSObject {
         data.deallocate(capacity: width * height)
     }
     
+    func blank() {
+        id = GLTextureLoader.createTexture()
+        glBindTexture(GLenum(GL_TEXTURE_2D), id)
+        glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_WRAP_S), GL_CLAMP_TO_EDGE);
+        glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_WRAP_T), GL_CLAMP_TO_EDGE);
+        glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_MIN_FILTER), GL_NEAREST);
+        glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_MAG_FILTER), GL_NEAREST);
+        
+        //glPixelStorei(GLenum(GL_UNPACK_ALIGNMENT), 4);
+        glEnable(GLenum(GL_BLEND));
+        glBlendFunc(GLenum(GL_ONE), GLenum(GL_ONE_MINUS_SRC_ALPHA));
+        
+        let width = Int(bounds.x)
+        let height = Int(bounds.y)
+        glTexImage2D(GLenum(GL_TEXTURE_2D), 0, GL_RGBA8, GLsizei(width), GLsizei(height), 0, GLenum(GL_RGBA), GLenum(GL_UNSIGNED_BYTE), nil)
+    }
+    
+    func bind() {
+        glBindTexture(GLenum(GL_TEXTURE_2D), id)
+    }
+    
+    deinit {
+        GLHelper.deleteTexture(id)
+    }
+    
 }
 
-
+class RenderTexture {
+    
+    var id: GLuint
+    var texture: Texture
+    
+    init(_ width: Int, _ height: Int) {
+        id = GLHelper.createFrameBuffer()
+        texture = Texture(float2(Float(width), Float(height)))
+        attach(texture)
+        //print(glCheckFramebufferStatus(GLenum(GL_FRAMEBUFFER)) != GLenum(GL_FRAMEBUFFER_COMPLETE))
+    }
+    
+    func attach(_ texture: Texture) {
+        glBindFramebuffer(GLenum(GL_FRAMEBUFFER), id)
+        glFramebufferTexture2D(GLenum(GL_FRAMEBUFFER), GLenum(GL_COLOR_ATTACHMENT0), GLenum(GL_TEXTURE_2D), texture.id, 0)
+    }
+    
+    func capture(_ render: () -> ()) {
+        GLHelper.bindFrameBuffer(id)
+        glViewport(0, 0, GLsizei(texture.bounds.x), GLsizei(texture.bounds.y))
+        GLHelper.clear()
+        render()
+        GLHelper.bindDefaultFramebuffer()
+    }
+    
+    deinit {
+        GLHelper.deleteFramebuffer(id)
+    }
+    
+}
 
 
 

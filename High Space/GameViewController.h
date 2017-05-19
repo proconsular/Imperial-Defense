@@ -12,12 +12,13 @@
 
 extern GLKMatrix4 projectionMatrix;
 extern GLint modelViewProjectionMatrix_Uniform;
+extern GLKView *glkview;
 
 typedef void(^block)(void);
 
 @interface GameViewController : GLKViewController
 
-@property GLuint defaultprogram, lightingprogram;
+@property GLuint defaultprogram, lightingprogram, shieldprogram, bloomprogram;
 @property (strong, nonatomic) EAGLContext *context;
 
 -(void)setupGL;

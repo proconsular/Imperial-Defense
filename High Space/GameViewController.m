@@ -18,6 +18,7 @@
 
 GLKMatrix4 projectionMatrix;
 GLint modelViewProjectionMatrix_Uniform;
+GLKView *glkview;
 
 @implementation GameViewController
 
@@ -28,6 +29,8 @@ GLint modelViewProjectionMatrix_Uniform;
     
     GLKView *view = (GLKView *)self.view;
     view.context = self.context;
+    
+    glkview = view;
     
     [EAGLContext setCurrentContext:self.context];
     
@@ -76,6 +79,32 @@ GLint modelViewProjectionMatrix_Uniform;
     [Graphics append:[[Shader alloc] initAsProgram:_defaultprogram]];
     [Graphics append:light];
     
+    [ShaderLoader load:@"Shield" :&_shieldprogram :^{
+        glBindAttribLocation(_shieldprogram, GLKVertexAttribPosition, "position");
+        glBindAttribLocation(_shieldprogram, GLKVertexAttribTexCoord0, "texCoord0");
+    }];
+    
+    Shader *shield = [[Shader alloc] initAsProgram:_shieldprogram];
+    
+    [shield addProperty:@"color"];
+    [shield addProperty:@"location"];
+    [shield addProperty:@"level"];
+    
+    [Graphics append:shield];
+    
+    [ShaderLoader load:@"Bloom" :&_bloomprogram :^{
+        glBindAttribLocation(_bloomprogram, GLKVertexAttribPosition, "position");
+        glBindAttribLocation(_bloomprogram, GLKVertexAttribTexCoord0, "texCoord0");
+    }];
+    
+    Shader *bloom_shader = [[Shader alloc] initAsProgram:_bloomprogram];
+    
+    [bloom_shader addProperty:@"color"];
+    [bloom_shader addProperty:@"quality"];
+    [bloom_shader addProperty:@"size"];
+    
+    [Graphics append:bloom_shader];
+    
     modelViewProjectionMatrix_Uniform = glGetUniformLocation(_defaultprogram, "modelViewProjectionMatrix");
     
     glUniform1i(glGetUniformLocation(_defaultprogram, "Texture0"), 0);
@@ -93,7 +122,7 @@ GLint modelViewProjectionMatrix_Uniform;
     
     glEnable(GL_CULL_FACE);
     
-    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+    glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 }
 
 -(void)setProjectionMatrix{

@@ -21,8 +21,13 @@ class Renderer {
     }
     
     func render() {
-        let batches = compile().sorted{ $0.order < $1.order }
-        batches.forEach{
+//        let batches = compile().sorted{ $0.order < $1.order }
+//        batches.forEach{
+//            $0.render()
+//        }
+        let displays = list.getDisplays().sorted{ $0.texture < $1.texture }.sorted{ $0.order < $1.order }
+        displays.forEach{
+            $0.refresh()
             $0.render()
         }
     }

@@ -25,18 +25,16 @@ class PauseScreen: Screen {
         
         layer.objects.append(TextButton(Text("Resume", FontStyle(defaultFont, float4(1), 84)), GameScreen.size / 2 + float2(0, -100) + float2(0, -GameScreen.size.y)) {
             UserInterface.space.pop()
+            UserInterface.controller.reduce()
         })
         
         layer.objects.append(TextButton(Text("Menu", FontStyle(defaultFont, float4(1), 84)), GameScreen.size / 2 + float2(0, 100) + float2(0, -GameScreen.size.y)) {
             UserInterface.space.wipe()
+            UserInterface.controller.reduce()
             UserInterface.space.push(Splash())
         })
         
         layers.append(layer)
-    }
-    
-    deinit {
-        UserInterface.controller.reduce()
     }
     
     override func display() {

@@ -12,7 +12,7 @@ precision mediump float;
 in lowp vec4 colorVarying;
 in lowp vec2 texCoord0_Varying;
 
-uniform lowp sampler2D Texture0;
+uniform highp sampler2D Texture0;
 
 out vec4 fragColor;
 

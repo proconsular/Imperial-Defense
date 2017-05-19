@@ -25,7 +25,7 @@ class UserInterface {
     }
     
     static func create() {
-        controller.push(PointController(0))
+        //controller.push(PointController(0))
     }
     
     static func update() {

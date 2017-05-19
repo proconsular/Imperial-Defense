@@ -107,14 +107,6 @@ class Game: DisplayLayer {
         let constructor = BarrierConstructor(BarrierLayout(500, 2))
         upgrader.barrier.apply(constructor)
         barriers = constructor.construct(-2.4.m)
-        
-//        let audio = Audio("2 Imperial")
-//        if !audio.playing {
-//            audio.loop = true
-//            audio.volume = 0.5
-//            audio.pitch = 1
-//            audio.start()
-//        }
     }
     
     func createWalls(_ width: Float) {
@@ -141,7 +133,11 @@ class Game: DisplayLayer {
     
     func update() {
         if death() {
-            play("death")
+            let audio = Audio("1 Battle")
+            audio.stop()
+            let defeat = Audio("Defeat")
+            defeat.volume = 1
+            defeat.start()
             UserInterface.space.push(EndScreen(false))
         }
         
@@ -176,6 +172,21 @@ class Game: DisplayLayer {
             }
             
         }
+    }
+    
+    func start() {
+        let audio = Audio("1 Battle")
+        if !audio.playing {
+            //audio.loop = true
+            audio.volume = 1
+            audio.pitch = 1
+            audio.start()
+        }
+    }
+    
+    deinit {
+        let audio = Audio("1 Battle")
+        audio.stop()
     }
     
     func end() {

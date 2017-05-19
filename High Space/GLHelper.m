@@ -8,6 +8,7 @@
 
 #import "GLHelper.h"
 @import OpenGLES;
+#import "GameViewController.h"
 
 @implementation GLHelper
 
@@ -29,6 +30,32 @@
 
 +(void)deleteBuffer:(GLuint)buffer{
     glDeleteBuffers(1, &buffer);
+}
+
++(GLuint)createFrameBuffer{
+    GLuint frame;
+    glGenFramebuffers(1, &frame);
+    return frame;
+}
+
++(void)bindFrameBuffer:(GLuint)frame{
+    glBindFramebuffer(GL_FRAMEBUFFER, frame);
+}
+
++(void)clear{
+    glClear(GL_COLOR_BUFFER_BIT);
+}
+
++(void)bindDefaultFramebuffer{
+    [glkview bindDrawable];
+}
+
++(void)deleteFramebuffer:(GLuint)frame{
+    glDeleteFramebuffers(1, &frame);
+}
+
++(void)deleteTexture:(GLuint)texture{
+    glDeleteTextures(1, &texture);
 }
 
 @end

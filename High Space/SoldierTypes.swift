@@ -16,7 +16,7 @@ class Scout: Soldier {
         weapon = Weapon(transform, float2(0, 1), firer)
         weapon?.offset = float2(-0.275.m, -0.5.m)
         
-        animator = BaseMarchAnimator(body, 0.05, 0.15.m)
+        animator = BaseMarchAnimator(body, 0.025, 0.2.m)
         animator.apply(display)
         
         behavior.base.append(MarchBehavior(self, animator))

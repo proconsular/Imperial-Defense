@@ -12,11 +12,23 @@ protocol Render {
     func render()
 }
 
+protocol RenderTechnique {
+    func render(_ visual: Visual)
+}
+
+class DefaultTechnique: RenderTechnique {
+    func render(_ visual: Visual) {
+        visual.render()
+    }
+}
+
 class Display: Render {
     let transform: Transform
     
     let scheme: VisualSchemeGroup
     let visual: Visual!
+    
+    var technique: RenderTechnique = DefaultTechnique()
     
     init(_ hull: Hull, _ texture: GLTexture) {
         transform = hull.transform
@@ -42,7 +54,11 @@ class Display: Render {
     }
     
     func render() {
-        visual.render()
+        technique.render(visual)
+    }
+    
+    func flip(_ x: Float, _ y: Float) {
+        scheme.schemes[0].layout.flip(vector: float2(x, y))
     }
     
     var order: Int {

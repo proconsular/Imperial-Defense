@@ -111,26 +111,37 @@ class IndexBuffer: Buffer<UInt16> {
     
 }
 
+protocol Material {
+    var shader: Shader { get set }
+    func bind()
+    func configure()
+}
 
-
-class TextureDescriptor {
-    var coordinates: [float2]
+class DefaultMaterial: Material {
+    
+    var shader: Shader
+    var texture: Texture
     var color: float4
     
-    init() {
-        coordinates = []
-        color = float4(1)
+    init(_ texture: Texture, _ color: float4) {
+        self.shader = Graphics.getShader(0)
+        self.texture = texture
+        self.color = color
     }
+    
+    func bind() {
+        shader.bind()
+        texture.bind()
+    }
+    
+    func configure() {
+        shader.setProperty("color", vector4: color)
+    }
+    
 }
 
-class Material {
-    
-    var texture: Texture
-    var shader: Shader
-    
-    init(_ texture: Texture, _ shader: Shader = Graphics.shaders[0]) {
-        self.texture = texture
-        self.shader = shader
-    }
-    
-}
+
+
+
+
+

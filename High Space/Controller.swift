@@ -57,6 +57,10 @@ class Stack<T> {
         contents.removeLast()
     }
     
+    func peel() {
+        contents.removeFirst()
+    }
+    
     var peek: T? {
         return contents.last
     }
@@ -91,6 +95,10 @@ class MainController {
     
     func reduce() {
         stack.pop()
+    }
+    
+    func swipe() {
+        stack.peel()
     }
     
 }
@@ -182,6 +190,7 @@ class PointController: Controller {
     func apply(_ location: float2) -> Command? {
         var command = Command(id)
         command.vector = location * 1 / GameScreen.scale.y
+        //print(command.vector!)
         return command
     }
     

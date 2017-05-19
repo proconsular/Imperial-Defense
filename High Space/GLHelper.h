@@ -17,4 +17,13 @@
 +(GLuint)createBuffer;
 +(void)deleteBuffer:(GLuint)buffer;
 
++(GLuint)createFrameBuffer;
++(void)bindFrameBuffer:(GLuint)frame;
+
++(void)clear;
++(void)bindDefaultFramebuffer;
+
++(void)deleteFramebuffer:(GLuint)frame;
++(void)deleteTexture:(GLuint)texture;
+
 @end

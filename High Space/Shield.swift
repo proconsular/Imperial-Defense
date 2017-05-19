@@ -105,6 +105,20 @@ class ShieldAudio: ShieldDelegate {
     
 }
 
+class EnemyShieldAudio: ShieldDelegate {
+    
+    func recover(_ percent: Float) {
+        if percent < 1 {
+            play("enemy_charge")
+        }
+    }
+    
+    func damage() {
+        
+    }
+    
+}
+
 struct ShieldPower {
     var amount: Float
     var recharge: Float
@@ -149,6 +163,7 @@ class Shield: Life {
     }
     
     func explode(_ transform: Transform) {
+        play("shield_break")
         let explosion = Explosion(transform.location, 1.m)
         explosion.color = float4(0.2, 0.6, 1, 1)
         Map.current.append(explosion)

@@ -26,6 +26,7 @@ struct HullLayout: TextureLayout {
     mutating func flip(vector: float2) {
         for n in 0 ..< coordinates.count {
             coordinates[n].x *= vector.x
+            coordinates[n].y *= vector.y
         }
     }
     

@@ -23,7 +23,7 @@ class PrincipalScreen: Screen {
     }
     
     deinit {
-        UserInterface.controller.reduce()
+        UserInterface.controller.swipe()
     }
     
     override func use(_ command: Command) {

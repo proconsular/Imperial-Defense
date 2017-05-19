@@ -69,6 +69,17 @@ class Interaction: UIGestureRecognizer {
         }
     }
     
+    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent) {
+        if let touch = rawTouch {
+            if touch.phase == .cancelled {
+                update(touch)
+                down = false
+                wasDown = true
+                rawTouch = nil
+            }
+        }
+    }
+    
     private func update (_ touch: UITouch) {
         let point = touch.location(in: view)
         let scale = UIScreen.main.scale

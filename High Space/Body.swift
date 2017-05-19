@@ -46,6 +46,7 @@ class Body {
         self.shape = shape
         self.substance = substance
         self.callback = callback
+        relativeGravity = 0
     }
     
     func applyImpulse (_ impulse: float2, _ contact: float2) {

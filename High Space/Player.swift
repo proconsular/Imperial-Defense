@@ -113,6 +113,8 @@ class Player: Entity {
     
     var anim_timer: Float = 0
     
+    var absorb: AbsorbEffect!
+    
     init(_ location: float2, _ health: Health, _ firer: Firer) {
         self.health = health
         
@@ -138,6 +140,10 @@ class Player: Entity {
         display.order  = 100
         
         terminator = ExplosionTerminator(self, 3.m, float4(1, 1, 1, 1))
+        
+        display.technique = ShieldTechnique(health.shield!, transform, float4(48 / 255, 181 / 255, 206 / 255, 1), image.bounds.y)
+        
+        absorb = AbsorbEffect(3, 0.025, 1.25.m, 7, float4(48 / 255, 181 / 255, 206 / 255, 1), 0.75.m, transform)
     }
     
     func hit(amount: Int) {
@@ -149,14 +155,19 @@ class Player: Entity {
     }
     
     override func update() {
+        absorb.update()
         if let shield = health.shield {
             display.color = float4(1)
-            //display.color = shield.apply(float4(1))
             display.color = affector.apply(display.color)
             if shield.broke {
                 shield.explode(transform)
             }
+            let a = shield.percent
             shield.update()
+            let b = shield.percent
+            if a < b {
+                absorb.generate()
+            }
         }
         let per = weapon.percent
         weapon.update()
