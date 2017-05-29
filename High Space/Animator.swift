@@ -8,21 +8,24 @@
 
 import Foundation
 
-protocol Mover {
-    func move()
+protocol Event {
+    var frames: [Int] { get }
+    func activate()
 }
 
-class Marcher: Mover {
+class MarchEvent: Event {
     
     var body: Body
     var amount: Float
+    var frames: [Int]
     
-    init(_ body: Body, _ amount: Float) {
+    init(_ body: Body, _ amount: Float, _ frames: [Int]) {
         self.body = body
         self.amount = amount
+        self.frames = frames
     }
     
-    func move() {
+    func activate() {
         body.location.y += amount
         let audio = Audio("march1")
         if !audio.playing {
@@ -36,33 +39,26 @@ class Marcher: Mover {
 class Animator {
     
     var player: AnimationPlayer
-    var mover: Mover
-    var frames: [Int]
     var lastFrame: Int
     
-    init(_ player: AnimationPlayer, _ mover: Mover, _ frames: [Int]) {
+    init(_ player: AnimationPlayer) {
         self.player = player
-        self.mover = mover
-        self.frames = frames
         lastFrame = 0
     }
     
     func update() {
         player.update()
         let frame = player.animation.frame
-        if active(player.animation.frame) && frame != lastFrame {
-            mover.move()
-            lastFrame = frame
-        }
-    }
-    
-    func active(_ frame: Int) -> Bool {
-        for i in frames {
-            if i == frame {
-                return true
+        if let event = player.animation.event {
+            if frame != lastFrame {
+                event.activate()
             }
         }
-        return false
+        lastFrame = frame
+    }
+    
+    func set(_ animation: Int) {
+        player.animation.set(animation)
     }
     
     func apply(_ display: Display) {
@@ -80,14 +76,15 @@ class TimedAnimationPlayer: AnimationPlayer {
     var animation: Animation
     var timer: Timer
     
-    init(_ rate: Float, _ animation: Animation) {
+    init(_ animation: Animation) {
         self.animation = animation
-        timer = Timer(rate) {
+        timer = Timer(animation.rate) {
             animation.animate()
         }
     }
     
     func update() {
+        timer.rate = animation.rate
         timer.update(Time.delta)
     }
     

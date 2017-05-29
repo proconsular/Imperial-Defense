@@ -80,6 +80,39 @@ class SheetLayout: FlatIndexer, TextureLayout {
    
 }
 
+class SheetAnimator {
+    
+    var rate: Float
+    var events: [Event]
+    var animation: SheetAnimation
+    
+    init(_ rate: Float, _ events: [Event], _ animation: SheetAnimation) {
+        self.rate = rate
+        self.events = events
+        self.animation = animation
+    }
+    
+    func animate() {
+        animation.animate()
+    }
+    
+    var event: Event? {
+        for e in events {
+            for f in e.frames {
+                if f == frame {
+                    return e
+                }
+            }
+        }
+        return nil
+    }
+    
+    var frame: Int {
+        return animation.frame
+    }
+    
+}
+
 class SheetAnimation: FlatIndexer {
     
     var offset, length: Int
@@ -123,14 +156,19 @@ class ActiveList<Object> {
 protocol Animation {
     var frame: Int { get }
     var coordinates: [float2] { get }
+    var rate: Float { get }
+    var event: Event? { get }
+    func set(_ current: Int)
     func animate()
 }
 
-class TextureAnimator: ActiveList<SheetAnimation>, TextureLayout, Animation {
+class TextureAnimator: ActiveList<SheetAnimator>, TextureLayout, Animation {
     
+    var texture: GLuint
     var sheet: SheetLayout
     
-    init(_ sheet: SheetLayout) {
+    init(_ texture: GLuint, _ sheet: SheetLayout) {
+        self.texture = texture
         self.sheet = sheet
         super.init([])
     }
@@ -140,7 +178,9 @@ class TextureAnimator: ActiveList<SheetAnimation>, TextureLayout, Animation {
     }
     
     func set(_ index: Int) {
+        if self.index == index { return }
         self.index = index
+        current.animation.index = 0
     }
     
     func update() {
@@ -154,6 +194,14 @@ class TextureAnimator: ActiveList<SheetAnimation>, TextureLayout, Animation {
     
     var frame: Int {
         return current.frame
+    }
+    
+    var rate: Float {
+        return current.rate
+    }
+    
+    var event: Event? {
+        return current.event
     }
     
 }

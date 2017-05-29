@@ -33,7 +33,7 @@ func count (_ increment: inout Float, _ amount: Float, _ rate: Float, _ executio
 }
 
 struct Timer {
-    let rate: Float
+    var rate: Float
     var increment: Float
     var event: () -> ()
     

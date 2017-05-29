@@ -67,6 +67,7 @@
     [self loadAudio:@"charge"];
     [self loadAudio:@"victory"];
     [self loadAudio:@"enemy_charge"];
+    [self loadAudio:@"thunder"];
     [self loadAudio:@"0 Title" :44100];
     [self loadAudio:@"1 Battle" :44100];
     [self loadAudio:@"2 Imperial" :44100];

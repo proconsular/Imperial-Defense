@@ -99,7 +99,7 @@ class ExplosionTerminator: ActorTerminationDelegate {
     
 }
 
-class Player: Entity {
+class Player: Entity, Damagable {
     static var player: Player!
     
     var health: Health
@@ -123,13 +123,15 @@ class Player: Entity {
         
         affector = Affector()
         
-        animator = TextureAnimator(SheetLayout(0, 8, 4))
-        animator.append(SheetAnimation(0, 5, 8, 1))
+        animator = TextureAnimator(GLTexture("Player").id, SheetLayout(0, 8, 4))
+        animator.append(SheetAnimator(0.1, [], SheetAnimation(0, 5, 8, 1)))
         
         let image = Rect(transform, float2(48, 48) * 4)
         let bodyhall = Rect(transform, float2(100, 100))
         
         super.init(image, bodyhall, Substance(PhysicalMaterial(.wood), Mass(10, 0), Friction(.iron)))
+        
+        body.tag = "player"
         
         body.mask = 0b10
         body.object = self
@@ -146,8 +148,8 @@ class Player: Entity {
         absorb = AbsorbEffect(3, 0.025, 1.25.m, 7, float4(48 / 255, 181 / 255, 206 / 255, 1), 0.75.m, transform)
     }
     
-    func hit(amount: Int) {
-        health.damage(Float(amount))
+    func damage(_ amount: Float) {
+        health.damage(amount)
         let h = Audio("hit1")
         h.volume = sound_volume
         h.start()
@@ -196,7 +198,7 @@ class Player: Entity {
                 animator.animate()
             }
         }else{
-            animator.current.index = 0
+            animator.current.animation.index = 0
         }
         display.coordinates = animator.coordinates
     }

@@ -37,27 +37,21 @@ class Bullet: Entity {
         if !self.alive {
             return
         }
-        if self.casing.tag == "enemy" {
-            if let char = body.object as? Soldier {
-                char.damage(amount: Int(impact.damage))
-            }
-            if !(body.object is Player) {
-                self.alive = false
-            }
-        }
-        if self.casing.tag == "player" {
-            if let pla = body.object as? Player {
-                pla.hit(amount: Int(impact.damage))
-            }
-            if !(body.object is Soldier) {
-                self.alive = false
+        if let tag = body.tag, self.casing.tag == tag {
+            if let char = body.object as? Damagable {
+                char.damage(impact.damage)
             }
         }
         if let char = body.object as? Wall {
-            char.damage(Int(impact.damage))
+            char.damage(impact.damage)
         }
+        self.alive = false
     }
     
+}
+
+protocol Damagable {
+    func damage(_ amount: Float)
 }
 
 struct Impact {

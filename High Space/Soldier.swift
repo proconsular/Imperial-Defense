@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Soldier: Entity {
+class Soldier: Entity, Damagable {
     
     var color: float4
     var weapon: Weapon?
@@ -39,6 +39,8 @@ class Soldier: Entity {
         display.texture = GLTexture("soldier_walk").id
         display.color = color
         
+        body.tag = "enemy"
+        
         body.mask = 0b100
         body.object = self
         body.noncolliding = true
@@ -55,9 +57,9 @@ class Soldier: Entity {
         }
     }
     
-    func damage(amount: Int) {
+    func damage(_ amount: Float) {
         if transform.location.y < -GameScreen.size.y + 0.5.m { return }
-        health.damage(Float(amount))
+        health.damage(amount)
     }
     
     override func update() {

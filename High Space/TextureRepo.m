@@ -43,7 +43,6 @@
     glSamplerParameteri(normal_sampler, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glSamplerParameteri(normal_sampler, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     
-    
     glEnable(GL_BLEND);
     glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
     
@@ -52,7 +51,6 @@
     [self prefetch:@"white"];
     [self prefetch:@"bullet"];
     [self prefetch:@"Player"];
-    [self prefetch:@"soldier"];
     [self prefetch:@"stonefloor"];
     [self prefetch:@"rockfloor"];
     
@@ -60,24 +58,31 @@
     [self prefetch:@"bomb"];
     [self prefetch:@"shield"];
     [self prefetch:@"barrier"];
-    [self prefetch:@"castle"];
     [self prefetch:@"GameUIBack"];
     [self prefetch:@"pause"];
-    [self prefetch:@"Splash"];
-    [self prefetch:@"play_back"];
-    [self prefetch:@"coin"];
+    [self prefetch:@"Splash_Sky"];
+    [self prefetch:@"Splash_Mountains"];
+    [self prefetch:@"Splash_Castle"];
+    [self prefetch:@"Splash_Cloud_1"];
+    [self prefetch:@"Splash_Cloud_2"];
+    [self prefetch:@"Splash_Cloud_3"];
+    [self prefetch:@"Splash_Cloud_4"];
+    
     [self prefetch:@"gun"];
-    [self prefetch:@"Forge"];
+    [self prefetch:@"Forge-Back"];
+    [self prefetch:@"Forge-Brick"];
+    [self prefetch:@"Title"];
     
     [GLTextureLoader setSampler:pixel_sampler];
     
     [self prefetch:@"soldier_walk"];
-    [self prefetch:@"Soldier3"];
-    [self prefetch:@"NewSoldier"];
     [self prefetch:@"barrier_castle"];
     [self prefetch:@"Crystal"];
     [self prefetch:@"Plates"];
     [self prefetch:@"SaveFile"];
+    [self prefetch:@"Splash_Player"];
+    [self prefetch:@"Anvil"];
+    [self prefetch:@"Treasure"];
     
     return self;
 }

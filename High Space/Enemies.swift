@@ -11,9 +11,9 @@ import Foundation
 class BaseMarchAnimator: Animator {
     
     init(_ body: Body, _ rate: Float, _ speed: Float) {
-        let animation = TextureAnimator(SheetLayout(0, 12, 3))
-        animation.append(SheetAnimation(0, 12, 12, 1))
-        super.init(TimedAnimationPlayer(rate, animation), Marcher(body, speed), [3, 9])
+        let animation = TextureAnimator(GLTexture("soldier_walk").id, SheetLayout(0, 12, 3))
+        animation.append(SheetAnimator(rate, [MarchEvent(body, speed, [3, 9])], SheetAnimation(0, 12, 12, 1)))
+        super.init(TimedAnimationPlayer(animation))
     }
     
 }

@@ -8,7 +8,7 @@
 
 import Foundation
 
-let defaultFont = "PixelFJ8pt1Normal"
+let defaultFont = "AUGUSTUS"
 let defaultStyle = FontStyle(defaultFont, float4(1), 72)
 let sound_volume: Float = 0.1
 
@@ -24,7 +24,7 @@ let sound_volume: Float = 0.1
 //                print(n.description)
 //            }
 //        }
-        
+//        
         
         GameScreen.create()
         interface = GameBase()
@@ -91,9 +91,9 @@ class GameBase: GameInterface {
         }
         
         GameData.info.level = 0
-        //GameData.info.points = 90
+       // GameData.info.points = 15
 //        GameData.info.wave = 0
-//        
+        
 //        upgrader.firepower.range.amount = 0
 //        upgrader.shieldpower.range.amount = 0
 //        upgrader.barrier.range.amount = 0

@@ -25,9 +25,12 @@ class UpgradeView: InterfaceElement, Interface {
     
     var upgrade: Upgrade
     
-    init(_ location: float2, _ upgrade: Upgrade) {
+    var selected: (Upgrade) -> ()
+    
+    init(_ location: float2, _ upgrade: Upgrade, _ callback: @escaping (Upgrade) -> ()) {
         self.location = location
         self.upgrade = upgrade
+        self.selected = callback
         
         background = Display(Circle(Transform(location + float2(0, -GameScreen.size.y)), 135), GLTexture("white"))
         background.color = float4(133 / 255, 35 / 255, 38 / 255, 1)
@@ -47,6 +50,7 @@ class UpgradeView: InterfaceElement, Interface {
         if GameData.info.points >= cost && upgrade.range.amount < upgrade.range.limit {
             GameData.info.points -= cost
             self.upgrade.upgrade()
+            selected(upgrade)
         }
         GameData.info.record(upgrader)
         GameData.persist()
@@ -76,11 +80,11 @@ class UpgradeView: InterfaceElement, Interface {
             direction = -1
         }
         
-        background.color = float4(133 / 255, 35 / 255, 38 / 255, 1) * fade
-        background.refresh()
+        //background.color = float4(133 / 255, 35 / 255, 38 / 255, 1) * fade
+       // background.refresh()
         background.render()
         icon?.render()
-        text.setString("\(upgrade.name) \(Int(upgrade.range.amount).roman)")
+        text.setString("\(upgrade.name) \(Int(upgrade.range.amount).roman)".trimmed)
         text.render()
     }
     

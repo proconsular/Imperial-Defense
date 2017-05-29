@@ -99,7 +99,7 @@ class BarrierConstructor {
         for i in 0 ..< final.amount {
             let dis = 4.m
             let loc = Map.current.size.x / 2 + Float(i - final.amount / 2) * dis + dis / 2
-            let wall = Wall(float2(loc, height), Int(final.health))
+            let wall = Wall(float2(loc, height), final.health)
             barriers.append(wall)
             Map.current.append(wall)
         }

@@ -19,6 +19,14 @@ struct IndexedValue<Value: Comparable>: Comparable {
     
 }
 
+extension String {
+    
+    var trimmed: String {
+        return self.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+    }
+    
+}
+
 extension int2: Equatable {}
 extension int2: CustomStringConvertible {
     public var description: String {

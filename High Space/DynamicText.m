@@ -75,7 +75,7 @@
 
 -(void)drawText:(NSAttributedString *)attributedString :(int)height :(CGContextRef)context {
     CTLineRef line = CTLineCreateWithAttributedString((__bridge CFAttributedStringRef)_attrString);
-    CGContextSetTextPosition(context, 0, height / 4.8);
+    CGContextSetTextPosition(context, 0, height / 4.2);
     CTLineDraw(line, context);
     CFRelease(line);
     CFRelease(context);

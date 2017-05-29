@@ -37,7 +37,11 @@ class ShieldTechnique: RenderTechnique {
     }
     
     func transform(_ location: float2) -> float2 {
-        let t = location - Camera.current.transform.location
+        var l = float2()
+        if let cam = Camera.current {
+            l = cam.transform.location
+        }
+        let t = location - l
         return float2(t.x, Camera.size.y - t.y) * float2(0.96, 0.96)
     }
     

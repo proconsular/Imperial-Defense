@@ -8,13 +8,13 @@
 
 import Foundation
 
-class Wall: Structure {
+class Wall: Structure, Damagable {
     
-    var health: Int
-    var max: Int
+    var health: Float
+    var max: Float
     var sheet: SheetLayout
     
-    init(_ location: float2, _ health: Int) {
+    init(_ location: float2, _ health: Float) {
         self.health = health
         max = health
         sheet = SheetLayout(0, 1, 3)
@@ -38,7 +38,7 @@ class Wall: Structure {
         }
     }
     
-    func damage(_ amount: Int) {
+    func damage(_ amount: Float) {
         health -= amount
         play("barrier_hit")
         
