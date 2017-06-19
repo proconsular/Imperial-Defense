@@ -36,6 +36,8 @@ class Infrantry: Soldier {
         weapon = Weapon(transform, float2(0, 1), firer)
         weapon?.offset = float2(-0.275.m, -0.5.m)
         
+        canSprint = true
+        
         behavior.base.append(MarchBehavior(self, animator))
         behavior.base.append(ShootBehavior(weapon!, self))
     }

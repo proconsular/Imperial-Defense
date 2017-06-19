@@ -36,6 +36,16 @@ class Weapon {
     
 }
 
+class HomingWeapon: Weapon {
+    
+    func fire(_ target: Entity) {
+        if let firer = firer as? HomingFirer {
+            firer.fire(transform.location + 0.75.m * direction + offset, target)
+        }
+    }
+    
+}
+
 class PlayerWeaponDisplayAdapter: StatusItem {
     
     var weapon: PlayerWeapon

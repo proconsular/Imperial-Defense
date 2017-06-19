@@ -68,9 +68,11 @@
     [self loadAudio:@"victory"];
     [self loadAudio:@"enemy_charge"];
     [self loadAudio:@"thunder"];
+    [self loadAudio:@"dodge"];
     [self loadAudio:@"0 Title" :44100];
     [self loadAudio:@"1 Battle" :44100];
     [self loadAudio:@"2 Imperial" :44100];
+    [self loadAudio:@"3 Emperor" :44100];
     [self loadAudio:@"Defeat" :44100];
     
     _hasMusic = YES;

@@ -12,7 +12,8 @@ class BaseMarchAnimator: Animator {
     
     init(_ body: Body, _ rate: Float, _ speed: Float) {
         let animation = TextureAnimator(GLTexture("soldier_walk").id, SheetLayout(0, 12, 3))
-        animation.append(SheetAnimator(rate, [MarchEvent(body, speed, [3, 9])], SheetAnimation(0, 12, 12, 1)))
+        animation.append(SheetAnimator(rate, [MarchEvent(body, speed, [0, 6])], SheetAnimation(0, 12, 12, 1)))
+        animation.append(SheetAnimator(rate, [MarchEvent(body, speed * 2, [12, 16])], SheetAnimation(12, 8, 12, 1)))
         super.init(TimedAnimationPlayer(animation))
     }
     

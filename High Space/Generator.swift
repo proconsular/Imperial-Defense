@@ -25,7 +25,7 @@ class Difficulty {
     }
     
     var size: Int {
-        return clamp((wave / 4) + 4, min: 1, max: 10)
+        return clamp((wave / 6) + 4, min: 1, max: 10)
     }
     
     var amount: Int {
@@ -216,24 +216,25 @@ class ChanceTable {
     
     init() {
         soldiers = []
-        soldiers.append(Creator(Scout.init,     Chance(0, 0.75, -1)))
+        soldiers.append(Creator(Scout.init,     Chance(0, 0.5, -1)))
+        soldiers.append(Creator(Scout.init,     Chance(0, 0.15, 0)))
         
-        soldiers.append(Creator(Infrantry.init,   Chance(0, 0.5, -1)))
-        soldiers.append(Creator(Infrantry.init,   Chance(0, 0.75, 0)))
-        soldiers.append(Creator(Infrantry.init,   Chance(0, 0.5, 1)))
-        
+        soldiers.append(Creator(Infrantry.init, Chance(0, 0.5, -1)))
+        soldiers.append(Creator(Infrantry.init, Chance(0, 0.75, 0)))
+        soldiers.append(Creator(Infrantry.init, Chance(0, 0.5, 1)))
+
         soldiers.append(Creator(Banker.init,    Chance(0, 0.75, 1, 1)))
         
         soldiers.append(Creator(Captain.init,   Chance(5, 0.25, 0)))
-        soldiers.append(Creator(Healer.init,    Chance(15, 0.25, 0)))
-        soldiers.append(Creator(Heavy.init,     Chance(30, 0.25, 1)))
-        soldiers.append(Creator(Sniper.init,    Chance(40, 0.5, 1)))
-        //soldiers.reverse()
+        soldiers.append(Creator(Heavy.init,     Chance(10, 0.5, 0)))
+        soldiers.append(Creator(Thief.init,     Chance(15, 0.25, 0)))
+        soldiers.append(Creator(Commander.init, Chance(20, 0.1, 0)))
+        soldiers.append(Creator(Healer.init,    Chance(30, 0.25, 0)))
+        
+        soldiers.append(Creator(Sniper.init,    Chance(35, 0.25, 0)))
+        soldiers.append(Creator(Mage.init,      Chance(40, 0.05, 0)))
         
         armor = []
-//        armor.append(ArmorAugmentor(40, float4(1), Chance(20, 7)))
-//        armor.append(ArmorAugmentor(80, float4(0, 0, 0.5, 1), Chance(40, 12)))
-//        armor.append(ArmorAugmentor(200, float4(0.5, 0, 0, 1), Chance(20, 25)))
     }
     
 }

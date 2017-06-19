@@ -76,6 +76,12 @@
     [GLTextureLoader setSampler:pixel_sampler];
     
     [self prefetch:@"soldier_walk"];
+    [self prefetch:@"Soldier4"];
+    [self prefetch:@"Scout"];
+    [self prefetch:@"Captain"];
+    [self prefetch:@"Thief"];
+    [self prefetch:@"Heavy"];
+    [self prefetch:@"Commander"];
     [self prefetch:@"barrier_castle"];
     [self prefetch:@"Crystal"];
     [self prefetch:@"Plates"];
@@ -83,6 +89,10 @@
     [self prefetch:@"Splash_Player"];
     [self prefetch:@"Anvil"];
     [self prefetch:@"Treasure"];
+    [self prefetch:@"Mage"];
+    [self prefetch:@"Emperor"];
+    [self prefetch:@"Sniper"];
+    [self prefetch:@"Healer"];
     
     return self;
 }

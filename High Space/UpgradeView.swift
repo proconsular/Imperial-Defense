@@ -84,7 +84,7 @@ class UpgradeView: InterfaceElement, Interface {
        // background.refresh()
         background.render()
         icon?.render()
-        text.setString("\(upgrade.name) \(Int(upgrade.range.amount).roman)".trimmed)
+        text.setString("\(upgrade.name) \(Int(upgrade.range.amount).roman)".trimmed + ": \(upgrade.computeCost())")
         text.render()
     }
     

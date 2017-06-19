@@ -116,15 +116,39 @@ class ShootBehavior: Behavior {
     
 }
 
+class HomingShootBehavior: ShootBehavior {
+    
+    var target: Entity
+    
+    init(_ weapon: Weapon, _ soldier: Soldier, _ target: Entity) {
+        self.target = target
+        super.init(weapon, soldier)
+    }
+    
+    override func fire() {
+        if weapon.canFire && target.alive {
+            if let weapon = weapon as? HomingWeapon {
+                 weapon.fire(target)
+            }
+            let s = Audio("shoot3")
+            s.volume = sound_volume
+            s.start()
+        }
+    }
+    
+}
+
 class TemporaryBehavior: Behavior {
     
     var alive: Bool = true
     var counter: Float
     var behavior: Behavior
+    var onComplete: (() -> ())?
     
-    init(_ behavior: Behavior, _ count: Float) {
+    init(_ behavior: Behavior, _ count: Float, _ onComplete: (() -> ())? = nil) {
         self.counter = count
         self.behavior = behavior
+        self.onComplete = onComplete
     }
     
     func update() {
@@ -132,6 +156,7 @@ class TemporaryBehavior: Behavior {
         counter -= Time.delta
         if counter <= 0 {
             alive = false
+            onComplete?()
         }
     }
     

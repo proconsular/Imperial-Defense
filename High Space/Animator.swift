@@ -26,7 +26,7 @@ class MarchEvent: Event {
     }
     
     func activate() {
-        body.location.y += amount
+        body.velocity.y += amount * (0.016666)
         let audio = Audio("march1")
         if !audio.playing {
             audio.volume = sound_volume * 0.5

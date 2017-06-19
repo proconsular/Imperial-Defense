@@ -40,6 +40,10 @@ class FirePowerUpgrade: Upgrade {
         firer.mods.append(Impact(maximum.damage * range.percent, maximum.speed * range.percent))
     }
     
+    override func computeCost() -> Int {
+        return 10
+    }
+    
 }
 
 class ShieldUpgrade: Upgrade {

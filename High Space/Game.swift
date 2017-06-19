@@ -90,8 +90,12 @@ class Game: DisplayLayer {
         
         let legion = coordinator.waves[0] as! Legion
         legion.rows.forEach{
-            $0.soldiers.forEach{
-                $0.behavior.push(TemporaryBehavior(MarchBehavior($0, BaseMarchAnimator($0.body, 0.025, 0.2.m)), 2))
+            $0.soldiers.forEach{ s in
+                let an = BaseMarchAnimator(s.body,  0.0175, 6.m)
+                an.set(1)
+                s.behavior.push(TemporaryBehavior(MarchBehavior(s, an), 2.5) {
+                    s.body.velocity.y = 0
+                })
             }
         }
         
@@ -104,7 +108,7 @@ class Game: DisplayLayer {
         
         createWalls(0.15.m)
         
-        let constructor = BarrierConstructor(BarrierLayout(500, 2))
+        let constructor = BarrierConstructor(BarrierLayout(1500, 2))
         upgrader.barrier.apply(constructor)
         barriers = constructor.construct(-2.4.m)
     }
@@ -165,7 +169,7 @@ class Game: DisplayLayer {
         
         if starting {
             start_timer += Time.delta
-            if start_timer >= 2 {
+            if start_timer >= 2.5 {
                 physics.halt()
                 starting = false
                 UserInterface.space.push(StartPrompt())

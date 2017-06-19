@@ -50,6 +50,25 @@ class Bullet: Entity {
     
 }
 
+class HomingBullet: Bullet {
+    
+    var target: Entity
+    
+    init(_ location: float2, _ target: Entity, _ impact: Impact, _ casing: Casing) {
+        self.target = target
+        super.init(location, float2(), impact, casing)
+    }
+    
+    override func update() {
+        let dl = target.transform.location - transform.location
+        body.orientation = atan2(dl.y, dl.x)
+        if dl.length > 0 {
+            body.velocity = impact.speed * normalize(dl)
+        }
+    }
+    
+}
+
 protocol Damagable {
     func damage(_ amount: Float)
 }
@@ -116,6 +135,16 @@ class Firer {
     
     var operable: Bool {
         return counter >= rate
+    }
+    
+}
+
+class HomingFirer: Firer {
+    
+    func fire(_ location: float2, _ target: Entity) {
+        let bullet = HomingBullet(location, target, computeFinalImpact(), casing)
+        Map.current.append(bullet)
+        counter = 0
     }
     
 }
