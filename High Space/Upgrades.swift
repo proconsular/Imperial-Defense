@@ -29,15 +29,15 @@ class Upgrade {
 
 class FirePowerUpgrade: Upgrade {
     
-    let maximum: Impact
+    let maximum: Power
     
-    init(_ maximum: Impact) {
+    init(_ maximum: Power) {
         self.maximum = maximum
         super.init("Gun")
     }
     
-    func apply(_ firer: Firer) {
-        firer.mods.append(Impact(maximum.damage * range.percent, maximum.speed * range.percent))
+    func apply(_ power: inout Power) {
+        power.limit += maximum.limit * range.percent
     }
     
     override func computeCost() -> Int {
@@ -82,6 +82,10 @@ class BarrierUpgrade: Upgrade {
     
     func apply(_ constructor: BarrierConstructor) {
         constructor.mods.append(BarrierLayout(maximum.health * range.percent, Int(Float(maximum.amount) * range.percent)))
+    }
+    
+    override func computeCost() -> Int {
+        return 6
     }
     
 }

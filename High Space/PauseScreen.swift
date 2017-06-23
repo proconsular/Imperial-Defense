@@ -29,9 +29,11 @@ class PauseScreen: Screen {
         })
         
         layer.objects.append(TextButton(Text("Menu", FontStyle(defaultFont, float4(1), 84)), GameScreen.size / 2 + float2(0, 100) + float2(0, -GameScreen.size.y)) {
-            UserInterface.space.wipe()
-            UserInterface.controller.reduce()
-            UserInterface.space.push(Splash())
+            UserInterface.fade {
+                UserInterface.space.wipe()
+                UserInterface.controller.reduce()
+                UserInterface.space.push(Splash())
+            }
         })
         
         layers.append(layer)

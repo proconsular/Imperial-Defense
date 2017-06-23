@@ -30,7 +30,7 @@ class Soldier: Entity, Damagable {
     
     init(_ location: float2, _ health: Health, _ color: float4) {
         self.color = color
-        let rect = Rect(location, float2(150))
+        let rect = Rect(location, float2(140))
         let bodyhull = Rect(location, float2(75, 100))
         bodyhull.transform = rect.transform
         self.health = health
@@ -50,20 +50,20 @@ class Soldier: Entity, Damagable {
         
         terminator = SoldierTerminator(self)
         
-        animator = BaseMarchAnimator(body, 0.08, 32.m)
+        animator = BaseMarchAnimator(body, 0.08, 42.m)
         animator.apply(display)
         
         if let shield = health.shield {
             display.technique = ShieldTechnique(shield, transform, float4(0.1, 0.7, 1, 1), rect.bounds.y)
             shield.delegate = EnemyShieldAudio()
-            absorb = AbsorbEffect(3, 0.075, 0.75.m, 4, float4(0.1, 0.7, 1, 1), 0.25.m, transform)
+            absorb = AbsorbEffect(3, 0.075, 0.75.m, 4, float4(0.1, 0.7, 1, 1), 0.25.m, body)
         }
     }
     
     func sprint() {
         if canSprint {
             animator.set(1)
-            sprintCounter = 3
+            sprintCounter = 1.5
         }
     }
     

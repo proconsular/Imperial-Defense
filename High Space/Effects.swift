@@ -23,17 +23,17 @@ class AbsorbEffect: Effect {
     
     var counter: Float
     
-    var transform: Transform
+    var body: Body
     var particles: [Particle]
     
-    init(_ amount: Int, _ rate: Float, _ radius: Float, _ size: Float, _ color: float4, _ speed: Float, _ transform: Transform) {
+    init(_ amount: Int, _ rate: Float, _ radius: Float, _ size: Float, _ color: float4, _ speed: Float, _ body: Body) {
         self.amount = amount
         self.rate = rate
         self.radius = radius
         self.size = size
         self.color = color
         self.speed = speed
-        self.transform = transform
+        self.body = body
         particles = []
         counter = 0
     }
@@ -42,9 +42,9 @@ class AbsorbEffect: Effect {
         particles = particles.filter{ $0.alive }
         
         for p in particles {
-            let dl = transform.location - p.transform.location
-            let dir = dl / dl.length
-            p.body.velocity += dir * speed
+            let dl = body.location - p.transform.location
+            p.body.velocity += normalize(dl) * speed
+            p.body.velocity *= 0.95
             if dl.length <= 0.1.m {
                 p.alive = false
             }
@@ -61,9 +61,9 @@ class AbsorbEffect: Effect {
     
     func spawn(_ amount: Int) {
         for _ in 0 ..< amount {
-            let location = transform.location + float2(random(-radius, radius), random(-radius, radius))
+            let location = body.location + float2(random(-radius, radius), random(-radius, radius))
             let particle = Particle(location, size)
-            let dl = transform.location - location
+            let dl = body.location - location
             let direction = dl / dl.length
             particle.body.velocity = direction * 0.1.m
             particle.color = color

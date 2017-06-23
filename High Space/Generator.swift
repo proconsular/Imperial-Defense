@@ -226,13 +226,15 @@ class ChanceTable {
         soldiers.append(Creator(Banker.init,    Chance(0, 0.75, 1, 1)))
         
         soldiers.append(Creator(Captain.init,   Chance(5, 0.25, 0)))
-        soldiers.append(Creator(Heavy.init,     Chance(10, 0.5, 0)))
+        soldiers.append(Creator(Heavy.init,     Chance(10, 0.35, 0)))
         soldiers.append(Creator(Thief.init,     Chance(15, 0.25, 0)))
-        soldiers.append(Creator(Commander.init, Chance(20, 0.1, 0)))
-        soldiers.append(Creator(Healer.init,    Chance(30, 0.25, 0)))
+        soldiers.append(Creator(Commander.init, Chance(20, 0.25, 0)))
+        soldiers.append(Creator(Healer.init,    Chance(30, 0.3, 0)))
         
+        soldiers.append(Creator(Sniper.init,    Chance(35, 0.25, -1)))
         soldiers.append(Creator(Sniper.init,    Chance(35, 0.25, 0)))
-        soldiers.append(Creator(Mage.init,      Chance(40, 0.05, 0)))
+        soldiers.append(Creator(Sniper.init,    Chance(35, 0.25, 1)))
+        soldiers.append(Creator(Mage.init,      Chance(40, 0.1, 0)))
         
         armor = []
     }

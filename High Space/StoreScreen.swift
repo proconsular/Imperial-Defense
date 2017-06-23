@@ -46,15 +46,19 @@ class StoreScreen: Screen {
         let offset = float2(0, 475 - GameScreen.size.y)
         
         layer.objects.append(TextButton(Text("Menu", FontStyle(defaultFont, float4(1), 64)), Camera.size / 2 + offset - spacing, {
-            UserInterface.space.wipe()
-            UserInterface.controller.reduce()
-            UserInterface.space.push(Splash())
+            UserInterface.fade {
+                UserInterface.space.wipe()
+                UserInterface.controller.reduce()
+                UserInterface.space.push(Splash())
+            }
         }))
         
         layer.objects.append(TextButton(Text("Play", FontStyle(defaultFont, float4(1), 64)), Camera.size / 2 + offset + spacing, {
-            UserInterface.space.wipe()
-            UserInterface.controller.reduce()
-            UserInterface.space.push(PrincipalScreen())
+            UserInterface.fade {
+                UserInterface.space.wipe()
+                UserInterface.controller.reduce()
+                UserInterface.space.push(PrincipalScreen())
+            }
         }))
         
         layers.append(layer)

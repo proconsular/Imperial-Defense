@@ -15,7 +15,7 @@ class StartPrompt: Screen {
     override init() {
         UserInterface.controller.push(PointController(0))
         
-        wave = WaveDisplay(GameScreen.size / 2 + float2(0, -100), float2(800, 200))
+        wave = WaveDisplay(GameScreen.size / 2 + float2(0, -100), float2(800, 200), GameData.info.wave + 1)
         
         super.init()
         
@@ -48,6 +48,9 @@ class StartPrompt: Screen {
 
 class EndPrompt: Screen {
     
+    let background: Display
+    var opacity: Float = 0
+    
     var plate: WaveDisplay
     var destroyed: Bool
     var counter: Float
@@ -55,10 +58,18 @@ class EndPrompt: Screen {
     var map: Map
     var physics: Simulation
     
+    var victory: Text
+    
     override init() {
         UserInterface.controller.push(PointController(0))
         
-        plate = WaveDisplay(GameScreen.size / 2 + float2(0, -100), float2(800, 200))
+        background = Display(Rect(GameScreen.size / 2 + float2(0, -GameScreen.size.y), GameScreen.size) , GLTexture())
+        background.camera = false
+        background.color = float4(0) * float4(0, 0, 0, 1)
+        
+        let wave = GameData.info.wave + 1
+        
+        plate = WaveDisplay(GameScreen.size / 2 + float2(0, -300), float2(800, 200), wave)
         
         destroyed = false
         counter = 1
@@ -66,32 +77,47 @@ class EndPrompt: Screen {
         map = Map(Camera.size)
         physics = Simulation(map.grid)
         
+        victory = Text(GameScreen.size / 2 + float2(0, -GameScreen.size.y) + float2(0, -300), "Victory!",  FontStyle(defaultFont, float4(1), 144))
+        
         super.init()
         
         let layer = InterfaceLayer()
         
-        let wave = GameData.info.wave + 1
+        layer.objects.append(Text(GameScreen.size / 2 + float2(0, 50) + float2(0, -GameScreen.size.y), "Legio \(wave.roman) has been destroyed.", FontStyle(defaultFont, float4(1), 48)))
         
-        layer.objects.append(Text(GameScreen.size / 2 + float2(0, 100) + float2(0, -GameScreen.size.y), "Legio \(wave.roman) has been destroyed.", FontStyle(defaultFont, float4(1), 36)))
+        layer.objects.append(Text(GameScreen.size / 2 + float2(-200, -100) + float2(0, -GameScreen.size.y), "Legio \(wave.roman)", FontStyle(defaultFont, float4(1), 72)))
+        layer.objects.append(Text(GameScreen.size / 2 + float2(200, -100) + float2(0, -GameScreen.size.y), "Crystal \(GameData.info.points)", FontStyle(defaultFont, float4(1), 72)))
         
-        let offset = float2(0, 350)
         
-        layer.objects.append(TextButton(Text("Forge", FontStyle(defaultFont, float4(1), 64)), GameScreen.size / 2 + offset + float2(-300, -GameScreen.size.y), {
-            UserInterface.space.wipe()
-            UserInterface.controller.reduce()
-            UserInterface.push(StoreScreen())
+        let spacing = float2(250, 0)
+        let offset = float2(0, 450) + float2(0, -GameScreen.size.y)
+        
+        layer.objects.append(TextButton(Text("Forge", FontStyle(defaultFont, float4(1), 64)), GameScreen.size / 2 + offset - spacing, {
+            UserInterface.fade {
+                UserInterface.space.wipe()
+                UserInterface.controller.reduce()
+                UserInterface.push(StoreScreen())
+            }
         }))
         
-        layer.objects.append(TextButton(Text("Play", FontStyle(defaultFont, float4(1), 64)), GameScreen.size / 2 + offset + float2(300, -GameScreen.size.y), {
-            UserInterface.space.wipe()
-            UserInterface.controller.reduce()
-            UserInterface.push(PrincipalScreen())
+        layer.objects.append(TextButton(Text("Play", FontStyle(defaultFont, float4(1), 64)), GameScreen.size / 2 + offset + spacing, {
+            UserInterface.fade {
+                UserInterface.controller.reduce()
+                let pr = PrincipalScreen()
+                UserInterface.space.wipe()
+                UserInterface.space.push(pr)
+            }
         }))
+        
         
         layers.append(layer)
     }
     
     override func update() {
+        opacity = clamp(opacity + 2 * Time.delta, min: 0, max: 1)
+        background.color = float4(0, 0, 0, opacity)
+        background.refresh()
+        
         super.update()
         
         map.update()
@@ -127,7 +153,9 @@ class EndPrompt: Screen {
     }
     
     override func display() {
+        background.render()
         super.display()
+        victory.render()
         map.render()
         if !destroyed {
             plate.render()

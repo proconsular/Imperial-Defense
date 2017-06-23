@@ -24,9 +24,9 @@ class Upgrader {
     var upgrades: [Upgrade]
     
     init() {
-        firepower = FirePowerUpgrade(Impact(15, 2.5.m))
+        firepower = FirePowerUpgrade(Power(150, 0, 0))
         shieldpower = ShieldUpgrade(ShieldPower(140, 100))
-        barrier = BarrierUpgrade(BarrierLayout(500, 2))
+        barrier = BarrierUpgrade(BarrierLayout(2000, 2))
         
         upgrades = [firepower, shieldpower, barrier]
     }
@@ -78,9 +78,11 @@ class Game: DisplayLayer {
         upgrader.shieldpower.apply(shield)
         
         let firer = Firer(0.1075, Impact(15, 14.m), Casing(float2(0.4.m, 0.12.m) * 1.2, float4(0, 1, 0.5, 1), "enemy"))
-        upgrader.firepower.apply(firer)
         
-        player = Player(float2(map.size.x / 2, -1.5.m), health, firer)
+        var power = Power(175, 200, 30)
+        upgrader.firepower.apply(&power)
+        
+        player = Player(float2(map.size.x / 2, -1.5.m), health, firer, power)
         map.append(player)
         
         points = GameData.info.points
@@ -105,10 +107,11 @@ class Game: DisplayLayer {
         barriers = []
         
         player_interface = PlayerInterface(player, 10.m, 7.m)
+        player_interface.canFire = false
         
         createWalls(0.15.m)
         
-        let constructor = BarrierConstructor(BarrierLayout(1500, 2))
+        let constructor = BarrierConstructor(BarrierLayout(500, 2))
         upgrader.barrier.apply(constructor)
         barriers = constructor.construct(-2.4.m)
     }
@@ -172,6 +175,7 @@ class Game: DisplayLayer {
             if start_timer >= 2.5 {
                 physics.halt()
                 starting = false
+                player_interface.canFire = true
                 UserInterface.space.push(StartPrompt())
             }
             

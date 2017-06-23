@@ -12,7 +12,7 @@ class Scout: Soldier {
     
     required init(_ location: float2) {
         super.init(location, Health(5, nil), float4(1))
-        let firer = Firer(0.25, Impact(10, 8.m), Casing(float2(0.5.m, 0.14.m), float4(1, 0.75, 0, 1), "player"))
+        let firer = Firer(0.25, Impact(10, 8.m), Casing(float2(0.4.m, 0.1.m), float4(1, 0.25, 0.25, 1), "player"))
         weapon = Weapon(transform, float2(0, 1), firer)
         weapon?.offset = float2(-0.275.m, -0.5.m)
         
@@ -49,8 +49,8 @@ class Banker: Soldier {
 class Captain: Soldier {
     
     required init(_ location: float2) {
-        super.init(location, Health(30, Shield(Float(30), Float(2.0), Float(30))), float4(1))
-        let firer = Firer(1.0, Impact(20, 6.m), Casing(float2(0.5.m, 0.14.m) * 1.2, float4(1, 0, 0, 1), "player"))
+        super.init(location, Health(45, Shield(Float(60), Float(0.75), Float(50))), float4(1))
+        let firer = Firer(1.0, Impact(20, 10.m), Casing(float2(0.7.m, 0.175.m), float4(1, 0.5, 1, 1), "player"))
         weapon = Weapon(transform, float2(0, 1), firer)
         weapon?.offset = float2(-0.275.m, -0.5.m)
         
@@ -60,7 +60,7 @@ class Captain: Soldier {
         
         behavior.base.append(MarchBehavior(self, animator))
         behavior.base.append(ShootBehavior(weapon!, self))
-        behavior.base.append(RushBehavior(transform, 4.m))
+        behavior.base.append(RushBehavior(transform, 3.m))
     }
     
 }
@@ -68,8 +68,8 @@ class Captain: Soldier {
 class Commander: Soldier {
     
     required init(_ location: float2) {
-        super.init(location, Health(30, Shield(Float(60), Float(0.5), Float(50))), float4(1))
-        let firer = Firer(1.0, Impact(10, 10.m), Casing(float2(0.5.m, 0.14.m) * 1.2, float4(1, 0, 0, 1), "player"))
+        super.init(location, Health(30, Shield(Float(90), Float(0.5), Float(50))), float4(1))
+        let firer = Firer(1.0, Impact(30, 10.m), Casing(float2(0.7.m, 0.175.m), float4(1, 0.25, 1, 1), "player"))
         weapon = Weapon(transform, float2(0, 1), firer)
         weapon?.offset = float2(-0.275.m, -0.5.m)
         
@@ -86,8 +86,8 @@ class Commander: Soldier {
 class Thief: Soldier {
     
     required init(_ location: float2) {
-        super.init(location, Health(30, nil), float4(1))
-        let firer = Firer(1.0, Impact(5, 12.m), Casing(float2(0.5.m, 0.14.m), float4(1, 0.75, 0, 1), "player"))
+        super.init(location, Health(45, nil), float4(1))
+        let firer = Firer(1.0, Impact(5, 12.m), Casing(float2(0.4.m, 0.1.m), float4(1, 0.25, 0.25, 1), "player"))
         weapon = Weapon(transform, float2(0, 1), firer)
         weapon?.offset = float2(-0.275.m, -0.5.m)
         
@@ -136,7 +136,7 @@ class Sniper: Soldier {
     
     required init(_ location: float2) {
         super.init(location, Health(45, Shield(Float(60), Float(0.5), Float(60))), float4(1))
-        let firer = Firer(1.25, Impact(15, 25.m), Casing(float2(0.6.m, 0.1.m), float4(0, 1, 1, 1), "player"))
+        let firer = Firer(1.25, Impact(15, 25.m), Casing(float2(0.7.m, 0.15.m), float4(1, 0.5, 0.25, 1), "player"))
         weapon = Weapon(transform, float2(0, 1), firer)
         weapon?.offset = float2(-0.275.m, -0.5.m)
         

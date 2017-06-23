@@ -23,6 +23,12 @@ class GameData {
         gateway.persist(item: info)
     }
     
+    static func reset() {
+        info = GameInfo.Default
+        upgrader = Upgrader()
+        persist()
+    }
+    
 }
 
 struct GameInfo {

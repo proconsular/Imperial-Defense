@@ -8,7 +8,7 @@
 
 import Foundation
 
-let defaultFont = "AUGUSTUS"
+let defaultFont = "Lora-Regular"
 let defaultStyle = FontStyle(defaultFont, float4(1), 72)
 let sound_volume: Float = 0.1
 

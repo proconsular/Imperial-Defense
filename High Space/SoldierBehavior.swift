@@ -158,7 +158,7 @@ class AllfireBehavior: Behavior {
             cooldown -= Time.delta
             if cooldown <= 0 {
                 fire(3.m)
-                cooldown = random(3, 5)
+                cooldown = random(2, 4)
             }
         }
     }
@@ -169,7 +169,7 @@ class AllfireBehavior: Behavior {
             if let soldier = actor as? Soldier {
                 let animator = BaseMarchAnimator(soldier.body, 10, 0.0.m)
                 animator.set(soldier.sprinter ? 1 : 0)
-                soldier.behavior.push(TemporaryBehavior(MarchBehavior(soldier, animator), 0.75) {
+                soldier.behavior.push(TemporaryBehavior(MarchBehavior(soldier, animator), 0.5) {
                     soldier.weapon?.fire()
                     let s = Audio("shoot3")
                     s.volume = sound_volume
@@ -269,7 +269,7 @@ class HealBehavior: Behavior {
     
     func heal(_ radius: Float) {
         var selectNew = false
-        if let healee = self.healee, let shield = healee.health.shield, shield.percent >= 2 {
+        if let healee = self.healee, let shield = healee.health.shield, shield.percent >= 3 {
             selectNew = true
             cooldown = 2
         }

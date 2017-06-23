@@ -74,16 +74,17 @@ class WaveDisplay {
     
     var plate: Display
     var text: Text
+    var wave: Int
     
-    init(_ location: float2, _ bounds: float2) {
+    init(_ location: float2, _ bounds: float2, _ wave: Int) {
         plate = Display(location, float2(bounds.x, 76 * bounds.y / 40), GLTexture("Plates"))
         plate.coordinates = SheetLayout(0, 1, 2).coordinates
         text = Text(location + float2(0, -GameScreen.size.y), "0", FontStyle(defaultFont, float4(1), 48.0 * (bounds.y / 100)))
+        self.wave = wave
     }
     
     func render() {
         plate.render()
-        let wave = GameData.info.wave + 1
         text.setString("Legio \(wave.roman)")
         text.render()
     }
@@ -109,14 +110,18 @@ class StatusLayer: InterfaceLayer {
         
         let sh = LifeDisplayAdapter(game.player.health.shield!, float4(48 / 255, 181 / 255, 206 / 255, 1))
         sh.warnings.append(ShieldLowPowerWarning(float4(1, 0, 0, 1), 0.125, 0.33))
-        shield = PercentDisplay(float2(100, size / 2) + float2(0, -GameScreen.size.y), size * 0.37, 18, 1, sh)
+        
+        let shieldBlocks = Int(13 + 5 * upgrader.shieldpower.range.percent)
+        shield = PercentDisplay(float2(100, size / 2) + float2(0, -GameScreen.size.y), size * 0.37, shieldBlocks, 1, sh)
         shield.frame.color = float4(0)
         
-        stamina = PercentDisplay(float2(100, size / 2) + float2(0, -GameScreen.size.y), size * 0.37, 18, 1, LifeDisplayAdapter(game.player.health.stamina, float4(53 / 255, 215 / 255, 83 / 255, 1)))
-        weapon = PercentDisplay(float2(GameScreen.size.x - 20, size / 2) + float2(0, -GameScreen.size.y), size * 0.375, 18, -1, PlayerWeaponDisplayAdapter(game.player.weapon))
+        stamina = PercentDisplay(float2(100, size / 2) + float2(0, -GameScreen.size.y), size * 0.37, shieldBlocks, 1, LifeDisplayAdapter(game.player.health.stamina, float4(53 / 255, 215 / 255, 83 / 255, 1)))
+        
+        let weaponBlocks = Int(13 + 5 * upgrader.firepower.range.percent)
+        weapon = PercentDisplay(float2(GameScreen.size.x - 20, size / 2) + float2(0, -GameScreen.size.y), size * 0.375, weaponBlocks, -1, PlayerWeaponDisplayAdapter(game.player.weapon))
         
         score = ScoreDisplay(float2(GameScreen.size.x / 2 - 200, size / 2), float2(180, size / 2))
-        wave = WaveDisplay(float2(GameScreen.size.x / 2, size / 2), float2(224, size / 2))
+        wave = WaveDisplay(float2(GameScreen.size.x / 2, size / 2), float2(224, size / 2), GameData.info.wave + 1)
         legion = LegionDisplay(float2(GameScreen.size.x / 2 + 200, size / 2), float2(180, size / 2), game)
         
         background = Display(float2(GameScreen.size.x / 2, size / 2) , float2(GameScreen.size.x, size), GLTexture("GameUIBack"))

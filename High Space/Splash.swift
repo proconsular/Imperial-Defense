@@ -75,9 +75,11 @@ class Splash: Screen {
         layer.objects.append(storiel)
         layer.objects.append(copyright)
         layer.objects.append(TextButton(Text("Tap to Play", FontStyle(defaultFont, float4(1, 1, 1, 1), 72)), float2(Camera.size.x / 2, Camera.size.y / 2 + 50) + float2(0, -GameScreen.size.y)) {
-            UserInterface.space.wipe()
-            UserInterface.controller.reduce()
-            UserInterface.space.push(PrincipalScreen())
+            UserInterface.fade {
+                UserInterface.space.wipe()
+                UserInterface.controller.reduce()
+                UserInterface.space.push(PrincipalScreen())
+            }
         })
         
         layer.objects.append(TextButton(Text("Reset", FontStyle(defaultFont, float4(1, 1, 1, 1), 56)), float2(Camera.size.x / 2, Camera.size.y / 2 + 425) + float2(0, -GameScreen.size.y)) { [weak self] in
@@ -203,8 +205,7 @@ class SaveDisplay: Entity, Damagable {
         a.volume = sound_volume
         a.pitch = random(0.9, 1.1)
         a.start()
-        GameData.info = GameInfo.Default
-        GameData.persist()
+        GameData.reset()
     }
     
     override func update() {

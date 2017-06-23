@@ -13,6 +13,7 @@ class PlayerInterface: Interface {
     var player: Player
     var speed: Float 
     var acceleration: Float
+    var canFire = true
     
     init(_ player: Player, _ speed: Float, _ acceleration: Float) {
         self.player = player
@@ -26,7 +27,7 @@ class PlayerInterface: Interface {
             if abs(player.body.velocity.x) < speed {
                 player.body.velocity.x += force.x * acceleration
             }
-        }else if command.id == 1 {
+        }else if command.id == 1 && canFire {
             if player.weapon.canFire {
                 let shoot = Audio("shoot2")
                 shoot.pitch = player.weapon.isHighPower ? 0.6 : 1
@@ -115,11 +116,11 @@ class Player: Entity, Damagable {
     
     var absorb: AbsorbEffect!
     
-    init(_ location: float2, _ health: Health, _ firer: Firer) {
+    init(_ location: float2, _ health: Health, _ firer: Firer, _ power: Power) {
         self.health = health
         
         let transform = Transform(location)
-        weapon = PlayerWeapon(transform, float2(0, -1), Power(175, 200, 30), firer)
+        weapon = PlayerWeapon(transform, float2(0, -1), power, firer)
         
         affector = Affector()
         
@@ -143,9 +144,12 @@ class Player: Entity, Damagable {
         
         terminator = ExplosionTerminator(self, 3.m, float4(1, 1, 1, 1))
         
-        display.technique = ShieldTechnique(health.shield!, transform, float4(48 / 255, 181 / 255, 206 / 255, 1), image.bounds.y)
+        let blue = float4(48 / 255, 181 / 255, 206 / 255, 1)
+        let green = float4(63 / 255, 206 / 255, 48 / 255, 1)
+        let color = blue * (1 - upgrader.shieldpower.range.percent) + green * upgrader.shieldpower.range.percent
+        display.technique = ShieldTechnique(health.shield!, transform, color, image.bounds.y)
         
-        absorb = AbsorbEffect(3, 0.025, 1.25.m, 7, float4(48 / 255, 181 / 255, 206 / 255, 1), 0.75.m, transform)
+        absorb = AbsorbEffect(3, 0.025, 1.25.m, 7, float4(48 / 255, 181 / 255, 206 / 255, 1), 0.75.m, body)
     }
     
     func damage(_ amount: Float) {
