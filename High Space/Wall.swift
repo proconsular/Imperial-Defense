@@ -17,7 +17,8 @@ class Wall: Structure, Damagable {
     init(_ location: float2, _ health: Float) {
         self.health = health
         max = health
-        sheet = SheetLayout(0, 1, 3)
+        let amount = upgrader.barrier.range.amount
+        sheet = SheetLayout(3 - Int(amount / 1.5), 1, 6)
         super.init(location, float2(64, 32) * 4)
         display.texture = GLTexture("barrier_castle").id
         display.color = float4(1, 1, 1, 1)
@@ -46,15 +47,27 @@ class Wall: Structure, Damagable {
         
         let index = sheet.index
         
-        if percent >= 0.33 && percent <= 0.66 {
-            sheet.index = 1
-            display.coordinates = sheet.coordinates
-        }
+        let l = floorf(upgrader.barrier.range.amount / 1.5)
+        let level = l + 3
+        let step = 1 / level
         
-        if percent <= 0.33 {
-            sheet.index = 2
-            display.coordinates = sheet.coordinates
+        for n in 0 ..< Int(level) {
+            if percent >= 1 - step * Float(n + 1) && percent <= 1 - step * Float(n) {
+                sheet.index = n + 3 - Int(l)
+                break
+            }
         }
+        display.coordinates = sheet.coordinates
+        
+//        if percent >= 0.33 && percent <= 0.66 {
+//            sheet.index = 1
+//            display.coordinates = sheet.coordinates
+//        }
+//        
+//        if percent <= 0.33 {
+//            sheet.index = 2
+//            display.coordinates = sheet.coordinates
+//        }
         
         if index != sheet.index {
             play("barrier_ruin")

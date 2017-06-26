@@ -49,9 +49,11 @@ class HomingWeapon: Weapon {
 class PlayerWeaponDisplayAdapter: StatusItem {
     
     var weapon: PlayerWeapon
+    var warnings: [PowerWarning]
     
     init(_ weapon: PlayerWeapon) {
         self.weapon = weapon
+        warnings = []
     }
     
     var percent: Float {
@@ -59,11 +61,21 @@ class PlayerWeaponDisplayAdapter: StatusItem {
     }
     
     var color: float4 {
-        return weapon.color
+        var c = weapon.color
+        warnings.forEach{ c = $0.apply(c) }
+        return c
     }
     
     func update() {
-        
+        warnings.forEach{ $0.update(percent) }
+    }
+    
+}
+
+class WeaponLowPowerWarning: ShieldLowPowerWarning {
+    
+    override func notify() {
+        play("weapon_lowpower")
     }
     
 }
@@ -122,15 +134,15 @@ class PlayerWeapon: Weapon {
     }
     
     var color: float4 {
-        let red = rate_modifier > 1 ? 0.5 : 1
-        let green = rate_modifier < 1 ? 0.5 : 0
-        return float4(Float(red), Float(green), 0, 1)
+//        let red = rate_modifier > 1 ? 0.5 : 1
+//        let green = rate_modifier < 1 ? 0.5 : 0
+        return float4(1, 0, 0, 1)
     }
     
     override func update() {
         super.update()
        
-        firer.casing.size = float2(0.4.m, 0.12.m) * 1.2
+        //firer.casing.size = float2(0.4.m, 0.12.m) * 1.2
         
         if isNormalPower {
             rate_modifier = 1
@@ -142,7 +154,15 @@ class PlayerWeapon: Weapon {
         
         if isHighPower {
             rate_modifier = 0.75
-            firer.casing.size = float2(0.4.m, 0.12.m) * 1.6
+            
+            //firer.casing.size = float2(0.4.m, 0.12.m) * 1.6
+        }
+        
+        firer.impact.damage = 15
+        if upgrader.firepower.range.percent == 1 {
+            if random(0, 1) <= 0.1 {
+                firer.impact.damage = 45
+            }
         }
         
         power.charge(1 / rate_modifier)

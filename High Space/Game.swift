@@ -24,7 +24,7 @@ class Upgrader {
     var upgrades: [Upgrade]
     
     init() {
-        firepower = FirePowerUpgrade(Power(150, 0, 0))
+        firepower = FirePowerUpgrade(Power(175, 250, 0))
         shieldpower = ShieldUpgrade(ShieldPower(140, 100))
         barrier = BarrierUpgrade(BarrierLayout(2000, 2))
         
@@ -36,6 +36,8 @@ class Upgrader {
 let playgame: Bool = true
 
 class Game: DisplayLayer {
+    
+    static var instance: Game!
     
     let physics: Simulation
     let coordinator: Coordinator
@@ -72,12 +74,20 @@ class Game: DisplayLayer {
         Camera.current = Camera(map)
         physics = Simulation(map.grid)
         
-        let shield = Shield(Float(40), Float(2), Float(20))
+        let shield = PlayerShield(Float(40), Float(2), Float(20))
         shield.delegate = ShieldAudio()
         let health = Health(30, shield)
         upgrader.shieldpower.apply(shield)
         
-        let firer = Firer(0.1075, Impact(15, 14.m), Casing(float2(0.4.m, 0.12.m) * 1.2, float4(0, 1, 0.5, 1), "enemy"))
+        let green_fire = float4(0, 1, 0.5, 1)
+        let purple_fire = float4(1, 1, 0.5, 1)
+        let blend_fire = green_fire * (1 - upgrader.firepower.range.percent) + purple_fire * upgrader.firepower.range.percent
+        
+        let small_fire = float2(0.48.m, 0.144.m)
+        let big_fire = float2(0.8.m, 0.16.m)
+        let blend_size_fire = small_fire * (1 - upgrader.firepower.range.percent) + big_fire * upgrader.firepower.range.percent
+        
+        let firer = Firer(0.1075, Impact(15, 14.m + 2.m * upgrader.firepower.range.percent), Casing(blend_size_fire, blend_fire, "enemy"))
         
         var power = Power(175, 200, 30)
         upgrader.firepower.apply(&power)
@@ -106,7 +116,8 @@ class Game: DisplayLayer {
         end_timer = 2
         barriers = []
         
-        player_interface = PlayerInterface(player, 10.m, 7.m)
+        let sh = upgrader.shieldpower.range.percent
+        player_interface = PlayerInterface(player, 10.m + 4.m * sh, 7.m + 1.m * sh)
         player_interface.canFire = false
         
         createWalls(0.15.m)
@@ -114,6 +125,8 @@ class Game: DisplayLayer {
         let constructor = BarrierConstructor(BarrierLayout(500, 2))
         upgrader.barrier.apply(constructor)
         barriers = constructor.construct(-2.4.m)
+        
+        Game.instance = self
     }
     
     func createWalls(_ width: Float) {

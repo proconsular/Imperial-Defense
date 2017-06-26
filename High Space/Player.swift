@@ -22,6 +22,7 @@ class PlayerInterface: Interface {
     }
     
     func use(_ command: Command) {
+        if player.dead { return }
         if command.id == 0 {
             let force = command.vector! / 1000
             if abs(player.body.velocity.x) < speed {
@@ -116,6 +117,9 @@ class Player: Entity, Damagable {
     
     var absorb: AbsorbEffect!
     
+    var death_timer: Float = 0
+    var dead: Bool = false
+    
     init(_ location: float2, _ health: Health, _ firer: Firer, _ power: Power) {
         self.health = health
         
@@ -126,6 +130,7 @@ class Player: Entity, Damagable {
         
         animator = TextureAnimator(GLTexture("Player").id, SheetLayout(0, 8, 4))
         animator.append(SheetAnimator(0.1, [], SheetAnimation(0, 5, 8, 1)))
+        animator.append(SheetAnimator(0.25, [], SheetAnimation(8, 4, 8, 1)))
         
         let image = Rect(transform, float2(48, 48) * 4)
         let bodyhall = Rect(transform, float2(100, 100))
@@ -142,14 +147,14 @@ class Player: Entity, Damagable {
         Player.player = self
         display.order  = 100
         
-        terminator = ExplosionTerminator(self, 3.m, float4(1, 1, 1, 1))
+        terminator = ExplosionTerminator(self, 5.m, float4(1, 1, 1, 1))
         
         let blue = float4(48 / 255, 181 / 255, 206 / 255, 1)
         let green = float4(63 / 255, 206 / 255, 48 / 255, 1)
         let color = blue * (1 - upgrader.shieldpower.range.percent) + green * upgrader.shieldpower.range.percent
         display.technique = ShieldTechnique(health.shield!, transform, color, image.bounds.y)
         
-        absorb = AbsorbEffect(3, 0.025, 1.25.m, 7, float4(48 / 255, 181 / 255, 206 / 255, 1), 0.75.m, body)
+        absorb = AbsorbEffect(3, 0.025, 1.25.m, 7, color, 0.75.m, body)
     }
     
     func damage(_ amount: Float) {
@@ -162,19 +167,22 @@ class Player: Entity, Damagable {
     
     override func update() {
         absorb.update()
-        if let shield = health.shield {
-            display.color = float4(1)
-            display.color = affector.apply(display.color)
-            if shield.broke {
-                shield.explode(transform)
-            }
-            let a = shield.percent
-            shield.update()
-            let b = shield.percent
-            if a < b {
-                absorb.generate()
+        if !dead {
+            if let shield = health.shield {
+                display.color = float4(1)
+                display.color = affector.apply(display.color)
+                if shield.broke {
+                    shield.explode(transform)
+                }
+                let a = shield.percent
+                shield.update()
+                let b = shield.percent
+                if a < b {
+                    absorb.generate()
+                }
             }
         }
+        
         let per = weapon.percent
         weapon.update()
         if !firing {
@@ -190,20 +198,51 @@ class Player: Entity, Damagable {
             body.velocity.x *= 0.8
         }
         firing = false
+        
+        
         if health.percent <= 0 {
-            alive = false
-            terminator?.terminate()
+            if !dead {
+                let die = Audio("player_died")
+                die.volume = 1
+                die.start()
+            }
+            dead = true
+            animator.set(1)
+            Audio("1 Battle").stop()
+            Game.instance.physics.speed = 0.05
         }
         
-        if abs(body.velocity.x) >= 2 {
+        if dead {
+            death_timer += Time.delta
+            if death_timer >= 5 {
+                alive = false
+                Game.instance.physics.speed = 1
+                terminator?.terminate()
+            }
+            let c = Float(Int(death_timer * 400) % 2)
+            display.color = float4(1, c, c, 1)
             anim_timer += Time.delta
-            if anim_timer >= 0.1 {
+            if anim_timer >= 1 && animator.frame < 11 {
                 anim_timer = 0
+                let die = Audio("player_fall")
+                die.volume = 0.75
+                die.start()
                 animator.animate()
             }
-        }else{
-            animator.current.animation.index = 0
         }
+        
+        if !dead {
+            if abs(body.velocity.x) >= 2 {
+                anim_timer += Time.delta
+                if anim_timer >= 0.1 {
+                    anim_timer = 0
+                    animator.animate()
+                }
+            }else{
+                animator.current.animation.index = 0
+            }
+        }
+        
         display.coordinates = animator.coordinates
     }
     

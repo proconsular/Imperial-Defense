@@ -32,7 +32,8 @@ class Banker: Soldier {
     required init(_ location: float2) {
         let shield = Shield(Float(15), Float(2.0), Float(15))
         super.init(location, Health(45, shield), float4(1, 1, 0.25, 1))
-        drop = CoinDrop(Int(arc4random() % 2) + 1, 1)
+        
+        drop = CoinDrop(Int(clamp(GameData.info.wave / 10, min: 0, max: 2) + 1), 1)
         behavior.base.append(MarchBehavior(self, animator))
         canSprint = true
     }
@@ -50,7 +51,7 @@ class Captain: Soldier {
     
     required init(_ location: float2) {
         super.init(location, Health(45, Shield(Float(60), Float(0.75), Float(50))), float4(1))
-        let firer = Firer(1.0, Impact(20, 10.m), Casing(float2(0.7.m, 0.175.m), float4(1, 0.5, 1, 1), "player"))
+        let firer = Firer(1.0, Impact(20, 10.m), Casing(float2(0.5.m, 0.13.m), float4(1, 0.5, 1, 1), "player", 2))
         weapon = Weapon(transform, float2(0, 1), firer)
         weapon?.offset = float2(-0.275.m, -0.5.m)
         
@@ -119,7 +120,7 @@ class Heavy: Soldier {
     
     required init(_ location: float2) {
         super.init(location, Health(50, Shield(Float(50), Float(0.5), Float(50))), float4(1))
-        let firer = Firer(1.5, Impact(30, 10.m), Casing(float2(0.5.m, 0.14.m) * 1.4, float4(1, 0, 1, 1), "player"))
+        let firer = Firer(1.5, Impact(30, 10.m), Casing(float2(0.5.m, 0.14.m) * 1.1, float4(1, 0, 1, 1), "player", 2))
         weapon = Weapon(transform, float2(0, 1), firer)
         weapon?.offset = float2(-0.275.m, -0.5.m)
         
@@ -135,8 +136,8 @@ class Heavy: Soldier {
 class Sniper: Soldier {
     
     required init(_ location: float2) {
-        super.init(location, Health(45, Shield(Float(60), Float(0.5), Float(60))), float4(1))
-        let firer = Firer(1.25, Impact(15, 25.m), Casing(float2(0.7.m, 0.15.m), float4(1, 0.5, 0.25, 1), "player"))
+        super.init(location, Health(30, Shield(Float(60), Float(0.5), Float(60))), float4(1))
+        let firer = Firer(1.25, Impact(15, 25.m), Casing(float2(0.7.m, 0.15.m), float4(1, 0.5, 0.25, 1), "player", 2))
         weapon = Weapon(transform, float2(0, 1), firer)
         weapon?.offset = float2(-0.275.m, -0.5.m)
         
@@ -144,7 +145,7 @@ class Sniper: Soldier {
         
         behavior.base.append(MarchBehavior(self, animator))
         behavior.base.append(ShootBehavior(weapon!, self))
-        behavior.base.append(DodgeBehavior(self, 0.4))
+        behavior.base.append(DodgeBehavior(self, 0.5))
     }
     
     override func update() {
@@ -158,7 +159,7 @@ class Mage: Soldier {
     
     required init(_ location: float2) {
         super.init(location, Health(45, Shield(Float(40), Float(0.1), Float(60))), float4(1))
-        let firer = HomingFirer(1, Impact(30, 18.m), Casing(float2(0.8.m, 0.15.m), float4(1, 0.5, 1, 1), "player"))
+        let firer = HomingFirer(1, Impact(30, 18.m), Casing(float2(0.8.m, 0.15.m), float4(1, 0.5, 1, 1), "player", 2))
         weapon = HomingWeapon(transform, float2(0, 1), firer)
         weapon?.offset = float2(-0.275.m, -0.5.m)
         

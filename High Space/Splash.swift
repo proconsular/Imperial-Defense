@@ -47,7 +47,7 @@ class Splash: Screen {
         
         player = SplashPlayer()
         firer = SplashFirer(float2(Camera.size.x - 0.5.m, Camera.size.y) + float2(0, -GameScreen.size.y), float2(2.5.m, 0), player.player.transform, 0.25)
-        map.append(player)
+        //map.append(player)
         
         audio = Audio("0 Title")
         if !audio.playing {
@@ -78,7 +78,7 @@ class Splash: Screen {
             UserInterface.fade {
                 UserInterface.space.wipe()
                 UserInterface.controller.reduce()
-                UserInterface.space.push(PrincipalScreen())
+                UserInterface.space.push(StoryScreen())
             }
         })
         
@@ -105,7 +105,7 @@ class Splash: Screen {
     override func update() {
         super.update()
         
-        firer.update()
+        //firer.update()
         
         map.update()
         simulation.simulate()
@@ -123,7 +123,7 @@ class Splash: Screen {
         mountains.render()
         castle.render()
         
-        player.render()
+        //player.render()
         
         map.render()
         

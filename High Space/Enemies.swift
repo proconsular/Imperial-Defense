@@ -38,7 +38,6 @@ class CoinDrop: Drop {
     }
     
     func release(_ location: float2) {
-        guard random(0, 1) <= chance else { return }
         for _ in 0 ..< amount {
             let coin = Coin(location, 1)
             let angle = random(-Float.pi, Float.pi)

@@ -69,6 +69,10 @@
     [self loadAudio:@"enemy_charge"];
     [self loadAudio:@"thunder"];
     [self loadAudio:@"dodge"];
+    [self loadAudio:@"player_died"];
+    [self loadAudio:@"player_fall"];
+    [self loadAudio:@"health_warning"];
+    [self loadAudio:@"weapon_lowpower"];
     [self loadAudio:@"0 Title" :44100];
     [self loadAudio:@"1 Battle" :44100];
     [self loadAudio:@"2 Imperial" :44100];

@@ -260,7 +260,7 @@ class HealBehavior: Behavior {
         cooldown -= Time.delta
         counter += Time.delta
         if cooldown <= 0 {
-            if counter >= 0.05 {
+            if counter >= 0.1 {
                 heal(2.m)
                 counter = 0
             }
@@ -269,7 +269,7 @@ class HealBehavior: Behavior {
     
     func heal(_ radius: Float) {
         var selectNew = false
-        if let healee = self.healee, let shield = healee.health.shield, shield.percent >= 3 {
+        if let healee = self.healee, let shield = healee.health.shield, shield.percent >= 2 {
             selectNew = true
             cooldown = 2
         }

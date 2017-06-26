@@ -20,7 +20,8 @@ class Bullet: Entity {
         super.init(rect, rect, Substance(PhysicalMaterial(.wood), Mass(0.05, 0), Friction(.iron)))
         
         display.scheme.schemes[0].info.texture = GLTexture("bullet").id
-        display.color = casing.color
+        display.coordinates = SheetLayout(casing.tag == "player" ? casing.index != -1 ? casing.index : 1 : 0, 1, 4).coordinates
+        //display.color = casing.color
         
         body.noncolliding = true
         body.callback = { (body, collision) in
@@ -87,12 +88,14 @@ struct Impact {
 struct Casing {
     var size: float2
     var color: float4
+    var index: Int = -1
     var tag: String
     
-    init(_ size: float2, _ color: float4, _ tag: String) {
+    init(_ size: float2, _ color: float4, _ tag: String, _ index: Int = -1) {
         self.size = size
         self.color = color
         self.tag = tag
+        self.index = index
     }
 }
 
@@ -110,6 +113,7 @@ class Firer {
         self.rate = rate
         self.impact = impact
         self.casing = casing
+        self.casing.size *= 2
         mods = []
         counter = 0
     }

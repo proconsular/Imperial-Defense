@@ -50,12 +50,15 @@ class ShieldLowPowerWarning: PowerWarning {
     var counter: Float
     var active: Bool
     
+    var last: Float
+    
     init(_ color: float4, _ frequency: Float, _ threshold: Float) {
         self.color = color
         self.frequency = frequency
         self.threshold = threshold
         counter = 0
         active = false
+        last = 0
     }
     
     func update(_ percent: Float) {
@@ -64,17 +67,45 @@ class ShieldLowPowerWarning: PowerWarning {
             if counter >= frequency {
                 counter = 0
                 active = !active
-                let a = Audio("shield_weak")
-                a.volume = sound_volume
-                a.start()
+                notify()
             }
+        }else{
+            active = false
+        }
+        last = percent
+    }
+    
+    func notify() {
+        let a = Audio("shield_weak")
+        a.volume = sound_volume
+        a.start()
+    }
+    
+    func apply(_ color: float4) -> float4 {
+        return active ? self.color : color
+    }
+    
+}
+
+class NoShieldPowerWarning: ShieldLowPowerWarning {
+    
+    unowned let shield: Shield
+    
+    init(_ shield: Shield, _ color: float4, _ frequency: Float) {
+        self.shield = shield
+        super.init(color, frequency, 1)
+    }
+    
+    override func update(_ percent: Float) {
+        if shield.percent <= 0 {
+            super.update(percent)
         }else{
             active = false
         }
     }
     
-    func apply(_ color: float4) -> float4 {
-        return active ? self.color : color
+    override func notify() {
+        play("health_warning")
     }
     
 }
@@ -199,6 +230,19 @@ class Shield: Life {
     
     var percent: Float {
         return points.percent
+    }
+    
+}
+
+class PlayerShield: Shield {
+    
+    override func damage(_ amount: Float) {
+        if upgrader.shieldpower.range.percent == 1 {
+            if random(0, 1) <= 0.1 {
+                return
+            }
+        }
+        super.damage(amount)
     }
     
 }

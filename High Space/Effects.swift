@@ -67,6 +67,7 @@ class AbsorbEffect: Effect {
             let direction = dl / dl.length
             particle.body.velocity = direction * 0.1.m
             particle.color = color
+            particle.display.color = color
             particles.append(particle)
             Map.current.append(particle)
         }

@@ -108,17 +108,23 @@ class StatusLayer: InterfaceLayer {
         self.game = game
         let size: Float = 80
         
-        let sh = LifeDisplayAdapter(game.player.health.shield!, float4(48 / 255, 181 / 255, 206 / 255, 1))
+        let health = game.player.health
+        
+        let sh = LifeDisplayAdapter(health.shield!, float4(48 / 255, 181 / 255, 206 / 255, 1))
         sh.warnings.append(ShieldLowPowerWarning(float4(1, 0, 0, 1), 0.125, 0.33))
         
         let shieldBlocks = Int(13 + 5 * upgrader.shieldpower.range.percent)
         shield = PercentDisplay(float2(100, size / 2) + float2(0, -GameScreen.size.y), size * 0.37, shieldBlocks, 1, sh)
         shield.frame.color = float4(0)
         
-        stamina = PercentDisplay(float2(100, size / 2) + float2(0, -GameScreen.size.y), size * 0.37, shieldBlocks, 1, LifeDisplayAdapter(game.player.health.stamina, float4(53 / 255, 215 / 255, 83 / 255, 1)))
+        let ld = LifeDisplayAdapter(health.stamina, float4(53 / 255, 215 / 255, 83 / 255, 1))
+        ld.warnings.append(NoShieldPowerWarning(health.shield!, float4(1, 0, 0, 1), 0.075))
+        stamina = PercentDisplay(float2(100, size / 2) + float2(0, -GameScreen.size.y), size * 0.37, shieldBlocks, 1, ld)
         
+        let wd = PlayerWeaponDisplayAdapter(game.player.weapon)
+        wd.warnings.append(WeaponLowPowerWarning(float4(1, 1, 0, 1), 0.3, 0.33))
         let weaponBlocks = Int(13 + 5 * upgrader.firepower.range.percent)
-        weapon = PercentDisplay(float2(GameScreen.size.x - 20, size / 2) + float2(0, -GameScreen.size.y), size * 0.375, weaponBlocks, -1, PlayerWeaponDisplayAdapter(game.player.weapon))
+        weapon = PercentDisplay(float2(GameScreen.size.x - 20, size / 2) + float2(0, -GameScreen.size.y), size * 0.375, weaponBlocks, -1, wd)
         
         score = ScoreDisplay(float2(GameScreen.size.x / 2 - 200, size / 2), float2(180, size / 2))
         wave = WaveDisplay(float2(GameScreen.size.x / 2, size / 2), float2(224, size / 2), GameData.info.wave + 1)
@@ -135,6 +141,7 @@ class StatusLayer: InterfaceLayer {
     
     override func update() {
         shield.update()
+        stamina.update()
         weapon.update()
     }
     

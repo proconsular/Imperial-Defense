@@ -92,12 +92,12 @@ class GameBase: GameInterface {
         
         GameData.info.level = 0
        // GameData.info.points = 15
-//        GameData.info.wave = 11
-//        
-//        upgrader.firepower.range.amount = 0
-//        upgrader.shieldpower.range.amount = 4
-//        upgrader.barrier.range.amount = 4
-//        
+//        GameData.info.wave = 49
+//
+//        upgrader.firepower.range.amount = 5
+//        upgrader.shieldpower.range.amount = 5
+//        upgrader.barrier.range.amount = 5
+//
         let main = ScreenSpace()
         main.push(Splash())
         //main.push(PrincipalScreen())

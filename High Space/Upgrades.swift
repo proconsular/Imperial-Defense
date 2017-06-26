@@ -41,7 +41,7 @@ class FirePowerUpgrade: Upgrade {
     }
     
     override func computeCost() -> Int {
-        return 10
+        return 8
     }
     
 }
