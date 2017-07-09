@@ -102,13 +102,11 @@ class EndPrompt: Screen {
         
         layer.objects.append(TextButton(Text("Play", FontStyle(defaultFont, float4(1), 64)), GameScreen.size / 2 + offset + spacing, {
             UserInterface.fade {
-                UserInterface.controller.reduce()
-                let pr = PrincipalScreen()
                 UserInterface.space.wipe()
-                UserInterface.space.push(pr)
+                UserInterface.controller.reduce()
+                UserInterface.space.push(StoryScreen())
             }
         }))
-        
         
         layers.append(layer)
     }

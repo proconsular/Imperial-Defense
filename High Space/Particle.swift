@@ -13,6 +13,7 @@ class Particle: Entity {
     var opacity: Float = 1
     var rate: Float = 1
     var color: float4 = float4(1)
+    var guider: Guider?
     
     init(_ location: float2, _ size: Float) {
         let rect = Rect(Transform(location), float2(size))
@@ -31,11 +32,48 @@ class Particle: Entity {
             alive = false
         }
         display.color = float4(opacity) * color
+        guider?.update()
     }
     
     override func render() {
         display.visual.refresh()
         super.render()
+    }
+    
+}
+
+protocol Guider {
+    func update()
+}
+
+class FollowGuider: Guider {
+    
+    let body: Body
+    let target: Transform
+    let speed: Float
+    
+    init(_ body: Body, _ target: Transform, _ speed: Float) {
+        self.body = body
+        self.target = target
+        self.speed = speed
+    }
+    
+    func update() {
+        let dl = target.global.location - body.location
+        body.velocity += normalize(dl) * speed
+    }
+    
+}
+
+class ParticleCreator {
+    
+    static func create(_ location: float2, _ bounds: float2, _ color: float4) {
+        let spark = Particle(location + float2(random(-bounds.x / 2, bounds.x / 2), random(-bounds.y / 2, bounds.y / 2)), random(4, 9))
+        spark.color = color
+        let velo: Float = 400
+        spark.rate = 2.5
+        spark.body.velocity = float2(random(-velo, velo), random(-velo, velo))
+        Map.current.append(spark)
     }
     
 }

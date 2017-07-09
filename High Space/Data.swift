@@ -39,6 +39,7 @@ struct GameInfo {
     var bank: Int
     var wave: Int
     var upgrades: [String: Int]
+    var story: Story
     
     init() {
         name = "default"
@@ -48,6 +49,7 @@ struct GameInfo {
         bank = 0
         wave = 0
         upgrades = ["Gun": 0, "Shield": 0, "Barrier": 0]
+        story = StoryGateway().retrieve(name: "story")
     }
     
     mutating func progress() {

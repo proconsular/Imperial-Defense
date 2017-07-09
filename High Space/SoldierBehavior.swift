@@ -51,7 +51,9 @@ class RushBehavior: Behavior {
             if counter >= rate {
                 counter = 0
                 rush(radius)
-                play("charge")
+                let r = Audio("enemy-rush")
+                r.volume = 1
+                r.start()
                 rate = random(4, 6)
             }
         }
@@ -93,7 +95,7 @@ class DodgeBehavior: Behavior {
                 if direction != 0 {
                     entity.transform.location.x += direction * 0.75.m
                     cooldown = rate
-                    play("dodge")
+                    play("enemy-dodge")
                 }
             }
         }
@@ -158,6 +160,9 @@ class AllfireBehavior: Behavior {
             cooldown -= Time.delta
             if cooldown <= 0 {
                 fire(3.m)
+                let a = Audio("enemy-allfire")
+                a.volume = 1
+                a.start()
                 cooldown = random(2, 4)
             }
         }
@@ -281,6 +286,7 @@ class HealBehavior: Behavior {
         }
         if let healee = healee, let shield = healee.health.shield {
             shield.points.increase(2)
+            playIfNot("enemy-heal")
         }
     }
     

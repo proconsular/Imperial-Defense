@@ -101,9 +101,10 @@ class RowGenerator: Generator {
     func create(_ location: float2) -> Row {
         var soldiers: [Soldier] = []
         let amount = difficulty.amount
-        let start = location + float2(-Float(amount) / 2 * 0.85.m, 0)
+        let spacing = 0.75.m
+        let start = location + float2(-Float(amount) / 2 * spacing, 0)
         for i in 0 ..< amount {
-            let loc = start + float2(Float(i) * 0.85.m, 0)
+            let loc = start + float2(Float(i) * spacing, 0)
             let soldier = sol_gen.create(loc)
             
             soldiers.append(soldier)
@@ -135,10 +136,6 @@ class SoldierGenerator: Generator {
             }
             index = (index + 1) % ChanceTable.main.soldiers.count
         }
-        
-//        if let marcher = soldier.animator as? MarchAnimator {
-//            marcher.rate -= difficulty.speed
-//        }
         
         return soldier
     }

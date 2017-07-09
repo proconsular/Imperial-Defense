@@ -53,7 +53,6 @@
     [self loadAudio:@"door1"];
     [self loadAudio:@"laser"];
     [self loadAudio:@"laser2"];
-    [self loadAudio:@"march1"];
     [self loadAudio:@"break1"];
     [self loadAudio:@"shield_weak"];
     [self loadAudio:@"shield_break"];
@@ -73,6 +72,32 @@
     [self loadAudio:@"player_fall"];
     [self loadAudio:@"health_warning"];
     [self loadAudio:@"weapon_lowpower"];
+    
+    
+    [self loadAudio:@"march"];
+    [self loadAudio:@"march-2"];
+    [self loadAudio:@"player-die"];
+    [self loadAudio:@"barrier-hit"];
+    [self loadAudio:@"barrier-destroyed"];
+    [self loadAudio:@"barrier-breakdown"];
+    [self loadAudio:@"enemy-shield-hit"];
+    [self loadAudio:@"enemy-health-hit"];
+    [self loadAudio:@"shield-regen"];
+    [self loadAudio:@"player-step"];
+    [self loadAudio:@"player-shoot"];
+    [self loadAudio:@"enemy-shoot"];
+    [self loadAudio:@"button-click"];
+    [self loadAudio:@"enemy-shoot-light"];
+    [self loadAudio:@"enemy-shoot-heavy"];
+    [self loadAudio:@"enemy-shoot-magic"];
+    [self loadAudio:@"enemy-shoot-snipe"];
+    [self loadAudio:@"forge-hit"];
+    [self loadAudio:@"enemy-rush"];
+    [self loadAudio:@"enemy-allfire"];
+    [self loadAudio:@"enemy-heal"];
+    [self loadAudio:@"enemy-dodge"];
+    
+    
     [self loadAudio:@"0 Title" :44100];
     [self loadAudio:@"1 Battle" :44100];
     [self loadAudio:@"2 Imperial" :44100];

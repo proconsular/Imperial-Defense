@@ -75,6 +75,7 @@ class Splash: Screen {
         layer.objects.append(storiel)
         layer.objects.append(copyright)
         layer.objects.append(TextButton(Text("Tap to Play", FontStyle(defaultFont, float4(1, 1, 1, 1), 72)), float2(Camera.size.x / 2, Camera.size.y / 2 + 50) + float2(0, -GameScreen.size.y)) {
+            play("button-click")
             UserInterface.fade {
                 UserInterface.space.wipe()
                 UserInterface.controller.reduce()

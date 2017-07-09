@@ -34,7 +34,7 @@ class Infrantry: Soldier {
         self.init(location, health, float4(1))
         let firer = Firer(1.5, Impact(15, 12.m), Casing(float2(0.6.m, 0.14.m), float4(1, 0, 0, 1), "player"))
         weapon = Weapon(transform, float2(0, 1), firer)
-        weapon?.offset = float2(-0.275.m, -0.5.m)
+        weapon?.offset = float2(-0.2.m, -0.7.m)
         
         canSprint = true
         

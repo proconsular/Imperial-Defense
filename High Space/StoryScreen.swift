@@ -10,37 +10,94 @@ import Foundation
 
 class StoryScreen: Screen {
     let background: Display
-    var text: Text
+    var story: StoryElement!
     
     override init() {
         UserInterface.controller.push(PointController(0))
         background = Display(Rect(float2(Camera.size.x / 2, Camera.size.y / 2) + float2(0, -GameScreen.size.y), Camera.size), GLTexture("white"))
         background.color = float4(0.01, 0.01, 0.01, 1)
         
-        let words = "You... You are the last one.\nThe Empress has retreated to her imperial castle. Wounded and dreadfully immobilized from great war and fight. The evil empire marches against us. No one is left, no not one. The emprate wrecked and its imperial legions turned to ash. There is no one left. The senate’s proconsuls defeated and captured. Who is left? The empress’ cohorts are slain and utterly routed. Who will go?\nThere only remains one. One last imperial legate of the Empress.\nAnd that is you. You are the last one.\nWill you fight?"
-        
-        text = Text(words, FontStyle("Lora-Regular", float4(1), 52.0), float2(400, 200))
-        text.location = float2(Camera.size.x / 2, 600) + float2(0, -GameScreen.size.y)
-        
         super.init()
         
         let layer = InterfaceLayer()
         
-        layer.objects.append(TextButton(Text("With all my heart!", FontStyle(defaultFont, float4(1, 1, 1, 1), 56)), float2(Camera.size.x / 2, Camera.size.y / 2 + 425) + float2(0, -GameScreen.size.y)) {
-            UserInterface.fade {
-                UserInterface.space.wipe()
-                UserInterface.controller.reduce()
-                UserInterface.space.push(PrincipalScreen())
+        if GameData.info.wave == 0 {
+            let intro = StoryIntro()
+            story = intro
+            layer.objects.append(intro.button)
+        }else{
+            story = StoryDisplay(GameData.info.wave - 1)
+            
+            let complete = TextButton(Text("Another battle.", FontStyle(defaultFont, float4(1, 1, 1, 1), 56)), float2(Camera.size.x / 2, Camera.size.y / 2 + 425) + float2(0, -GameScreen.size.y)) {
+                UserInterface.fade {
+                    UserInterface.space.wipe()
+                    UserInterface.controller.reduce()
+                    UserInterface.space.push(PrincipalScreen())
+//                    GameData.info.wave += 1
+//                    UserInterface.space.push(StoryScreen())
+                }
             }
-        })
+            layer.objects.append(complete)
+        }
         
         layers.append(layer)
+    }
+    
+    override func update() {
+        super.update()
+        story.update()
     }
     
     override func display() {
         background.render()
         super.display()
+        story.render()
+    }
+    
+}
+
+protocol StoryElement {
+    func update()
+    func render()
+}
+
+class StoryDisplay: StoryElement {
+    
+    let text: Text
+    
+    init(_ level: Int) {
+        var story = "Unwritten Story Screen"
+        if level < GameData.info.story.screens.count {
+            story = GameData.info.story.screens[level]
+        }
+        text = Text(story, FontStyle("Lora-Regular", float4(1), 52.0), float2(400, 100))
+        text.location = float2(Camera.size.x / 2, Camera.size.y / 2) + float2(0, -GameScreen.size.y)
+    }
+    
+    func update() {
+        
+    }
+    
+    func render() {
         text.render()
     }
     
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

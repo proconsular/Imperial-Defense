@@ -18,20 +18,26 @@ class MarchEvent: Event {
     var body: Body
     var amount: Float
     var frames: [Int]
+    var pitch: Float
+    var foot: Int = 0
     
     init(_ body: Body, _ amount: Float, _ frames: [Int]) {
         self.body = body
         self.amount = amount
         self.frames = frames
+        pitch = random(0.9, 1) + amount / 40.m
     }
     
     func activate() {
+        let dl = (Player.player.body.location - body.location).length
         body.velocity.y += amount * (0.016666)
-        let audio = Audio("march1")
+        let audio = Audio(foot == 0 ? "march" : "march-2")
         if !audio.playing {
-            audio.volume = sound_volume * 0.5
+            audio.volume = sound_volume * 2 * clamp(0.05 + 1 + body.location.y / Camera.size.y, min: 0, max: 1) * clamp(1 - dl / 50.m, min: 0, max: 1)
+            audio.pitch = pitch
             audio.start()
         }
+        foot = foot == 0 ? 1 : 0
     }
     
 }

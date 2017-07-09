@@ -30,7 +30,7 @@ class PlayerInterface: Interface {
             }
         }else if command.id == 1 && canFire {
             if player.weapon.canFire {
-                let shoot = Audio("shoot2")
+                let shoot = Audio("player-shoot")
                 shoot.pitch = player.weapon.isHighPower ? 0.6 : 1
                 shoot.volume = sound_volume
                 shoot.start()
@@ -94,7 +94,7 @@ class ExplosionTerminator: ActorTerminationDelegate {
         explosion.color = color
         explosion.rate = 0.9
         Map.current.append(explosion)
-        let audio = Audio("explosion1")
+        let audio = Audio("player-die")
         audio.volume = 1
         audio.start()
     }
@@ -234,9 +234,14 @@ class Player: Entity, Damagable {
         if !dead {
             if abs(body.velocity.x) >= 2 {
                 anim_timer += Time.delta
-                if anim_timer >= 0.1 {
+                if anim_timer >= 0.05 {
                     anim_timer = 0
                     animator.animate()
+                    if animator.frame == 2 {
+                        let step = Audio("player-step")
+                        step.volume = 0.75
+                        step.start()
+                    }
                 }
             }else{
                 animator.current.animation.index = 0

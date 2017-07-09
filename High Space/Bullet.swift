@@ -47,6 +47,32 @@ class Bullet: Entity {
             char.damage(impact.damage)
         }
         self.alive = false
+        let count = Int(random(3, 5))
+        for _ in 0 ..< count {
+            makeParts()
+        }
+    }
+    
+    func makeParts() {
+        let spark = Particle(transform.location + normalize(body.velocity) * casing.size.x / 2, random(4, 9))
+        spark.color = casing.color
+        let velo: Float = 300
+        spark.rate = 3.5
+        spark.body.velocity = float2(random(-velo, velo), -normalize(body.velocity).y * random(0, velo))
+        Map.current.append(spark)
+    }
+    
+    override func update() {
+        if casing.tag == "enemy" {
+            let limit = -Camera.size.y + 1.m
+            let percent: Float = 0.7
+            var o = 1 - (body.location.y - limit * percent) / (limit - limit * percent)
+            if body.location.y > limit * percent {
+                o = 1
+            }
+            display.color = casing.color * o
+            display.refresh()
+        }
     }
     
 }
@@ -139,6 +165,10 @@ class Firer {
     
     var operable: Bool {
         return counter >= rate
+    }
+    
+    var charge: Float {
+        return counter / rate
     }
     
 }

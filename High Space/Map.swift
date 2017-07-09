@@ -84,12 +84,13 @@ class Map {
     }
     
     func render() {
-//        actorate.actors.sorted{ $0.order < $1.order }.forEach{
-//           // if Camera.visible($0.transform.location) {
-//                $0.render()
-//           // }
-//        }
-        renderer.render()
+        actorate.actors.sorted{ $0.display.texture < $1.display.texture }.sorted{ $0.display.order < $1.display.order }.forEach{
+           // if Camera.visible($0.transform.location) {
+                $0.display.refresh()
+                $0.render()
+           // }
+        }
+        //renderer.render()
     }
     
 }

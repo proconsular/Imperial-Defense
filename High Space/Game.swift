@@ -196,13 +196,13 @@ class Game: DisplayLayer {
     }
     
     func start() {
-        let audio = Audio("1 Battle")
-        if !audio.playing {
-            //audio.loop = true
-            audio.volume = 1
-            audio.pitch = 1
-            audio.start()
-        }
+//        let audio = Audio("1 Battle")
+//        if !audio.playing {
+//            //audio.loop = true
+//            audio.volume = 1
+//            audio.pitch = 1
+//            audio.start()
+//        }
     }
     
     deinit {
@@ -216,6 +216,8 @@ class Game: DisplayLayer {
         }else{
             UserInterface.space.push(EndPrompt())
         }
+        let audio = Audio("1 Battle")
+        audio.stop()
         play("victory")
         GameData.info.wave += 1
         GameData.persist()

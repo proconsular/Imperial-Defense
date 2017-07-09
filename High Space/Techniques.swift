@@ -14,6 +14,8 @@ class ShieldTechnique: RenderTechnique {
     var transform: Transform
     var color: float4
     var height: Float
+    var lastDamage: Float = 0
+    var opacity: Float = 1
     
     init(_ shield: Shield, _ transform: Transform, _ color: float4, _ height: Float) {
         self.shield = shield
@@ -23,11 +25,39 @@ class ShieldTechnique: RenderTechnique {
     }
     
     func render(_ visual: Visual) {
+        
+        let red = float4(1, 0, 0, 1)
+        let green = float4(0, 1, 0, 1)
+        
+        let lost = shield.percent < lastDamage
+        let gain = shield.percent > lastDamage
+        lastDamage = shield.percent
+        
+        if lost {
+            opacity = 0
+        }
+        
+        if gain {
+            opacity = 2
+        }
+        
+        if opacity > 1 {
+            opacity = clamp(opacity - Time.delta, min: 1, max: 2)
+        }else if opacity < 1 {
+            opacity = clamp(opacity + Time.delta, min: 0, max: 1)
+        }
+        
+        if abs(1 - opacity) < Float.ulpOfOne {
+            opacity = 1
+        }
+        
+        let blend = (1 - opacity) * red + (opacity - 1) * green + color * opacity
+        
         visual.render()
         
         let shader = Graphics.bind(2)
         
-        shader.setProperty("color", vector4: color * float4(0.2 * shield.percent + 0.3))
+        shader.setProperty("color", vector4: float4(blend.x, blend.y, blend.z, 1) * float4(0.2 * shield.percent + 0.3))
         shader.setProperty("location", vector2: transform(transform.location))
         shader.setProperty("level", vector2: transform(transform.location - float2(0, height * shield.percent - height / 2)))
         

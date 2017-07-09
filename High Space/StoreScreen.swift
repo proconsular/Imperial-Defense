@@ -57,7 +57,7 @@ class StoreScreen: Screen {
             UserInterface.fade {
                 UserInterface.space.wipe()
                 UserInterface.controller.reduce()
-                UserInterface.space.push(PrincipalScreen())
+                UserInterface.space.push(StoryScreen())
             }
         }))
         
@@ -169,7 +169,7 @@ class AnvilEvent: Event {
     }
     
     func activate() {
-        let thunder = Audio("thunder")
+        let thunder = Audio("forge-hit")
         thunder.pitch = random(0.9, 1.1)
         thunder.volume = sound_volume
         thunder.start()

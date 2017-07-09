@@ -27,7 +27,11 @@ class Weapon {
     }
     
     func fire() {
-        firer.fire(transform.location + 0.75.m * direction + offset, direction)
+        firer.fire(firepoint, direction)
+    }
+    
+    var firepoint: float2 {
+        return transform.location + 0.75.m * direction + offset
     }
     
     var canFire: Bool {

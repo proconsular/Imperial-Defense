@@ -36,6 +36,7 @@ class Text: InterfaceElement {
     var string: String
     var style: FontStyle
     var text: DynamicText
+    var bounds: float2 = float2()
     
     convenience init(_ style: FontStyle) {
         self.init(" ", style)
@@ -50,6 +51,7 @@ class Text: InterfaceElement {
     init(_ string: String, _ style: FontStyle, _ bounds: float2) {
         self.string = string
         self.style = style
+        self.bounds = bounds
         self.text = DynamicText(attributedString: Text.computeString(string, style), bounds: bounds)
     }
     
@@ -70,7 +72,11 @@ class Text: InterfaceElement {
     func setString(_ string: String) {
         guard self.string != string else { return }
         self.string = string
-        text.create(with: Text.computeString(string, style))
+        if bounds.x != 0 && bounds.y != 0 {
+             text.create(with: Text.computeString(string, style), bounds: bounds)
+        }else{
+            text.create(with: Text.computeString(string, style))
+        }
     }
     
     var size: float2 {
@@ -80,6 +86,11 @@ class Text: InterfaceElement {
     var location: float2 {
         get { return text.location }
         set { text.location = newValue }
+    }
+    
+    var color: float4 {
+        get { return text.display.color }
+        set { text.display.color = newValue }
     }
     
     func render() {
