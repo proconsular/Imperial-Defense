@@ -85,7 +85,11 @@ class WaveDisplay {
     
     func render() {
         plate.render()
-        text.setString("Legio \(wave.roman)")
+        var string = "Legio \(wave.roman)"
+        if wave >= 51 {
+            string = "Emperor"
+        }
+        text.setString(string)
         text.render()
     }
     
@@ -177,6 +181,8 @@ class PercentDisplay {
     
     var blocks: [Display]
     
+    let bounds: float2
+    
     init(_ location: float2, _ height: Float, _ count: Int, _ alignment: Int, _ status: StatusItem) {
         self.status = status
         self.alignment = alignment
@@ -198,12 +204,21 @@ class PercentDisplay {
             blocks.append(b)
         }
         
-        frame = Display(Rect(float2(), float2(width, height)), GLTexture("white"))
+        bounds = float2(width, height)
+        
+        frame = Display(Rect(float2(), bounds), GLTexture("white"))
         frame.color = float4(0.1, 0.1, 0.1, 1)
         
         transform = frame.scheme.schemes[0].hull.transform
         transform.assign(Camera.current.transform)
         transform.location = location + float2(width / 2 * Float(alignment), 0)
+    }
+    
+    func move(_ delta: float2) {
+        transform.location += delta
+        for block in blocks {
+            block.transform.location += delta
+        }
     }
     
     func update() {

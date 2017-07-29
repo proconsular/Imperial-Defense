@@ -46,8 +46,18 @@
     glEnable(GL_BLEND);
     glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
     
-    [GLTextureLoader setSampler:normal_sampler];
+//    [GLTextureLoader setSampler:normal_sampler];
     
+//    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+//    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    
+    [self prefetch:@"laser"];
     [self prefetch:@"white"];
     [self prefetch:@"bullet"];
     [self prefetch:@"Player"];
@@ -73,7 +83,12 @@
     [self prefetch:@"Forge-Brick"];
     [self prefetch:@"Title"];
     
-    [GLTextureLoader setSampler:pixel_sampler];
+//    [GLTextureLoader setSampler:pixel_sampler];
+    
+//    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+//    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
     
     [self prefetch:@"soldier_walk"];
     [self prefetch:@"Soldier4"];
@@ -93,6 +108,11 @@
     [self prefetch:@"Emperor"];
     [self prefetch:@"Sniper"];
     [self prefetch:@"Healer"];
+    [self prefetch:@"Castle-Centerpiece"];
+    [self prefetch:@"Castle-Rightpiece"];
+    [self prefetch:@"Castle-Leftpiece"];
+    [self prefetch:@"Rubble"];
+    [self prefetch:@"laser-fire"];
     
     return self;
 }

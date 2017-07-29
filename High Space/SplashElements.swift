@@ -9,6 +9,7 @@
 import Foundation
 
 class SplashPlayer: Entity, Damagable {
+    var reflective: Bool = false
     
     var player: Display
     var player_animation: Animator

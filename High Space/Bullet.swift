@@ -38,9 +38,21 @@ class Bullet: Entity {
         if !self.alive {
             return
         }
-        if let tag = body.tag, self.casing.tag == tag {
+        if let tag = body.tag, self.casing.tag == tag || self.casing.tag == "" {
             if let char = body.object as? Damagable {
-                char.damage(impact.damage)
+                if char.reflective {
+                    let dl = body.location - self.body.location
+                    let dir = normalize(dl)
+                    let normal = float2(-dir.y, dir.x)
+                    let reflect = -(dl - 2 * dot(dl, normal) * normal)
+                    self.body.velocity += normalize(reflect) * impact.speed
+                    self.transform.orientation = atan2(reflect.y, reflect.x)
+                    self.casing.tag = ""
+                    self.body.mask = 0b111
+                    return
+                }else{
+                    char.damage(impact.damage)
+                }
             }
         }
         if let char = body.object as? Wall {
@@ -97,6 +109,7 @@ class HomingBullet: Bullet {
 }
 
 protocol Damagable {
+    var reflective: Bool { get set }
     func damage(_ amount: Float)
 }
 

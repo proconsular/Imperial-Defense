@@ -83,6 +83,8 @@ class GameBase: GameInterface {
     init() {
         upgrader = Upgrader()
         
+        Camera.current = Camera()
+        
         UserInterface.create()
         GameData.create()
         
@@ -92,17 +94,18 @@ class GameBase: GameInterface {
         
         GameData.info.level = 0
        // GameData.info.points = 15
-//        GameData.info.wave = 45
-//
-//        upgrader.firepower.range.amount = 5
-//        upgrader.shieldpower.range.amount = 5
-//        upgrader.barrier.range.amount = 5
+        GameData.info.wave = 49
+        
 
+        upgrader.firepower.range.amount = 5
+        upgrader.shieldpower.range.amount = 5
+        upgrader.barrier.range.amount = 5
+//
         let main = ScreenSpace()
         main.push(Splash())
-        //main.push(PrincipalScreen())
+//        main.push(PrincipalScreen())
         //main.push(StoreScreen())
-        //main.push(StoryScreen())
+//        main.push(StoryScreen(StoryOutro()))
         UserInterface.set(space: main)
     }
     

@@ -57,6 +57,22 @@ class SerialBehavior: Behavior {
     
 }
 
+class SequencialBehavior<T: Behavior>: Behavior {
+    var alive: Bool = true
+    var behaviors: [T]
+    var index: Int
+    
+    init() {
+        behaviors = []
+        index = 0
+    }
+    
+    func update() {
+        behaviors[index].update()
+    }
+    
+}
+
 class MarchBehavior: Behavior {
     
     var alive: Bool = true

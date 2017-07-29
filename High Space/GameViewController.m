@@ -97,6 +97,17 @@ GLKView *glkview;
         glBindAttribLocation(_bloomprogram, GLKVertexAttribTexCoord0, "texCoord0");
     }];
     
+    [ShaderLoader load:@"Laser" :&_laserprogram :^{
+        glBindAttribLocation(_laserprogram, GLKVertexAttribPosition, "position");
+        glBindAttribLocation(_laserprogram, GLKVertexAttribTexCoord0, "texCoord0");
+    }];
+    
+    Shader *laser = [[Shader alloc] initAsProgram:_laserprogram];
+    
+    [laser addProperty:@"color"];
+    
+    [Graphics append:laser];
+    
     Shader *bloom_shader = [[Shader alloc] initAsProgram:_bloomprogram];
     
     [bloom_shader addProperty:@"color"];
@@ -104,6 +115,7 @@ GLKView *glkview;
     [bloom_shader addProperty:@"size"];
     
     [Graphics append:bloom_shader];
+    
     
     modelViewProjectionMatrix_Uniform = glGetUniformLocation(_defaultprogram, "modelViewProjectionMatrix");
     

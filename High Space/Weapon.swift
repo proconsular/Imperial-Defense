@@ -200,102 +200,59 @@ class PlayerWeapon: Weapon {
 
 class Laser {
     
-    var rect: Rect
+    var rect: Polygon
     var display: Display
     var transform: Transform
-    var direction: Int
+    var direction: float2
+    var visible: Bool
+    let bounds: float2
     
-    init(_ location: float2, _ width: Float, _ direction: Int) {
+    var side: Display
+    
+    init(_ location: float2, _ width: Float, _ direction: float2) {
         self.transform = Transform(location)
         self.direction = direction
-        let bounds = float2(width, Camera.size.y)
-        rect = Rect(self.transform, bounds)
+        bounds = float2(Camera.size.y * 1.5, width)
+        rect = Polygon(self.transform, [float2(0, -bounds.y * 0.25), float2(0, bounds.y * 0.25), float2(bounds.x, bounds.y * 8), float2(bounds.x, -bounds.y * 8)])
         display = Display(rect, GLTexture("white"))
+//        display.coordinates = [float2(0, 0), float2(1, 0), float2(1, 1), float2(0, 1)]
         display.color = float4(1, 0, 0, 1)
+        side = Display(Rect(Transform(float2()), float2(Camera.size.y * 1.5, 50)), GLTexture("laser"))
+        visible = false
     }
     
     func update() {
-        rect.transform.location = transform.location - float2(0, rect.bounds.y / 2) * Float(direction)
+        let angle = atan2(direction.y, direction.x)
+        let a = angle - 0.1
+        let loc = transform.location
+        rect.transform.location = loc + float2(bounds.x / 2, bounds.x / 2) * direction
+        side.transform.location = loc + float2(bounds.x / 2, bounds.x / 2) * float2(cosf(a), sinf(a)) + float2(0.3.m, 0)
+        rect.transform.orientation = angle
+        side.transform.orientation = a
         let rand = arc4random() % 2
         display.color = rand == 0 ? float4(0.8, 0, 1, 1) : float4(0.4, 0, 0.4, 0.4)
+        side.color = display.color
+        side.refresh()
         display.visual.refresh()
+        if visible {
+            if display.color.w == 1 {
+                let audio = Audio("laser2")
+                audio.volume = sound_volume
+                audio.start()
+            }
+        }
     }
     
     func render() {
-        display.render()
+        if visible {
+           // let _ = Graphics.bind(4).setProperty("color", vector4: display.color)
+            display.render()
+//            side.render()
+           // Graphics.bindDefault()
+        }
     }
     
 }
-
-class LaserWeapon: StatusItem {
-    
-    var laser: Laser
-    var isFiring: Bool
-    
-    var limit: Float = 5
-    var power: Float
-    var usable: Bool
-    
-    var rate: Float = 0.25
-    
-    var callback: (Actor) -> ()
-    
-    init(_ laser: Laser, _ callback: @escaping (Actor) -> ()) {
-        self.laser = laser
-        self.callback = callback
-        isFiring = false
-        power = limit
-        usable = true
-    }
-    
-    var percent: Float {
-        return power / 5
-    }
-    
-    var color: float4 {
-        return float4(0)
-    }
-    
-    func fire() {
-        isFiring = true
-    }
-    
-    func update() {
-        laser.update()
-        if power >= limit {
-            usable = true
-        }
-        if isFiring && usable {
-            power -= 2 * Time.delta
-            let actors = Map.current.getActors(rect: laser.rect.getBounds())
-            for a in actors {
-                callback(a)
-            }
-            if laser.display.color.w == 1 {
-                play("laser2", 1)
-            }
-        }
-        if !isFiring && usable {
-            usable = false
-        }
-        if power <= 0 {
-            usable = false
-        }
-        if !isFiring || !usable {
-            power += rate * Time.delta
-        }
-        power = clamp(power, min: 0, max: limit)
-    }
-    
-    func render() {
-        if isFiring && usable {
-            laser.render()
-        }
-        isFiring = false
-    }
-    
-}
-
 
 
 

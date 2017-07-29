@@ -10,12 +10,15 @@ import Foundation
 
 class Particle: Entity {
     
+    let size: Float
     var opacity: Float = 1
     var rate: Float = 1
     var color: float4 = float4(1)
     var guider: Guider?
+    var drag = float2(1)
     
     init(_ location: float2, _ size: Float) {
+        self.size = size
         let rect = Rect(Transform(location), float2(size))
         super.init(rect, rect, Substance.getStandard(0.01))
         body.mask = 0b0
@@ -33,11 +36,39 @@ class Particle: Entity {
         }
         display.color = float4(opacity) * color
         guider?.update()
+        body.velocity *= drag
     }
     
-    override func render() {
-        display.visual.refresh()
-        super.render()
+}
+
+class DarkEnergy: Particle {
+    
+    override func update() {
+        super.update()
+        let dl = Player.player.transform.location - transform.global.location
+        if dl.length <= size * 3 {
+            Player.player.damage(10)
+        }
+    }
+    
+}
+
+class Energy: Particle {
+    
+    override func update() {
+        super.update()
+        let actors = Map.current.getActors(rect: FixedRect(transform.location, float2(size * 4)))
+        for actor in actors {
+            if let bullet = actor as? Bullet {
+                if bullet.casing.tag == "enemy" {
+                    let dl = bullet.transform.location - transform.location
+                    if dl.length <= size * 2 {
+                        bullet.alive = false
+                        alive = false
+                    }
+                }
+            }
+        }
     }
     
 }
@@ -127,16 +158,15 @@ class TextParticle: Entity {
         super.init(rect, rect, Substance.getStandard(0.01))
         body.mask = 0b0
         color = float4(1, 1, 1, 1)
-        display.scheme.schemes[0].order  = 1
+        display.scheme.schemes[0].order = 1
         body.noncolliding = true
-        //display = text.text.display.display
     }
     
     override func update() {
         super.update()
         opacity += -rate * Time.delta
         opacity = clamp(opacity, min: 0, max: 1)
-        if opacity <= FLT_EPSILON {
+        if opacity <= Float.ulpOfOne {
             alive = false
         }
         text.text.display.color = color * float4(opacity)
@@ -149,7 +179,53 @@ class TextParticle: Entity {
     
 }
 
+class Rubble: Entity {
+    
+    init(_ location: float2) {
+        let rect = Rect(location, float2(32 * 2))
+        super.init(rect, rect, Substance.getStandard(1))
+        display.scheme.schemes[0].order = 1
+        body.noncolliding = true
+        body.mask = 0b0
+        
+        display.texture = GLTexture("Rubble").id
+        display.coordinates = SheetLayout(randomInt(1, 2), 3, 1).coordinates
+    }
+    
+}
 
+class FallingRubble: Rubble {
+    
+    let target: float2
+    let direction: float2
+    
+    init(_ location: float2, _ direction: float2) {
+        target = location
+        self.direction = direction
+        let start = location + -direction * Camera.size.x
+        super.init(start)
+        bound = false
+    }
+    
+    override func update() {
+        body.velocity += direction * 20.m * Time.delta
+        body.velocity *= 0.98
+        
+        let dt = (target - transform.location)
+        if dt.length <= 0.5.m {
+            alive = false
+            Map.current.append(Explosion(target, 1.m))
+            play("explosion1")
+        }
+        
+        let dl = Player.player.transform.location - transform.location
+        if dl.length <= 0.5.m {
+            Player.player.damage(100)
+            alive = false
+        }
+    }
+    
+}
 
 
 

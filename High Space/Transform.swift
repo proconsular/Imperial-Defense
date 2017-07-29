@@ -12,7 +12,7 @@ class Transform {
     var location: float2
     var scale: float2
     var matrix: float2x2
-    private(set) var parent: Transform?
+    private(set) weak var parent: Transform?
     var children: [Transform]
     
     init(_ location: float2 = float2(), _ orientation: Float = 0) {

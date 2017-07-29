@@ -34,7 +34,7 @@ class Splash: Screen {
         Map.current = map
         simulation = Simulation(map.grid)
         
-        Camera.current = Camera(map)
+        Camera.current = Camera()
         
         sky = SplashSky()
         
@@ -157,6 +157,7 @@ class ShootEvent: Event {
 }
 
 class SaveDisplay: Entity, Damagable {
+    var reflective: Bool = false
     
     var top: Display
     var bottom: Display
@@ -240,7 +241,11 @@ class SaveDisplay: Entity, Damagable {
         if !alive { return }
         top.render()
         bottom.render()
-        legion.setString("Legio \((GameData.info.wave + 1).roman)")
+        var st = "Legio \((GameData.info.wave + 1).roman)"
+        if GameData.info.wave >= 50 {
+            st = "The Emperor"
+        }
+        legion.setString(st)
         legion.render()
         points.setString("\(GameData.info.points)")
         points.render()

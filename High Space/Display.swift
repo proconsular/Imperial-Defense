@@ -9,6 +9,7 @@
 import Foundation
 
 protocol Render {
+    func refresh()
     func render()
 }
 

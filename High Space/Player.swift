@@ -102,6 +102,8 @@ class ExplosionTerminator: ActorTerminationDelegate {
 }
 
 class Player: Entity, Damagable {
+    var reflective: Bool = false
+    
     static var player: Player!
     
     var health: Health

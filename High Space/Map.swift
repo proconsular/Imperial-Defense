@@ -14,16 +14,18 @@ class Map {
     
     let size: float2
     let grid: Grid
-    let actorate: Actorate
+    
     var bullets: [Bullet]
-    let renderer: Renderer
+    let actorate: Actorate
+    
+    var renderSystem: MapRenderSystem
     
     init(_ size: float2) {
         self.size = size
         actorate = Actorate()
         grid = Grid(5.m, size, actorate)
         bullets = []
-        renderer = Renderer(actorate)
+        renderSystem = FlatRenderSystem(actorate)
     }
     
     func append(_ element: Entity) {
@@ -80,17 +82,115 @@ class Map {
     }
     
     private func clean() {
-        actorate.actors = actorate.actors.filter{ $0.alive && grid.contains(actor: $0) }
+        actorate.actors = actorate.actors.filter{ $0.alive && ($0.bound ? grid.contains(actor: $0) : true) }
     }
     
     func render() {
-        actorate.actors.sorted{ $0.display.texture < $1.display.texture }.sorted{ $0.display.order < $1.display.order }.forEach{
-           // if Camera.visible($0.transform.location) {
-                $0.display.refresh()
-                $0.render()
-           // }
-        }
-        //renderer.render()
+        renderSystem.render()
     }
     
 }
+
+protocol ActorMap {
+    var actors: [Entity] { get set }
+}
+
+protocol MapRenderSystem {
+    var map: ActorMap { get set }
+    func render()
+}
+
+class FlatRenderSystem: MapRenderSystem {
+    var map: ActorMap
+    
+    init(_ map: ActorMap) {
+        self.map = map
+    }
+    
+    func render() {
+        sortActors().forEach{
+            if Camera.current.visible($0.display) {
+                $0.display.refresh()
+                $0.render()
+            }
+        }
+    }
+    
+    func sortActors() -> [Entity] {
+        return map.actors.sorted{ $0.display.texture < $1.display.texture }.sorted{ $0.display.order < $1.display.order }
+    }
+    
+}
+
+class GroupRenderSystem: MapRenderSystem {
+    var map: ActorMap
+    
+    init(_ map: ActorMap) {
+        self.map = map
+    }
+    
+    func render() {
+        let batches = compile()
+        for batch in batches {
+            batch.render()
+        }
+    }
+    
+    func compile() -> [Batch] {
+        let displays = map.actors.map{ $0.display }.sorted{ $0.texture < $1.texture }
+        var batches: [Batch] = []
+        var batch: Batch!
+        for display in displays {
+            if batch == nil {
+                batch = Batch()
+                batches.append(batch)
+            }else{
+                if let scheme = batch.group.schemes.first {
+                    if scheme.texture != display.texture {
+                        batch = Batch()
+                        batches.append(batch)
+                    }
+                }
+            }
+            if batch.group.schemes.count > 10 {
+                batch = Batch()
+                batches.append(batch)
+            }
+            batch.append(display.scheme.schemes[0])
+        }
+        return batches
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

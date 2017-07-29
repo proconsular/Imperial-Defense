@@ -31,6 +31,8 @@ class Soldier: Entity, Damagable {
     
     var weapon_power: Display
     
+    var reflective: Bool = false
+    
     init(_ location: float2, _ health: Health, _ color: float4) {
         self.color = color
         let rect = Rect(location, float2(125))
@@ -69,7 +71,7 @@ class Soldier: Entity, Damagable {
     }
     
     func sprint() {
-        if canSprint && sprintCooldown <= 0 {
+        if canSprint {
             animator.set(1)
             sprintCounter = 1.5
             sprintCooldown = 5

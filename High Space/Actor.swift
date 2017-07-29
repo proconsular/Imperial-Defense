@@ -21,12 +21,12 @@ class Entity: Actor {
     
     var onObject = false
     var alive = true
+    var bound = true
     
     init(_ hull: Hull, _ bodyhull: Hull, _ substance: Substance) {
         self.transform = hull.transform
         display = Display(hull, GLTexture("white"))
         body = Body(bodyhull, substance)
-        display.camera = true
     }
     
     func update() {}

@@ -20,7 +20,7 @@ class Coordinator {
     init(_ mode: Int) {
         difficulty = Difficulty(GameData.info.level)
         legion_gen = LegionGenerator(difficulty)
-        count = mode == 0 ? difficulty.waves : 100
+        count = 100
         Coordinator.wave = 0
         waves = []
     }

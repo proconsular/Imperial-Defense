@@ -29,7 +29,11 @@ class SoldierBehavior {
     
 }
 
-class RushBehavior: Behavior {
+protocol TriggeredBehavior: Behavior {
+    func trigger()
+}
+
+class RushBehavior: TriggeredBehavior {
     
     var alive = true
     var rushed: Bool
@@ -50,16 +54,16 @@ class RushBehavior: Behavior {
             counter += Time.delta
             if counter >= rate {
                 counter = 0
-                rush(radius)
-                let r = Audio("enemy-rush")
-                r.volume = 1
-                r.start()
-                rate = random(4, 6)
+                request()
             }
         }
     }
+   
+    func request() {
+        BehaviorQueue.instance.submit(BehaviorRequest("rush", self))
+    }
     
-    func rush(_ radius: Float) {
+    func trigger() {
         let actors = Map.current.getActors(rect: FixedRect(transform.location, float2(radius)))
         for actor in actors {
             if let soldier = actor as? Soldier {
@@ -69,6 +73,14 @@ class RushBehavior: Behavior {
         let ex = Explosion(transform.location, radius)
         ex.color = float4(1, 0, 0, 1)
         Map.current.append(ex)
+        play()
+        rate = random(4, 6)
+    }
+    
+    func play() {
+        let r = Audio("enemy-rush")
+        r.volume = 1
+        r.start()
     }
     
 }

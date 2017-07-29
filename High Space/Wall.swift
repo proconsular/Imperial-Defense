@@ -9,6 +9,7 @@
 import Foundation
 
 class Wall: Structure, Damagable {
+    var reflective: Bool = false
     
     var health: Float
     var max: Float

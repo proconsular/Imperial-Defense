@@ -96,6 +96,7 @@
     [self loadAudio:@"enemy-allfire"];
     [self loadAudio:@"enemy-heal"];
     [self loadAudio:@"enemy-dodge"];
+    [self loadAudio:@"stomp"];
     
     
     [self loadAudio:@"0 Title" :44100];

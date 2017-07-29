@@ -9,16 +9,37 @@
 import Foundation
 
 class StoryScreen: Screen {
-    let background: Display
+    var background: Display!
     var story: StoryElement!
     
     override init() {
+        super.init()
+        setup()
+        loadStory()
+    }
+    
+    init(_ story: StoryElement) {
+        super.init()
+        setup()
+        self.story = story
+    }
+    
+    init(_ outro: StoryOutro) {
+        super.init()
+        setup()
+        self.story = outro
+        let layer = InterfaceLayer()
+        layer.objects.append(outro.button)
+        layers.append(layer)
+    }
+    
+    func setup() {
         UserInterface.controller.push(PointController(0))
         background = Display(Rect(float2(Camera.size.x / 2, Camera.size.y / 2) + float2(0, -GameScreen.size.y), Camera.size), GLTexture("white"))
         background.color = float4(0.01, 0.01, 0.01, 1)
-        
-        super.init()
-        
+    }
+    
+    func loadStory() {
         let layer = InterfaceLayer()
         
         if GameData.info.wave == 0 {
@@ -28,13 +49,11 @@ class StoryScreen: Screen {
         }else{
             story = StoryDisplay(GameData.info.wave - 1)
             
-            let complete = TextButton(Text("Another battle.", FontStyle(defaultFont, float4(1, 1, 1, 1), 56)), float2(Camera.size.x / 2, Camera.size.y / 2 + 425) + float2(0, -GameScreen.size.y)) {
+            let complete = TextButton(Text("Another battle", FontStyle(defaultFont, float4(1, 1, 1, 1), 56)), float2(Camera.size.x / 2, Camera.size.y / 2 + 425) + float2(0, -GameScreen.size.y)) {
                 UserInterface.fade {
                     UserInterface.space.wipe()
                     UserInterface.controller.reduce()
                     UserInterface.space.push(PrincipalScreen())
-//                    GameData.info.wave += 1
-//                    UserInterface.space.push(StoryScreen())
                 }
             }
             layer.objects.append(complete)

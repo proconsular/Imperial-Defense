@@ -20,24 +20,16 @@ class Difficulty {
         row = 0
     }
     
-    var waves: Int {
-        return GameData.info.level / 5 + 1
-    }
-    
     var size: Int {
         return clamp((wave / 6) + 4, min: 1, max: 10)
     }
     
     var amount: Int {
-        return min(8 + Int(grade * 10), 18)
+        return min(8 + Int(grade * 7.5), 18)
     }
     
     var grade: Float {
-        return Float(level) * 0.01 + Float(wave) * 0.00625 + Float(row) * 0.025
-    }
-    
-    var speed: Float {
-        return clamp(Float(grade * 0.1), min: 0, max: 0.3)
+        return Float(wave) * 0.00625 + Float(row) * 0.025
     }
     
 }
@@ -45,6 +37,7 @@ class Difficulty {
 class GenerationContext {
     
     var banker: Int
+    var previous: Soldier?
     
     init() {
         banker = 0
@@ -67,8 +60,10 @@ class Generator {
 class LegionGenerator: Generator {
     
     let row_gen: RowGenerator
+    var offset: float2
     
     init(_ difficulty: Difficulty) {
+        offset = float2()
         let context = GenerationContext()
         self.row_gen = RowGenerator(context, difficulty)
         super.init(context, difficulty)
@@ -77,11 +72,17 @@ class LegionGenerator: Generator {
     func create() -> Legion {
         var rows: [Row] = []
         
-        for i in 0 ..< difficulty.size {
-            difficulty.row = i
-            let row = row_gen.create(float2(Map.current.size.x / 2, -12.m - Float(i) * 1.25.m))
-            row.soldiers.forEach{ $0.display.order += -i }
-            rows.append(row)
+        if GameData.info.wave >= 50 {
+            let emp = Emperor(float2(Map.current.size.x / 2, -Camera.size.y + 2.m))
+            Map.current.append(emp)
+            rows.append(Row([emp]))
+        }else{
+            for i in 0 ..< difficulty.size {
+                difficulty.row = i
+                let row = row_gen.create(float2(Map.current.size.x / 2, -12.m - Float(i) * 1.25.m) + offset)
+                row.soldiers.forEach{ $0.display.order += -i }
+                rows.append(row)
+            }
         }
         
         return Legion(rows)
@@ -92,6 +93,7 @@ class LegionGenerator: Generator {
 class RowGenerator: Generator {
     
     let sol_gen: SoldierGenerator
+    var amount: Int?
     
     override init(_ context: GenerationContext, _ difficulty: Difficulty) {
         sol_gen = SoldierGenerator(context, difficulty)
@@ -100,17 +102,31 @@ class RowGenerator: Generator {
     
     func create(_ location: float2) -> Row {
         var soldiers: [Soldier] = []
-        let amount = difficulty.amount
+        let amount = self.amount ?? difficulty.amount
         let spacing = 0.75.m
         let start = location + float2(-Float(amount) / 2 * spacing, 0)
+        
+        var special = 0
+        
         for i in 0 ..< amount {
             let loc = start + float2(Float(i) * spacing, 0)
-            let soldier = sol_gen.create(loc)
+            var soldier = sol_gen.create(loc)
+            
+            if isSpecial(soldier) {
+                if special > 2 {
+                    soldier = Infrantry(loc)
+                }
+                special += 1
+            }
             
             soldiers.append(soldier)
             Map.current.append(soldier)
         }
         return Row(soldiers)
+    }
+    
+    func isSpecial(_ soldier: Soldier) -> Bool {
+        return !(soldier is Infrantry || soldier is Scout)
     }
     
 }
@@ -126,17 +142,25 @@ class SoldierGenerator: Generator {
             let row = difficulty.row == 0 ? -1 : difficulty.row == difficulty.size - 1 ? 1 : 0
             if creator.chance.spawnable(difficulty.wave, row) {
                 let new = creator.create(location)
-                if !(new is Banker) {
-                    soldier = new
-                }
-                if (new is Banker && context.banker == 0) {
-                    soldier = new
-                    context.banker += 1
-                }
+                soldier = filter(new)
             }
             index = (index + 1) % ChanceTable.main.soldiers.count
         }
         
+        return soldier
+    }
+    
+    func filter(_ new: Soldier) -> Soldier? {
+        var soldier: Soldier?
+        
+        if !(new is Banker) {
+            soldier = new
+        }
+        
+        if (new is Banker && context.banker == 0) {
+            context.banker += 1
+            soldier = new
+        }
         return soldier
     }
     

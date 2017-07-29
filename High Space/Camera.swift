@@ -23,8 +23,8 @@ class Camera {
     var clip = true
     var bounds = float2()
     
-    init(_ map: Map) {
-        transform.location = float2(map.size.x / 2 - Camera.size.x / 2, -Camera.size.y)
+    init() {
+        transform.location = float2(0, -Camera.size.y)
     }
     
     var mask: FixedRect { return FixedRect(transform.location + Camera.size / 2, Camera.size) }
@@ -76,6 +76,10 @@ class Camera {
     
     func visible(_ location: float2) -> Bool {
         return distance(location) <= Camera.size.length + 5.m
+    }
+    
+    func visible(_ display: Display) -> Bool {
+        return contains(display.transform.location, display.scheme.schemes[0].hull.getBounds().bounds)
     }
     
 }

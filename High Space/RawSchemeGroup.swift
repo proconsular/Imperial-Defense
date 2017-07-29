@@ -96,7 +96,7 @@ class RawVisualSchemeGroup: NSObject, RawScheme {
     }
     
     func getMatrix() -> GLKMatrix4 {
-        return GLKMatrix4Rotate(GLKMatrix4MakeTranslation(0, Camera.size.y, 0), 0, 0, 0, 1)
+        return GLKMatrix4Rotate(GLKMatrix4MakeTranslation(Camera.current.transform.location.x, Camera.size.y, 0), 0, 0, 0, 1)
     }
     
     func getTexture() -> GLuint {

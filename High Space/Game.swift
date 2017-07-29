@@ -51,6 +51,8 @@ class Game: DisplayLayer {
     
     let points: Int
     
+    let enforcer: BehaviorRuleEnforcer
+    
     var end_timer: Float = 0
     var wave_pause_timer: Float = 0
     var pausing: Bool = false
@@ -59,19 +61,22 @@ class Game: DisplayLayer {
    
     var mode: Int
     
-    var barriers: [Wall]
-    
     var start_timer: Float = 0
     var starting: Bool = true
+    
+    var final_battle: FinalBattle?
     
     init(_ mode: Int) {
         Time.scale = 1
         self.mode = mode
         
+        BehaviorQueue.instance = BehaviorQueue()
+        enforcer = BehaviorRuleEnforcer()
+        
         map = Map(float2(20.m, 40.m))
         
         Map.current = map
-        Camera.current = Camera(map)
+        Camera.current = Camera()
         physics = Simulation(map.grid)
         
         let shield = PlayerShield(Float(40), Float(2), Float(20))
@@ -100,33 +105,47 @@ class Game: DisplayLayer {
         coordinator.setWave(max(GameData.info.wave, 0))
         coordinator.next()
         
-        let legion = coordinator.waves[0] as! Legion
-        legion.rows.forEach{
-            $0.soldiers.forEach{ s in
-                let an = BaseMarchAnimator(s.body,  0.0175, 6.m)
-                an.set(1)
-                s.behavior.push(TemporaryBehavior(MarchBehavior(s, an), 2.5) {
-                    s.body.velocity.y = 0
-                })
+        if GameData.info.wave >= 50 {
+            start_timer = 2.5
+        }else{
+            let legion = coordinator.waves[0] as! Legion
+            legion.rows.forEach{
+                $0.soldiers.forEach{ s in
+                    let an = BaseMarchAnimator(s.body, 0.0175, 6.m)
+                    an.set(1)
+                    s.behavior.push(TemporaryBehavior(MarchBehavior(s, an), 2.5) {
+                        s.body.velocity.y = 0
+                    })
+                }
             }
         }
         
         scenery = Scenery(map)
         
         end_timer = 2
-        barriers = []
-        
+       
         let sh = upgrader.shieldpower.range.percent
         player_interface = PlayerInterface(player, 10.m + 4.m * sh, 7.m + 1.m * sh)
         player_interface.canFire = false
+        
+        scenery.castle.player = player
         
         createWalls(0.15.m)
         
         let constructor = BarrierConstructor(BarrierLayout(500, 2))
         upgrader.barrier.apply(constructor)
-        barriers = constructor.construct(-2.4.m)
+        scenery.castle.barriers = constructor.construct(-2.4.m)
         
         Game.instance = self
+        
+        if GameData.info.wave >= 50 {
+            let audio = Audio("3 Emperor")
+            audio.start()
+            
+            end_timer = 15
+            
+            final_battle = FinalBattle(Emperor.instance)
+        }
     }
     
     func createWalls(_ width: Float) {
@@ -151,14 +170,18 @@ class Game: DisplayLayer {
         player_interface.use(command)
     }
     
+    func endGame() {
+        let audio = Audio("1 Battle")
+        audio.stop()
+        let defeat = Audio("Defeat")
+        defeat.volume = 1
+        defeat.start()
+        UserInterface.space.push(EndScreen(false))
+    }
+    
     func update() {
         if death() {
-            let audio = Audio("1 Battle")
-            audio.stop()
-            let defeat = Audio("Defeat")
-            defeat.volume = 1
-            defeat.start()
-            UserInterface.space.push(EndScreen(false))
+            endGame()
         }
         
         if playgame {
@@ -167,20 +190,24 @@ class Game: DisplayLayer {
             }
         }
         
+        enforcer.update()
         map.update()
         physics.simulate()
-        Camera.current.update()
+        //Camera.current.update()
         
         if playgame {
             if coordinator.empty {
                 complete = true
             }
+            
             if complete {
                 end_timer -= Time.delta
                 if end_timer <= 0 {
                     end()
                 }
             }
+            
+            
         }
         
         if starting {
@@ -189,10 +216,15 @@ class Game: DisplayLayer {
                 physics.halt()
                 starting = false
                 player_interface.canFire = true
-                UserInterface.space.push(StartPrompt())
+                if GameData.info.wave < 50 {
+                    UserInterface.space.push(StartPrompt())
+                }else{
+                    physics.unhalt()
+                }
             }
-            
         }
+        
+        scenery.update()
     }
     
     func start() {
@@ -208,16 +240,25 @@ class Game: DisplayLayer {
     deinit {
         let audio = Audio("1 Battle")
         audio.stop()
+        let s = Audio("3 Emperor")
+        s.stop()
     }
     
     func end() {
-        if GameData.info.wave >= 49 {
-            UserInterface.space.push(GameCompleteScreen())
-        }else{
-            UserInterface.space.push(EndPrompt())
+        var screen: Screen = EndPrompt()
+        if GameData.info.wave >= 50 {
+            screen = GameCompleteScreen()
         }
+        
+        UserInterface.space.wipe()
+        UserInterface.space.push(screen)
+        
         let audio = Audio("1 Battle")
         audio.stop()
+        
+        let s = Audio("3 Emperor")
+        s.stop()
+        
         play("victory")
         GameData.info.wave += 1
         GameData.persist()

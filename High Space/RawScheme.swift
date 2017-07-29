@@ -11,78 +11,38 @@ import Foundation
 @objc
 class RawVisualScheme: NSObject, RawScheme {
     let scheme: VisualScheme
+    let compiler: GraphicDataCompiler
+    let info: VertexInfo
     
     init(_ scheme: VisualScheme) {
         self.scheme = scheme
+        compiler = SchemeCompiler(scheme)
+        info = VertexInfo(scheme)
     }
     
     func getCompiledBufferData() -> UnsafeMutablePointer<Float> {
-        var compiled: [Float] = []
-        
-        let vertices = scheme.vertices
-        let coordinates = scheme.coordinates
-        let color = scheme.color
-        
-        for i in 0 ..< vertices.count {
-            compiled.append(contentsOf: [vertices[i].x, vertices[i].y, coordinates[i].x, coordinates[i].y, color.x, color.y, color.z, color.w])
-        }
-        
-        return compiled.asData()
+        return compiler.compile().asData()
     }
     
     func getCompiledBufferDataSize() -> Int32 {
-        return Int32(amountOfNumbers * 6 * MemoryLayout<Float>.size)
+        return info.bufferSize
     }
     
     func getIndicesArray(_ offset: Int = 0) -> [UInt16] {
         var indices: [UInt16] = []
         
+        var indexer: GraphicIndexer
+        
         if scheme.hull is Circle {
-            indices.append(contentsOf: computeCircleIndices())
+            indexer = DividedPolygonIndexer()
+            let circle = scheme.hull as! Circle
+            indices.append(contentsOf: indexer.computeIndices(circle.form.divides))
         }else{
-            indices.append(contentsOf: computePolygonIndices())
+            indexer = PolygonIndexer()
+            indices.append(contentsOf: indexer.computeIndices(info.amountOfSides))
         }
         
         return indices.map{ $0 + UInt16(offset) }
-    }
-    
-    private func computeCircleIndices() -> [UInt16] {
-        var indices: [UInt16] = []
-        
-        let circle = scheme.hull as! Circle
-        let count = circle.form.divides
-        
-        var m = 1
-        for i in 0 ..< count {
-            let a = i % 2 == 1 ? i + 1 : 0
-            let c = i % 2 == 0 ? i + 2 : 0
-            m += i % 2 == 1 ? 2 : 0
-            
-            indices.append(UInt16(a))
-            indices.append(UInt16(i == count - 1 && i % 2 == 1 ? 1 : m))
-            indices.append(UInt16(i == count - 1 && i & 2 == 0 ? 1 : c))
-        }
-        
-        return indices
-    }
-    
-    private func computePolygonIndices() -> [UInt16] {
-        let count = amountOfSides
-        var indices: [UInt16] = []
-        
-        var m = 1
-        for i in 0 ..< count / 2 {
-            let i0 = i % 2 == 0
-            let i1 = i % 2 == 1
-            let ic = i == count - 1
-            
-            m += (i1 ? 2 : 0)
-            indices.append(UInt16((i1 ? i + 1 : 0)))
-            indices.append(UInt16(ic && i1 ? 1 : m))
-            indices.append(UInt16((ic && i0 ? 1 : (i0 ? i + 2 : 0))))
-        }
-        
-        return indices
     }
     
     func getIndices() -> UnsafeMutablePointer<UInt16> {
@@ -93,35 +53,11 @@ class RawVisualScheme: NSObject, RawScheme {
         if let circle = scheme.hull as? Circle {
             return Int32(circle.form.divides * 6)
         }
-        return Int32(amountOfIndices)
-    }
-    
-    var amountOfIndices: Int {
-        return amountOfSides * 3
-    }
-    
-    var amountOfSides: Int {
-        return scheme.vertices.count
-    }
-    
-    var amountOfNumbers: Int {
-        return scheme.vertices.count * 2
+        return Int32(info.amountOfIndices)
     }
     
     func getMatrix() -> GLKMatrix4 {
-        let global = scheme.hull.transform.global
-        let local = scheme.hull.transform
-        var location = global.location
-        if Camera.current != nil {
-            location -= (scheme.camera ? Camera.current.transform.location : float2())
-        }
-        let orientation = global.orientation
-        let translation = GLKMatrix4MakeTranslation(location.x, location.y, 0);
-        let scale = GLKMatrix4MakeScale(local.scale.x, local.scale.y, 1)
-        let rotation = GLKMatrix4MakeRotation(orientation, 0, 0, 1)
-        let ts = GLKMatrix4Multiply(scale, translation)
-        let tsr = GLKMatrix4Multiply(ts, rotation)
-        return tsr
+        return MatrixComputer.compute(scheme.hull.transform)
     }
     
     func getTexture() -> GLuint {
@@ -129,3 +65,25 @@ class RawVisualScheme: NSObject, RawScheme {
     }
     
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

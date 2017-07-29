@@ -262,6 +262,10 @@ func random(_ min: Float, _ max: Float) -> Float {
     return randomFloat() * (max - min) + min
 }
 
+func randomInt(_ min: Int, _ max: Int) -> Int {
+    return min + Int(arc4random() % UInt32(max - min))
+}
+
 func << <T> (array: Array<T>, amount: Int) -> Array<T> {
     return array.rotate(-amount)
 }
@@ -272,6 +276,18 @@ func >> <T> (array: Array<T>, amount: Int) -> Array<T> {
 
 func normalize_safe (_ value: float2) -> float2? {
     return length_squared(value) == 0 ? nil : normalize(value)
+}
+
+func vectorize(_ angle: Float) -> float2 {
+    return float2(cosf(angle), sinf(angle))
+}
+
+public func ==(_ a: float4, _ b: float4) -> Bool {
+    return a.x == b.x && a.y == b.y && a.z == b.z && a.w == b.w
+}
+
+extension float4: Equatable {
+    
 }
 
 extension Float {
