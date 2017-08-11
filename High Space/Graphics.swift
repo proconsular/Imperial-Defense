@@ -12,6 +12,8 @@ import Foundation
 class Graphics: NSObject {
     
     static var shaders = [Shader] ()
+    
+    static var method: GraphicsMethod = SingleDisplayMethod()
 
     static func append (_ shader: Shader) {
         shaders.append(shader)
@@ -31,6 +33,18 @@ class Graphics: NSObject {
     
     static func clear () {
         glClear(UInt32(GL_COLOR_BUFFER_BIT))
+    }
+    
+    static func create(_ info: GraphicsInfo) -> RenderHandle! {
+        return method.create(info)
+    }
+    
+    static func update() {
+        method.update()
+    }
+    
+    static func render() {
+        method.render()
     }
     
 }

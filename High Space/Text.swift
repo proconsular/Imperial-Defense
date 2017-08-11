@@ -66,7 +66,8 @@ class Text: InterfaceElement {
     }
     
     private static func computeString(_ string: String, _ style: FontStyle) -> NSAttributedString {
-        return NSAttributedString(string: string, attributes: style.attributes)
+        let a = style.attributes
+        return NSAttributedString(string: string, attributes: a ?? [:])
     }
     
     func setString(_ string: String) {

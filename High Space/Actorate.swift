@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Actorate: RenderList, ActorMap {
+class Actorate: ActorMap {
     
     var actors: [Entity]
     
@@ -22,10 +22,6 @@ class Actorate: RenderList, ActorMap {
     
     func remove(_ actor: Entity) {
         actors.removeObject(actor)
-    }
-    
-    func getDisplays() -> [Display] {
-        return actors.map{ $0.display }
     }
     
 }

@@ -14,21 +14,16 @@ protocol Scheme {
 
 class VisualScheme: Scheme {
     var hull: Hull
-    var layout: HullLayout
-    var info: VisualInfo
+    var material: ClassicMaterial
     var camera: Bool
     var order: Int
     
-    init(_ hull: Hull, _ layout: HullLayout, _ info: VisualInfo) {
+    init(_ hull: Hull, _ material: ClassicMaterial) {
         self.hull = hull
-        self.layout = layout
-        self.info = info
+        self.material = material
+        material.coordinates = HullLayout(hull).coordinates
         camera = true
         order = 0
-    }
-    
-    convenience init(_ hull: Hull, _ info: VisualInfo) {
-        self.init(hull, HullLayout(hull), info)
     }
     
     func getRawScheme() -> RawScheme {
@@ -45,36 +40,36 @@ class VisualScheme: Scheme {
     }
     
     var coordinates: [float2] {
-        return layout.coordinates
+        return material.coordinates
     }
     
     var color: float4 {
-        return info.color
+        return material.color
     }
     
     var texture: UInt32 {
-        return info.texture
+        return material.texture.id
     }
 }
 
-class VisualRectScheme: VisualScheme {
-    
-    init(_ location: float2, _ bounds: float2, _ layout: HullLayout, _ texture: VisualInfo) {
-        let rect = Rect(Transform(location), bounds)
-        super.init(rect, layout, texture)
-    }
-    
-    init(_ location: float2, _ bounds: float2, _ layout: HullLayout, _ texture: String) {
-        let rect = Rect(Transform(location), bounds)
-        super.init(rect, layout, VisualInfo(0))
-    }
-    
-    convenience init(_ location: float2, _ bounds: float2, _ texture: String) {
-        let rect = Rect(Transform(location), bounds)
-        self.init(location, bounds, HullLayout(rect), texture)
-    }
-    
-}
+//class VisualRectScheme: VisualScheme {
+//    
+//    init(_ location: float2, _ bounds: float2, _ layout: HullLayout, _ texture: VisualInfo) {
+//        let rect = Rect(Transform(location), bounds)
+//        super.init(rect, layout, texture)
+//    }
+//    
+//    init(_ location: float2, _ bounds: float2, _ layout: HullLayout, _ texture: String) {
+//        let rect = Rect(Transform(location), bounds)
+//        super.init(rect, layout, VisualInfo(0))
+//    }
+//    
+//    convenience init(_ location: float2, _ bounds: float2, _ texture: String) {
+//        let rect = Rect(Transform(location), bounds)
+//        self.init(location, bounds, HullLayout(rect), texture)
+//    }
+//    
+//}
 
 class VisualSchemeGroup: Scheme {
     var schemes: [VisualScheme]

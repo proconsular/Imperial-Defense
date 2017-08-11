@@ -14,9 +14,10 @@ protocol Actor {
 }
 
 class Entity: Actor {
-    let transform: Transform
+    unowned let transform: Transform
     
-    var display: Display
+    let handle: RenderHandle
+    var material: ClassicMaterial
     let body: Body
     
     var onObject = false
@@ -25,17 +26,25 @@ class Entity: Actor {
     
     init(_ hull: Hull, _ bodyhull: Hull, _ substance: Substance) {
         self.transform = hull.transform
-        display = Display(hull, GLTexture("white"))
+        material =  ClassicMaterial()
+        material.coordinates = HullLayout(hull).coordinates
+        handle = Graphics.create(GraphicsInfo(hull, material))
         body = Body(bodyhull, substance)
     }
     
-    func update() {}
+    func update() {
+        
+    }
     
     func render() {
-        display.render()
+        //display.render()
     }
     
     var bounds: FixedRect {
         return body.shape.getBounds()
+    }
+    
+    deinit {
+        handle.destroy()
     }
 }

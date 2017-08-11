@@ -16,7 +16,7 @@ class Scout: Soldier {
         weapon = Weapon(transform, float2(0, 1), firer)
         weapon?.offset = float2(-0.2.m, -0.7.m)
         
-        display.texture = GLTexture("Scout").id
+        material.texture = GLTexture("Scout")
         animator.set(1)
         
         sprinter = true
@@ -38,13 +38,6 @@ class Banker: Soldier {
         canSprint = true
     }
     
-    override func update() {
-        super.update()
-        if transform.location.y < -Camera.size.y * 2 {
-            alive = false
-        }
-    }
-    
 }
 
 class Captain: Soldier {
@@ -55,7 +48,7 @@ class Captain: Soldier {
         weapon = Weapon(transform, float2(0, 1), firer)
         weapon?.offset = float2(-0.2.m, -0.7.m)
         
-        display.texture = GLTexture("Captain").id
+        material.texture = GLTexture("Captain")
         
         canSprint = true
         
@@ -74,7 +67,7 @@ class Commander: Soldier {
         weapon = Weapon(transform, float2(0, 1), firer)
         weapon?.offset = float2(-0.2.m, -0.7.m)
         
-        display.texture = GLTexture("Commander").id
+        material.texture = GLTexture("Commander")
         
         behavior.base.append(MarchBehavior(self, animator))
         behavior.base.append(ShootBehavior(weapon!, self))
@@ -92,7 +85,7 @@ class Thief: Soldier {
         weapon = Weapon(transform, float2(0, 1), firer)
         weapon?.offset = float2(-0.2.m, -0.7.m)
         
-        display.texture = GLTexture("Thief").id
+        material.texture = GLTexture("Thief")
         animator.set(1)
         
         sprinter = true
@@ -111,7 +104,7 @@ class Healer: Soldier {
         behavior.base.append(MarchBehavior(self, animator))
         behavior.base.append(HealBehavior(self))
         
-        display.texture = GLTexture("Healer").id
+        material.texture = GLTexture("Healer")
     }
     
 }
@@ -124,7 +117,7 @@ class Heavy: Soldier {
         weapon = Weapon(transform, float2(0, 1), firer)
         weapon?.offset = float2(-0.2.m, -0.7.m)
         
-        display.texture = GLTexture("Heavy").id
+        material.texture = GLTexture("Heavy")
         
         behavior.base.append(MarchBehavior(self, animator))
         behavior.base.append(ShootBehavior(weapon!, self, "enemy-shoot-heavy"))
@@ -141,7 +134,7 @@ class Sniper: Soldier {
         weapon = Weapon(transform, float2(0, 1), firer)
         weapon?.offset = float2(-0.2.m, -0.7.m)
         
-        display.texture = GLTexture("Sniper").id
+        material.texture = GLTexture("Sniper")
         
         behavior.base.append(MarchBehavior(self, animator))
         behavior.base.append(ShootBehavior(weapon!, self, "enemy-shoot-snipe"))
@@ -163,9 +156,9 @@ class Mage: Soldier {
         weapon = HomingWeapon(transform, float2(0, 1), firer)
         weapon?.offset = float2(-0.2.m, -0.7.m)
         
-        display.texture = GLTexture("Mage").id
-        display.coordinates = SheetLayout(0, 12, 3).coordinates
-        display.refresh()
+        material.texture = GLTexture("Mage")
+        material.coordinates = SheetLayout(0, 12, 3).coordinates
+//        display.refresh()
         
         behavior.base.append(GlideBehavior(self, 0.25.m))
         behavior.base.append(DodgeBehavior(self, 0.1))
@@ -174,7 +167,7 @@ class Mage: Soldier {
     
     override func update() {
         super.update()
-        display.coordinates = SheetLayout(0, 12, 3).coordinates
+        material.coordinates = SheetLayout(0, 12, 3).coordinates
     }
     
 }
@@ -218,7 +211,7 @@ class Emperor: Soldier {
         
         super.init(location, health, float4(1))
         
-        laserFire = Display(Rect(location, float2(64)), GLTexture("laser-fire"))
+//        laserFire = Display(Rect(location, float2(64)), GLTexture("laser-fire"))
         
         particle_shielding = ParticleShield(transform, 1.0.m)
         
@@ -226,9 +219,9 @@ class Emperor: Soldier {
         weapon = HomingWeapon(transform, float2(0, 1), firer)
         weapon?.offset = float2(-0.2.m, -0.7.m)
         
-        display.texture = GLTexture("Emperor").id
-        display.technique = DefaultTechnique()
-        display.order = 200
+        material.texture = GLTexture("Emperor")
+//        material.technique = DefaultTechnique()
+        material.order = 200
         
         animator = BaseMarchAnimator(body, 0.35, 26.m)
         let t = animator.player.animation as! TextureAnimator

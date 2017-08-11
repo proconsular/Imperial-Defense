@@ -37,7 +37,7 @@ class RushBehavior: TriggeredBehavior {
     
     var alive = true
     var rushed: Bool
-    var transform: Transform
+    unowned var transform: Transform
     var radius: Float
     var counter: Float = 0
     var rate: Float
@@ -89,7 +89,7 @@ class DodgeBehavior: Behavior {
     
     var alive: Bool = true
     
-    var entity: Entity
+    unowned var entity: Entity
     var cooldown: Float
     var rate: Float
     
@@ -159,7 +159,7 @@ class DodgeBehavior: Behavior {
 class AllfireBehavior: Behavior {
     
     var alive: Bool = true
-    var entity: Entity
+    unowned var entity: Entity
     var cooldown: Float
     
     init(_ entity: Entity) {
@@ -204,7 +204,7 @@ class AllfireBehavior: Behavior {
 class FireBehavior: Behavior {
     
     var alive: Bool = true
-    var soldier: Soldier
+    unowned var soldier: Soldier
     var cooldown: Float
     var rate: Float
     
@@ -233,7 +233,7 @@ class FireBehavior: Behavior {
 class RapidFireBehavior: Behavior {
     
     var alive: Bool = true
-    var soldier: Soldier
+    unowned var soldier: Soldier
     var cooldown: Float
     
     init(_ soldier: Soldier) {
@@ -262,10 +262,10 @@ class RapidFireBehavior: Behavior {
 class HealBehavior: Behavior {
     
     var alive: Bool = true
-    var entity: Entity
+    unowned var entity: Entity
     var cooldown: Float
     var counter: Float
-    var healee: Soldier?
+    weak var healee: Soldier?
     
     init(_ entity: Entity) {
         self.entity = entity
@@ -317,7 +317,7 @@ class HealBehavior: Behavior {
 class GlideBehavior: Behavior {
     
     var alive: Bool = true
-    var entity: Entity
+    unowned var entity: Entity
     var speed: Float
     
     init(_ entity: Entity, _ speed: Float) {

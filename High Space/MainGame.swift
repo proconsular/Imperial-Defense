@@ -46,35 +46,35 @@ protocol GameInterface {
     func render()
 }
 
-class GameExperiment: GameInterface {
-    
-    let texture: Texture
-    let display: Display
-    var data: [UInt32]
-    let count = 512
-    
-    init() {
-        data = Array<UInt32>(repeating: 0, count: count * count)
-        texture = Texture(float2(Float(count)))
-        texture.create(data)
-        display = Display(Rect(Camera.size / 2, Camera.size), texture)
-    }
-    
-    func update() {
-        
-    }
-    
-    func render() {
-        data = data.rotate(-1)
-        let random = Int(arc4random() % UInt32(data.count))
-        
-        data[random] = Texture.computeColor(float4(1, 0.5, 1, 1))
-        texture.create(data)
-        
-        display.render()
-    }
-    
-}
+//class GameExperiment: GameInterface {
+//    
+//    let texture: Texture
+//    let display: Display
+//    var data: [UInt32]
+//    let count = 512
+//    
+//    init() {
+//        data = Array<UInt32>(repeating: 0, count: count * count)
+//        texture = Texture(float2(Float(count)))
+//        texture.create(data)
+//        display = Display(Rect(Camera.size / 2, Camera.size), texture)
+//    }
+//    
+//    func update() {
+//        
+//    }
+//    
+//    func render() {
+//        data = data.rotate(-1)
+//        let random = Int(arc4random() % UInt32(data.count))
+//        
+//        data[random] = Texture.computeColor(float4(1, 0.5, 1, 1))
+//        texture.create(data)
+//        
+//        display.render()
+//    }
+//    
+//}
 
 var upgrader: Upgrader!
 
@@ -94,12 +94,12 @@ class GameBase: GameInterface {
         
         GameData.info.level = 0
        // GameData.info.points = 15
-        GameData.info.wave = 49
-        
+        GameData.info.wave = 0
+            
 
-        upgrader.firepower.range.amount = 5
-        upgrader.shieldpower.range.amount = 5
-        upgrader.barrier.range.amount = 5
+//        upgrader.firepower.range.amount = 5
+//        upgrader.shieldpower.range.amount = 5
+//        upgrader.barrier.range.amount = 5
 //
         let main = ScreenSpace()
         main.push(Splash())

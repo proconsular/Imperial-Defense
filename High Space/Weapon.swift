@@ -10,7 +10,7 @@ import Foundation
 
 class Weapon {
     
-    var transform: Transform
+    unowned var transform: Transform
     var direction: float2
     var offset: float2 = float2()
     
@@ -52,7 +52,7 @@ class HomingWeapon: Weapon {
 
 class PlayerWeaponDisplayAdapter: StatusItem {
     
-    var weapon: PlayerWeapon
+    weak var weapon: PlayerWeapon?
     var warnings: [PowerWarning]
     
     init(_ weapon: PlayerWeapon) {
@@ -61,11 +61,11 @@ class PlayerWeaponDisplayAdapter: StatusItem {
     }
     
     var percent: Float {
-        return weapon.percent
+        return weapon?.percent ?? 0
     }
     
     var color: float4 {
-        var c = weapon.color
+        var c = weapon?.color ?? float4(0)
         warnings.forEach{ c = $0.apply(c) }
         return c
     }

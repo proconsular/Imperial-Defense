@@ -146,7 +146,7 @@ extension Float {
 extension Int: Measureable {
     
     var toRadians: Float {
-        return Float(self) * Float(M_PI / 180)
+        return Float(self) * Float(Float.pi / 180)
     }
     
     func loop (_ block: (Int) -> ()) {
@@ -293,11 +293,11 @@ extension float4: Equatable {
 extension Float {
     
     func toRadians () -> Float {
-        return self * Float (M_PI / 180)
+        return self * Float (Float.pi / 180)
     }
     
     func toDegrees () -> Float {
-        return (self * Float (180 / M_PI))
+        return (self * Float (180 / Float.pi))
     }
     
     var isPositive: Bool {
@@ -310,21 +310,21 @@ extension Float {
     
 }
 
-infix operator ++% {
-    associativity left
-    precedence 150
-    assignment
-}
+//infix operator ++% {
+//    associativity left
+//    precedence 150
+//    assignment
+//}
 
-func ++% (value: inout Int, length: Int) -> Int {
-    value = (value + 1) % length
-    return value
-}
-
-func ++% (value: inout Float, length: Float) -> Float {
-    value = (value + 1).truncatingRemainder(dividingBy: length)
-    return value
-}
+//func ++% (value: inout Int, length: Int) -> Int {
+//    value = (value + 1) % length
+//    return value
+//}
+//
+//func ++% (value: inout Float, length: Float) -> Float {
+//    value = (value + 1).truncatingRemainder(dividingBy: length)
+//    return value
+//}
 
 func findBest <V: Comparable, T: Sequence> (_ range: T, _ initialValue: V, _ operation: (V, V) -> Bool, _ process: (Int) -> V) -> IndexedValue<V>? where T.Iterator.Element == Int {
     var best = IndexedValue<V>(0, initialValue)

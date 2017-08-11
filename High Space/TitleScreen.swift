@@ -8,23 +8,6 @@
 
 import Foundation
 
-class TitleScreen: Screen {
-    let background: Background
-    
-    override init() {
-        background = Background(Rect(float2(Camera.size.x / 2, Camera.size.y / 2), Camera.size), float2(12, 2), "stonefloor")
-        
-        super.init()
-        
-        layers.append(TitleLayer())
-    }
-    
-    override func display() {
-        //background.display.render()
-        super.display()
-    }
-    
-}
 
 class TitleLayer: InterfaceLayer {
     

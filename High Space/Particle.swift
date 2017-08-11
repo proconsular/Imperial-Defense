@@ -23,7 +23,7 @@ class Particle: Entity {
         super.init(rect, rect, Substance.getStandard(0.01))
         body.mask = 0b0
         color = float4(1, 1, 1, 1)
-        display.scheme.schemes[0].order = 1
+        material.order = 1
         body.noncolliding = true
     }
     
@@ -34,7 +34,7 @@ class Particle: Entity {
         if opacity <= Float.ulpOfOne {
             alive = false
         }
-        display.color = float4(opacity) * color
+        material.color = float4(opacity) * color
         guider?.update()
         body.velocity *= drag
     }
@@ -122,7 +122,7 @@ class Explosion: Entity {
         circle = Circle(Transform(location), 0)
         super.init(circle, circle, Substance.getStandard(1))
         body.mask = 0b0
-        display.scheme.schemes[0].order = 2
+        material.order = 2
         body.noncolliding = true
     }
     
@@ -134,11 +134,11 @@ class Explosion: Entity {
             alive = false
         }
         circle.setRadius(radius * (1 - opacity))
-        display.color = float4(opacity) * color
+        material.color = float4(opacity) * color
     }
     
     override func render() {
-        display.visual.refresh()
+//      Displayay.refresh()
         super.render()
     }
     
@@ -158,7 +158,7 @@ class TextParticle: Entity {
         super.init(rect, rect, Substance.getStandard(0.01))
         body.mask = 0b0
         color = float4(1, 1, 1, 1)
-        display.scheme.schemes[0].order = 1
+        material.order = 1
         body.noncolliding = true
     }
     
@@ -184,12 +184,12 @@ class Rubble: Entity {
     init(_ location: float2) {
         let rect = Rect(location, float2(32 * 2))
         super.init(rect, rect, Substance.getStandard(1))
-        display.scheme.schemes[0].order = 1
+        material.order = 1
         body.noncolliding = true
         body.mask = 0b0
         
-        display.texture = GLTexture("Rubble").id
-        display.coordinates = SheetLayout(randomInt(1, 2), 3, 1).coordinates
+        material.texture = GLTexture("Rubble")
+        material.coordinates = SheetLayout(randomInt(1, 2), 3, 1).coordinates
     }
     
 }

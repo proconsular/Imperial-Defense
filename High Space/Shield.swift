@@ -10,7 +10,7 @@ import Foundation
 
 class LifeDisplayAdapter: StatusItem {
     
-    var life: Life
+    weak var life: Life?
     var base: float4
     var warnings: [PowerWarning]
     
@@ -21,11 +21,13 @@ class LifeDisplayAdapter: StatusItem {
     }
     
     func update() {
-        warnings.forEach{ $0.update(life.percent) }
+        if let life = life {
+            warnings.forEach{ $0.update(life.percent) }
+        }
     }
     
     var percent: Float {
-        return life.percent
+        return life?.percent ?? 0
     }
     
     var color: float4 {
@@ -247,7 +249,7 @@ class PlayerShield: Shield {
     
 }
 
-protocol Life {
+protocol Life: class {
     func damage(_ amount: Float)
     var percent: Float { get }
 }

@@ -43,7 +43,7 @@ class Edgeform: Form {
     }
     
     func getSupport(_ normal: float2) -> float2 {
-        return vertices[findBestIndex(0 ..< vertices.count, -FLT_MAX, >) { dot(vertices[$0], normal) }!]
+        return vertices[findBestIndex(0 ..< vertices.count, -Float.greatestFiniteMagnitude, >) { dot(vertices[$0], normal) }!]
     }
 }
 
@@ -64,7 +64,7 @@ class Radialform: Form {
         
         for n in 1 ..< divides + 1 {
             let percent = Float(n - 1) / Float(divides)
-            let angle = percent * Float(M_PI * 2)
+            let angle = percent * Float(Float.pi * 2)
             verts.append(radius * float2(cosf(angle), sinf(angle)))
         }
         

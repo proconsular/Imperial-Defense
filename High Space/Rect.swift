@@ -35,7 +35,7 @@ class Rect: Shape<Edgeform> {
     }
     
     private func computeRect() {
-        var min = float2(FLT_MAX, -FLT_MAX), max = float2(-FLT_MAX, FLT_MAX)
+        var min = float2(Float.greatestFiniteMagnitude, -Float.greatestFiniteMagnitude), max = float2(-Float.greatestFiniteMagnitude, Float.greatestFiniteMagnitude)
         
         for n in 0 ..< form.vertices.count {
             let vertex = getTransformedVertex(n) - transform.location

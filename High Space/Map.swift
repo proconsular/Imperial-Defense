@@ -82,7 +82,15 @@ class Map {
     }
     
     private func clean() {
-        actorate.actors = actorate.actors.filter{ $0.alive && ($0.bound ? grid.contains(actor: $0) : true) }
+//        let dead = actorate.actors.filter{ !isAlive($0) }
+//        for d in dead {
+//            d.handle.alive = false
+//        }
+        actorate.actors = actorate.actors.filter(isAlive)
+    }
+    
+    func isAlive(_ actor: Entity) -> Bool {
+        return actor.alive && (actor.bound ? grid.contains(actor: actor) : true)
     }
     
     func render() {
@@ -109,15 +117,15 @@ class FlatRenderSystem: MapRenderSystem {
     
     func render() {
         sortActors().forEach{
-            if Camera.current.visible($0.display) {
-                $0.display.refresh()
+            //if Camera.current.visible($0.display) {
+//                $0.display.refresh()
                 $0.render()
-            }
+            //}
         }
     }
     
     func sortActors() -> [Entity] {
-        return map.actors.sorted{ $0.display.texture < $1.display.texture }.sorted{ $0.display.order < $1.display.order }
+        return map.actors.sorted{ $0.material.texture.id < $1.material.texture.id }.sorted{ $0.material.order < $1.material.order }
     }
     
 }
@@ -130,36 +138,12 @@ class GroupRenderSystem: MapRenderSystem {
     }
     
     func render() {
-        let batches = compile()
-        for batch in batches {
-            batch.render()
-        }
+//        let batches = compile()
+//        for batch in batches {
+//            batch.render()
+//        }
     }
     
-    func compile() -> [Batch] {
-        let displays = map.actors.map{ $0.display }.sorted{ $0.texture < $1.texture }
-        var batches: [Batch] = []
-        var batch: Batch!
-        for display in displays {
-            if batch == nil {
-                batch = Batch()
-                batches.append(batch)
-            }else{
-                if let scheme = batch.group.schemes.first {
-                    if scheme.texture != display.texture {
-                        batch = Batch()
-                        batches.append(batch)
-                    }
-                }
-            }
-            if batch.group.schemes.count > 10 {
-                batch = Batch()
-                batches.append(batch)
-            }
-            batch.append(display.scheme.schemes[0])
-        }
-        return batches
-    }
 }
 
 

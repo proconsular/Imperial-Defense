@@ -27,7 +27,7 @@ class Shape<F: Form>: Hull {
     func computeBoundingCircle() {
         let vertices = form.getVertices()
         let center = vertices.center
-        let radius = findBestValue(0 ..< vertices.count, -FLT_MAX, >) {
+        let radius = findBestValue(0 ..< vertices.count, -Float.greatestFiniteMagnitude, >) {
             return (center - vertices[$0]).length
             }!
         circle = BoundingCircle(center, radius)

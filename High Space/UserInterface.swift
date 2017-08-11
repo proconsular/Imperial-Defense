@@ -38,6 +38,7 @@ class UserInterface {
             space.use(command)
         }
         space.update()
+        Graphics.update()
     }
     
     static func display() {
@@ -100,7 +101,7 @@ class FadeTransition {
 
 class Fade {
     
-    let background: Display
+    var background: Display!
     var opacity: Float
     var direction: Float
     var rate: Float

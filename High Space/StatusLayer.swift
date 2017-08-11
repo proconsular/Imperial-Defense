@@ -10,7 +10,7 @@ import Foundation
 
 class TextPlate {
     
-    var plate: Display
+    var plate: Display!
     var text: Text
     
     init(_ location: float2, _ bounds: float2) {
@@ -22,8 +22,8 @@ class TextPlate {
 
 class ScoreDisplay {
     
-    var plate: Display
-    var crystal: Display
+    var plate: Display!
+    var crystal: Display!
     var text: Text
     
     init(_ location: float2, _ bounds: float2) {
@@ -46,25 +46,23 @@ class ScoreDisplay {
 
 class LegionDisplay {
     
-    var plate: Display
-    var soldier: Display
+    var plate: Display!
+    var soldier: Display!
     var text: Text
-    let game: Game
-    
-    init(_ location: float2, _ bounds: float2, _ game: Game) {
+   
+    init(_ location: float2, _ bounds: float2) {
         plate = Display(location, float2(bounds.x, 76 * bounds.y / 40), GLTexture("Plates"))
         plate.coordinates = SheetLayout(0, 1, 2).coordinates
         let spacing = bounds.x * 0.2
         soldier = Display(location + float2(-spacing, 0), float2(64), GLTexture("soldier_walk"))
         soldier.coordinates = SheetLayout(0, 12, 3).coordinates
         text = Text(location + float2(spacing, 0) + float2(0, -GameScreen.size.y), "0", FontStyle(defaultFont, float4(1), 48.0 * (bounds.y / 100)))
-        self.game = game
     }
     
     func render() {
         plate.render()
         soldier.render()
-        text.setString("\(game.coordinator.waves.first?.health ?? 0)")
+        text.setString("\(Game.instance.coordinator.waves.first?.health ?? 0)")
         text.render()
     }
     
@@ -72,7 +70,7 @@ class LegionDisplay {
 
 class WaveDisplay {
     
-    var plate: Display
+    var plate: Display!
     var text: Text
     var wave: Int
     
@@ -104,15 +102,12 @@ class StatusLayer: InterfaceLayer {
     let stamina: PercentDisplay
     let weapon: PercentDisplay
     
-    let background: Display
+    let background: Display!
     
-    let game: Game
-    
-    init(_ game: Game) {
-        self.game = game
+    override init() {
         let size: Float = 80
         
-        let health = game.player.health
+        let health = Player.player.health
         
         let sh = LifeDisplayAdapter(health.shield!, float4(48 / 255, 181 / 255, 206 / 255, 1))
         sh.warnings.append(ShieldLowPowerWarning(float4(1, 0, 0, 1), 0.125, 0.33))
@@ -125,16 +120,16 @@ class StatusLayer: InterfaceLayer {
         ld.warnings.append(NoShieldPowerWarning(health.shield!, float4(1, 0, 0, 1), 0.075))
         stamina = PercentDisplay(float2(100, size / 2) + float2(0, -GameScreen.size.y), size * 0.37, shieldBlocks, 1, ld)
         
-        let wd = PlayerWeaponDisplayAdapter(game.player.weapon)
+        let wd = PlayerWeaponDisplayAdapter(Player.player.weapon)
         wd.warnings.append(WeaponLowPowerWarning(float4(1, 1, 0, 1), 0.3, 0.33))
         let weaponBlocks = Int(13 + 5 * upgrader.firepower.range.percent)
         weapon = PercentDisplay(float2(GameScreen.size.x - 20, size / 2) + float2(0, -GameScreen.size.y), size * 0.375, weaponBlocks, -1, wd)
         
         score = ScoreDisplay(float2(GameScreen.size.x / 2 - 200, size / 2), float2(180, size / 2))
         wave = WaveDisplay(float2(GameScreen.size.x / 2, size / 2), float2(224, size / 2), GameData.info.wave + 1)
-        legion = LegionDisplay(float2(GameScreen.size.x / 2 + 200, size / 2), float2(180, size / 2), game)
+        legion = LegionDisplay(float2(GameScreen.size.x / 2 + 200, size / 2), float2(180, size / 2))
         
-        background = Display(float2(GameScreen.size.x / 2, size / 2) , float2(GameScreen.size.x, size), GLTexture("GameUIBack"))
+        background = Display(float2(GameScreen.size.x / 2, size / 2), float2(GameScreen.size.x, size), GLTexture("GameUIBack"))
         
         super.init()
         

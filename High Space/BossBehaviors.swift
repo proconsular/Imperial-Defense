@@ -384,7 +384,7 @@ class DarkBlast {
         let loc = float2(cosf(angle), sinf(angle)) * mag
         let energy = DarkEnergy(loc + transform.location, random(6, 9))
         energy.color = float4(0.75, 0.85, 1, 1)
-        energy.display.color = float4(0.75, 0.85, 1, 1)
+        energy.material.color = float4(0.75, 0.85, 1, 1)
         energy.rate = 1
         self.energy.append(energy)
         Map.current.append(energy)
@@ -557,7 +557,7 @@ class ParticleWaveBehavior: ActiveBehavior {
             let p = DarkEnergy(transform.location + float2(cosf(angle), sinf(angle)) * radius, random(3, 7))
             p.rate = 1
             p.color = float4(0.75, 0.85, 1, 1)
-            p.display.color = float4(0.75, 0.85, 1, 1)
+            p.material.color = float4(0.75, 0.85, 1, 1)
             Map.current.append(p)
         }
         
@@ -609,7 +609,7 @@ class ParticleBeamBehavior: ActiveBehavior {
             let p = DarkEnergy(transform.location + float2(cosf(angle), sinf(angle)) * radius, random(5, 8))
             p.rate = 2
             p.color = float4(0.75, 0.85, 1, 1)
-            p.display.color = float4(0.75, 0.85, 1, 1)
+            p.material.color = float4(0.75, 0.85, 1, 1)
             Map.current.append(p)
         }
         
@@ -721,8 +721,8 @@ class ParticleShield {
         
         let color = float4(0.75, 0.85, 1, 1)
         en.color = color
-        en.display.color = color
-        en.display.order = 201
+        en.material.color = color
+        en.material.order = 201
         en.rate = 0.25
         
         energy.append(en)
@@ -768,7 +768,7 @@ class CollapseEffect: ParticleShieldEffect {
         shield.dilation = clamp(shield.dilation - 8 * Time.delta, min: 0, max: 1)
         for e in shield.energy {
             let dl = e.transform.location - shield.transform.location
-            e.display.color *= dl.length / 2.m
+            e.material.color *= dl.length / 2.m
             if dl.length <= 0.1.m {
                 e.alive = false
             }
@@ -828,12 +828,12 @@ class DeathBehavior: Behavior {
         blink += Time.delta
         if blink >= 0.25 {
             blink = 0
-            if entity.display.color == float4(1) {
-                entity.display.color = float4(0, 0, 0, 1)
+            if entity.material.color == float4(1) {
+                entity.material.color = float4(0, 0, 0, 1)
             }else{
-                entity.display.color = float4(1)
+                entity.material.color = float4(1)
             }
-            entity.display.refresh()
+//            entity.display.refresh()
         }
         
     }
@@ -867,7 +867,7 @@ class PowerInfuser: Entity {
         p.drag = float2(0.9)
         let color = float4(0.75, 0.85, 1, 1)
         p.color = color
-        p.display.color = color
+        p.material.color = color
         p.guider = FollowGuider(p.body, Player.player.transform, 1.5.m)
         Map.current.append(p)
     }

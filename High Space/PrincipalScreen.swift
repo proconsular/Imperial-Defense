@@ -19,7 +19,7 @@ class PrincipalScreen: Screen {
         UserInterface.controller.stack.push(GameControllerLayer())
         
         layers.append(game)
-        layers.append(StatusLayer(game))
+        layers.append(StatusLayer())
     }
     
     deinit {

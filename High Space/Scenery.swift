@@ -11,15 +11,13 @@ import Foundation
 class Scenery {
     
     let castle: Castle
-    let floor: Background
+    let floor: Render
     
     init(_ map: Map) {
         let height: Float = 256
         castle = Castle(float2(map.size.x / 2, -height / 2))
         
-        let fr = Rect(float2(GameScreen.size.x / 2, -GameScreen.size.y / 2), GameScreen.size)
-        floor = Background(fr, float2(1, 1), "rockfloor")
-        floor.display.color = float4(1, 1, 1, 1)
+        floor = Display(Rect(float2(GameScreen.size.x / 2, -GameScreen.size.y / 2), GameScreen.size), GLTexture("rockfloor"))
     }
     
     func update() {
@@ -27,20 +25,8 @@ class Scenery {
     }
     
     func render() {
-        floor.display.render()
+        floor.render()
         castle.render()
-    }
-    
-}
-
-class Background {
-    
-    let display: Display
-    
-    init(_ rect: Rect, _ scale: float2, _ texture: String) {
-        display = Display(rect, GLTexture(texture))
-        display.scheme.schemes[0].layout.coordinates = [float2(0, 0),  float2(0, scale.y), scale, float2(scale.x, 0)]
-        display.scheme.schemes[0].order = -2
     }
     
 }

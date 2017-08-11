@@ -8,7 +8,7 @@
 
 import Foundation
 
-open class Screen: Interface {
+class Screen: Interface {
     var layers: [DisplayLayer] = []
     
     func update() {

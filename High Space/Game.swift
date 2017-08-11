@@ -37,12 +37,11 @@ let playgame: Bool = true
 
 class Game: DisplayLayer {
     
-    static var instance: Game!
+    static weak var instance: Game!
     
     let physics: Simulation
     let coordinator: Coordinator
     
-    let player: Player
     let map: Map
     
     let player_interface: PlayerInterface
@@ -97,7 +96,7 @@ class Game: DisplayLayer {
         var power = Power(175, 200, 30)
         upgrader.firepower.apply(&power)
         
-        player = Player(float2(map.size.x / 2, -1.5.m), health, firer, power)
+        let player = Player(float2(map.size.x / 2, -1.5.m), health, firer, power)
         map.append(player)
         
         points = GameData.info.points
@@ -267,6 +266,7 @@ class Game: DisplayLayer {
     func display() {
         scenery.render()
         map.render()
+        Graphics.render()
     }
 }
 

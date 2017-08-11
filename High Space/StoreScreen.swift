@@ -154,7 +154,7 @@ class Anvil {
             animator.set(1)
         }
         animator.update()
-        animator.apply(display)
+        animator.apply(display.material)
         display.refresh()
         display.render()
     }

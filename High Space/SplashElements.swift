@@ -55,7 +55,7 @@ class SplashPlayer: Entity, Damagable {
         let angle = random(-Float.pi / 4, -Float.pi / 8) + atan2f(direction.x, direction.y)
         shoot.direction = float2(cosf(angle), sinf(angle))
         player_animation.update()
-        player_animation.apply(player)
+        player_animation.apply(player.material)
     }
     
     override func render() {

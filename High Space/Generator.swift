@@ -37,7 +37,6 @@ class Difficulty {
 class GenerationContext {
     
     var banker: Int
-    var previous: Soldier?
     
     init() {
         banker = 0
@@ -80,7 +79,7 @@ class LegionGenerator: Generator {
             for i in 0 ..< difficulty.size {
                 difficulty.row = i
                 let row = row_gen.create(float2(Map.current.size.x / 2, -12.m - Float(i) * 1.25.m) + offset)
-                row.soldiers.forEach{ $0.display.order += -i }
+                row.soldiers.forEach{ $0.material.order += -i }
                 rows.append(row)
             }
         }
@@ -161,6 +160,7 @@ class SoldierGenerator: Generator {
             context.banker += 1
             soldier = new
         }
+        
         return soldier
     }
     

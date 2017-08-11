@@ -15,7 +15,7 @@ protocol Event {
 
 class MarchEvent: Event {
     
-    var body: Body
+    unowned var body: Body
     var amount: Float
     var frames: [Int]
     var pitch: Float
@@ -29,11 +29,18 @@ class MarchEvent: Event {
     }
     
     func activate() {
-        let dl = (Player.player.body.location - body.location).length
         body.velocity.y += amount * (0.016666)
+        
+        var dl: Float = 0
+        if let player = Player.player {
+            dl = (player.body.location - body.location).length
+        }
+        
         let audio = Audio(foot == 0 ? "march" : "march-2")
         if !audio.playing {
-            audio.volume = sound_volume * 2 * clamp(0.05 + 1 + body.location.y / Camera.size.y, min: 0, max: 1) * clamp(1 - dl / 50.m, min: 0, max: 1)
+            let value = clamp(0.05 + 1 + body.location.y / Camera.size.y, min: 0, max: 1)
+            let distance = clamp(1 - dl / 50.m, min: 0, max: 1)
+            audio.volume = sound_volume * 2 * value * distance
             audio.pitch = pitch
             audio.start()
         }
@@ -67,8 +74,8 @@ class Animator {
         player.animation.set(animation)
     }
     
-    func apply(_ display: Display) {
-        display.coordinates = player.animation.coordinates
+    func apply(_ material: ClassicMaterial) {
+        material.coordinates = player.animation.coordinates
     }
     
 }

@@ -19,12 +19,12 @@ class Bullet: Entity {
         let rect = Rect(location, casing.size)
         super.init(rect, rect, Substance(PhysicalMaterial(.wood), Mass(0.05, 0), Friction(.iron)))
         
-        display.scheme.schemes[0].info.texture = GLTexture("bullet").id
-        display.coordinates = SheetLayout(casing.tag == "player" ? casing.index != -1 ? casing.index : 1 : 0, 1, 4).coordinates
+        material.texture = GLTexture("bullet")
+        material.coordinates = SheetLayout(casing.tag == "player" ? casing.index != -1 ? casing.index : 1 : 0, 1, 4).coordinates
         //display.color = casing.color
         
         body.noncolliding = true
-        body.callback = { (body, collision) in
+        body.callback = { [unowned self] (body, collision) in
             self.hit(body, collision)
         }
         
@@ -75,6 +75,7 @@ class Bullet: Entity {
     }
     
     override func update() {
+        super.update()
         if casing.tag == "enemy" {
             let limit = -Camera.size.y + 1.m
             let percent: Float = 0.7
@@ -82,8 +83,8 @@ class Bullet: Entity {
             if body.location.y > limit * percent {
                 o = 1
             }
-            display.color = casing.color * o
-            display.refresh()
+            material.color = casing.color * o
+//            display.refresh()
         }
     }
     

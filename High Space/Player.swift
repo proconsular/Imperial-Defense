@@ -10,7 +10,7 @@ import Foundation
 
 class PlayerInterface: Interface {
     
-    var player: Player
+    weak var player: Player?
     var speed: Float 
     var acceleration: Float
     var canFire = true
@@ -22,21 +22,23 @@ class PlayerInterface: Interface {
     }
     
     func use(_ command: Command) {
-        if player.dead { return }
-        if command.id == 0 {
-            let force = command.vector! / 1000
-            if abs(player.body.velocity.x) < speed {
-                player.body.velocity.x += force.x * acceleration
+        if let player = player {
+            if player.dead { return }
+            if command.id == 0 {
+                let force = command.vector! / 1000
+                if abs(player.body.velocity.x) < speed {
+                    player.body.velocity.x += force.x * acceleration
+                }
+            }else if command.id == 1 && canFire {
+                if player.weapon.canFire {
+                    let shoot = Audio("player-shoot")
+                    shoot.pitch = player.weapon.isHighPower ? 0.6 : 1
+                    shoot.volume = sound_volume
+                    shoot.start()
+                    player.weapon.fire()
+                }
+                player.firing = true
             }
-        }else if command.id == 1 && canFire {
-            if player.weapon.canFire {
-                let shoot = Audio("player-shoot")
-                shoot.pitch = player.weapon.isHighPower ? 0.6 : 1
-                shoot.volume = sound_volume
-                shoot.start()
-                player.weapon.fire()
-            }
-            player.firing = true
         }
     }
     
@@ -79,7 +81,7 @@ class Affector {
 
 class ExplosionTerminator: ActorTerminationDelegate {
     
-    let actor: Entity
+    unowned let actor: Entity
     let radius: Float
     let color: float4
     
@@ -104,7 +106,7 @@ class ExplosionTerminator: ActorTerminationDelegate {
 class Player: Entity, Damagable {
     var reflective: Bool = false
     
-    static var player: Player!
+    static weak var player: Player!
     
     var health: Health
     var weapon: PlayerWeapon!
@@ -143,18 +145,18 @@ class Player: Entity, Damagable {
         
         body.mask = 0b10
         body.object = self
-        display.texture = GLTexture("Player").id
-        display.coordinates = animator.coordinates
+        material.texture = GLTexture("Player")
+        material.coordinates = animator.coordinates
         
         Player.player = self
-        display.order  = 100
+        material.order  = 100
         
         terminator = ExplosionTerminator(self, 5.m, float4(1, 1, 1, 1))
         
         let blue = float4(48 / 255, 181 / 255, 206 / 255, 1)
         let green = float4(63 / 255, 206 / 255, 48 / 255, 1)
         let color = blue * (1 - upgrader.shieldpower.range.percent) + green * upgrader.shieldpower.range.percent
-        display.technique = ShieldTechnique(health.shield!, transform, color, image.bounds.y)
+//        display.technique = ShieldTechnique(health.shield!, transform, color, image.bounds.y)
         
         absorb = AbsorbEffect(3, 0.025, 1.25.m, 7, color, 0.75.m, body)
     }
@@ -168,11 +170,12 @@ class Player: Entity, Damagable {
     }
     
     override func update() {
+        super.update()
         absorb.update()
         if !dead {
             if let shield = health.shield {
-                display.color = float4(1)
-                display.color = affector.apply(display.color)
+                material.color = float4(1)
+                material.color = affector.apply(material.color)
                 if shield.broke {
                     shield.explode(transform)
                 }
@@ -222,7 +225,7 @@ class Player: Entity, Damagable {
                 terminator?.terminate()
             }
             let c = Float(Int(death_timer * 400) % 2)
-            display.color = float4(1, c, c, 1)
+            material.color = float4(1, c, c, 1)
             anim_timer += Time.delta
             if anim_timer >= 1 && animator.frame < 11 {
                 anim_timer = 0
@@ -250,7 +253,7 @@ class Player: Entity, Damagable {
             }
         }
         
-        display.coordinates = animator.coordinates
+        material.coordinates = animator.coordinates
     }
     
 }

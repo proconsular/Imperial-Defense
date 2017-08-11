@@ -30,7 +30,7 @@ class Body {
     var mask: Int = 1
     var noncolliding = false
     
-    var object: AnyObject?
+    weak var object: AnyObject?
     
     var location: float2 {
         set { shape.transform.location = newValue }

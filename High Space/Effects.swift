@@ -23,7 +23,7 @@ class AbsorbEffect: Effect {
     
     var counter: Float
     
-    var body: Body
+    unowned var body: Body
     var particles: [Particle]
     
     init(_ amount: Int, _ rate: Float, _ radius: Float, _ size: Float, _ color: float4, _ speed: Float, _ body: Body) {
@@ -67,7 +67,7 @@ class AbsorbEffect: Effect {
             let direction = dl / dl.length
             particle.body.velocity = direction * 0.1.m
             particle.color = color
-            particle.display.color = color
+            particle.material.color = color
             particles.append(particle)
             Map.current.append(particle)
         }

@@ -55,8 +55,8 @@ import Foundation
     }
     
     var texture: GLuint {
-        get { return display.scheme.schemes[0].texture }
-        set { display.scheme.schemes[0].info.texture = newValue }
+        get { return display.material.texture.id }
+        set { display.material.texture.id = newValue }
     }
     
     func setMatrix(_ row0: float2, _ row1: float2) {
@@ -74,7 +74,7 @@ import Foundation
             coors = coors.successor()
             coordinates.append(vertex)
         }
-        display.scheme.schemes[0].layout.coordinates = coordinates
+        display.material.coordinates = coordinates
     }
     
     func setVertices(_ vertices: UnsafePointer<Float>, _ length: Int) {

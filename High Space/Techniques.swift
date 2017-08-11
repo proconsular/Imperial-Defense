@@ -81,7 +81,7 @@ class BlurTechnique: RenderTechnique {
     
     var transform: Transform
     var target: RenderTexture
-    var display: Display
+    var display: Display!
     
     var procedure: () -> ()
     
@@ -90,7 +90,7 @@ class BlurTechnique: RenderTechnique {
         self.procedure = procedure
         target = RenderTexture(Int(bounds.x), Int(bounds.y))
         display = Display(Rect(transform, bounds), GLTexture(target.texture.id))
-        display.coordinates = [float2(0, 1), float2(0, 0), float2(1, 0), float2(1, 1)]
+//        material.coordinates = [float2(0, 1), float2(0, 0), float2(1, 0), float2(1, 1)]
     }
     
     func render(_ visual: Visual) {

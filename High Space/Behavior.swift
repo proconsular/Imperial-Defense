@@ -87,7 +87,7 @@ class MarchBehavior: Behavior {
     func update() {
         if ActorUtility.spaceInFront(entity, float2(0.75.m, 0)) {
             animator.update()
-            animator.apply(entity.display)
+            animator.apply(entity.material)
         }
     }
     
@@ -96,8 +96,8 @@ class MarchBehavior: Behavior {
 class ShootBehavior: Behavior {
     
     var alive: Bool = true
-    var weapon: Weapon
-    var soldier: Soldier
+    unowned var weapon: Weapon
+    unowned var soldier: Soldier
     var sound: String
     
     var charge_timer: Float = 0
@@ -118,7 +118,7 @@ class ShootBehavior: Behavior {
                 particle.rate = 2.5 - 1 * weapon.firer.charge
                 let col = float4(0.65, 0.5, 0.5, 1)
                 particle.color = col
-                particle.display.color = col
+                particle.material.color = col
                 let t = Transform(weapon.firepoint - soldier.transform.location)
                 t.assign(soldier.transform)
                 particle.guider = FollowGuider(particle.body, t, 0.1.m + 0.1.m * weapon.firer.charge)
@@ -132,7 +132,11 @@ class ShootBehavior: Behavior {
     }
     
     func shouldFire() -> Bool {
-        let dl = Player.player.body.location - soldier.body.location
+        var dl = float2()
+        if let player = Player.player {
+            dl = player.body.location - soldier.body.location
+        }
+        
         let d = min(dl.x / 1.m, 1)
         let roll = (1 - d) * 0.2
         return random(0, 1) < (0.05 + roll)
@@ -153,7 +157,7 @@ class ShootBehavior: Behavior {
                 particle.rate = 3.5
                 let col = float4(0.85, 0.85, 0.85, 1)
                 particle.color = col
-                particle.display.color = col
+                particle.material.color = col
                 particle.body.velocity = weapon.direction * 2.5.m + float2(random(-1.m, 1.m), 0)
                 Map.current.append(particle)
             }

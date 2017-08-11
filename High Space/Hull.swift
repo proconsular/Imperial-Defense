@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol Hull {
+protocol Hull: class {
     var transform: Transform { get set }
     func getVertices() -> [float2]
     func getBounds() -> FixedRect

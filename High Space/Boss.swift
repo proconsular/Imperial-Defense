@@ -41,29 +41,3 @@ class FinalBattle {
     }
     
 }
-
-class Lava: Entity {
-    
-    var timer: Float = 0
-    
-    init(_ location: float2) {
-        let rect = Rect(location, float2(0.5.m))
-        super.init(rect, rect, Substance.getStandard(0.1))
-        display.texture = GLTexture("Lava").id
-        display.coordinates = SheetLayout(0, 3, 3).coordinates
-        body.noncolliding = true
-    }
-    
-    override func update() {
-        timer += Time.delta
-        if timer >= 0.25 {
-            timer = 0
-            let r = 0.1.m
-            let p = Particle(transform.location + float2(random(-r, 0.25.m), random(-0.25.m, 0.25.m)), random(2, 5))
-            p.color = float4(1, 163 / 255, 26 / 255, 1)
-            p.body.velocity = float2(0, -1.m)
-            Map.current.append(p)
-        }
-    }
-    
-}

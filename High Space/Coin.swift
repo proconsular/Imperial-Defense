@@ -20,10 +20,10 @@ class Coin: Entity {
         counter = timeout
         let rect = Rect(Transform(location), float2(0.6.m))
         super.init(rect, rect, Substance.getStandard(0.01))
-        display.texture = GLTexture("Crystal").id
-        display.coordinates = SheetLayout(0, 4, 1).coordinates
+        material.texture = GLTexture("Crystal")
+        material.coordinates = SheetLayout(0, 4, 1).coordinates
         body.mask = 0b0
-        display.order = -1
+        material.order = -1
         body.noncolliding = true
     }
     

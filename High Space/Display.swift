@@ -29,24 +29,25 @@ class Display: Render {
     let scheme: VisualSchemeGroup
     let visual: Visual!
     
+    var material: ClassicMaterial
     var technique: RenderTechnique = DefaultTechnique()
     
-    init(_ hull: Hull, _ texture: GLTexture) {
+    init(_ hull: Hull, _ material: ClassicMaterial) {
         transform = hull.transform
-        scheme = VisualSchemeGroup([VisualScheme(hull, VisualInfo(texture.id))])
+        self.material = material
+        scheme = VisualSchemeGroup([VisualScheme(hull, material)])
         visual = Visual(scheme)
     }
     
-    init(_ hull: Hull, _ texture: Texture) {
-        transform = hull.transform
-        scheme = VisualSchemeGroup([VisualScheme(hull, VisualInfo(texture.id))])
-        visual = Visual(scheme)
+    convenience init(_ hull: Hull, _ texture: GLTexture) {
+        self.init(hull, ClassicMaterial(texture))
     }
     
     init(_ location: float2, _ bounds: float2, _ texture: GLTexture) {
         let hull = Rect(location + float2(0, -GameScreen.size.y), bounds)
         transform = hull.transform
-        scheme =  VisualSchemeGroup([VisualScheme(hull, VisualInfo(texture.id))])
+        material = ClassicMaterial(texture)
+        scheme =  VisualSchemeGroup([VisualScheme(hull, material)])
         visual = Visual(scheme)
     }
     
@@ -58,9 +59,9 @@ class Display: Render {
         technique.render(visual)
     }
     
-    func flip(_ x: Float, _ y: Float) {
-        scheme.schemes[0].layout.flip(vector: float2(x, y))
-    }
+//    func flip(_ x: Float, _ y: Float) {
+//        scheme.schemes[0].layout.flip(vector: float2(x, y))
+//    }
     
     var order: Int {
         get { return scheme.schemes[0].order }
@@ -68,13 +69,13 @@ class Display: Render {
     }
     
     var coordinates: [float2] {
-        get { return scheme.schemes[0].coordinates }
-        set { scheme.schemes[0].layout.coordinates = newValue }
+        get { return material.coordinates }
+        set { material.coordinates = newValue }
     }
     
     var color: float4 {
-        get { return scheme.schemes[0].color }
-        set { scheme.schemes[0].info.color = newValue }
+        get { return material.color }
+        set { material.color = newValue }
     }
     
     var camera: Bool {
@@ -83,8 +84,8 @@ class Display: Render {
     }
     
     var texture: GLuint {
-        get { return scheme.schemes[0].texture }
-        set { scheme.schemes[0].info.texture = newValue }
+        get { return material.texture.id }
+        set { material.texture.id = newValue }
     }
 }
 
