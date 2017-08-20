@@ -8,17 +8,6 @@
 
 import Foundation
 
-class RenderLayout {
-    
-    var hull: Hull
-    var material: Material
-    
-    init(_ hull: Hull, _ material: Material) {
-        self.hull = hull
-        self.material = material
-    }
-    
-}
 
 class RenderTranslater {
     
@@ -111,16 +100,67 @@ class IndexBuffer: Buffer<UInt16> {
     
 }
 
+class MaterialValue: Equatable {
+    var name: String
+    var value: Any
+    
+    init(_ name: String, _ value: Any) {
+        self.name = name
+        self.value = value
+    }
+}
+
+func ==(_ prime: MaterialValue, _ second: MaterialValue) -> Bool {
+    if prime.name != second.name { return false }
+    if prime.value is Int {
+        return isEqual(type: Int.self, a: prime.value, b: second.value) ?? false
+    }
+    if prime.value is GLuint {
+        return isEqual(type: GLuint.self, a: prime.value, b: second.value) ?? false
+    }
+    if prime.value is Float {
+        return isEqual(type: Float.self, a: prime.value, b: second.value) ?? false
+    }
+    if prime.value is float4 {
+        return isEqual(type: float4.self, a: prime.value, b: second.value) ?? false
+    }
+    return false
+}
+
+
+
 class Material: Comparable {
-    unowned var shader: Shader
+    var shader: Int
     var order: Int
     
-    var properties: [MaterialProperty]
+    var properties: [MaterialValue]
     
     init() {
-        self.shader = Graphics.getShader(0)
+        shader = 0
         order = 0
         properties = []
+    }
+    
+    subscript(name: String) -> Any {
+        get {
+            return find(name).value
+        }
+        set {
+            if let p = find(name) {
+                p.value = newValue
+            }else{
+                properties.append(MaterialValue(name, newValue))
+            }
+        }
+    }
+    
+    func find(_ name: String) -> MaterialValue! {
+        for property in properties {
+            if property.name == name {
+                return property
+            }
+        }
+        return nil
     }
 }
 
@@ -155,6 +195,10 @@ class ClassicMaterial: Material {
         self.color = color
         coordinates = []
         super.init()
+        
+        self["order"] = order
+        self["texture"] = texture.id
+        self["shader"] = 0
     }
     
     convenience override init() {
@@ -226,8 +270,8 @@ class DefaultMaterial: Material {
     override init() {
         super.init()
         
-        properties.append(TextureProperty())
-        properties.append(ColorProperty())
+//        properties.append(TextureProperty())
+//        properties.append(ColorProperty())
     }
     
 }
@@ -237,7 +281,7 @@ class DummyMaterial: Material {
     override init() {
         super.init()
         
-        properties.append(TextualMaterialProperty("color"))
+//        properties.append(TextualMaterialProperty("color"))
         
     }
     

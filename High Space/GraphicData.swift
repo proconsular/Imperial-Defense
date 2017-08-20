@@ -78,6 +78,44 @@ class SchemeCompiler: GraphicDataCompiler {
     
 }
 
+class GraphicsInfoCompiler: GraphicDataCompiler {
+    let info: GraphicsInfo
+    
+    init(_ info: GraphicsInfo) {
+        self.info = info
+    }
+    
+    func compile() -> [Float] {
+        var compiled: [Float] = []
+        
+        let vertices = info.hull.getVertices()
+        let material = info.material as! ClassicMaterial
+        let coordinates = material.coordinates
+        let color = info.material["color"] as! float4
+        
+        for i in 0 ..< vertices.count {
+            compiled.append(contentsOf: [vertices[i].x, vertices[i].y, coordinates[i].x, coordinates[i].y, color.x, color.y, color.z, color.w])
+        }
+        
+        return compiled
+    }
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -9,68 +9,51 @@
 import Foundation
 
 protocol GraphicsMethod {
-    func create(_ info: GraphicsInfo) -> RenderHandle!
+    func create(_ info: GraphicsInfo)
     
     func update()
     func render()
 }
 
 class GraphicsInfo {
+    var active: Bool
     let hull: Hull
     let material: Material
     
     init(_ hull: Hull, _ material: Material) {
         self.hull = hull
         self.material = material
-    }
-    
-}
-
-class RenderHandle {
-    var alive: Bool
-    var info: GraphicsInfo
-    
-    init(_ info: GraphicsInfo) {
-        self.info = info
-        alive = true
-    }
-    
-    func destroy() {
-        alive = false
+        active = true
     }
 }
 
 class RenderNode {
-    let handle: RenderHandle
+    let handle: GraphicsInfo
     let render: Render
     
-    init(_ handle: RenderHandle, _ render: Render) {
+    init(_ handle: GraphicsInfo, _ render: Render) {
         self.handle = handle
         self.render = render
     }
 }
 
 class SingleDisplayMethod: GraphicsMethod {
-    
     var nodes: [RenderNode]
     
     init() {
         nodes = []
     }
     
-    func create(_ info: GraphicsInfo) -> RenderHandle! {
+    func create(_ info: GraphicsInfo) {
         if let material = info.material as? ClassicMaterial {
             let display = Display(info.hull, material)
-            let handle = RenderHandle(info)
-            nodes.append(RenderNode(handle, display))
-            return handle
+            nodes.append(RenderNode(info, display))
         }
-        return nil
     }
     
     func update() {
-        nodes = nodes.filter{ $0.handle.alive }
-        nodes = nodes.sorted{ $0.handle.info.material < $1.handle.info.material }
+        nodes = nodes.filter{ $0.handle.active }
+        nodes = nodes.sorted{ $0.handle.material < $1.handle.material }
         for node in nodes {
             node.render.refresh()
         }
@@ -84,18 +67,59 @@ class SingleDisplayMethod: GraphicsMethod {
     
 }
 
-class SortedRendererMethod: GraphicsMethod {
-    
-    var index: RenderTree
+class NodeIndex: PropertyNodeDelegate {
+    var groups: [RenderGroupNode]
     
     init() {
-        index = RenderTree()
+        groups = []
     }
     
-    func create(_ info: GraphicsInfo) -> RenderHandle! {
-        let handle = RenderHandle(info)
-        index.append(handle)
-        return handle
+    func inserted(_ node: PropertyRenderNode) {
+        groups.append(RenderGroupNode(node))
+    }
+    
+    func render() {
+        for group in groups {
+            group.render()
+        }
+    }
+}
+
+class SortedRendererMethod: GraphicsMethod {
+    var rootNode: PropertyRenderNode
+    var nodeIndex: NodeIndex
+    
+    init() {
+        rootNode = PropertyRenderNode()
+        nodeIndex = NodeIndex()
+        PropertyRenderNode.delegate = nodeIndex
+    }
+    
+    func create(_ info: GraphicsInfo) {
+        rootNode.insert(info)
+    }
+    
+    func update() {
+        rootNode.clean()
+    }
+    
+    func render() {
+        nodeIndex.render()
+    }
+}
+
+class RenderGroupNode: PropertyNodeListener {
+    let node: PropertyRenderNode
+    var renderer: GroupRenderer!
+    
+    init(_ node: PropertyRenderNode) {
+        self.node = node
+        renderer = DisplayGroupRenderer()
+        node.listener = self
+    }
+    
+    func appeneded(_ info: GraphicsInfo) {
+        renderer.append(info)
     }
     
     func update() {
@@ -103,46 +127,35 @@ class SortedRendererMethod: GraphicsMethod {
     }
     
     func render() {
-        
+        renderer.render()
     }
     
 }
 
-class RenderTree {
-    
-    var root: TreeNode
+protocol GroupRenderer {
+    func append(_ info: GraphicsInfo)
+    func render()
+}
+
+class DisplayGroupRenderer: GroupRenderer {
+    var renderers: [Display]
     
     init() {
-        root = TreeNode("")
+        renderers = []
     }
     
-    func append(_ node: RenderHandle) {
-        let properties = node.info.material.properties
-        for node in root.nodes {
-            
+    func append(_ info: GraphicsInfo) {
+        renderers.append(Display(info.hull, info.material as! ClassicMaterial))
+    }
+    
+    func render() {
+        for renderer in renderers {
+            renderer.refresh()
+            renderer.render()
         }
     }
     
 }
-
-class TreeNode {
-    
-    var property: String
-    
-    var nodes: [TreeNode]
-    
-    init(_ property: String) {
-        self.property = property
-        nodes = []
-    }
-    
-}
-
-
-
-
-
-
 
 
 

@@ -16,7 +16,7 @@ protocol Actor {
 class Entity: Actor {
     unowned let transform: Transform
     
-    let handle: RenderHandle
+    let handle: GraphicsInfo
     var material: ClassicMaterial
     let body: Body
     
@@ -28,7 +28,8 @@ class Entity: Actor {
         self.transform = hull.transform
         material =  ClassicMaterial()
         material.coordinates = HullLayout(hull).coordinates
-        handle = Graphics.create(GraphicsInfo(hull, material))
+        handle = GraphicsInfo(hull, material)
+        Graphics.create(handle)
         body = Body(bodyhull, substance)
     }
     
@@ -45,6 +46,6 @@ class Entity: Actor {
     }
     
     deinit {
-        handle.destroy()
+        handle.active = false
     }
 }

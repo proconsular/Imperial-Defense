@@ -66,6 +66,8 @@
 		222FA5F71E5E98E100D4A931 /* Texture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222FA5F61E5E98E100D4A931 /* Texture.swift */; };
 		2232938A1ECBFA3D00A2B032 /* Bloom.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 223293891ECBFA3D00A2B032 /* Bloom.vsh */; };
 		2232938C1ECBFA4A00A2B032 /* Bloom.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 2232938B1ECBFA4A00A2B032 /* Bloom.fsh */; };
+		2239566E1F45323D00EB5CBA /* Sorting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2239566D1F45323D00EB5CBA /* Sorting.swift */; };
+		223956701F47C66500EB5CBA /* Rendering.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2239566F1F47C66500EB5CBA /* Rendering.swift */; };
 		223C4D4F1F08CC7D00820519 /* 0 Title.wav in Resources */ = {isa = PBXBuildFile; fileRef = 223C4D4E1F08CC7D00820519 /* 0 Title.wav */; };
 		2241540A1F04AFEC0046CFDA /* StoryIntro.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224154091F04AFEC0046CFDA /* StoryIntro.swift */; };
 		2241540F1F04B1880046CFDA /* Story.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2241540E1F04B1880046CFDA /* Story.swift */; };
@@ -378,6 +380,8 @@
 		222FA5F61E5E98E100D4A931 /* Texture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Texture.swift; sourceTree = "<group>"; };
 		223293891ECBFA3D00A2B032 /* Bloom.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Bloom.vsh; sourceTree = "<group>"; };
 		2232938B1ECBFA4A00A2B032 /* Bloom.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Bloom.fsh; sourceTree = "<group>"; };
+		2239566D1F45323D00EB5CBA /* Sorting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sorting.swift; sourceTree = "<group>"; };
+		2239566F1F47C66500EB5CBA /* Rendering.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rendering.swift; sourceTree = "<group>"; };
 		223C4D4E1F08CC7D00820519 /* 0 Title.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "0 Title.wav"; sourceTree = "<group>"; };
 		224154091F04AFEC0046CFDA /* StoryIntro.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryIntro.swift; sourceTree = "<group>"; };
 		2241540E1F04B1880046CFDA /* Story.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Story.swift; sourceTree = "<group>"; };
@@ -1218,6 +1222,8 @@
 				22A9F80B1D5806650097FD61 /* Display.swift */,
 				22FBF6B21E13198300B7824C /* DisplayAdapter.swift */,
 				22F03C331F2C25EE004F2BF1 /* RenderFactory.swift */,
+				2239566D1F45323D00EB5CBA /* Sorting.swift */,
+				2239566F1F47C66500EB5CBA /* Rendering.swift */,
 			);
 			name = display;
 			sourceTree = "<group>";
@@ -1469,11 +1475,13 @@
 				2241540F1F04B1880046CFDA /* Story.swift in Sources */,
 				2205EF3C1EB19EC400DEFFF2 /* Behavior.swift in Sources */,
 				22613CF01DC555D400FECAB0 /* Utlity.swift in Sources */,
+				2239566E1F45323D00EB5CBA /* Sorting.swift in Sources */,
 				22429FD51E5B9CDD004BCBD0 /* Actorate.swift in Sources */,
 				22032F5C1E0F0342001462C2 /* Bullet.swift in Sources */,
 				22613CF21DC555D400FECAB0 /* Bridge.m in Sources */,
 				22032F3B1E0EFB9C001462C2 /* Scheme.swift in Sources */,
 				22613CF31DC555D400FECAB0 /* main.m in Sources */,
+				223956701F47C66500EB5CBA /* Rendering.swift in Sources */,
 				22613CF41DC555D400FECAB0 /* High Space-Bridging-Header.h in Sources */,
 				22032F431E0EFE87001462C2 /* Rect.swift in Sources */,
 				2254AB131F1B382C0020DD01 /* Boss.swift in Sources */,

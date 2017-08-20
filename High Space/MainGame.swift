@@ -27,7 +27,7 @@ let sound_volume: Float = 0.1
 //        
         
         GameScreen.create()
-        interface = GameBase()
+        interface = GameRenderTest()
         super.init()
     }
     
@@ -46,35 +46,47 @@ protocol GameInterface {
     func render()
 }
 
-//class GameExperiment: GameInterface {
-//    
-//    let texture: Texture
-//    let display: Display
-//    var data: [UInt32]
-//    let count = 512
-//    
-//    init() {
-//        data = Array<UInt32>(repeating: 0, count: count * count)
-//        texture = Texture(float2(Float(count)))
-//        texture.create(data)
-//        display = Display(Rect(Camera.size / 2, Camera.size), texture)
-//    }
-//    
-//    func update() {
-//        
-//    }
-//    
-//    func render() {
-//        data = data.rotate(-1)
-//        let random = Int(arc4random() % UInt32(data.count))
-//        
-//        data[random] = Texture.computeColor(float4(1, 0.5, 1, 1))
-//        texture.create(data)
-//        
-//        display.render()
-//    }
-//    
-//}
+class GameRenderTest: GameInterface {
+    
+    let method: SortedRendererMethod
+    
+    init() {
+        Camera.current = Camera()
+        
+        method = SortedRendererMethod()
+        
+        method.create(GraphicsInfo(Rect(float2(3.m, -3.m), float2(2.m, 1.m)), ClassicMaterial(GLTexture())))
+        method.create(GraphicsInfo(Rect(float2(4.m, -5.m), float2(2.m, 2.m)), ClassicMaterial(GLTexture())))
+        
+        print(method.rootNode.describe())
+    }
+    
+    func update() {
+        method.update()
+    }
+    
+    func render() {
+        method.render()
+    }
+    
+}
+
+class GameTester: GameInterface {
+    
+    init() {
+        let sorter = SortingTester()
+        sorter.update()
+    }
+    
+    func update() {
+        
+    }
+    
+    func render() {
+        
+    }
+    
+}
 
 var upgrader: Upgrader!
 
