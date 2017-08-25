@@ -16,13 +16,14 @@ class Scout: Soldier {
         weapon = Weapon(transform, float2(0, 1), firer)
         weapon?.offset = float2(-0.2.m, -0.7.m)
         
-        material.texture = GLTexture("Scout")
+        material["texture"] = GLTexture("Scout").id
         animator.set(1)
         
         sprinter = true
         
         behavior.base.append(MarchBehavior(self, animator))
         behavior.base.append(ShootBehavior(weapon!, self, "enemy-shoot-light"))
+        
     }
     
 }
@@ -36,6 +37,7 @@ class Banker: Soldier {
         drop = CoinDrop(Int(clamp(GameData.info.wave / 10, min: 0, max: 2) + 1), 1)
         behavior.base.append(MarchBehavior(self, animator))
         canSprint = true
+        
     }
     
 }
@@ -48,13 +50,14 @@ class Captain: Soldier {
         weapon = Weapon(transform, float2(0, 1), firer)
         weapon?.offset = float2(-0.2.m, -0.7.m)
         
-        material.texture = GLTexture("Captain")
+        material["texture"] = GLTexture("Captain").id
         
         canSprint = true
         
         behavior.base.append(MarchBehavior(self, animator))
         behavior.base.append(ShootBehavior(weapon!, self))
         behavior.base.append(RushBehavior(transform, 3.m))
+        
     }
     
 }
@@ -67,7 +70,7 @@ class Commander: Soldier {
         weapon = Weapon(transform, float2(0, 1), firer)
         weapon?.offset = float2(-0.2.m, -0.7.m)
         
-        material.texture = GLTexture("Commander")
+        material["texture"] = GLTexture("Commander").id
         
         behavior.base.append(MarchBehavior(self, animator))
         behavior.base.append(ShootBehavior(weapon!, self))
@@ -85,7 +88,7 @@ class Thief: Soldier {
         weapon = Weapon(transform, float2(0, 1), firer)
         weapon?.offset = float2(-0.2.m, -0.7.m)
         
-        material.texture = GLTexture("Thief")
+        material["texture"] = GLTexture("Thief").id
         animator.set(1)
         
         sprinter = true
@@ -93,6 +96,7 @@ class Thief: Soldier {
         behavior.base.append(MarchBehavior(self, animator))
         behavior.base.append(ShootBehavior(weapon!, self, "enemy-shoot-light"))
         behavior.base.append(DodgeBehavior(self, 0.5))
+        
     }
     
 }
@@ -104,7 +108,7 @@ class Healer: Soldier {
         behavior.base.append(MarchBehavior(self, animator))
         behavior.base.append(HealBehavior(self))
         
-        material.texture = GLTexture("Healer")
+        material["texture"] = GLTexture("Healer").id
     }
     
 }
@@ -117,7 +121,7 @@ class Heavy: Soldier {
         weapon = Weapon(transform, float2(0, 1), firer)
         weapon?.offset = float2(-0.2.m, -0.7.m)
         
-        material.texture = GLTexture("Heavy")
+        material["texture"] = GLTexture("Heavy").id
         
         behavior.base.append(MarchBehavior(self, animator))
         behavior.base.append(ShootBehavior(weapon!, self, "enemy-shoot-heavy"))
@@ -134,7 +138,7 @@ class Sniper: Soldier {
         weapon = Weapon(transform, float2(0, 1), firer)
         weapon?.offset = float2(-0.2.m, -0.7.m)
         
-        material.texture = GLTexture("Sniper")
+        material["texture"] = GLTexture("Sniper").id
         
         behavior.base.append(MarchBehavior(self, animator))
         behavior.base.append(ShootBehavior(weapon!, self, "enemy-shoot-snipe"))
@@ -156,7 +160,7 @@ class Mage: Soldier {
         weapon = HomingWeapon(transform, float2(0, 1), firer)
         weapon?.offset = float2(-0.2.m, -0.7.m)
         
-        material.texture = GLTexture("Mage")
+        material["texture"] = GLTexture("Mage").id
         material.coordinates = SheetLayout(0, 12, 3).coordinates
 //        display.refresh()
         
@@ -219,9 +223,9 @@ class Emperor: Soldier {
         weapon = HomingWeapon(transform, float2(0, 1), firer)
         weapon?.offset = float2(-0.2.m, -0.7.m)
         
-        material.texture = GLTexture("Emperor")
+        material["texture"] = GLTexture("Emperor").id
 //        material.technique = DefaultTechnique()
-        material.order = 200
+        material["order"] = 200
         
         animator = BaseMarchAnimator(body, 0.35, 26.m)
         let t = animator.player.animation as! TextureAnimator

@@ -42,7 +42,7 @@ class Soldier: Entity, Damagable {
         
         super.init(rect, bodyhull, Substance.getStandard(100))
         
-        material.texture = GLTexture("Soldier4")
+        material["texture"] = GLTexture("Soldier4").id
         let brightness: Float = 0.5
         material.color = float4(brightness, brightness, brightness, 1)
         

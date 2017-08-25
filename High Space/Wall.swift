@@ -21,12 +21,12 @@ class Wall: Structure, Damagable {
         let amount = upgrader.barrier.range.amount
         sheet = SheetLayout(3 - Int(amount / 1.5), 1, 6)
         super.init(location, float2(64, 32) * 4)
-        material.texture = GLTexture("barrier_castle")
-        material.color = float4(1, 1, 1, 1)
+        material["texture"] = GLTexture("barrier_castle").id
+        material["color"] = float4(1, 1, 1, 1)
         material.coordinates = sheet.coordinates
         body.object = self
         body.mask = 0b1
-        material.order = -1
+        material["order"] = -1
     }
     
     override func update() {

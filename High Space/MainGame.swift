@@ -27,7 +27,7 @@ let sound_volume: Float = 0.1
 //        
         
         GameScreen.create()
-        interface = GameRenderTest()
+        interface = GameBase()
         super.init()
     }
     
@@ -50,23 +50,59 @@ class GameRenderTest: GameInterface {
     
     let method: SortedRendererMethod
     
+    let renderer: BaseRenderer
+    let rect: Rect
+    let rect2: Rect
+    
+    let graphic: GraphicsInfo
+    
     init() {
         Camera.current = Camera()
         
         method = SortedRendererMethod()
         
-        method.create(GraphicsInfo(Rect(float2(3.m, -3.m), float2(2.m, 1.m)), ClassicMaterial(GLTexture())))
+        rect2 = Rect(float2(3.m, -3.m), float2(2.m, 1.m))
+        
+        method.create(GraphicsInfo(rect2, ClassicMaterial(GLTexture())))
         method.create(GraphicsInfo(Rect(float2(4.m, -5.m), float2(2.m, 2.m)), ClassicMaterial(GLTexture())))
         
         print(method.rootNode.describe())
+        
+        let gr = GraphicsInfo(Rect(float2(10.m, -5.m), float2(4.m, 2.m)), ClassicMaterial(GLTexture("stonefloor")))
+        
+        rect = Rect(float2(15.m, -5.m), float2(4.m, 2.m))
+        
+        graphic = GraphicsInfo(rect, ClassicMaterial(GLTexture("stonefloor")))
+        
+        renderer = BaseRenderer()
+        
+        renderer.append(gr)
+        renderer.append(graphic)
+        
+        renderer.compile()
     }
     
     func update() {
+        rect2.transform.location.x += 0.5.m * Time.delta
+        rect2.transform.orientation += 0.4 * Time.delta
+        
         method.update()
+        
+        rect.transform.location.x += 0.5.m * Time.delta
+        rect.transform.orientation += 0.1 * Time.delta
+        
+        if rect.transform.location.x >= 20.m {
+            graphic.active = false
+        }
     }
     
     func render() {
         method.render()
+        
+        renderer.update()
+        
+        renderer.bind()
+        renderer.render()
     }
     
 }
@@ -107,7 +143,7 @@ class GameBase: GameInterface {
         GameData.info.level = 0
        // GameData.info.points = 15
         GameData.info.wave = 0
-            
+        
 
 //        upgrader.firepower.range.amount = 5
 //        upgrader.shieldpower.range.amount = 5

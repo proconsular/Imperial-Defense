@@ -57,6 +57,7 @@ protocol PropertyNodeListener {
 class PropertyRenderNode {
     
     static var delegate: PropertyNodeDelegate? = nil
+    static var root: PropertyRenderNode!
     
     var listener: PropertyNodeListener?
     
@@ -81,6 +82,11 @@ class PropertyRenderNode {
         }
         nodes = nodes.filter {
             if let info = $0.info {
+                if info.material.dirty {
+                    info.material.dirty = false
+                    PropertyRenderNode.root.insert(info)
+                    return false
+                }
                 return info.active
             }
             return $0.nodes.count > 0

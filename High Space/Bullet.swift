@@ -19,7 +19,7 @@ class Bullet: Entity {
         let rect = Rect(location, casing.size)
         super.init(rect, rect, Substance(PhysicalMaterial(.wood), Mass(0.05, 0), Friction(.iron)))
         
-        material.texture = GLTexture("bullet")
+        material["texture"] = GLTexture("bullet").id
         material.coordinates = SheetLayout(casing.tag == "player" ? casing.index != -1 ? casing.index : 1 : 0, 1, 4).coordinates
         //display.color = casing.color
         

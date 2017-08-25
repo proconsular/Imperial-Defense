@@ -46,6 +46,20 @@ class VertexArray {
     deinit {
         GLHelper.deleteVertexArray(id)
     }
+    
+    static func enableAttribute(_ attribute: GLKVertexAttrib) {
+        glEnableVertexAttribArray(GLuint(attribute.rawValue))
+    }
+    
+    static func enableAttributePointer(_ attribute: GLKVertexAttrib, _ size: Int, _ normalized: GLboolean, _ stride: Int, _ offset: Int) {
+        glVertexAttribPointer(GLuint(attribute.rawValue), GLint(size), GLenum(GL_FLOAT), normalized, GLsizei(stride), GLHelper.createOffset(Int32(offset)))
+    }
+    
+    static func enableAttributes() {
+        VertexArray.enableAttributePointer(.position, 2, GLboolean(GL_FALSE), 32, 0)
+        VertexArray.enableAttributePointer(.texCoord0, 2, GLboolean(GL_FALSE), 32, 8)
+        VertexArray.enableAttributePointer(.color, 4, GLboolean(GL_FALSE), 32, 16)
+    }
 }
 
 class BufferSet {
@@ -63,9 +77,11 @@ class BufferSet {
 class Buffer<Value> {
     let id: GLuint
     private let type: GLenum
+    let data: [Value]
     
     init(_ type: GLenum, _ data: [Value], _ usage: GLenum) {
         id = GLHelper.createBuffer()
+        self.data = data
         self.type = type
         glBindBuffer(type, id)
         let d = data.asData()
@@ -88,6 +104,21 @@ class VertexBuffer: Buffer<Float> {
     
     init(_ data: [Float]) {
         super.init(GLenum(GL_ARRAY_BUFFER), data, GLenum(GL_DYNAMIC_DRAW))
+    }
+    
+    func upload(_ data: [Float]) {
+        bind()
+        
+        let size = data.count * MemoryLayout<Float>.size
+        
+        let memory = data.asData()
+        let buffer_memory = glMapBufferRange(GLenum(GL_ARRAY_BUFFER), 0, size, GLbitfield(GL_MAP_WRITE_BIT | GL_MAP_INVALIDATE_BUFFER_BIT))
+        memcpy(buffer_memory, memory, size)
+        
+        memory.deinitialize()
+        memory.deallocate(capacity: data.count)
+        
+        glUnmapBuffer(GLenum(GL_ARRAY_BUFFER))
     }
     
 }
@@ -127,13 +158,12 @@ func ==(_ prime: MaterialValue, _ second: MaterialValue) -> Bool {
     return false
 }
 
-
-
 class Material: Comparable {
     var shader: Int
     var order: Int
     
     var properties: [MaterialValue]
+    var dirty = false
     
     init() {
         shader = 0
@@ -148,6 +178,7 @@ class Material: Comparable {
         set {
             if let p = find(name) {
                 p.value = newValue
+                dirty = true
             }else{
                 properties.append(MaterialValue(name, newValue))
             }
@@ -193,12 +224,13 @@ class ClassicMaterial: Material {
     init(_ texture: GLTexture, _ color: float4 = float4(1)) {
         self.texture = texture
         self.color = color
-        coordinates = []
+        coordinates = [float2(0, 0), float2(1, 0), float2(1, 1), float2(0, 1)].rotate(3)
         super.init()
         
+        self["shader"] = 0
         self["order"] = order
         self["texture"] = texture.id
-        self["shader"] = 0
+        self["color"] = color
     }
     
     convenience override init() {

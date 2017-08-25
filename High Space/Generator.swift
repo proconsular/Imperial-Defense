@@ -79,7 +79,10 @@ class LegionGenerator: Generator {
             for i in 0 ..< difficulty.size {
                 difficulty.row = i
                 let row = row_gen.create(float2(Map.current.size.x / 2, -12.m - Float(i) * 1.25.m) + offset)
-                row.soldiers.forEach{ $0.material.order += -i }
+                row.soldiers.forEach{
+                    let order = $0.material["order"] as! Int
+                    $0.material["order"] = order + -i
+                }
                 rows.append(row)
             }
         }

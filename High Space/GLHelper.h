@@ -26,4 +26,7 @@
 +(void)deleteFramebuffer:(GLuint)frame;
 +(void)deleteTexture:(GLuint)texture;
 
++(GLvoid *)createOffset:(int)offset;
++(GLfloat *)convertMatrix:(GLKMatrix4)matrix;
+
 @end

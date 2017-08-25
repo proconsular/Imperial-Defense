@@ -145,6 +145,10 @@ class Game: DisplayLayer {
             
             final_battle = FinalBattle(Emperor.instance)
         }
+        
+//        if let method = Graphics.method as? SortedRendererMethod {
+//            print(method.rootNode.describe())
+//        }
     }
     
     func createWalls(_ width: Float) {
@@ -224,6 +228,8 @@ class Game: DisplayLayer {
         }
         
         scenery.update()
+        
+        Graphics.update()
     }
     
     func start() {

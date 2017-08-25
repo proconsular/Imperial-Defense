@@ -48,7 +48,7 @@ class Edgeform: Form {
 }
 
 class Radialform: Form {
-    let divides = 40
+    static let divides = 40
     var vertices: [float2] = []
     var radius: Float
     
@@ -62,8 +62,8 @@ class Radialform: Form {
         
         verts.append(float2())
         
-        for n in 1 ..< divides + 1 {
-            let percent = Float(n - 1) / Float(divides)
+        for n in 1 ..< Radialform.divides + 1 {
+            let percent = Float(n - 1) / Float(Radialform.divides)
             let angle = percent * Float(Float.pi * 2)
             verts.append(radius * float2(cosf(angle), sinf(angle)))
         }

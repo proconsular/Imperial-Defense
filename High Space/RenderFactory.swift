@@ -78,6 +78,12 @@ class NodeIndex: PropertyNodeDelegate {
         groups.append(RenderGroupNode(node))
     }
     
+    func update() {
+        for group in groups {
+            group.update()
+        }
+    }
+    
     func render() {
         for group in groups {
             group.render()
@@ -93,6 +99,7 @@ class SortedRendererMethod: GraphicsMethod {
         rootNode = PropertyRenderNode()
         nodeIndex = NodeIndex()
         PropertyRenderNode.delegate = nodeIndex
+        PropertyRenderNode.root = rootNode
     }
     
     func create(_ info: GraphicsInfo) {
@@ -101,6 +108,7 @@ class SortedRendererMethod: GraphicsMethod {
     
     func update() {
         rootNode.clean()
+        nodeIndex.update()
     }
     
     func render() {
@@ -110,20 +118,21 @@ class SortedRendererMethod: GraphicsMethod {
 
 class RenderGroupNode: PropertyNodeListener {
     let node: PropertyRenderNode
-    var renderer: GroupRenderer!
+    var renderer: GraphicsRenderer!
     
     init(_ node: PropertyRenderNode) {
         self.node = node
-        renderer = DisplayGroupRenderer()
+        renderer = BaseRenderer()
         node.listener = self
     }
     
     func appeneded(_ info: GraphicsInfo) {
         renderer.append(info)
+        renderer.compile()
     }
     
     func update() {
-        
+        renderer.update()
     }
     
     func render() {
@@ -132,12 +141,14 @@ class RenderGroupNode: PropertyNodeListener {
     
 }
 
-protocol GroupRenderer {
+protocol GraphicsRenderer {
     func append(_ info: GraphicsInfo)
+    func compile()
+    func update()
     func render()
 }
 
-class DisplayGroupRenderer: GroupRenderer {
+class DisplayGroupRenderer: GraphicsRenderer {
     var renderers: [Display]
     
     init() {
@@ -146,6 +157,14 @@ class DisplayGroupRenderer: GroupRenderer {
     
     func append(_ info: GraphicsInfo) {
         renderers.append(Display(info.hull, info.material as! ClassicMaterial))
+    }
+    
+    func compile() {
+        
+    }
+    
+    func update() {
+        
     }
     
     func render() {

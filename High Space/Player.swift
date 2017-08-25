@@ -145,11 +145,11 @@ class Player: Entity, Damagable {
         
         body.mask = 0b10
         body.object = self
-        material.texture = GLTexture("Player")
+        material["texture"] = GLTexture("Player").id
         material.coordinates = animator.coordinates
         
         Player.player = self
-        material.order  = 100
+        material["order"]  = 100
         
         terminator = ExplosionTerminator(self, 5.m, float4(1, 1, 1, 1))
         

@@ -26,11 +26,14 @@ class Entity: Actor {
     
     init(_ hull: Hull, _ bodyhull: Hull, _ substance: Substance) {
         self.transform = hull.transform
-        material =  ClassicMaterial()
+        material = ClassicMaterial()
         material.coordinates = HullLayout(hull).coordinates
         handle = GraphicsInfo(hull, material)
-        Graphics.create(handle)
         body = Body(bodyhull, substance)
+    }
+    
+    func compile() {
+        Graphics.create(handle)
     }
     
     func update() {

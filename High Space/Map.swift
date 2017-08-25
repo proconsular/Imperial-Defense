@@ -34,6 +34,7 @@ class Map {
         }
         actorate.append(element)
         grid.append(element)
+        element.compile()
     }
     
     func remove(_ element: Entity) {
@@ -94,7 +95,7 @@ class Map {
     }
     
     func render() {
-        renderSystem.render()
+        //renderSystem.render()
     }
     
 }

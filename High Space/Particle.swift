@@ -122,7 +122,7 @@ class Explosion: Entity {
         circle = Circle(Transform(location), 0)
         super.init(circle, circle, Substance.getStandard(1))
         body.mask = 0b0
-        material.order = 2
+        material["order"] = 2
         body.noncolliding = true
     }
     
@@ -134,14 +134,9 @@ class Explosion: Entity {
             alive = false
         }
         circle.setRadius(radius * (1 - opacity))
-        material.color = float4(opacity) * color
+        material["color"] = float4(opacity) * color
     }
-    
-    override func render() {
-//      Displayay.refresh()
-        super.render()
-    }
-    
+
 }
 
 class TextParticle: Entity {

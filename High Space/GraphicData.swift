@@ -94,7 +94,8 @@ class GraphicsInfoCompiler: GraphicDataCompiler {
         let color = info.material["color"] as! float4
         
         for i in 0 ..< vertices.count {
-            compiled.append(contentsOf: [vertices[i].x, vertices[i].y, coordinates[i].x, coordinates[i].y, color.x, color.y, color.z, color.w])
+            let vertex = info.hull.transform.apply(vertices[i])
+            compiled.append(contentsOf: [vertex.x, vertex.y, coordinates[i].x, coordinates[i].y, color.x, color.y, color.z, color.w])
         }
         
         return compiled

@@ -36,7 +36,7 @@ class RawVisualScheme: NSObject, RawScheme {
         if scheme.hull is Circle {
             indexer = DividedPolygonIndexer()
             let circle = scheme.hull as! Circle
-            indices.append(contentsOf: indexer.computeIndices(circle.form.divides))
+            indices.append(contentsOf: indexer.computeIndices(Radialform.divides))
         }else{
             indexer = PolygonIndexer()
             indices.append(contentsOf: indexer.computeIndices(info.amountOfSides))
@@ -51,7 +51,7 @@ class RawVisualScheme: NSObject, RawScheme {
     
     func getIndexBufferSize() -> Int32 {
         if let circle = scheme.hull as? Circle {
-            return Int32(circle.form.divides * 6)
+            return Int32(Radialform.divides * 6)
         }
         return Int32(info.amountOfIndices)
     }

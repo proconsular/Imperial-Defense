@@ -10,6 +10,8 @@
 @import OpenGLES;
 #import "GameViewController.h"
 
+#define BUFFER_OFFSET(i) ((char *)NULL + (i))
+
 @implementation GLHelper
 
 +(GLuint)createVertexArray{
@@ -56,6 +58,15 @@
 
 +(void)deleteTexture:(GLuint)texture{
     glDeleteTextures(1, &texture);
+}
+
++(GLvoid *)createOffset:(int)offset{
+    return BUFFER_OFFSET(offset);
+}
+
++(GLfloat *)convertMatrix:(GLKMatrix4)matrix {
+    GLfloat *pointer = matrix.m;
+    return pointer;
 }
 
 @end

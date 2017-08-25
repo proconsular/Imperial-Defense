@@ -87,6 +87,10 @@ class Texture: NSObject {
         GLHelper.deleteTexture(id)
     }
     
+    static func bind(_ value: Any) {
+        glBindTexture(GLenum(GL_TEXTURE_2D), value as! GLuint)
+    }
+    
 }
 
 class RenderTexture {
