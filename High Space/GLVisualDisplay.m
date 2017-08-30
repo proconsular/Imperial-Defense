@@ -37,7 +37,8 @@
     
     GLenum error = glGetError();
     if (error != 0) {
-        NSLog(@"%u", error);
+        NSLog(@"gl: %u", error);
+        //assert(false);
     }
 }
 

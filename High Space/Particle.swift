@@ -23,7 +23,7 @@ class Particle: Entity {
         super.init(rect, rect, Substance.getStandard(0.01))
         body.mask = 0b0
         color = float4(1, 1, 1, 1)
-        material.order = 1
+        material["order"] = 1
         body.noncolliding = true
     }
     
@@ -34,7 +34,7 @@ class Particle: Entity {
         if opacity <= Float.ulpOfOne {
             alive = false
         }
-        material.color = float4(opacity) * color
+        material["color"] = float4(opacity) * color
         guider?.update()
         body.velocity *= drag
     }

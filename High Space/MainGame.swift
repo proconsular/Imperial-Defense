@@ -139,11 +139,11 @@ class GameBase: GameInterface {
         for u in upgrader.upgrades {
             u.range.amount = Float(GameData.info.upgrades[u.name]!)
         }
-        
-        GameData.info.level = 0
-       // GameData.info.points = 15
-        GameData.info.wave = 0
-        
+//        
+//        GameData.info.level = 0
+//       // GameData.info.points = 15
+//        GameData.info.wave = 0
+//        
 
 //        upgrader.firepower.range.amount = 5
 //        upgrader.shieldpower.range.amount = 5

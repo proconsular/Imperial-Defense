@@ -34,7 +34,7 @@ class SplashPlayer: Entity, Damagable {
         player_animation = Animator(TimedAnimationPlayer(anim))
         
         shield = Shield(Float(40), Float(1), Float(20))
-        player.technique = ShieldTechnique(shield, player.transform, float4(48 / 255, 181 / 255, 206 / 255, 1), 48 * 5)
+        //player.technique = ShieldTechnique(shield, player.transform, float4(48 / 255, 181 / 255, 206 / 255, 1), 48 * 5)
         
         super.init(Rect(player.transform, float2()), Rect(player.transform, float2(0.75.m, 2.m)), Substance.getStandard(0.1))
         

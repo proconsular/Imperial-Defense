@@ -98,18 +98,10 @@ class Buffer<Value> {
         GLHelper.deleteBuffer(id)
     }
     
-}
-
-class VertexBuffer: Buffer<Float> {
-    
-    init(_ data: [Float]) {
-        super.init(GLenum(GL_ARRAY_BUFFER), data, GLenum(GL_DYNAMIC_DRAW))
-    }
-    
     func upload(_ data: [Float]) {
         bind()
         
-        let size = data.count * MemoryLayout<Float>.size
+        let size = data.count * MemoryLayout<Value>.size
         
         let memory = data.asData()
         let buffer_memory = glMapBufferRange(GLenum(GL_ARRAY_BUFFER), 0, size, GLbitfield(GL_MAP_WRITE_BIT | GL_MAP_INVALIDATE_BUFFER_BIT))
@@ -123,6 +115,14 @@ class VertexBuffer: Buffer<Float> {
     
 }
 
+class VertexBuffer: Buffer<Float> {
+    
+    init(_ data: [Float]) {
+        super.init(GLenum(GL_ARRAY_BUFFER), data, GLenum(GL_DYNAMIC_DRAW))
+    }
+    
+}
+
 class IndexBuffer: Buffer<UInt16> {
     
     init(_ data: [UInt16]) {
@@ -131,9 +131,10 @@ class IndexBuffer: Buffer<UInt16> {
     
 }
 
-class MaterialValue: Equatable {
+struct MaterialValue: Equatable {
     var name: String
     var value: Any
+    var sorted: Bool = true
     
     init(_ name: String, _ value: Any) {
         self.name = name
@@ -176,8 +177,9 @@ class Material: Comparable {
             return find(name).value
         }
         set {
-            if let p = find(name) {
+            if var p = find(name) {
                 p.value = newValue
+                properties[findIndex(name)] = p
                 dirty = true
             }else{
                 properties.append(MaterialValue(name, newValue))
@@ -193,6 +195,38 @@ class Material: Comparable {
         }
         return nil
     }
+    
+    func findIndex(_ name: String) -> Int! {
+        for i in 0 ..< properties.count {
+            if properties[i].name == name {
+                return i
+            }
+        }
+        return nil
+    }
+    
+    func bind() {
+        
+    }
+}
+
+extension Material: CustomStringConvertible {
+    
+    var description: String {
+        var output: String = ""
+        
+        output += "dirty: \(dirty)"
+        output += " {\n"
+        
+        for property in properties {
+            output += property.name + ": \(property.value)"
+        }
+        
+        output += "}\n"
+        
+        return output
+    }
+    
 }
 
 func ==(_ prime: Material, _ second: Material) -> Bool {
@@ -231,10 +265,17 @@ class ClassicMaterial: Material {
         self["order"] = order
         self["texture"] = texture.id
         self["color"] = color
+        //properties[findIndex("color")].sorted = false
     }
     
     convenience override init() {
         self.init(GLTexture(), float4(1))
+    }
+    
+    override func bind() {
+        Graphics.bindDefault()
+        glBindTexture(GLenum(GL_TEXTURE_2D), self["texture"] as! GLuint)
+        GraphicsHelper.setUniformMatrix(GLKMatrix4MakeTranslation(0, Camera.size.y, 0))
     }
     
 }
@@ -307,19 +348,6 @@ class DefaultMaterial: Material {
     }
     
 }
-
-class DummyMaterial: Material {
-    
-    override init() {
-        super.init()
-        
-//        properties.append(TextualMaterialProperty("color"))
-        
-    }
-    
-}
-
-
 
 
 

@@ -13,7 +13,7 @@ class Graphics: NSObject {
     
     static var shaders = [Shader] ()
     
-    static var method: GraphicsMethod = SortedRendererMethod()
+    static var method: GraphicsMethod = SingleRendererMethod()
     
     static func append (_ shader: Shader) {
         shaders.append(shader)

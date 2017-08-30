@@ -146,9 +146,9 @@ class Game: DisplayLayer {
             final_battle = FinalBattle(Emperor.instance)
         }
         
-//        if let method = Graphics.method as? SortedRendererMethod {
-//            print(method.rootNode.describe())
-//        }
+        if let method = Graphics.method as? SortedRendererMethod {
+            print(method.rootNode.describe())
+        }
     }
     
     func createWalls(_ width: Float) {
@@ -228,18 +228,16 @@ class Game: DisplayLayer {
         }
         
         scenery.update()
-        
-        Graphics.update()
     }
     
     func start() {
-//        let audio = Audio("1 Battle")
-//        if !audio.playing {
-//            //audio.loop = true
-//            audio.volume = 1
-//            audio.pitch = 1
-//            audio.start()
-//        }
+        let audio = Audio("1 Battle")
+        if !audio.playing {
+            audio.loop = true
+            audio.volume = 1
+            audio.pitch = 1
+            audio.start()
+        }
     }
     
     deinit {
@@ -271,8 +269,14 @@ class Game: DisplayLayer {
     
     func display() {
         scenery.render()
-        map.render()
         Graphics.render()
+        
+//        if let method = Graphics.method as? SortedRendererMethod {
+//            print(method.rootNode.describe())
+//            //            for node in method.rootNode.nodes[0].nodes {
+//            //                print(node.property.name + ": \(node.property.value)")
+//            //            }
+//        }
     }
 }
 

@@ -14,11 +14,11 @@ protocol Render {
 }
 
 protocol RenderTechnique {
-    func render(_ visual: Visual)
+    func render(_ visual: Render)
 }
 
 class DefaultTechnique: RenderTechnique {
-    func render(_ visual: Visual) {
+    func render(_ visual: Render) {
         visual.render()
     }
 }
@@ -56,7 +56,7 @@ class Display: Render {
     }
     
     func render() {
-        technique.render(visual)
+        visual.render()
     }
     
 //    func flip(_ x: Float, _ y: Float) {

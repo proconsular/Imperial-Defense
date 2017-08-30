@@ -18,12 +18,18 @@ protocol GraphicsMethod {
 class GraphicsInfo {
     var active: Bool
     let hull: Hull
-    let material: Material
+    var materials: [Material]
     
     init(_ hull: Hull, _ material: Material) {
         self.hull = hull
-        self.material = material
+        materials = []
+        materials.append(material)
         active = true
+    }
+    
+    var material: Material {
+        get { return materials[0] }
+        set { materials[0] = newValue }
     }
 }
 
@@ -82,6 +88,8 @@ class NodeIndex: PropertyNodeDelegate {
         for group in groups {
             group.update()
         }
+        
+        //groups = groups.sorted{ $0.order < $1.order }
     }
     
     func render() {
@@ -98,8 +106,13 @@ class SortedRendererMethod: GraphicsMethod {
     init() {
         rootNode = PropertyRenderNode()
         nodeIndex = NodeIndex()
+        
         PropertyRenderNode.delegate = nodeIndex
         PropertyRenderNode.root = rootNode
+        
+        let node = PropertyRenderNode(MaterialValue("shader", 0))
+//        node.organizer = DrawOrderOrganizer(node)
+        rootNode.nodes.append(node)
     }
     
     func create(_ info: GraphicsInfo) {
@@ -116,9 +129,39 @@ class SortedRendererMethod: GraphicsMethod {
     }
 }
 
+class SingleRendererMethod: GraphicsMethod {
+    var renderers: [BaseRenderer]
+    
+    init() {
+        renderers = []
+    }
+    
+    func create(_ info: GraphicsInfo) {
+        let renderer = BaseRenderer()
+        renderer.append(info)
+        renderer.compile()
+        renderers.append(renderer)
+    }
+    
+    func update() {
+        for renderer in renderers {
+            renderer.clean()
+        }
+        renderers = renderers.filter{ !$0.graphics.isEmpty }
+        renderers = renderers.sorted{ ($0.graphics[0].material["order"] as! Int) < ($1.graphics[0].material["order"] as! Int) }
+        renderers.forEach{ $0.update() }
+    }
+    
+    func render() {
+        renderers.forEach{ $0.render() }
+    }
+    
+}
+
 class RenderGroupNode: PropertyNodeListener {
     let node: PropertyRenderNode
-    var renderer: GraphicsRenderer!
+    let renderer: BaseRenderer
+    var order: Int = 0
     
     init(_ node: PropertyRenderNode) {
         self.node = node
@@ -128,6 +171,17 @@ class RenderGroupNode: PropertyNodeListener {
     
     func appeneded(_ info: GraphicsInfo) {
         renderer.append(info)
+        order = info.material["order"] as! Int
+        renderer.compile()
+    }
+    
+    func removed(_ info: GraphicsInfo) {
+        for i in 0 ..< renderer.graphics.count {
+            if renderer.graphics[i] === info {
+                renderer.graphics.remove(at: i)
+                break
+            }
+        }
         renderer.compile()
     }
     

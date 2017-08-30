@@ -52,24 +52,26 @@ class BaseRenderer: GraphicsRenderer {
             if !$0.active { changed = true }
             return $0.active
         }
-        if changed {
+        if changed && !graphics.isEmpty {
             compile()
         }
     }
     
-    func bind() {
+    func bind(_ index: Int = 0) {
         if graphics.count > 0 {
-            let material = graphics[0].material
-            Texture.bind(material["texture"])
-            GraphicsHelper.setUniformMatrix(GLKMatrix4MakeTranslation(0, Camera.size.y, 0))
+            let material = graphics[0].materials[index]
+            material.bind()
         }
     }
     
     func render() {
-        bind()
         if (buffer) != nil {
             array.bind()
-            draw()
+            for index in 0 ..< graphics[0].materials.count {
+                bind(index)
+                draw()
+            }
+            Graphics.bindDefault()
         }
     }
     

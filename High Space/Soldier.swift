@@ -44,7 +44,7 @@ class Soldier: Entity, Damagable {
         
         material["texture"] = GLTexture("Soldier4").id
         let brightness: Float = 0.5
-        material.color = float4(brightness, brightness, brightness, 1)
+        material["color"] = float4(brightness, brightness, brightness, 1)
         
         body.tag = "enemy"
         
@@ -58,7 +58,9 @@ class Soldier: Entity, Damagable {
         animator.apply(material)
         
         if let shield = health.shield {
-//            display.technique = ShieldTechnique(shield, transform, float4(0.1, 0.7, 1, 1), rect.bounds.y)
+            let shield_material = ShieldMaterial(shield, transform, float4(0.1, 0.7, 1, 1), rect.bounds.y)
+            shield_material["texture"] = material["texture"]
+            handle.materials.append(shield_material)
             shield.delegate = EnemyShieldAudio()
             absorb = AbsorbEffect(3, 0.075, 0.75.m, 4, float4(0.1, 0.7, 1, 1), 0.25.m, body)
         }

@@ -14,20 +14,33 @@ class SortingTester {
         let node = PropertyRenderNode()
         let index = NodeIndex()
         PropertyRenderNode.delegate = index
+        PropertyRenderNode.root = node
         
-        for _ in 0 ..< 2 {
+        var values: [GraphicsInfo] = []
+        
+        for _ in 0 ..< 10 {
             let material = ClassicMaterial(GLTexture())
             
             let value1 = GraphicsInfo(Rect(float2(300), float2(1.m)), material)
             
+            values.append(value1)
             node.insert(value1)
         }
         
+        //node.nodes[0].organizer = DrawOrderOrganizer(node)
+        
         print(node.describe())
         
-        for group in index.groups {
-            print(group.node.describe())
-        }
+        values[0].material["order"] = 3
+        values[1].material["texture"] = 3
+        values[2].material["order"] = 1
+        values[3].material["texture"] = 4
+        values[4].material["color"] = float4(0)
+        values[5].material["color"] = float4(0.5)
+        
+        node.clean()
+        
+        print(node.describe())
         
     }
     
@@ -52,6 +65,25 @@ protocol PropertyNodeDelegate {
 
 protocol PropertyNodeListener {
     func appeneded(_ info: GraphicsInfo)
+    func removed(_ info: GraphicsInfo)
+}
+
+protocol PropertyNodeOrganizer {
+    func organize()
+}
+
+class DrawOrderOrganizer: PropertyNodeOrganizer {
+    
+    unowned let node: PropertyRenderNode
+    
+    init(_ node: PropertyRenderNode) {
+        self.node = node
+    }
+    
+    func organize() {
+        node.nodes = node.nodes.sorted{ ($0.property.value as! Int) > ($1.property.value as! Int) }
+    }
+    
 }
 
 class PropertyRenderNode {
@@ -60,6 +92,7 @@ class PropertyRenderNode {
     static var root: PropertyRenderNode!
     
     var listener: PropertyNodeListener?
+    var organizer: PropertyNodeOrganizer?
     
     var property: MaterialValue
     var info: GraphicsInfo?
@@ -80,33 +113,34 @@ class PropertyRenderNode {
         for node in nodes {
             node.clean()
         }
+        var rejects: [GraphicsInfo] = []
         nodes = nodes.filter {
             if let info = $0.info {
                 if info.material.dirty {
-                    info.material.dirty = false
-                    PropertyRenderNode.root.insert(info)
+                    rejects.append(info)
                     return false
                 }
                 return info.active
             }
             return $0.nodes.count > 0
         }
-    }
-    
-    func getClusters() -> [RenderGroupNode] {
-        var clusters: [RenderGroupNode] = []
-        for node in nodes {
-            if node.isGroup {
-                clusters += [RenderGroupNode(node)]
-            }else{
-                clusters += node.getClusters()
-            }
+        
+        for info in rejects {
+            info.material.dirty = false
+            listener?.removed(info)
+            PropertyRenderNode.root.insert(info)
         }
-        return clusters
+        
+        //organizer?.organize()
     }
     
     func insert(_ info: GraphicsInfo, _ depth: Int = 0) {
         let property = info.material.properties[depth]
+        guard property.sorted else {
+            nodes.append(PropertyRenderNode(property, info))
+            listener?.appeneded(info)
+            return
+        }
         for node in nodes {
             if property == node.property {
                 if depth + 1 < info.material.properties.count {
@@ -130,10 +164,6 @@ class PropertyRenderNode {
             PropertyRenderNode.delegate?.inserted(node)
             node.listener?.appeneded(info)
         }
-    }
-    
-    var isGroup: Bool {
-        return nodes.first!.nodes.count == 0
     }
     
     func describe(_ depth: Int = 0) -> String {

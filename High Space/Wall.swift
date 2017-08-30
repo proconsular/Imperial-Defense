@@ -42,6 +42,10 @@ class Wall: Structure, Damagable {
         }
     }
     
+    deinit {
+        handle.active = false
+    }
+    
     func damage(_ amount: Float) {
         health -= amount
         play("barrier-hit")

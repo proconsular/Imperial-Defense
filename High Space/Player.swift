@@ -156,8 +156,10 @@ class Player: Entity, Damagable {
         let blue = float4(48 / 255, 181 / 255, 206 / 255, 1)
         let green = float4(63 / 255, 206 / 255, 48 / 255, 1)
         let color = blue * (1 - upgrader.shieldpower.range.percent) + green * upgrader.shieldpower.range.percent
-//        display.technique = ShieldTechnique(health.shield!, transform, color, image.bounds.y)
         
+        let shield_material = ShieldMaterial(health.shield!, transform, color, image.bounds.y)
+        shield_material["texture"] = material["texture"]
+        handle.materials.append(shield_material)
         absorb = AbsorbEffect(3, 0.025, 1.25.m, 7, color, 0.75.m, body)
     }
     
