@@ -66,6 +66,9 @@ class Game: DisplayLayer {
     var final_battle: FinalBattle?
     
     init(_ mode: Int) {
+        Graphics.method.clear()
+        ParticleSystem.current.clear()
+        
         Time.scale = 1
         self.mode = mode
         
@@ -93,7 +96,7 @@ class Game: DisplayLayer {
         
         let firer = Firer(0.1075, Impact(15, 14.m + 2.m * upgrader.firepower.range.percent), Casing(blend_size_fire, blend_fire, "enemy"))
         
-        var power = Power(175, 200, 30)
+        var power = Power(175, 235, 30)
         upgrader.firepower.apply(&power)
         
         let player = Player(float2(map.size.x / 2, -1.5.m), health, firer, power)
@@ -228,6 +231,8 @@ class Game: DisplayLayer {
         }
         
         scenery.update()
+        
+        ParticleSystem.current.update()
     }
     
     func start() {
@@ -270,6 +275,12 @@ class Game: DisplayLayer {
     func display() {
         scenery.render()
         Graphics.render()
+        
+        ParticleSystem.current.render()
+        
+        if GameData.info.wave >= 50 {
+            Emperor.instance?.render()
+        }
         
 //        if let method = Graphics.method as? SortedRendererMethod {
 //            print(method.rootNode.describe())

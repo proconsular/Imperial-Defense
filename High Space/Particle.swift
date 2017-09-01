@@ -19,12 +19,16 @@ class Particle: Entity {
     
     init(_ location: float2, _ size: Float) {
         self.size = size
-        let rect = Rect(Transform(location), float2(size))
+        let rect = Point(Transform(location), size)
         super.init(rect, rect, Substance.getStandard(0.01))
         body.mask = 0b0
         color = float4(1, 1, 1, 1)
-        material["order"] = 1
         body.noncolliding = true
+        handle.material = PointMaterial()
+    }
+    
+    override func compile() {
+        ParticleSystem.current.append(handle)
     }
     
     override func update() {
@@ -34,7 +38,7 @@ class Particle: Entity {
         if opacity <= Float.ulpOfOne {
             alive = false
         }
-        material["color"] = float4(opacity) * color
+        handle.material["color"] = float4(opacity) * color
         guider?.update()
         body.velocity *= drag
     }
@@ -45,9 +49,11 @@ class DarkEnergy: Particle {
     
     override func update() {
         super.update()
-        let dl = Player.player.transform.location - transform.global.location
-        if dl.length <= size * 3 {
-            Player.player.damage(10)
+        if let player = Player.player {
+            let dl = player.transform.location - transform.global.location
+            if dl.length <= size * 3 && opacity >= 0.1 {
+                Player.player.damage(10)
+            }
         }
     }
     

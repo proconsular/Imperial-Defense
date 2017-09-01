@@ -142,9 +142,9 @@ class GameBase: GameInterface {
 //        
 //        GameData.info.level = 0
 //       // GameData.info.points = 15
-//        GameData.info.wave = 0
-//        
-
+//        GameData.info.wave = 49
+//
+        
 //        upgrader.firepower.range.amount = 5
 //        upgrader.shieldpower.range.amount = 5
 //        upgrader.barrier.range.amount = 5

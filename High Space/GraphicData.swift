@@ -104,6 +104,34 @@ class GraphicsInfoCompiler: GraphicDataCompiler {
 }
 
 
+class PointCompiler: GraphicDataCompiler {
+    let info: GraphicsInfo
+    
+    init(_ info: GraphicsInfo) {
+        self.info = info
+    }
+    
+    func compile() -> [Float] {
+        let vertices = info.hull.getVertices()
+        
+        var size: Float = 1
+        
+        if let point = info.hull as? Point {
+            size = point.size
+        }
+        
+        let color = info.material["color"] as! float4
+        
+        let vertex = info.hull.transform.apply(vertices[0])
+        
+        return [vertex.x, vertex.y, size, 0, color.x, color.y, color.z, color.w]
+    }
+    
+}
+
+
+
+
 
 
 

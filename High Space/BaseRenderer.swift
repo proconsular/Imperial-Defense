@@ -18,6 +18,10 @@ class BaseRenderer: GraphicsRenderer {
         graphics = []
         array = VertexArray()
         array.bind()
+        enable()
+    }
+    
+    func enable() {
         VertexArray.enableAttribute(.position)
         VertexArray.enableAttribute(.texCoord0)
         VertexArray.enableAttribute(.color)
@@ -33,7 +37,7 @@ class BaseRenderer: GraphicsRenderer {
     
     func compile() {
         array.bind()
-        buffer = GraphicsBuffer(graphics)
+        buffer = PolygonBuffer(graphics)
         VertexArray.enableAttributes()
     }
     
@@ -43,7 +47,9 @@ class BaseRenderer: GraphicsRenderer {
     }
     
     func refresh() {
-        buffer.refresh()
+        if buffer != nil {
+             buffer.refresh()
+        }
     }
     
     func clean() {
@@ -65,7 +71,7 @@ class BaseRenderer: GraphicsRenderer {
     }
     
     func render() {
-        if (buffer) != nil {
+        if (buffer) != nil && !graphics.isEmpty {
             array.bind()
             for index in 0 ..< graphics[0].materials.count {
                 bind(index)
@@ -90,7 +96,14 @@ class GraphicsHelper {
     
 }
 
-class GraphicsBuffer {
+protocol GraphicsBuffer {
+    var data: [GraphicsInfo] { get set }
+    var buffer: BufferSet { get }
+    
+    func refresh()
+}
+
+class PolygonBuffer : GraphicsBuffer {
     var data: [GraphicsInfo]
     var buffer: BufferSet
     

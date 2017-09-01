@@ -18,7 +18,7 @@ typedef void(^block)(void);
 
 @interface GameViewController : GLKViewController
 
-@property GLuint defaultprogram, lightingprogram, shieldprogram, bloomprogram, laserprogram;
+@property GLuint defaultprogram, lightingprogram, shieldprogram, bloomprogram, laserprogram, pointprogram;
 @property (strong, nonatomic) EAGLContext *context;
 
 -(void)setupGL;

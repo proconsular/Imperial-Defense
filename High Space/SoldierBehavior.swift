@@ -156,7 +156,7 @@ class DodgeBehavior: Behavior {
     
 }
 
-class AllfireBehavior: Behavior {
+class AllfireBehavior: TriggeredBehavior {
     
     var alive: Bool = true
     unowned var entity: Entity
@@ -171,22 +171,24 @@ class AllfireBehavior: Behavior {
         if entity.transform.location.y >= -Camera.size.y {
             cooldown -= Time.delta
             if cooldown <= 0 {
-                fire(3.m)
-                let a = Audio("enemy-allfire")
-                a.volume = 1
-                a.start()
-                cooldown = random(2, 4)
+                request()
+                cooldown = random(4, 6)
             }
         }
     }
     
-    func fire(_ radius: Float) {
+    func request() {
+        BehaviorQueue.instance.submit(BehaviorRequest("allfire", self))
+    }
+    
+    func trigger() {
+        let radius = 3.m
         let actors = Map.current.getActors(rect: FixedRect(entity.transform.location, float2(radius)))
         for actor in actors {
             if let soldier = actor as? Soldier {
                 let animator = BaseMarchAnimator(soldier.body, 10, 0.0.m)
                 animator.set(soldier.sprinter ? 1 : 0)
-                soldier.behavior.push(TemporaryBehavior(MarchBehavior(soldier, animator), 0.5) {
+                soldier.behavior.push(TemporaryBehavior(MarchBehavior(soldier, animator), 0.5) { [unowned soldier] in
                     soldier.weapon?.fire()
                     let s = Audio("shoot3")
                     s.volume = sound_volume
@@ -197,6 +199,10 @@ class AllfireBehavior: Behavior {
         let ex = Explosion(entity.transform.location, radius)
         ex.color = float4(1, 1, 1, 1)
         Map.current.append(ex)
+        
+        let a = Audio("enemy-allfire")
+        a.volume = 1
+        a.start()
     }
     
 }

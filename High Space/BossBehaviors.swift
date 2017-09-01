@@ -180,20 +180,25 @@ class LaserBlastBehavior: ActiveBehavior {
     }
     
     func move() {
-        let dl = Player.player.transform.location - Emperor.instance.transform.location
-        let nor = normalize(dl)
-        let da: Float = (atan2(nor.y, nor.x) - angle) > 0 ? 1 : -1
-        angle += speed * da * Time.delta
-        laser.direction = vectorize(angle)
+        if let player = Player.player {
+            let dl = player.transform.location - Emperor.instance.transform.location
+            let nor = normalize(dl)
+            let da: Float = (atan2(nor.y, nor.x) - angle) > 0 ? 1 : -1
+            angle += speed * da * Time.delta
+            laser.direction = vectorize(angle)
+        }
     }
     
     func collide() {
         let l = laser.rect
-        let p = Player.player.body.shape
-        let collision = PolygonSolver.solve(Polygon(p.transform, p.getVertices()), l)
-        if collision != nil {
-            Player.player.damage(damage)
+        if let player = Player.player {
+            let p = player.body.shape
+            let collision = PolygonSolver.solve(Polygon(p.transform, p.getVertices()), l)
+            if collision != nil {
+                Player.player.damage(damage)
+            }
         }
+        
     }
 }
 
@@ -330,8 +335,10 @@ class DarkEnergyBlastBehavior: ActiveBehavior {
         }
         for i in 0 ..< mode {
             let blast = blasts[i]
-            let dl = Player.player.transform.location - blast.transform.location
-            blast.velocity += (normalize(dl) * 16.m) * Time.delta
+            if let player = Player.player {
+                let dl = player.transform.location - blast.transform.location
+                blast.velocity += (normalize(dl) * 16.m) * Time.delta
+            }
         }
         for blast in blasts {
             blast.update()
@@ -344,9 +351,12 @@ class DarkEnergyBlastBehavior: ActiveBehavior {
     
     func fire(_ index: Int) {
         let blast = blasts[index]
-        let dl = Player.player.transform.location - blast.transform.location
-        blast.velocity = float2()
-        blast.velocity = normalize(dl) * 20.m
+        if let player = Player.player {
+            let dl = player.transform.location - blast.transform.location
+            blast.velocity = float2()
+            blast.velocity = normalize(dl) * 20.m
+        }
+        
     }
 }
 

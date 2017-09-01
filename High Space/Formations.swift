@@ -45,14 +45,6 @@ class Coordinator {
     func update() {
         if let front = waves.first {
             front.update()
-            if front.health <= 0 {
-                waves.removeFirst()
-                if count > 0 {
-                    next()
-                }
-            }
-        }else{
-            next()
         }
     }
     
@@ -102,9 +94,7 @@ class Row: Battalion {
     }
     
     var health: Int {
-        var sum = 0
-        soldiers.forEach{ sum += $0.alive ? 1 : 0 }
-        return sum
+        return soldiers.count
     }
     
 }

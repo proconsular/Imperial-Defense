@@ -20,12 +20,12 @@ class Difficulty {
         row = 0
     }
     
-    var size: Int {
-        return clamp((wave / 6) + 4, min: 1, max: 10)
+    var numberOfRows: Int {
+        return clamp((wave / 6) + 4, min: 1, max: 12)
     }
     
-    var amount: Int {
-        return min(8 + Int(grade * 7.5), 18)
+    var rowLength: Int {
+        return min(8 + Int(grade * 7.5), 10)
     }
     
     var grade: Float {
@@ -76,7 +76,7 @@ class LegionGenerator: Generator {
             Map.current.append(emp)
             rows.append(Row([emp]))
         }else{
-            for i in 0 ..< difficulty.size {
+            for i in 0 ..< difficulty.numberOfRows {
                 difficulty.row = i
                 let row = row_gen.create(float2(Map.current.size.x / 2, -12.m - Float(i) * 1.25.m) + offset)
                 row.soldiers.forEach{
@@ -104,7 +104,7 @@ class RowGenerator: Generator {
     
     func create(_ location: float2) -> Row {
         var soldiers: [Soldier] = []
-        let amount = self.amount ?? difficulty.amount
+        let amount = self.amount ?? difficulty.rowLength
         let spacing = 0.75.m
         let start = location + float2(-Float(amount) / 2 * spacing, 0)
         
@@ -141,7 +141,7 @@ class SoldierGenerator: Generator {
         var index = 0
         while soldier == nil {
             let creator = ChanceTable.main.soldiers[index]
-            let row = difficulty.row == 0 ? -1 : difficulty.row == difficulty.size - 1 ? 1 : 0
+            let row = difficulty.row == 0 ? -1 : difficulty.row == difficulty.numberOfRows - 1 ? 1 : 0
             if creator.chance.spawnable(difficulty.wave, row) {
                 let new = creator.create(location)
                 soldier = filter(new)

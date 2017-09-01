@@ -275,7 +275,22 @@ class ClassicMaterial: Material {
     override func bind() {
         Graphics.bindDefault()
         glBindTexture(GLenum(GL_TEXTURE_2D), self["texture"] as! GLuint)
-        GraphicsHelper.setUniformMatrix(GLKMatrix4MakeTranslation(0, Camera.size.y, 0))
+        GraphicsHelper.setUniformMatrix(GLKMatrix4MakeTranslation(Camera.current.transform.location.x, Camera.size.y, 0))
+    }
+    
+}
+
+class PointMaterial: Material {
+    
+    override init() {
+        super.init()
+        
+        self["color"] = float4(1)
+    }
+    
+    override func bind() {
+        let _ = Graphics.bind(5)
+        GraphicsHelper.setUniformMatrix(GLKMatrix4MakeTranslation(Camera.current.transform.location.x, Camera.size.y, 0))
     }
     
 }

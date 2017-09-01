@@ -35,15 +35,12 @@ class Wall: Structure, Damagable {
             destroy.volume = 1
             destroy.start()
             alive = false
+            //handle.active = false
             let count = Int(random(5, 10))
             for _ in 0 ..< count {
                 makeParts()
             }
         }
-    }
-    
-    deinit {
-        handle.active = false
     }
     
     func damage(_ amount: Float) {

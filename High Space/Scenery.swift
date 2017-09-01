@@ -77,6 +77,8 @@ class Castle {
     }
     
     func update() {
+        barriers = barriers.filter{ $0.alive }
+        
         if falling_apart {
             let side = broken_pieces[fall_index]
             let barrier = barriers[fall_index * 3]

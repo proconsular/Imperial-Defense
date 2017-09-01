@@ -116,6 +116,16 @@ GLKView *glkview;
     
     [Graphics append:bloom_shader];
     
+    [ShaderLoader load:@"Point" :&_pointprogram :^{
+        glBindAttribLocation(_pointprogram, GLKVertexAttribPosition, "position");
+        glBindAttribLocation(_pointprogram, GLKVertexAttribNormal, "size");
+        glBindAttribLocation(_pointprogram, GLKVertexAttribColor, "color");
+    }];
+    
+    Shader *point = [[Shader alloc] initAsProgram:_pointprogram];
+    
+    [Graphics append:point];
+    
     
     modelViewProjectionMatrix_Uniform = glGetUniformLocation(_defaultprogram, "modelViewProjectionMatrix");
     
@@ -133,6 +143,8 @@ GLKView *glkview;
     glActiveTexture(GL_TEXTURE0);
     
     glEnable(GL_CULL_FACE);
+    
+    glEnable(GL_POINT_SPRITE_OES);
     
     glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 }

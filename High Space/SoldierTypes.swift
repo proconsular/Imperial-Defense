@@ -147,7 +147,9 @@ class Sniper: Soldier {
     
     override func update() {
         super.update()
-        weapon?.direction = normalize(Player.player.transform.location - transform.location)
+        if let player = Player.player {
+            weapon?.direction = normalize(player.transform.location - transform.location)
+        }
     }
     
 }
@@ -215,7 +217,7 @@ class Emperor: Soldier {
         
         super.init(location, health, float4(1))
         
-//        laserFire = Display(Rect(location, float2(64)), GLTexture("laser-fire"))
+        laserFire = Display(Rect(location, float2(64)), GLTexture("laser-fire"))
         
         particle_shielding = ParticleShield(transform, 1.0.m)
         
@@ -224,8 +226,9 @@ class Emperor: Soldier {
         weapon?.offset = float2(-0.2.m, -0.7.m)
         
         material["texture"] = GLTexture("Emperor").id
-//        material.technique = DefaultTechnique()
         material["order"] = 200
+        
+        handle.materials.removeLast()
         
         animator = BaseMarchAnimator(body, 0.35, 26.m)
         let t = animator.player.animation as! TextureAnimator
@@ -444,13 +447,7 @@ class Emperor: Soldier {
     }
     
     override func render() {
-        super.render()
-        
         if !dead {
-//            if laser.visible || pulseLaser.visible {
-//                laserFire.render()
-//            }
-            
             laser.render()
             pulseLaser.render()
             

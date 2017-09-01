@@ -67,7 +67,7 @@
 		2232938A1ECBFA3D00A2B032 /* Bloom.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 223293891ECBFA3D00A2B032 /* Bloom.vsh */; };
 		2232938C1ECBFA4A00A2B032 /* Bloom.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 2232938B1ECBFA4A00A2B032 /* Bloom.fsh */; };
 		2239566E1F45323D00EB5CBA /* Sorting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2239566D1F45323D00EB5CBA /* Sorting.swift */; };
-		223956701F47C66500EB5CBA /* Rendering.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2239566F1F47C66500EB5CBA /* Rendering.swift */; };
+		223956701F47C66500EB5CBA /* BaseRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2239566F1F47C66500EB5CBA /* BaseRenderer.swift */; };
 		223C4D4F1F08CC7D00820519 /* 0 Title.wav in Resources */ = {isa = PBXBuildFile; fileRef = 223C4D4E1F08CC7D00820519 /* 0 Title.wav */; };
 		2241540A1F04AFEC0046CFDA /* StoryIntro.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224154091F04AFEC0046CFDA /* StoryIntro.swift */; };
 		2241540F1F04B1880046CFDA /* Story.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2241540E1F04B1880046CFDA /* Story.swift */; };
@@ -199,6 +199,11 @@
 		229B215F1EC98D9C001B3110 /* explosion1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 229B215E1EC98D9C001B3110 /* explosion1.wav */; };
 		229B21611EC98EBC001B3110 /* shield_break.wav in Resources */ = {isa = PBXBuildFile; fileRef = 229B21601EC98EBC001B3110 /* shield_break.wav */; };
 		229B21651EC992BE001B3110 /* enemy_charge.wav in Resources */ = {isa = PBXBuildFile; fileRef = 229B21641EC992BE001B3110 /* enemy_charge.wav */; };
+		229C299C1F57A93F0080717A /* ParticleSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229C299B1F57A93F0080717A /* ParticleSystem.swift */; };
+		229C299E1F57AFDF0080717A /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229C299D1F57AFDF0080717A /* Point.swift */; };
+		229C29A11F57B1200080717A /* PointRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229C29A01F57B1200080717A /* PointRenderer.swift */; };
+		22A6FA771F57B6F9007B1B9C /* Point.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 22A6FA761F57B6F9007B1B9C /* Point.vsh */; };
+		22A6FA791F57B706007B1B9C /* Point.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 22A6FA781F57B706007B1B9C /* Point.fsh */; };
 		22A8BEFB1F28366400F32FC0 /* AI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A8BEFA1F28366400F32FC0 /* AI.swift */; };
 		22A9944E1DDD62F4009F6660 /* Generator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A9944D1DDD62F4009F6660 /* Generator.swift */; };
 		22B8C35D1D7D302400806C16 /* spineboy.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 22B8C35A1D7D302400806C16 /* spineboy.atlas */; };
@@ -267,7 +272,7 @@
 		22ED4A1E1F20F933002B8A8F /* Castle-Centerpiece.png in Resources */ = {isa = PBXBuildFile; fileRef = 22ED4A1B1F20F933002B8A8F /* Castle-Centerpiece.png */; };
 		22ED4A1F1F20F933002B8A8F /* Castle-Leftpiece.png in Resources */ = {isa = PBXBuildFile; fileRef = 22ED4A1C1F20F933002B8A8F /* Castle-Leftpiece.png */; };
 		22ED4A201F20F933002B8A8F /* Castle-Rightpiece.png in Resources */ = {isa = PBXBuildFile; fileRef = 22ED4A1D1F20F933002B8A8F /* Castle-Rightpiece.png */; };
-		22F03C341F2C25EE004F2BF1 /* RenderFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F03C331F2C25EE004F2BF1 /* RenderFactory.swift */; };
+		22F03C341F2C25EE004F2BF1 /* GraphicsMethods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F03C331F2C25EE004F2BF1 /* GraphicsMethods.swift */; };
 		22FAEA7C1ED101E60014DD1F /* Splash_Player.png in Resources */ = {isa = PBXBuildFile; fileRef = 22FAEA7B1ED101E60014DD1F /* Splash_Player.png */; };
 		22FAEA7E1ED259EF0014DD1F /* SplashElements.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FAEA7D1ED259EF0014DD1F /* SplashElements.swift */; };
 		22FBF6B31E13198300B7824C /* DisplayAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FBF6B21E13198300B7824C /* DisplayAdapter.swift */; };
@@ -381,7 +386,7 @@
 		223293891ECBFA3D00A2B032 /* Bloom.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Bloom.vsh; sourceTree = "<group>"; };
 		2232938B1ECBFA4A00A2B032 /* Bloom.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Bloom.fsh; sourceTree = "<group>"; };
 		2239566D1F45323D00EB5CBA /* Sorting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sorting.swift; sourceTree = "<group>"; };
-		2239566F1F47C66500EB5CBA /* Rendering.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rendering.swift; sourceTree = "<group>"; };
+		2239566F1F47C66500EB5CBA /* BaseRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseRenderer.swift; sourceTree = "<group>"; };
 		223C4D4E1F08CC7D00820519 /* 0 Title.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "0 Title.wav"; sourceTree = "<group>"; };
 		224154091F04AFEC0046CFDA /* StoryIntro.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryIntro.swift; sourceTree = "<group>"; };
 		2241540E1F04B1880046CFDA /* Story.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Story.swift; sourceTree = "<group>"; };
@@ -474,7 +479,12 @@
 		229B215E1EC98D9C001B3110 /* explosion1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = explosion1.wav; sourceTree = "<group>"; };
 		229B21601EC98EBC001B3110 /* shield_break.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = shield_break.wav; sourceTree = "<group>"; };
 		229B21641EC992BE001B3110 /* enemy_charge.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = enemy_charge.wav; sourceTree = "<group>"; };
+		229C299B1F57A93F0080717A /* ParticleSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParticleSystem.swift; sourceTree = "<group>"; };
+		229C299D1F57AFDF0080717A /* Point.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Point.swift; sourceTree = "<group>"; };
+		229C29A01F57B1200080717A /* PointRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PointRenderer.swift; sourceTree = "<group>"; };
 		22A37E961DB1E8C60050816F /* Upgrades.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Upgrades.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		22A6FA761F57B6F9007B1B9C /* Point.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Point.vsh; sourceTree = "<group>"; };
+		22A6FA781F57B706007B1B9C /* Point.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Point.fsh; sourceTree = "<group>"; };
 		22A8BEFA1F28366400F32FC0 /* AI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AI.swift; sourceTree = "<group>"; };
 		22A9944D1DDD62F4009F6660 /* Generator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Generator.swift; sourceTree = "<group>"; };
 		22A9F80B1D5806650097FD61 /* Display.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Display.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
@@ -550,7 +560,7 @@
 		22ED4A1B1F20F933002B8A8F /* Castle-Centerpiece.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Castle-Centerpiece.png"; sourceTree = "<group>"; };
 		22ED4A1C1F20F933002B8A8F /* Castle-Leftpiece.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Castle-Leftpiece.png"; sourceTree = "<group>"; };
 		22ED4A1D1F20F933002B8A8F /* Castle-Rightpiece.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Castle-Rightpiece.png"; sourceTree = "<group>"; };
-		22F03C331F2C25EE004F2BF1 /* RenderFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RenderFactory.swift; sourceTree = "<group>"; };
+		22F03C331F2C25EE004F2BF1 /* GraphicsMethods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphicsMethods.swift; sourceTree = "<group>"; };
 		22FAEA7B1ED101E60014DD1F /* Splash_Player.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Splash_Player.png; sourceTree = "<group>"; };
 		22FAEA7D1ED259EF0014DD1F /* SplashElements.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashElements.swift; sourceTree = "<group>"; };
 		22FBF6B21E13198300B7824C /* DisplayAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisplayAdapter.swift; sourceTree = "<group>"; };
@@ -579,6 +589,7 @@
 				22032F421E0EFE87001462C2 /* Rect.swift */,
 				22032F441E0EFECF001462C2 /* Circle.swift */,
 				22032F511E0F0016001462C2 /* Polygon.swift */,
+				229C299D1F57AFDF0080717A /* Point.swift */,
 			);
 			name = shapes;
 			sourceTree = "<group>";
@@ -607,6 +618,7 @@
 				22EB500F1DB09A5900F769D9 /* Particle.swift */,
 				229B214A1EC6C600001B3110 /* Effects.swift */,
 				22D6F0A31ECD568500F36F00 /* Techniques.swift */,
+				229C299B1F57A93F0080717A /* ParticleSystem.swift */,
 			);
 			name = effects;
 			sourceTree = "<group>";
@@ -972,6 +984,8 @@
 				2232938B1ECBFA4A00A2B032 /* Bloom.fsh */,
 				2254AB081F1B16900020DD01 /* Laser.vsh */,
 				2254AB0A1F1B169B0020DD01 /* Laser.fsh */,
+				22A6FA761F57B6F9007B1B9C /* Point.vsh */,
+				22A6FA781F57B706007B1B9C /* Point.fsh */,
 			);
 			name = glshaders;
 			sourceTree = "<group>";
@@ -979,6 +993,8 @@
 		2292325B1D52EF1A00F47D02 /* visual */ = {
 			isa = PBXGroup;
 			children = (
+				229C299F1F57B10B0080717A /* renderers */,
+				22E4EEAD1F5706030092B6D7 /* methods */,
 				22FBF6B61E131A2300B7824C /* raw */,
 				22FBF6B51E131A1900B7824C /* display */,
 				22FBF6B41E131A0A00B7824C /* GL */,
@@ -1094,6 +1110,15 @@
 			name = soldiers;
 			sourceTree = "<group>";
 		};
+		229C299F1F57B10B0080717A /* renderers */ = {
+			isa = PBXGroup;
+			children = (
+				2239566F1F47C66500EB5CBA /* BaseRenderer.swift */,
+				229C29A01F57B1200080717A /* PointRenderer.swift */,
+			);
+			name = renderers;
+			sourceTree = "<group>";
+		};
 		22B8C3591D7D301C00806C16 /* spine */ = {
 			isa = PBXGroup;
 			children = (
@@ -1190,6 +1215,14 @@
 			name = forge;
 			sourceTree = "<group>";
 		};
+		22E4EEAD1F5706030092B6D7 /* methods */ = {
+			isa = PBXGroup;
+			children = (
+				22F03C331F2C25EE004F2BF1 /* GraphicsMethods.swift */,
+			);
+			name = methods;
+			sourceTree = "<group>";
+		};
 		22E6F3E61D98611100C6288D /* font */ = {
 			isa = PBXGroup;
 			children = (
@@ -1221,9 +1254,7 @@
 			children = (
 				22A9F80B1D5806650097FD61 /* Display.swift */,
 				22FBF6B21E13198300B7824C /* DisplayAdapter.swift */,
-				22F03C331F2C25EE004F2BF1 /* RenderFactory.swift */,
 				2239566D1F45323D00EB5CBA /* Sorting.swift */,
-				2239566F1F47C66500EB5CBA /* Rendering.swift */,
 			);
 			name = display;
 			sourceTree = "<group>";
@@ -1303,6 +1334,7 @@
 			files = (
 				22BE4DBE1EF7964A00C641EC /* Thief.png in Resources */,
 				22968DB41F1095CB009A2E3D /* shield-regen.wav in Resources */,
+				22A6FA791F57B706007B1B9C /* Point.fsh in Resources */,
 				22E671E01F11D912006B5B59 /* enemy-rush.wav in Resources */,
 				2229865D1E4C464C00389B49 /* Media.xcassets in Resources */,
 				224F571F1F22443B00AC5C24 /* rockfloor.png in Resources */,
@@ -1372,6 +1404,7 @@
 				2205EEEC1EA0BDCA00DEFFF2 /* Pixel.ttf in Resources */,
 				226DA1461DD19A570065EB00 /* gun.png in Resources */,
 				226DA14A1DD1A07A0065EB00 /* bomb.png in Resources */,
+				22A6FA771F57B6F9007B1B9C /* Point.vsh in Resources */,
 				228CC2131EFF032A00E6F75C /* Player.png in Resources */,
 				22722BA01D4887B700BFA78A /* MainView.storyboard in Resources */,
 				22FAEA7C1ED101E60014DD1F /* Splash_Player.png in Resources */,
@@ -1481,7 +1514,7 @@
 				22613CF21DC555D400FECAB0 /* Bridge.m in Sources */,
 				22032F3B1E0EFB9C001462C2 /* Scheme.swift in Sources */,
 				22613CF31DC555D400FECAB0 /* main.m in Sources */,
-				223956701F47C66500EB5CBA /* Rendering.swift in Sources */,
+				223956701F47C66500EB5CBA /* BaseRenderer.swift in Sources */,
 				22613CF41DC555D400FECAB0 /* High Space-Bridging-Header.h in Sources */,
 				22032F431E0EFE87001462C2 /* Rect.swift in Sources */,
 				2254AB131F1B382C0020DD01 /* Boss.swift in Sources */,
@@ -1505,6 +1538,7 @@
 				22032F4B1E0EFF5B001462C2 /* VisualTypes.swift in Sources */,
 				227016211E19FE0E0062442B /* Text.swift in Sources */,
 				22D6F0A41ECD568500F36F00 /* Techniques.swift in Sources */,
+				229C29A11F57B1200080717A /* PointRenderer.swift in Sources */,
 				22032F521E0F0016001462C2 /* Polygon.swift in Sources */,
 				2270162F1E1B02A40062442B /* StoryScreen.swift in Sources */,
 				22032F491E0EFF41001462C2 /* Hull.swift in Sources */,
@@ -1529,6 +1563,7 @@
 				225E516A1DC55CB30065EECF /* UserInterface.swift in Sources */,
 				226ECBB61E2CA1AB00334585 /* Splash.swift in Sources */,
 				227016291E1B02560062442B /* StoreScreen.swift in Sources */,
+				229C299E1F57AFDF0080717A /* Point.swift in Sources */,
 				22613D0D1DC555D400FECAB0 /* Shapes.swift in Sources */,
 				22613D0E1DC555D400FECAB0 /* Structure.swift in Sources */,
 				22ED3F871F263AEF00BFE5AF /* StoryOutro.swift in Sources */,
@@ -1562,6 +1597,7 @@
 				22032F561E0F02CE001462C2 /* Data.swift in Sources */,
 				2270162D1E1B028F0062442B /* PrincipalScreen.swift in Sources */,
 				2224041A1E6AA19C00A8B5E0 /* GLHelper.m in Sources */,
+				229C299C1F57A93F0080717A /* ParticleSystem.swift in Sources */,
 				22613D1B1DC555D400FECAB0 /* Visual.swift in Sources */,
 				22032F3D1E0EFD7A001462C2 /* Transform.swift in Sources */,
 				22613D1F1DC555D400FECAB0 /* GLVisualDisplay.m in Sources */,
@@ -1569,7 +1605,7 @@
 				226ECBA61E25FDC500334585 /* Scenery.swift in Sources */,
 				227016251E1B021B0062442B /* UpgradeView.swift in Sources */,
 				22613D221DC555D400FECAB0 /* Shader.m in Sources */,
-				22F03C341F2C25EE004F2BF1 /* RenderFactory.swift in Sources */,
+				22F03C341F2C25EE004F2BF1 /* GraphicsMethods.swift in Sources */,
 				22613D241DC555D400FECAB0 /* ShaderLoader.m in Sources */,
 				22613D2A1DC555D400FECAB0 /* GLTextureLoader.m in Sources */,
 				22613D2B1DC555D400FECAB0 /* Atlas.swift in Sources */,

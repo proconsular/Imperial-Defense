@@ -10,6 +10,7 @@ import Foundation
 
 protocol GraphicsMethod {
     func create(_ info: GraphicsInfo)
+    func clear()
     
     func update()
     func render()
@@ -55,6 +56,10 @@ class SingleDisplayMethod: GraphicsMethod {
             let display = Display(info.hull, material)
             nodes.append(RenderNode(info, display))
         }
+    }
+    
+    func clear() {
+        
     }
     
     func update() {
@@ -119,6 +124,10 @@ class SortedRendererMethod: GraphicsMethod {
         rootNode.insert(info)
     }
     
+    func clear() {
+        
+    }
+    
     func update() {
         rootNode.clean()
         nodeIndex.update()
@@ -152,8 +161,17 @@ class SingleRendererMethod: GraphicsMethod {
         renderers.forEach{ $0.update() }
     }
     
+    func clear() {
+        renderers.removeAll()
+    }
+    
     func render() {
-        renderers.forEach{ $0.render() }
+        for renderer in renderers {
+            let bounds = renderer.graphics[0].hull.getBounds()
+            if Camera.current.contains(bounds) {
+                renderer.render()
+            }
+        }
     }
     
 }

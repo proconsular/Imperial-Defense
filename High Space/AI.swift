@@ -15,6 +15,7 @@ class BehaviorRuleEnforcer {
     init() {
         rules = []
         rules.append(RushLimitRule(6))
+        rules.append(AllfireLimitRule(3))
     }
     
     func update() {
@@ -73,6 +74,28 @@ class RushLimitRule: BehaviorRule {
         counter += Time.delta
     }
     
+}
+
+class AllfireLimitRule: BehaviorRule {
+    var id = "allfire"
+    var counter: Float = 0
+    let rate: Float
+    
+    init(_ rate: Float) {
+        self.rate = rate
+    }
+    
+    func legal() -> Bool {
+        if counter >= rate {
+            counter = 0
+            return true
+        }
+        return false
+    }
+    
+    func update() {
+        counter += Time.delta
+    }
 }
 
 class BehaviorRequest {
