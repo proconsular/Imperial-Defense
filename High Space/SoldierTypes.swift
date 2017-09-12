@@ -142,7 +142,7 @@ class Sniper: Soldier {
         
         behavior.base.append(MarchBehavior(self, animator))
         behavior.base.append(ShootBehavior(weapon!, self, "enemy-shoot-snipe"))
-        behavior.base.append(DodgeBehavior(self, 0.5))
+        behavior.base.append(DodgeBehavior(self, 0.6))
     }
     
     override func update() {
@@ -196,7 +196,6 @@ class Emperor: Soldier {
     var dead = false
     
     required init(_ location: float2) {
-        
         laser = Laser(location, 20, float2(0, 1))
         pulseLaser = Laser(location, 10, float2(0, 1))
         

@@ -210,7 +210,7 @@ class Player: Entity, Damagable {
         if health.percent <= 0 {
             if !dead {
                 let die = Audio("player_died")
-                die.volume = 1
+                die.volume = sound_volume
                 die.start()
             }
             dead = true
@@ -232,7 +232,7 @@ class Player: Entity, Damagable {
             if anim_timer >= 1 && animator.frame < 11 {
                 anim_timer = 0
                 let die = Audio("player_fall")
-                die.volume = 0.75
+                die.volume = 0.75 * sound_volume
                 die.start()
                 animator.animate()
             }
@@ -246,7 +246,7 @@ class Player: Entity, Damagable {
                     animator.animate()
                     if animator.frame == 2 {
                         let step = Audio("player-step")
-                        step.volume = 0.75
+                        step.volume = 0.75 * sound_volume
                         step.start()
                     }
                 }

@@ -10,13 +10,13 @@ import Foundation
 
 class PauseScreen: Screen {
     
-    var background: Render
+    var background: Display
     
     override init() {
         UserInterface.controller.push(PointController(0))
         
         background = Display(GameScreen.size / 2, GameScreen.size, GLTexture())
-//        background.color = float4(0.75) * float4(0, 0, 0, 1)
+        background.color = float4(0.75) * float4(0, 0, 0, 1)
         
         super.init()
         

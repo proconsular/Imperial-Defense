@@ -10,7 +10,7 @@ import Foundation
 
 let defaultFont = "Lora-Regular"
 let defaultStyle = FontStyle(defaultFont, float4(1), 72)
-let sound_volume: Float = 0.1
+let sound_volume: Float = 0.05
 
 @objc class MainGame: NSObject {
     
@@ -142,16 +142,19 @@ class GameBase: GameInterface {
 //        
 //        GameData.info.level = 0
 //       // GameData.info.points = 15
-//        GameData.info.wave = 49
+        
+//        let wave = 49
+//        
+//        GameData.info.wave = wave - 1
 //
         
 //        upgrader.firepower.range.amount = 5
 //        upgrader.shieldpower.range.amount = 5
 //        upgrader.barrier.range.amount = 5
-//
+////
         let main = ScreenSpace()
-        main.push(Splash())
-//        main.push(PrincipalScreen())
+//        main.push(Splash())
+        main.push(PrincipalScreen())
         //main.push(StoreScreen())
 //        main.push(StoryScreen(StoryOutro()))
         UserInterface.set(space: main)

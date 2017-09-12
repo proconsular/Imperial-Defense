@@ -38,9 +38,18 @@ class StoreScreen: Screen {
         
         let uspacing = float2(600, 500)
         
-        layer.objects.append(UpgradeView(float2(GameScreen.size.x / 2 - uspacing.x, GameScreen.size.y / 2 - uspacing.y / 2), upgrader.firepower, buy))
-        layer.objects.append(UpgradeView(float2(GameScreen.size.x / 2, GameScreen.size.y / 2 - uspacing.y / 2), upgrader.shieldpower, buy))
-        layer.objects.append(UpgradeView(float2(GameScreen.size.x / 2 + uspacing.x, GameScreen.size.y / 2 - uspacing.y / 2), upgrader.barrier, buy))
+        layer.objects.append(UpgradeView(float2(GameScreen.size.x / 2 - uspacing.x, GameScreen.size.y / 2 - uspacing.y / 2), upgrader.firepower)
+        { [unowned self] in
+            self.buy($0)
+        })
+        layer.objects.append(UpgradeView(float2(GameScreen.size.x / 2, GameScreen.size.y / 2 - uspacing.y / 2), upgrader.shieldpower)
+        { [unowned self] in
+            self.buy($0)
+        })
+        layer.objects.append(UpgradeView(float2(GameScreen.size.x / 2 + uspacing.x, GameScreen.size.y / 2 - uspacing.y / 2), upgrader.barrier)
+        { [unowned self] in
+            self.buy($0)
+        })
         
         let spacing = float2(600, 0)
         let offset = float2(0, 475 - GameScreen.size.y)
@@ -62,6 +71,15 @@ class StoreScreen: Screen {
         }))
         
         layers.append(layer)
+        
+        let music = Audio("6 Castle")
+        music.loop = true
+        music.start()
+    }
+    
+    deinit {
+        let music = Audio("6 Castle")
+        music.stop()
     }
     
     func buy(_ upgrade: Upgrade) {

@@ -54,7 +54,7 @@ class LegionDisplay {
         plate = Display(location, float2(bounds.x, 76 * bounds.y / 40), GLTexture("Plates"))
         plate.coordinates = SheetLayout(0, 1, 2).coordinates
         let spacing = bounds.x * 0.2
-        soldier = Display(location + float2(-spacing, 0), float2(64), GLTexture("soldier_walk"))
+        soldier = Display(location + float2(-spacing, 0), float2(64), GLTexture("Soldier4"))
         soldier.coordinates = SheetLayout(0, 12, 3).coordinates
         text = Text(location + float2(spacing, 0) + float2(0, -GameScreen.size.y), "0", FontStyle(defaultFont, float4(1), 48.0 * (bounds.y / 100)))
     }

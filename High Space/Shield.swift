@@ -122,7 +122,7 @@ class ShieldAudio: ShieldDelegate {
     func recover(_ percent: Float) {
         if percent <= 0.9 {
             let a = Audio("shield-regen")
-            a.volume = 1
+            a.volume = sound_volume
             a.start()
         }
     }

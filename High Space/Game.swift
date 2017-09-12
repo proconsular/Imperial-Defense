@@ -68,6 +68,7 @@ class Game: DisplayLayer {
     init(_ mode: Int) {
         Graphics.method.clear()
         ParticleSystem.current.clear()
+        BulletSystem.current.clear()
         
         Time.scale = 1
         self.mode = mode
@@ -177,6 +178,8 @@ class Game: DisplayLayer {
     }
     
     func endGame() {
+        GameData.info.points = points
+        
         let audio = Audio("1 Battle")
         audio.stop()
         let defeat = Audio("Defeat")
@@ -233,6 +236,7 @@ class Game: DisplayLayer {
         scenery.update()
         
         ParticleSystem.current.update()
+        BulletSystem.current.update()
     }
     
     func start() {
@@ -277,6 +281,7 @@ class Game: DisplayLayer {
         Graphics.render()
         
         ParticleSystem.current.render()
+        BulletSystem.current.render()
         
         if GameData.info.wave >= 50 {
             Emperor.instance?.render()

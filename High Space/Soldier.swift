@@ -79,11 +79,11 @@ class Soldier: Entity, Damagable {
         if transform.location.y < -GameScreen.size.y + 0.5.m { return }
         if let shield = health.shield, shield.percent > 0 {
             let hit = Audio("enemy-shield-hit")
-            hit.volume = 1
+            hit.volume = sound_volume
             hit.start()
         }else{
             let hit = Audio("enemy-health-hit")
-            hit.volume = 1
+            hit.volume = sound_volume
             hit.start()
         }
         health.damage(amount)

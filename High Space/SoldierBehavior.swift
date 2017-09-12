@@ -79,7 +79,7 @@ class RushBehavior: TriggeredBehavior {
     
     func play() {
         let r = Audio("enemy-rush")
-        r.volume = 1
+        r.volume = sound_volume
         r.start()
     }
     
@@ -201,7 +201,7 @@ class AllfireBehavior: TriggeredBehavior {
         Map.current.append(ex)
         
         let a = Audio("enemy-allfire")
-        a.volume = 1
+        a.volume = sound_volume
         a.start()
     }
     

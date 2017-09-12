@@ -14,12 +14,13 @@ class Coordinator {
     
     static var wave: Int = 0
     
-    let legion_gen: LegionGenerator
+    let generator: WaveGenerator
+    
     var difficulty: Difficulty
     
     init(_ mode: Int) {
         difficulty = Difficulty(GameData.info.level)
-        legion_gen = LegionGenerator(difficulty)
+        generator = WaveGenerator()
         count = 100
         Coordinator.wave = 0
         waves = []
@@ -35,7 +36,15 @@ class Coordinator {
         count -= 1
         Coordinator.wave += 1
         difficulty.wave = Coordinator.wave
-        waves.append(legion_gen.create())
+        
+        if GameData.info.wave >= 49 {
+            let emp = Emperor(float2(Camera.size.x / 2, -Camera.size.y + 3.m))
+            let legion = Legion([Row([emp])])
+            Map.current.append(emp)
+            waves.append(legion)
+        }else{
+            waves.append(generator.generate())
+        }
     }
     
     var empty: Bool {

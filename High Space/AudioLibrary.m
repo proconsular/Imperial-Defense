@@ -103,6 +103,8 @@
     [self loadAudio:@"1 Battle" :44100];
     [self loadAudio:@"2 Imperial" :44100];
     [self loadAudio:@"3 Emperor" :44100];
+    [self loadAudio:@"5 Night" :44100];
+    [self loadAudio:@"6 Castle" :44100];
     [self loadAudio:@"Defeat" :44100];
     
     _hasMusic = YES;

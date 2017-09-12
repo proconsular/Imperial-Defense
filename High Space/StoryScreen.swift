@@ -60,6 +60,15 @@ class StoryScreen: Screen {
         }
         
         layers.append(layer)
+        
+        let music = Audio("5 Night")
+        music.loop = true
+        music.start()
+    }
+    
+    deinit {
+        let music = Audio("5 Night")
+        music.stop()
     }
     
     override func update() {

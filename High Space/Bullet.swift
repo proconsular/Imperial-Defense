@@ -34,6 +34,10 @@ class Bullet: Entity {
         body.object = self
     }
     
+    override func compile() {
+        BulletSystem.current.append(handle)
+    }
+    
     func hit(_ body: Body, _ collision: Collision) {
         if !self.alive {
             return

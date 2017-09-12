@@ -59,6 +59,10 @@ class ShieldUpgrade: Upgrade {
         shield.mods.append(ShieldPower(maximum.amount * range.percent, maximum.recharge * range.percent))
     }
     
+    override func computeCost() -> Int {
+        return 4
+    }
+    
 }
 
 struct BarrierLayout {
@@ -85,7 +89,7 @@ class BarrierUpgrade: Upgrade {
     }
     
     override func computeCost() -> Int {
-        return 6
+        return 4
     }
     
 }

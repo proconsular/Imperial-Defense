@@ -87,7 +87,8 @@ class LegionGenerator: Generator {
             }
         }
         
-        return Legion(rows)
+        return LayoutConverter().convert(LayoutCreator().create())
+//        return Legion(rows)
     }
     
 }
