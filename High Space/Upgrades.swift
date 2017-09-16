@@ -9,11 +9,12 @@
 import Foundation
 
 class Upgrade {
-    var name: String
+    var name: String, title: String
     var range: PointRange
     
-    init(_ name: String) {
+    init(_ name: String, _ title: String) {
         self.name = name
+        self.title = title
         range = PointRange(5)
         range.amount = 0
     }
@@ -33,7 +34,7 @@ class FirePowerUpgrade: Upgrade {
     
     init(_ maximum: Power) {
         self.maximum = maximum
-        super.init("Gun")
+        super.init("Gun", "Power")
     }
     
     func apply(_ power: inout Power) {
@@ -52,7 +53,7 @@ class ShieldUpgrade: Upgrade {
     
     init(_ maximum: ShieldPower) {
         self.maximum = maximum
-        super.init("Shield")
+        super.init("Shield", "Defense")
     }
     
     func apply(_ shield: Shield) {
@@ -81,7 +82,7 @@ class BarrierUpgrade: Upgrade {
     
     init(_ maximum: BarrierLayout) {
         self.maximum = maximum
-        super.init("Barrier")
+        super.init("Barrier", "Castle")
     }
     
     func apply(_ constructor: BarrierConstructor) {

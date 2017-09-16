@@ -97,6 +97,7 @@
     [self loadAudio:@"enemy-heal"];
     [self loadAudio:@"enemy-dodge"];
     [self loadAudio:@"stomp"];
+    [self loadAudio:@"wind"];
     
     
     [self loadAudio:@"0 Title" :44100];

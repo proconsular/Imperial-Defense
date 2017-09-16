@@ -15,12 +15,18 @@ class StoreScreen: Screen {
     
     let anvil: Anvil
     let treasure: Treasure
+    let energy: EnergyStream
+    let simulation: Simulation
     
     var fade: Float = 1
     var direction: Float = 1
     
     override init() {
         UserInterface.controller.push(PointController(0))
+        
+        Map.current = Map(Camera.size * 1.25)
+        
+        simulation = Simulation(Map.current.grid)
         
         background = Display(float2(GameScreen.size.x / 2, GameScreen.size.y / 2), GameScreen.size, GLTexture("Forge-Back"))
         brick = Display(float2(GameScreen.size.x / 2, GameScreen.size.y / 2), GameScreen.size, GLTexture("Forge-Brick"))
@@ -30,7 +36,9 @@ class StoreScreen: Screen {
         
         anvil = Anvil(float2(Camera.size.x / 3, Camera.size.y * 0.7125) + float2(0, -GameScreen.size.y))
         
-        treasure = Treasure(float2(Camera.size.x * 0.66, Camera.size.y * 0.705) + float2(0, -GameScreen.size.y))
+        treasure = Treasure(float2(Camera.size.x * 0.33, Camera.size.y * 0.705) + float2(0, -GameScreen.size.y))
+        
+        energy = EnergyStream(float2(Camera.size.x, Camera.size.y * (0.705 - 1)), float2(0, 2.1.m))
         
         super.init()
         
@@ -54,7 +62,7 @@ class StoreScreen: Screen {
         let spacing = float2(600, 0)
         let offset = float2(0, 475 - GameScreen.size.y)
         
-        layer.objects.append(TextButton(Text("Menu", FontStyle(defaultFont, float4(1), 64)), Camera.size / 2 + offset - spacing, {
+        layer.objects.append(TextButton(Text("Escape", FontStyle("Augustus", float4(1), 64)), Camera.size / 2 + offset - spacing, {
             UserInterface.fade {
                 UserInterface.space.wipe()
                 UserInterface.controller.reduce()
@@ -62,7 +70,7 @@ class StoreScreen: Screen {
             }
         }))
         
-        layer.objects.append(TextButton(Text("Play", FontStyle(defaultFont, float4(1), 64)), Camera.size / 2 + offset + spacing, {
+        layer.objects.append(TextButton(Text("Defend", FontStyle("Augustus", float4(1), 64)), Camera.size / 2 + offset + spacing, {
             UserInterface.fade {
                 UserInterface.space.wipe()
                 UserInterface.controller.reduce()
@@ -75,6 +83,10 @@ class StoreScreen: Screen {
         let music = Audio("6 Castle")
         music.loop = true
         music.start()
+        
+        for _ in 0 ..< 100 {
+            energy.populate()
+        }
     }
     
     deinit {
@@ -83,10 +95,22 @@ class StoreScreen: Screen {
     }
     
     func buy(_ upgrade: Upgrade) {
-        anvil.work()
+        
+    }
+    
+    func generate() {
+        let p = Particle(treasure.display.transform.location + float2(random(-0.1.m, 0.1.m), random(-0.1.m, 0.1.m)), random(2, 5))
+        
+        p.body.velocity = float2(random(-6.m, 2.m), random(-2.m, 0))
+        let color = float4(1, 0, 1, 1)
+        p.color = color
+        p.material["color"] = color
+        
+        Map.current.append(p)
     }
     
     override func update() {
+        energy.update()
         fade += 0.1 * direction * Time.delta
         if fade > 1 {
             direction = -1
@@ -97,17 +121,53 @@ class StoreScreen: Screen {
         brick.color = float4(fade, fade, fade, 1)
         brick.refresh()
         treasure.update()
+        simulation.simulate()
+        Map.current.update()
+        ParticleSystem.current.update()
     }
     
     override func display() {
         background.render()
         brick.render()
-//        points.setString("\(GameData.info.points)")
-//        points.render()
         super.display()
-        anvil.render()
         treasure.render()
+        ParticleSystem.current.render()
     }
+}
+
+class EnergyStream {
+    
+    let location, bounds: float2
+    
+    init(_ location: float2, _ bounds: float2) {
+        self.location = location
+        self.bounds = bounds
+    }
+    
+    func update() {
+        for _ in 0 ..< 2 {
+            generate()
+        }
+    }
+    
+    func generate() {
+        let particle = Particle(location + float2(0, random(-bounds.y / 2, bounds.y / 2)), random(2, 5))
+        
+        particle.body.velocity = float2(random(-6.m, -8.m), 0)
+        particle.rate = random(0.1, 0.5)
+        
+        Map.current.append(particle)
+    }
+    
+    func populate() {
+        let particle = Particle(location + float2(random(-Camera.size.x, 0), random(-bounds.y / 2, bounds.y / 2)), random(2, 5))
+        
+        particle.body.velocity = float2(random(-6.m, -8.m), 0)
+        particle.rate = random(0.1, 0.5)
+        
+        Map.current.append(particle)
+    }
+    
 }
 
 class Treasure {

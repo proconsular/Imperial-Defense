@@ -65,6 +65,8 @@ class Game: DisplayLayer {
     
     var final_battle: FinalBattle?
     
+    var playing = true
+    
     init(_ mode: Int) {
         Graphics.method.clear()
         ParticleSystem.current.clear()
@@ -108,20 +110,8 @@ class Game: DisplayLayer {
         coordinator.setWave(max(GameData.info.wave, 0))
         coordinator.next()
         
-        if GameData.info.wave >= 50 {
-            start_timer = 2.5
-        }else{
-            let legion = coordinator.waves[0] as! Legion
-            legion.rows.forEach{
-                $0.soldiers.forEach{ s in
-                    let an = BaseMarchAnimator(s.body, 0.0175, 6.m)
-                    an.set(1)
-                    s.behavior.push(TemporaryBehavior(MarchBehavior(s, an), 2.5) {
-                        s.body.velocity.y = 0
-                    })
-                }
-            }
-        }
+        start_timer = 2.5
+        physics.halt()
         
         scenery = Scenery(map)
         
@@ -129,7 +119,7 @@ class Game: DisplayLayer {
        
         let sh = upgrader.shieldpower.range.percent
         player_interface = PlayerInterface(player, 10.m + 4.m * sh, 7.m + 1.m * sh)
-        player_interface.canFire = false
+        //player_interface.canFire = false
         
         scenery.castle.player = player
         
@@ -185,10 +175,22 @@ class Game: DisplayLayer {
         let defeat = Audio("Defeat")
         defeat.volume = 1
         defeat.start()
-        UserInterface.space.push(EndScreen(false))
+        
+        UserInterface.fade {
+            UserInterface.space.push(EndScreen(false))
+        }
+        playing = false
     }
     
     func update() {
+        if !playing { return }
+        
+        let wind = Audio("wind")
+        if !wind.playing {
+            wind.loop = true
+            wind.start()
+        }
+        
         if death() {
             endGame()
         }
@@ -213,23 +215,17 @@ class Game: DisplayLayer {
                 end_timer -= Time.delta
                 if end_timer <= 0 {
                     end()
+                    
                 }
             }
-            
-            
         }
         
         if starting {
             start_timer += Time.delta
             if start_timer >= 2.5 {
-                physics.halt()
+                physics.unhalt()
                 starting = false
                 player_interface.canFire = true
-                if GameData.info.wave < 50 {
-                    UserInterface.space.push(StartPrompt())
-                }else{
-                    physics.unhalt()
-                }
             }
         }
         
@@ -243,7 +239,7 @@ class Game: DisplayLayer {
         let audio = Audio("1 Battle")
         if !audio.playing {
             audio.loop = true
-            audio.volume = 1
+            audio.volume = 0.1
             audio.pitch = 1
             audio.start()
         }
@@ -254,6 +250,9 @@ class Game: DisplayLayer {
         audio.stop()
         let s = Audio("3 Emperor")
         s.stop()
+        
+        let wind = Audio("wind")
+        wind.stop()
     }
     
     func end() {
@@ -262,8 +261,10 @@ class Game: DisplayLayer {
             screen = GameCompleteScreen()
         }
         
-        UserInterface.space.wipe()
-        UserInterface.space.push(screen)
+        UserInterface.fade {
+            UserInterface.space.wipe()
+            UserInterface.space.push(screen)
+        }
         
         let audio = Audio("1 Battle")
         audio.stop()
@@ -274,6 +275,8 @@ class Game: DisplayLayer {
         play("victory")
         GameData.info.wave += 1
         GameData.persist()
+        
+        playing = false
     }
     
     func display() {

@@ -15,6 +15,8 @@ class Splash: Screen {
     let sky: SplashSky
     let mountains: Display
     let castle: Display
+    let castle_scene: Display
+    let far_cliffs: Display
     
     let clouds: SplashClouds
     
@@ -40,10 +42,12 @@ class Splash: Screen {
         
         mountains = Display(Rect(Camera.size / 2 + float2(0, -GameScreen.size.y), Camera.size), GLTexture("Splash_Mountains"))
         castle = Display(Rect(Camera.size / 2 + float2(0, -GameScreen.size.y), Camera.size), GLTexture("Splash_Castle"))
+        castle_scene = Display(Rect(Camera.size / 2 + float2(0, -GameScreen.size.y), Camera.size), GLTexture("Splash_Castle_Scene"))
+        far_cliffs = Display(Rect(Camera.size / 2 + float2(0, -GameScreen.size.y), Camera.size), GLTexture("Splash_FarCliffs"))
         
         clouds = SplashClouds()
         
-        save = SaveDisplay(float2(GameScreen.size.x / 4, GameScreen.size.y * 2.5 / 4))
+        save = SaveDisplay(float2(GameScreen.size.x * 0.66, GameScreen.size.y * 0.75 - 5))
         
         player = SplashPlayer()
         firer = SplashFirer(float2(Camera.size.x - 0.5.m, Camera.size.y) + float2(0, -GameScreen.size.y), float2(2.5.m, 0), player.player.transform, 0.25)
@@ -119,12 +123,12 @@ class Splash: Screen {
     
     override func display() {
         sky.render()
+        far_cliffs.render()
         clouds.render()
         
         mountains.render()
+        castle_scene.render()
         castle.render()
-        
-        //player.render()
         
         map.render()
         
@@ -184,8 +188,8 @@ class SaveDisplay: Entity, Damagable {
         bottom = Display(bot_loc, save_bounds / 2, GLTexture("SaveFile"))
         bottom.coordinates = SheetLayout(1, 1, 2).coordinates
         let style = FontStyle(defaultFont, float4(1, 1, 1, 1), 20)
-        legion = Text(top_loc + float2(0, -GameScreen.size.y), "0", style)
-        points = Text(bot_loc + float2(0, -GameScreen.size.y), "0", style)
+        legion = Text(top_loc + float2(0, -GameScreen.size.y) + float2(0, 5), "0", style)
+        points = Text(bot_loc + float2(0, -GameScreen.size.y) + float2(0, -20), "0", style)
         
         let rect = Rect(location + float2(0, -GameScreen.size.y), float2(16, 32) * 10)
         super.init(Rect(rect.transform, float2()), rect, Substance.getStandard(1))
@@ -211,37 +215,37 @@ class SaveDisplay: Entity, Damagable {
     }
     
     override func update() {
-        vel += 150 * direction * Time.delta
-        
-        delta += vel * Time.delta
-        vel *= 0.98
-        
-        if abs(vel) >= 75 {
-            direction = -direction
-        }
-        
-        let location = self.location + float2(0, delta)
-        
-        top.transform.location = location - float2(0, save_bounds.y / 4) + float2(0, -GameScreen.size.y)
-        legion.location = location - float2(0, save_bounds.y / 6) + float2(0, -GameScreen.size.y)
-        
-        top.refresh()
-        legion.text.display.refresh()
-        
-        bottom.transform.location = location + float2(0, save_bounds.y / 4) + float2(0, -GameScreen.size.y)
-        points.location = location + float2(0, save_bounds.y / 6) + float2(0, -GameScreen.size.y)
-        
-        bottom.refresh()
-        points.text.display.refresh()
-        
-        transform.location = location + float2(0, -GameScreen.size.y)
+//        vel += 150 * direction * Time.delta
+//        
+//        delta += vel * Time.delta
+//        vel *= 0.98
+//        
+//        if abs(vel) >= 75 {
+//            direction = -direction
+//        }
+//        
+//        let location = self.location + float2(0, delta)
+//        
+//        top.transform.location = location - float2(0, save_bounds.y / 4) + float2(0, -GameScreen.size.y)
+//        legion.location = location - float2(0, save_bounds.y / 6) + float2(0, -GameScreen.size.y)
+//        
+//        top.refresh()
+//        legion.text.display.refresh()
+//        
+//        bottom.transform.location = location + float2(0, save_bounds.y / 4) + float2(0, -GameScreen.size.y)
+//        points.location = location + float2(0, save_bounds.y / 6) + float2(0, -GameScreen.size.y)
+//        
+//        bottom.refresh()
+//        points.text.display.refresh()
+//        
+//        transform.location = location + float2(0, -GameScreen.size.y)
     }
     
     override func render() {
         if !alive { return }
         top.render()
         bottom.render()
-        var st = "Legio \((GameData.info.wave + 1).roman)"
+        var st = "\((GameData.info.wave + 1).roman)"
         if GameData.info.wave >= 50 {
             st = "The Emperor"
         }

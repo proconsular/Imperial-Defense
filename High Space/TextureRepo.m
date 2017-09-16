@@ -77,6 +77,8 @@
     [self prefetch:@"Splash_Cloud_2"];
     [self prefetch:@"Splash_Cloud_3"];
     [self prefetch:@"Splash_Cloud_4"];
+    [self prefetch:@"Splash_Castle_Scene"];
+    [self prefetch:@"Splash_FarCliffs"];
     
     [self prefetch:@"gun"];
     [self prefetch:@"Forge-Back"];
@@ -113,6 +115,7 @@
     [self prefetch:@"Castle-Leftpiece"];
     [self prefetch:@"Rubble"];
     [self prefetch:@"laser-fire"];
+    [self prefetch:@"Upgrades"];
     
     return self;
 }
