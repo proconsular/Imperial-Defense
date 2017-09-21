@@ -125,9 +125,9 @@ class StatusLayer: InterfaceLayer {
         let weaponBlocks = Int(13 + 5 * upgrader.firepower.range.percent)
         weapon = PercentDisplay(float2(GameScreen.size.x - 20, size / 2) + float2(0, -GameScreen.size.y), size * 0.375, weaponBlocks, -1, wd)
         
-        score = ScoreDisplay(float2(GameScreen.size.x / 2 - 200, size / 2), float2(180, size / 2))
-        wave = WaveDisplay(float2(GameScreen.size.x / 2, size / 2), float2(224, size / 2), GameData.info.wave + 1)
-        legion = LegionDisplay(float2(GameScreen.size.x / 2 + 200, size / 2), float2(180, size / 2))
+        score = ScoreDisplay(float2(GameScreen.size.x / 2 - 200, size / 2 - 2), float2(180, size / 2 + 4))
+        wave = WaveDisplay(float2(GameScreen.size.x / 2, size / 2 - 2), float2(224, size / 2 + 4), GameData.info.wave + 1)
+        legion = LegionDisplay(float2(GameScreen.size.x / 2 + 200, size / 2 - 2), float2(180, size / 2 + 4))
         
         background = Display(float2(GameScreen.size.x / 2, size / 2), float2(GameScreen.size.x, size), GLTexture("GameUIBack"))
         

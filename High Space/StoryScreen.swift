@@ -11,6 +11,7 @@ import Foundation
 class StoryScreen: Screen {
     var background: Display!
     var story: StoryElement!
+    var music: String = "7 Emprate"
     
     override init() {
         super.init()
@@ -50,6 +51,16 @@ class StoryScreen: Screen {
             let display = StoryDisplay(GameData.info.wave - 1)
             story = display
             
+            let quote = display.quotes[0]
+            
+            if quote.contains("empress") {
+                music = "4 Empress"
+            }else if quote.contains("legions") {
+                music = "8 Legions"
+            }else if quote.contains("princeps") {
+                music = "9 Princeps"
+            }
+            
             if display.quotes.count == 1 {
                 let complete = TextButton(Text("Another battle", FontStyle(defaultFont, float4(1, 1, 1, 1), 56)), float2(Camera.size.x / 2, Camera.size.y / 2 + 425) + float2(0, -GameScreen.size.y)) {
                     UserInterface.fade {
@@ -82,14 +93,16 @@ class StoryScreen: Screen {
         
         layers.append(layer)
         
-        let music = Audio("5 Night")
-        music.loop = true
-        music.start()
+        
+        
+        let sound = Audio(music)
+        sound.loop = true
+        sound.start()
     }
     
     deinit {
-        let music = Audio("5 Night")
-        music.stop()
+        let sound = Audio(music)
+        sound.stop()
     }
     
     override func update() {
@@ -149,7 +162,7 @@ class StoryQuote {
     }
     
     init(_ story: String, _ location: float2) {
-        let style = FontStyle("Lora-Regular", float4(1), 52.0)
+        let style = FontStyle(defaultFont, float4(1), 52.0)
         lines = []
         var l = story.components(separatedBy: "\n")
         var quote = ""
@@ -179,6 +192,15 @@ class StoryQuote {
         for line in lines {
             line.render()
         }
+    }
+    
+    func contains(_ word: String) -> Bool {
+        for line in lines {
+            if line.string.lowercased().contains(word) {
+                return true
+            }
+        }
+        return false
     }
     
 }

@@ -172,7 +172,7 @@ class SplashTitle {
     
     init() {
         location = float2(Camera.size.x / 2, Camera.size.y / 2 - 150) + float2(0, -GameScreen.size.y)
-        title = Display(Rect(location, float2(786, 128) * 2), GLTexture("Title"))
+        title = Display(Rect(location, float2(1598, 151)), GLTexture("Title"))
         velocity = float2()
         direction = 1
     }

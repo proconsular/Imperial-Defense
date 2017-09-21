@@ -21,7 +21,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>3</string>
+	<string>5</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>UIAppFonts</key>
@@ -33,6 +33,7 @@
 		<string>Pixel.ttf</string>
 		<string>Lora-Regular.ttf</string>
 		<string>AUGUSTUS.TTF</string>
+		<string>Quant-Light.otf</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>Launch Screen</string>

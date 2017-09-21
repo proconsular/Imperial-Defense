@@ -107,6 +107,15 @@ class EndPrompt: Screen {
         }))
         
         layers.append(layer)
+        
+        let audio = Audio("Victory")
+        audio.loop = true
+        audio.start()
+    }
+    
+    deinit {
+        let audio = Audio("Victory")
+        audio.stop()
     }
     
     override func display() {

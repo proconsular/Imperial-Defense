@@ -124,7 +124,9 @@ class PointCompiler: GraphicDataCompiler {
         
         let vertex = info.hull.transform.apply(vertices[0])
         
-        return [vertex.x, vertex.y, size, 0, color.x, color.y, color.z, color.w]
+        let scale = 1 / Float(1125 / (UIScreen.main.bounds.height * UIScreen.main.scale))
+        
+        return [vertex.x, vertex.y, size * scale, 0, color.x, color.y, color.z, color.w]
     }
     
 }

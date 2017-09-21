@@ -83,7 +83,8 @@ class Interaction: UIGestureRecognizer {
     private func update (_ touch: UITouch) {
         let point = touch.location(in: view)
         let scale = UIScreen.main.scale
-        location = float2(Float(point.x * scale), Float(point.y * scale))
+        let s = 2001 / (UIScreen.main.bounds.width * scale)
+        location = float2(Float(point.x * scale * s), Float(point.y * scale * s))
         down = true
     }
     

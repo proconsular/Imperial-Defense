@@ -64,7 +64,6 @@
     [self loadAudio:@"barrier_ruin"];
     [self loadAudio:@"barrier_destroy"];
     [self loadAudio:@"charge"];
-    [self loadAudio:@"victory"];
     [self loadAudio:@"enemy_charge"];
     [self loadAudio:@"thunder"];
     [self loadAudio:@"dodge"];
@@ -104,9 +103,14 @@
     [self loadAudio:@"1 Battle" :44100];
     [self loadAudio:@"2 Imperial" :44100];
     [self loadAudio:@"3 Emperor" :44100];
+    [self loadAudio:@"4 Empress" :44100];
     [self loadAudio:@"5 Night" :44100];
     [self loadAudio:@"6 Castle" :44100];
+    [self loadAudio:@"7 Emprate" :44100];
+    [self loadAudio:@"8 Legions" :44100];
+    [self loadAudio:@"9 Princeps" :44100];
     [self loadAudio:@"Defeat" :44100];
+    [self loadAudio:@"Victory" :44100];
     
     _hasMusic = YES;
     _hasSound = YES;

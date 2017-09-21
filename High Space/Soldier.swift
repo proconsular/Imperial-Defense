@@ -31,7 +31,7 @@ class Soldier: Entity, Damagable {
     
     var reflective: Bool = false
     
-    init(_ location: float2, _ health: Health, _ color: float4) {
+    init(_ location: float2, _ health: Health, _ color: float4, _ texture: String = "Soldier4") {
         self.color = color
         let rect = Rect(location, float2(125))
         let bodyhull = Rect(location, float2(65, 85))
@@ -42,7 +42,7 @@ class Soldier: Entity, Damagable {
         
         super.init(rect, bodyhull, Substance.getStandard(100))
         
-        material["texture"] = GLTexture("Soldier4").id
+        material["texture"] = GLTexture(texture).id
         let brightness: Float = 0.5
         material["color"] = float4(brightness, brightness, brightness, 1)
         

@@ -150,8 +150,19 @@ GLKView *glkview;
 }
 
 -(void)setProjectionMatrix{
-    int width = [UIScreen mainScreen].bounds.size.width * [UIScreen mainScreen].scale;
-    int height = [UIScreen mainScreen].bounds.size.height * [UIScreen mainScreen].scale;
+//    GLint gwidth, gheight;
+//    
+//    glGetRenderbufferParameterivOES(GL_RENDERBUFFER_OES, GL_RENDERBUFFER_WIDTH_OES, &gwidth);
+//    glGetRenderbufferParameterivOES(GL_RENDERBUFFER_OES, GL_RENDERBUFFER_HEIGHT_OES, &gheight);
+//
+//    NSLog(@"width: %d, height: %d", gwidth, gheight);
+//    
+    int width = 2001;// [UIScreen mainScreen].bounds.size.width * [UIScreen mainScreen].scale;
+    int height = 1125;//[UIScreen mainScreen].bounds.size.height * [UIScreen mainScreen].scale;
+    
+    float s = 2001 / (float)width;
+    
+    NSLog(@"scale: %f, s: %f, width: %d, height: %d", s, [UIScreen mainScreen].scale, width, height);
     
     double scale = 1;
     projectionMatrix = GLKMatrix4MakeOrtho(-width * (scale - 1), width * scale, height * scale, -height * (scale - 1), 1, -1);

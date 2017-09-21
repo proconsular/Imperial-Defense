@@ -172,9 +172,6 @@ class Game: DisplayLayer {
         
         let audio = Audio("1 Battle")
         audio.stop()
-        let defeat = Audio("Defeat")
-        defeat.volume = 1
-        defeat.start()
         
         UserInterface.fade {
             UserInterface.space.push(EndScreen(false))
@@ -189,6 +186,13 @@ class Game: DisplayLayer {
         if !wind.playing {
             wind.loop = true
             wind.start()
+        }
+        
+        let battle = Audio("1 Battle")
+        if !battle.playing {
+            battle.loop = true
+            battle.volume = 0.75
+            battle.start()
         }
         
         if death() {
@@ -272,7 +276,6 @@ class Game: DisplayLayer {
         let s = Audio("3 Emperor")
         s.stop()
         
-        play("victory")
         GameData.info.wave += 1
         GameData.persist()
         

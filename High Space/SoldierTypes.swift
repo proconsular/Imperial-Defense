@@ -11,12 +11,11 @@ import Foundation
 class Scout: Soldier {
     
     required init(_ location: float2) {
-        super.init(location, Health(5, nil), float4(1))
+        super.init(location, Health(5, nil), float4(1), "Scout")
         let firer = Firer(0.25, Impact(10, 8.m), Casing(float2(0.4.m, 0.1.m), float4(1, 0.25, 0.25, 1), "player"))
         weapon = Weapon(transform, float2(0, 1), firer)
         weapon?.offset = float2(-0.2.m, -0.7.m)
         
-        material["texture"] = GLTexture("Scout").id
         animator.set(1)
         
         sprinter = true
@@ -45,12 +44,10 @@ class Banker: Soldier {
 class Captain: Soldier {
     
     required init(_ location: float2) {
-        super.init(location, Health(45, Shield(Float(60), Float(0.75), Float(50))), float4(1))
+        super.init(location, Health(45, Shield(Float(60), Float(0.75), Float(50))), float4(1), "Captain")
         let firer = Firer(1.0, Impact(20, 10.m), Casing(float2(0.5.m, 0.13.m), float4(1, 0.5, 1, 1), "player", 2))
         weapon = Weapon(transform, float2(0, 1), firer)
         weapon?.offset = float2(-0.2.m, -0.7.m)
-        
-        material["texture"] = GLTexture("Captain").id
         
         canSprint = true
         
@@ -65,12 +62,10 @@ class Captain: Soldier {
 class Commander: Soldier {
     
     required init(_ location: float2) {
-        super.init(location, Health(30, Shield(Float(90), Float(0.5), Float(50))), float4(1))
+        super.init(location, Health(30, Shield(Float(90), Float(0.5), Float(50))), float4(1), "Commander")
         let firer = Firer(1.0, Impact(30, 10.m), Casing(float2(0.7.m, 0.175.m), float4(1, 0.25, 1, 1), "player"))
         weapon = Weapon(transform, float2(0, 1), firer)
         weapon?.offset = float2(-0.2.m, -0.7.m)
-        
-        material["texture"] = GLTexture("Commander").id
         
         behavior.base.append(MarchBehavior(self, animator))
         behavior.base.append(ShootBehavior(weapon!, self))
@@ -83,12 +78,11 @@ class Commander: Soldier {
 class Thief: Soldier {
     
     required init(_ location: float2) {
-        super.init(location, Health(45, nil), float4(1))
+        super.init(location, Health(45, nil), float4(1), "Thief")
         let firer = Firer(1.0, Impact(5, 12.m), Casing(float2(0.4.m, 0.1.m), float4(1, 0.25, 0.25, 1), "player"))
         weapon = Weapon(transform, float2(0, 1), firer)
         weapon?.offset = float2(-0.2.m, -0.7.m)
         
-        material["texture"] = GLTexture("Thief").id
         animator.set(1)
         
         sprinter = true
@@ -104,11 +98,9 @@ class Thief: Soldier {
 class Healer: Soldier {
     
     required init(_ location: float2) {
-        super.init(location, Health(15, Shield(Float(30), Float(0.1), Float(50))), float4(1))
+        super.init(location, Health(15, Shield(Float(30), Float(0.1), Float(50))), float4(1), "Healer")
         behavior.base.append(MarchBehavior(self, animator))
         behavior.base.append(HealBehavior(self))
-        
-        material["texture"] = GLTexture("Healer").id
     }
     
 }
@@ -116,12 +108,10 @@ class Healer: Soldier {
 class Heavy: Soldier {
     
     required init(_ location: float2) {
-        super.init(location, Health(50, Shield(Float(50), Float(0.5), Float(50))), float4(1))
+        super.init(location, Health(50, Shield(Float(50), Float(0.5), Float(50))), float4(1), "Heavy")
         let firer = Firer(1.5, Impact(30, 10.m), Casing(float2(0.5.m, 0.14.m) * 1.1, float4(1, 0, 1, 1), "player", 2))
         weapon = Weapon(transform, float2(0, 1), firer)
         weapon?.offset = float2(-0.2.m, -0.7.m)
-        
-        material["texture"] = GLTexture("Heavy").id
         
         behavior.base.append(MarchBehavior(self, animator))
         behavior.base.append(ShootBehavior(weapon!, self, "enemy-shoot-heavy"))
@@ -133,12 +123,10 @@ class Heavy: Soldier {
 class Sniper: Soldier {
     
     required init(_ location: float2) {
-        super.init(location, Health(30, Shield(Float(60), Float(0.5), Float(60))), float4(1))
+        super.init(location, Health(30, Shield(Float(60), Float(0.5), Float(60))), float4(1), "Sniper")
         let firer = Firer(1.25, Impact(15, 25.m), Casing(float2(0.7.m, 0.15.m), float4(1, 0.5, 0.25, 1), "player", 2))
         weapon = Weapon(transform, float2(0, 1), firer)
         weapon?.offset = float2(-0.2.m, -0.7.m)
-        
-        material["texture"] = GLTexture("Sniper").id
         
         behavior.base.append(MarchBehavior(self, animator))
         behavior.base.append(ShootBehavior(weapon!, self, "enemy-shoot-snipe"))
@@ -157,12 +145,11 @@ class Sniper: Soldier {
 class Mage: Soldier {
     
     required init(_ location: float2) {
-        super.init(location, Health(45, Shield(Float(40), Float(0.1), Float(60))), float4(1))
+        super.init(location, Health(45, Shield(Float(40), Float(0.1), Float(60))), float4(1), "Mage")
         let firer = HomingFirer(1, Impact(30, 18.m), Casing(float2(0.8.m, 0.15.m), float4(1, 0.5, 1, 1), "player", 2))
         weapon = HomingWeapon(transform, float2(0, 1), firer)
         weapon?.offset = float2(-0.2.m, -0.7.m)
         
-        material["texture"] = GLTexture("Mage").id
         material.coordinates = SheetLayout(0, 12, 3).coordinates
 //        display.refresh()
         
@@ -214,7 +201,7 @@ class Emperor: Soldier {
         status_shield.move(-float2(status_shield.bounds.x / 2, 0))
         status_health.move(-float2(status_shield.bounds.x / 2, 0))
         
-        super.init(location, health, float4(1))
+        super.init(location, health, float4(1), "Emperor")
         
         laserFire = Display(Rect(location, float2(64)), GLTexture("laser-fire"))
         
@@ -224,7 +211,6 @@ class Emperor: Soldier {
         weapon = HomingWeapon(transform, float2(0, 1), firer)
         weapon?.offset = float2(-0.2.m, -0.7.m)
         
-        material["texture"] = GLTexture("Emperor").id
         material["order"] = 200
         
         handle.materials.removeLast()

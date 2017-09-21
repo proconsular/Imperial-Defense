@@ -57,10 +57,18 @@ class EndScreen: Screen {
         }))
         
         layers.append(layer)
+        
+        let audio = Audio("Defeat")
+        audio.loop = true
+        audio.start()
+    }
+    
+    deinit {
+        let audio = Audio("Defeat")
+        audio.stop()
     }
     
     override func display() {
-        
         background.render()
         super.display()
         quote.render()
