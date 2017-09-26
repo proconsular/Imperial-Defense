@@ -21,6 +21,8 @@ class StoreScreen: Screen {
     var fade: Float = 1
     var direction: Float = 1
     
+    let buy_effect: BuyEffect
+    
     override init() {
         UserInterface.controller.push(PointController(0))
         
@@ -39,6 +41,8 @@ class StoreScreen: Screen {
         treasure = Treasure(float2(Camera.size.x * 0.33, Camera.size.y * 0.705) + float2(0, -GameScreen.size.y))
         
         energy = EnergyStream(float2(Camera.size.x, Camera.size.y * (0.705 - 1)), float2(0, 2.1.m))
+        
+        buy_effect = BuyEffect()
         
         super.init()
         
@@ -95,7 +99,21 @@ class StoreScreen: Screen {
     }
     
     func buy(_ upgrade: Upgrade) {
+        let uspacing = float2(600, 500)
         
+        if upgrade.name == "Gun" {
+            buy_effect.activate(float2(GameScreen.size.x / 2 - uspacing.x, GameScreen.size.y / 2 - uspacing.y / 2))
+        }
+        if upgrade.name == "Shield" {
+            buy_effect.activate(float2(GameScreen.size.x / 2, GameScreen.size.y / 2 - uspacing.y / 2))
+        }
+        if upgrade.name == "Barrier" {
+            buy_effect.activate(float2(GameScreen.size.x / 2 + uspacing.x, GameScreen.size.y / 2 - uspacing.y / 2))
+        }
+        
+        let audio = Audio("upgrade_buy")
+        audio.volume = 0.25
+        audio.start()
     }
     
     func generate() {
@@ -123,6 +141,7 @@ class StoreScreen: Screen {
         treasure.update()
         simulation.simulate()
         Map.current.update()
+        buy_effect.update()
         ParticleSystem.current.update()
     }
     
@@ -131,6 +150,7 @@ class StoreScreen: Screen {
         brick.render()
         super.display()
         treasure.render()
+        buy_effect.render()
         ParticleSystem.current.render()
     }
 }
@@ -166,6 +186,44 @@ class EnergyStream {
         particle.rate = random(0.1, 0.5)
         
         Map.current.append(particle)
+    }
+    
+}
+
+class BuyEffect {
+    
+    let display: Display
+    let animator: Animator
+    var active: Bool = false
+    
+    let texture_animator: TextureAnimator
+    
+    init() {
+        display = Display(Rect(float2(), float2(128 * 3)), GLTexture("Upgrade_Effects"))
+        texture_animator = TextureAnimator(GLTexture("Upgrade_Effects").id, SheetLayout(0, 5, 2))
+        texture_animator.append(SheetAnimator(0.025, [], SheetAnimation(0, 5, 5, 2)))
+        animator = Animator(TimedAnimationPlayer(texture_animator))
+    }
+    
+    func update() {
+        animator.update()
+        animator.apply(display.material)
+    }
+    
+    func activate(_ location: float2) {
+        display.transform.location = location + float2(0, -GameScreen.size.y)
+        texture_animator.current.animation.index = 0
+        active = true
+    }
+    
+    func render() {
+        if active {
+            display.refresh()
+            display.render()
+        }
+        if texture_animator.frame >= 4 {
+            active = false
+        }
     }
     
 }

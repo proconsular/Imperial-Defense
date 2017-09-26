@@ -115,8 +115,6 @@ class BaseLayoutModifier: LayoutModifier {
             }
         }
         
-        let last = getLastRow(layout)!
-        last[randomInt(0, last.pieces.count)] = 2
     }
     
     func getLastRow(_ layout: LevelLayout) -> LevelRow! {
@@ -146,7 +144,7 @@ class SpecialLayoutModifier: LayoutModifier {
         let high_variety: Float = 0
         
         let amount = intensity * 0.75
-        let unit = 3 + Int(clamp(level * 5, min: 0, max: 5))
+        let unit = 2 + Int(clamp(level * 6, min: 0, max: 6))
         let low_variance = Int(clamp(low_variety * 6, min: 0, max: 6))
         let high_variance = Int(clamp(high_variety * 6, min: 0, max: 6))
         
@@ -157,7 +155,7 @@ class SpecialLayoutModifier: LayoutModifier {
                 if row[n] == -1 || row[n] == 2 { continue }
                 var id = unit
                 id = 0.95 >= random(0, 1) ? unit + randomInt(-low_variance, 1 + high_variance) : id
-                id = clamp(id, min: 3, max: 9)
+                id = clamp(id, min: 2, max: 8)
                 
                 if isSpecialNear(row, n) || isSpecialClose(layout, index, n) {
                     continue
@@ -174,7 +172,7 @@ class SpecialLayoutModifier: LayoutModifier {
         for i in 0 ..< 5 {
             let m = i - 2 + n
             if m < 0 || m >= row.pieces.count || m == n { continue }
-            if row[m] >= 3 {
+            if row[m] >= 2 {
                 return true
             }
         }
@@ -286,14 +284,13 @@ class SoldierMapper {
         
         map.updateValue(Producer(Scout.init), forKey: 0)
         map.updateValue(Producer(Infrantry.init), forKey: 1)
-        map.updateValue(Producer(Banker.init), forKey: 2)
-        map.updateValue(Producer(Captain.init), forKey: 3)
-        map.updateValue(Producer(Heavy.init), forKey: 4)
-        map.updateValue(Producer(Thief.init), forKey: 5)
-        map.updateValue(Producer(Commander.init), forKey: 6)
-        map.updateValue(Producer(Healer.init), forKey: 7)
-        map.updateValue(Producer(Sniper.init), forKey: 8)
-        map.updateValue(Producer(Mage.init), forKey: 9)
+        map.updateValue(Producer(Captain.init), forKey: 2)
+        map.updateValue(Producer(Heavy.init), forKey: 3)
+        map.updateValue(Producer(Thief.init), forKey: 4)
+        map.updateValue(Producer(Commander.init), forKey: 5)
+        map.updateValue(Producer(Healer.init), forKey: 6)
+        map.updateValue(Producer(Sniper.init), forKey: 7)
+        map.updateValue(Producer(Mage.init), forKey: 8)
     }
     
     subscript(_ value: Int) -> Producer<Soldier> {

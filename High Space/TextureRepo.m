@@ -116,6 +116,7 @@
     [self prefetch:@"Rubble"];
     [self prefetch:@"laser-fire"];
     [self prefetch:@"Upgrades"];
+    [self prefetch:@"Upgrade_Effects"];
     
     return self;
 }

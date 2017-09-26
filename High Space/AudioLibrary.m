@@ -97,6 +97,7 @@
     [self loadAudio:@"enemy-dodge"];
     [self loadAudio:@"stomp"];
     [self loadAudio:@"wind"];
+    [self loadAudio:@"upgrade_buy"];
     
     
     [self loadAudio:@"0 Title" :44100];

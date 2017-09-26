@@ -71,6 +71,8 @@ class Grid {
         let bounds = float2(rect.halfbounds.x, -rect.halfbounds.y)
         let start = restrict(transform(rect.location - bounds)!)
         let end = restrict(transform(rect.location + bounds)!)
+        //print(start, end)
+        if start.x > end.x || start.y > end.y { return [] }
         for x in start.x ..< end.x + 1 {
             for y in start.y ..< end.y + 1 {
                 let index = Int(x + y * index_bounds.x)

@@ -57,6 +57,8 @@ class EndPrompt: Screen {
     
     let quote: StoryQuote
     
+    var notifier: ShinyNotifier!
+    
     override init() {
         UserInterface.controller.push(PointController(0))
         
@@ -78,6 +80,7 @@ class EndPrompt: Screen {
         
         quote = StoryQuote("You have obtained optimal victory.\nLegion \(wave.roman) lays in ruins.", GameScreen.size / 2 + float2(0, 100) + float2(0, -GameScreen.size.y))
         
+        
         super.init()
         
         let layer = InterfaceLayer()
@@ -97,6 +100,8 @@ class EndPrompt: Screen {
                 UserInterface.push(StoreScreen())
             }
         }))
+        
+        notifier = ShinyNotifier(GameScreen.size / 2 + offset - spacing + float2(220, -5))
         
         layer.objects.append(TextButton(Text("Defend", FontStyle("Augustus", float4(1), 64)), GameScreen.size / 2 + offset + spacing, {
             UserInterface.fade {
@@ -123,6 +128,69 @@ class EndPrompt: Screen {
         super.display()
         victory.render()
         quote.render()
+        
+        if computeAvailableUpgrades() > 0 {
+            notifier.set("\(computeAvailableUpgrades())")
+            notifier.render()
+        }
+        
+    }
+    
+    func computeAvailableUpgrades() -> Int {
+        var amount = 0
+        let points = GameData.info.points
+        
+        let b_m = upgrader.barrier.range.limit - upgrader.barrier.range.amount
+        let s_m = upgrader.shieldpower.range.limit - upgrader.shieldpower.range.amount
+        
+        let m = b_m + s_m
+        
+        let c = points / 4
+        
+        amount += clamp(c, min: 0, max: Int(m))
+        
+        let p_m = upgrader.firepower.range.limit - upgrader.firepower.range.amount
+        
+        if m == 0 {
+            amount += clamp(points / 8, min: 0, max: Int(p_m))
+        }
+        
+        return amount
+    }
+    
+}
+
+class ShinyNotifier {
+    let text: Text
+    let display: Display
+    var counter: Float = 0
+    
+    init(_ location: float2) {
+        display = Display(Circle(Transform(location), 35), GLTexture())
+        display.material["color"] = float4(1, 0, 0, 1)
+        display.color = float4(1, 0, 0, 1)
+        display.refresh()
+        text = Text(location, "0", FontStyle(defaultFont, float4(1), 52))
+        text.color = float4(0, 0, 0, 1)
+    }
+    
+    func set(_ text: String) {
+        self.text.setString(text)
+    }
+    
+    func render() {
+        counter += Time.delta
+        if counter >= 0.1 {
+            counter = 0
+            if display.color.y == 0 {
+                display.color = float4(1, 0.5, 0.5, 1)
+            }else{
+                display.color = float4(1, 0, 0, 1)
+            }
+            display.refresh()
+        }
+        display.render()
+        text.render()
     }
     
 }

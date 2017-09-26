@@ -141,22 +141,23 @@ class GameBase: GameInterface {
         }
 //        
 //        GameData.info.level = 0
-//       // GameData.info.points = 15
+//        GameData.info.points = 30
         
-//        let wave = 49
-////
+//        let wave = 45
+//////
 //        GameData.info.wave = wave - 1
 //
         
-//        GameData.info.points = 15
+//        GameData.info.points = 4
 //        upgrader.firepower.range.amount = 5
 //        upgrader.shieldpower.range.amount = 5
 //        upgrader.barrier.range.amount = 5
-//
+        
         let main = ScreenSpace()
         main.push(Splash())
 //        main.push(PrincipalScreen())
 //        main.push(StoryScreen())
+//        main.push(EndPrompt())
 //        main.push(StoreScreen())
 //        main.push(StoryScreen(StoryOutro()))
         UserInterface.set(space: main)

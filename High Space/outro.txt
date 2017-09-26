@@ -2,7 +2,27 @@
 
 --
 
-	The Dark Emperor has been defeated and you have single-handedly defeated all of his dark legions. With nothing to fight and with the wall needing no defense you rush into the castle and climb up to the Empress’ chamber. You find her incased in a partly cracked shell; you smash it with your weapon and pull her out. She lays limp in your arms but you take your hand that has been infused with all the power of the Dark Emperor and touch her face. You command the power to heal her and it evaporates into her. 
+	The Dark Emperor has been defeated
+    and you have single-handedly defeated all of his dark legions.
+    With nothing to fight and with the wall needing no defense
+    you rush into the castle and climb up to the Empress’ chamber.
+
+==
+
+--
+
+    You find her incased in a partly cracked shell;
+    you smash it with your weapon and pull her out.
+
+==
+
+--
+
+    She lays limp in your arms
+    but you take your hand that has been infused
+    with all the power of the Dark Emperor and touch her face.
+    You command the power to heal her
+    and it evaporates into her.
 
 ==
 
@@ -32,22 +52,36 @@
 
 --
 
-	She awakes fully and stands up. You knee quickly and pay homage.
-	“You have saved me, my kind and great legate. Tell me, what has happened since my illness.”
+	She awakes fully and stands up.
+    You knee quickly and pay homage.
+	“You have saved me, my kind and great legate.
+    Tell me, what has happened since my illness.”
 
 ==
 
 --
 
-	And you tell her of all the things that had happened. Of the great legions you destroyed and of the Dark Emperor that you slayed and took his power to save her from the clutches of death.
+	And you tell her of all the things that had happened.
+    Of the great legions you destroyed and of the Dark Emperor that you slayed
+    and took his power to save her from the clutches of death.
 
 ==
 
 --
 
-	“You have done such great and wonderful things! You are truly a great warrior and shalt be remembered for all time in the Emprate forever. May your name be sung in the songs of the Emprate because you have saved it and us from this great evil. What is your name, my great legate?”
+	“You have done such great and wonderful things!
+    You are truly a great warrior and
+    shalt be remembered for all time in the Emprate forever.
 
-	You tell her your name.
+==
+
+--
+
+    May your name be sung in the songs of the Emprate
+    because you have saved it and us from this great evil.
+    What is your name, my great legate?”
+
+    You tell her your name.
 
 ==
 
@@ -55,27 +89,68 @@
 
 	“Marius, I nominate you as my heir!”
 	You bow down all the way till you lay on the floor.
-	“My Empress, I shalt not be so deserving to be nominated by you. For you, you must be named the Supremess! For you are far greater than all other emperors before you and before now.” 
-	“My great heir, please be patient. We must first restore and recover the Emprate. Please, let us exit this place.”
+	“My Empress, I shalt not be so deserving to be nominated by you.
+    For you, you must be named the Supremess!
+    For you are far greater than all other emperors
+    before you and before now.”
 
 ==
 
 --
 
-	You leave with the Empress. The Emprate was left in ruins but you find there were many places that were untouched. Only the capitals were partly destroyed and the Senatorial Province obliterated. And thus the people saw the Empress and her new heir and they said, “Let us make her our Supremess.” And so they took her to her province–The Third Imperial Province–and they made a new throne for her, one higher than all of the ones before it. And they made her a new crown, one greater than all of the ones before it, even greater than that of the Master Emperor.
+    “My great heir, please be patient.
+    We must first restore and recover the Emprate.
+    Please, let us exit this place.”
 
 ==
 
 --
 
-	And ceremony was put forth and at the end they gave her title of Supremess and they gave her a new name so that her full title and name were The Supremess Cornelia, the Supreme Empress over all of the people of Illyica. 
+	You leave with the Empress.
+    The Emprate was left in ruins
+    but you find there were many places that were untouched.
+    Only the capitals were partly destroyed
+    and the Senatorial Province obliterated.
+
 
 ==
 
 --
 
-	And therefore, she was seated on her throne and crowned. Then all the people shouted, “Every man is subservient to the Supremess! Every man is subservient to the Supremess!” As was their custom for their new rulers. For they believed:
+    And thus the people saw the Empress
+    and her new heir and they said,
+    “Let us make her our Supremess.”
 
+==
+
+--
+
+    And so they took her to her province–The Third Imperial Province–
+    and they made a new throne for her,
+    one higher than all of the ones before it.
+    And they made her a new crown, one greater than all of the ones before it,
+    even greater than that of the Master Emperor.
+
+
+==
+
+--
+
+	And ceremony was put forth
+    and at the end they gave her title of Supremess
+    and they gave her a new name so that her full title
+    and name were The Supremess Caia Cornelia,
+    the Supreme Empress over all of the people of Illyica.
+
+==
+
+--
+
+	And therefore, she was seated on her throne and crowned.
+    Then all the people shouted,
+    “Every man is subservient to the Supremess!
+    Every man is subservient to the Supremess!”
+    As was their custom for their new rulers. For they believed:
 	“All things must be ordered, all things must be delineated,
 	all things must be subordinate.”
 
@@ -83,7 +158,10 @@
 
 --
 
-	And as she was now Supremess they discovered that the power that healed her made it so she would live for a thousand years and thus so she would reign for a thousand years.
+	And as she was now Supremess
+    they discovered that the power that healed
+    her made it so she would live for a thousand years
+    and thus so she would reign for a thousand years.
 
 ==
 

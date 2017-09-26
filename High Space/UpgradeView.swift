@@ -83,7 +83,7 @@ class UpgradeView: InterfaceElement, Interface {
         
 //        fade_velo += 0.05 * direction * Time.delta
 //        fade_velo *= 0.98
-//        
+//
         fade += fade_velo
         
         if fade < 0.5 {
@@ -96,6 +96,12 @@ class UpgradeView: InterfaceElement, Interface {
         //background.color = float4(133 / 255, 35 / 255, 38 / 255, 1) * fade
        // background.refresh()
         //background.render()
+        
+        if GameData.info.points < upgrade.computeCost() {
+            icon!.color = float4(0.5, 0.5, 0.5, 1)
+            icon?.refresh()
+        }
+        
         icon?.render()
         if upgrade.range.amount > 0 {
             text.setString("\(Int(upgrade.range.amount).roman)".trimmed)
@@ -135,7 +141,7 @@ class CrystalSlot {
             if i < GameData.info.points {
                 slot.color = float4(1)
             }else{
-                slot.color = float4(0.25, 0.25, 0.25, 1)
+                slot.color = float4(0.45, 0.45, 0.45, 1)
             }
             slot.refresh()
             slot.render()

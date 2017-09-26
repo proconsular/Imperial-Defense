@@ -15,7 +15,7 @@ class BehaviorRuleEnforcer {
     init() {
         rules = []
         rules.append(RushLimitRule(6))
-        rules.append(AllfireLimitRule(3))
+        rules.append(AllfireLimitRule(1.5))
     }
     
     func update() {

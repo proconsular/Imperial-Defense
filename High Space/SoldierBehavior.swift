@@ -71,6 +71,7 @@ class RushBehavior: TriggeredBehavior {
             }
         }
         let ex = Explosion(transform.location, radius)
+        //ex.handle.materials.append(ExplosionMaterial(ex.transform))
         ex.color = float4(1, 0, 0, 1)
         Map.current.append(ex)
         play()
@@ -105,9 +106,14 @@ class DodgeBehavior: Behavior {
             if detectFire() {
                 let direction = computeJumpDirection()
                 if direction != 0 {
+                    Map.current.append(GhostEffect(entity, 2))
+                    let e = GhostEffect(entity, 2)
+                    e.transform.location.x += direction * (0.75.m / 2)
+                    Map.current.append(e)
                     entity.transform.location.x += direction * 0.75.m
                     cooldown = rate
                     play("enemy-dodge")
+                    
                 }
             }
         }
@@ -129,7 +135,7 @@ class DodgeBehavior: Behavior {
         let units = Map.current.getActors(rect: FixedRect(entity.transform.location, float2(range, 0.5.m)))
         var right = true, left = true
         for u in units {
-            if u === entity { continue }
+            if u === entity || u.body.mask == 0 { continue }
             let dx = u.transform.location.x - entity.transform.location.x
             if dx < 0 {
                 left = false
@@ -172,7 +178,7 @@ class AllfireBehavior: TriggeredBehavior {
             cooldown -= Time.delta
             if cooldown <= 0 {
                 request()
-                cooldown = random(4, 6)
+                cooldown = random(1, 4)
             }
         }
     }
@@ -182,10 +188,10 @@ class AllfireBehavior: TriggeredBehavior {
     }
     
     func trigger() {
-        let radius = 3.m
+        let radius = 4.m
         let actors = Map.current.getActors(rect: FixedRect(entity.transform.location, float2(radius)))
         for actor in actors {
-            if let soldier = actor as? Soldier {
+            if let soldier = actor as? Soldier, ActorUtility.hasLineOfSight(soldier) {
                 let animator = BaseMarchAnimator(soldier.body, 10, 0.0.m)
                 animator.set(soldier.sprinter ? 1 : 0)
                 soldier.behavior.push(TemporaryBehavior(MarchBehavior(soldier, animator), 0.5) { [unowned soldier] in
@@ -197,7 +203,7 @@ class AllfireBehavior: TriggeredBehavior {
             }
         }
         let ex = Explosion(entity.transform.location, radius)
-        ex.color = float4(1, 1, 1, 1)
+        ex.color = float4(0, 0, 1, 1)
         Map.current.append(ex)
         
         let a = Audio("enemy-allfire")

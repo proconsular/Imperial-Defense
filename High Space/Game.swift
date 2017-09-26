@@ -277,6 +277,7 @@ class Game: DisplayLayer {
         s.stop()
         
         GameData.info.wave += 1
+        GameData.info.points += 1
         GameData.persist()
         
         playing = false

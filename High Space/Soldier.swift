@@ -31,6 +31,8 @@ class Soldier: Entity, Damagable {
     
     var reflective: Bool = false
     
+    var trail: TrailEffect!
+    
     init(_ location: float2, _ health: Health, _ color: float4, _ texture: String = "Soldier4") {
         self.color = color
         let rect = Rect(location, float2(125))
@@ -65,6 +67,7 @@ class Soldier: Entity, Damagable {
             absorb = AbsorbEffect(3, 0.075, 0.75.m, 4, float4(0.1, 0.7, 1, 1), 0.25.m, body)
         }
         
+        trail = TrailEffect(self, 0.15, 1.5)
     }
     
     func sprint() {
@@ -96,6 +99,9 @@ class Soldier: Entity, Damagable {
         
         if sprintCounter >= 0 && !sprinter {
             sprintCounter -= Time.delta
+            
+            trail.update()
+            
             if sprintCounter <= 0 {
                 animator.set(0)
             }
@@ -135,6 +141,9 @@ class Soldier: Entity, Damagable {
             for _ in 0 ..< count {
                 makeParts()
             }
+            let ghost = GhostEffect(self, 2)
+            ghost.color = float4(0, 0, 0, 1)
+            Map.current.append(ghost)
         }
     }
     

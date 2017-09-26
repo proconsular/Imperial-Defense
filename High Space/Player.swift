@@ -94,7 +94,7 @@ class ExplosionTerminator: ActorTerminationDelegate {
     func terminate() {
         let explosion = Explosion(actor.transform.location, radius)
         explosion.color = color
-        explosion.rate = 0.9
+        explosion.rate = 0.975
         Map.current.append(explosion)
         let audio = Audio("player-die")
         audio.volume = 1
@@ -124,6 +124,8 @@ class Player: Entity, Damagable {
     var death_timer: Float = 0
     var dead: Bool = false
     
+    var trail: TrailEffect!
+    
     init(_ location: float2, _ health: Health, _ firer: Firer, _ power: Power) {
         self.health = health
         
@@ -149,9 +151,9 @@ class Player: Entity, Damagable {
         material.coordinates = animator.coordinates
         
         Player.player = self
-        material["order"]  = 100
+        material["order"] = 100
         
-        terminator = ExplosionTerminator(self, 5.m, float4(1, 1, 1, 1))
+        terminator = ExplosionTerminator(self, 17.5.m, float4(1, 1, 1, 1))
         
         let blue = float4(48 / 255, 181 / 255, 206 / 255, 1)
         let green = float4(63 / 255, 206 / 255, 48 / 255, 1)
@@ -161,6 +163,8 @@ class Player: Entity, Damagable {
         shield_material["texture"] = material["texture"]
         handle.materials.append(shield_material)
         absorb = AbsorbEffect(3, 0.025, 1.25.m, 7, color, 0.75.m, body)
+        
+        trail = TrailEffect(self, 0.1, 4 + (1 - upgrader.shieldpower.range.percent) * 4)
     }
     
     func damage(_ amount: Float) {
@@ -173,6 +177,11 @@ class Player: Entity, Damagable {
     
     override func update() {
         super.update()
+        
+        if upgrader.shieldpower.range.amount >= 1 {
+            trail.update()
+        }
+        
         absorb.update()
         if !dead {
             if let shield = health.shield {
@@ -217,18 +226,20 @@ class Player: Entity, Damagable {
             animator.set(1)
             Audio("1 Battle").stop()
             Game.instance.physics.speed = 0.05
+            Time.scale = 0.05
         }
         
         if dead {
-            death_timer += Time.delta
+            death_timer += Time.normal
             if death_timer >= 5 {
                 alive = false
                 Game.instance.physics.speed = 1
+                Time.scale = 1
                 terminator?.terminate()
             }
             let c = Float(Int(death_timer * 400) % 2)
-            material.color = float4(1, c, c, 1)
-            anim_timer += Time.delta
+            material["color"] = float4(1, c, c, 1)
+            anim_timer += Time.normal
             if anim_timer >= 1 && animator.frame < 11 {
                 anim_timer = 0
                 let die = Audio("player_fall")
