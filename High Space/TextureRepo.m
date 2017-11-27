@@ -85,6 +85,10 @@
     [self prefetch:@"Forge-Brick"];
     [self prefetch:@"Title"];
     
+    [self prefetch:@"ShowInput-Base"];
+    [self prefetch:@"ShowInput-Case"];
+    [self prefetch:@"Missile"];
+    
 //    [GLTextureLoader setSampler:pixel_sampler];
     
 //    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
@@ -117,6 +121,8 @@
     [self prefetch:@"laser-fire"];
     [self prefetch:@"Upgrades"];
     [self prefetch:@"Upgrade_Effects"];
+    
+    
     
     return self;
 }

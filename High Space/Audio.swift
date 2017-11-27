@@ -21,6 +21,16 @@ class Audio: AudioElement {
         self.rawAudio = AudioLibrary.getAudio(name)
     }
     
+    static func start(_ name: String, _ mult: Float = 1) {
+        let audio = Audio(name)
+        audio.volume = sound_volume * mult
+        audio.start()
+    }
+    
+    static func stop(_ name: String) {
+        Audio(name).stop()
+    }
+    
     func start() {
         rawAudio.start(loop)
     }

@@ -8,121 +8,23 @@
 
 import Foundation
 
-class PlayerInterface: Interface {
-    
-    weak var player: Player?
-    var speed: Float 
-    var acceleration: Float
-    var canFire = true
-    
-    init(_ player: Player, _ speed: Float, _ acceleration: Float) {
-        self.player = player
-        self.speed = speed
-        self.acceleration = acceleration
-    }
-    
-    func use(_ command: Command) {
-        if let player = player {
-            if player.dead { return }
-            if command.id == 0 {
-                let force = command.vector! / 1000
-                if abs(player.body.velocity.x) < speed {
-                    player.body.velocity.x += force.x * acceleration
-                }
-            }else if command.id == 1 && canFire {
-                if player.weapon.canFire {
-                    let shoot = Audio("player-shoot")
-                    shoot.pitch = player.weapon.isHighPower ? 0.6 : 1
-                    shoot.volume = sound_volume
-                    shoot.start()
-                    player.weapon.fire()
-                }
-                player.firing = true
-            }
-        }
-    }
-    
-}
-
-class Affector {
-    
-    var damaged: Bool
-    var counter: Float
-    var a: Float
-    
-    init() {
-        damaged = false
-        counter = 0
-        a = 0
-    }
-    
-    func apply(_ color: float4) -> float4 {
-        if damaged {
-            counter += Time.delta
-            if counter >= 1 {
-                counter = 0
-                damaged = false
-            }else{
-                a += Time.delta
-                let r: Float = 0.1
-                if a >= r {
-                    a = 0
-                }
-                if a >= r / 2 {
-                    return float4(1, 0, 0, 1)
-                }
-                
-            }
-        }
-        return color
-    }
-    
-}
-
-class ExplosionTerminator: ActorTerminationDelegate {
-    
-    unowned let actor: Entity
-    let radius: Float
-    let color: float4
-    
-    init(_ actor: Entity, _ radius: Float, _ color: float4) {
-        self.actor = actor
-        self.radius = radius
-        self.color = color
-    }
-    
-    func terminate() {
-        let explosion = Explosion(actor.transform.location, radius)
-        explosion.color = color
-        explosion.rate = 0.975
-        Map.current.append(explosion)
-        let audio = Audio("player-die")
-        audio.volume = 1
-        audio.start()
-    }
-    
-}
-
 class Player: Entity, Damagable {
     var reflective: Bool = false
     
     static weak var player: Player!
     
-    var health: Health
-    var weapon: PlayerWeapon!
+    var dead: Bool = false
     var drag: Float = 0.7
     var firing = false
-    var affector: Affector
-    var terminator: ActorTerminationDelegate?
     
+    var health: Health
+    var weapon: PlayerWeapon!
+    
+    var terminator: ActorTerminationDelegate?
     let animator: TextureAnimator
     
-    var anim_timer: Float = 0
-    
-    var absorb: AbsorbEffect!
-    
-    var death_timer: Float = 0
-    var dead: Bool = false
+    var animation: PlayerAnimation!
+    var event: PlayerEvent?
     
     var trail: TrailEffect!
     
@@ -131,8 +33,6 @@ class Player: Entity, Damagable {
         
         let transform = Transform(location)
         weapon = PlayerWeapon(transform, float2(0, -1), power, firer)
-        
-        affector = Affector()
         
         animator = TextureAnimator(GLTexture("Player").id, SheetLayout(0, 8, 4))
         animator.append(SheetAnimator(0.1, [], SheetAnimation(0, 5, 8, 1)))
@@ -143,36 +43,38 @@ class Player: Entity, Damagable {
         
         super.init(image, bodyhall, Substance(PhysicalMaterial(.wood), Mass(10, 0), Friction(.iron)))
         
-        body.tag = "player"
-        
-        body.mask = 0b10
-        body.object = self
-        material["texture"] = GLTexture("Player").id
-        material.coordinates = animator.coordinates
-        
         Player.player = self
-        material["order"] = 100
         
-        terminator = ExplosionTerminator(self, 17.5.m, float4(1, 1, 1, 1))
+        body.object = self
+        body.tag = "player"
+        body.mask = 0b10
         
-        let blue = float4(48 / 255, 181 / 255, 206 / 255, 1)
-        let green = float4(63 / 255, 206 / 255, 48 / 255, 1)
-        let color = blue * (1 - upgrader.shieldpower.range.percent) + green * upgrader.shieldpower.range.percent
+        material.set(100, GLTexture("Player").id, animator.coordinates)
         
-        let shield_material = ShieldMaterial(health.shield!, transform, color, image.bounds.y)
-        shield_material["texture"] = material["texture"]
-        handle.materials.append(shield_material)
-        absorb = AbsorbEffect(3, 0.025, 1.25.m, 7, color, 0.75.m, body)
+        terminator = ExplosionTerminator(self, 17.5.m, float4(1))
+        
+        createShieldMaterial()
+        health.shield!.effect = ShieldAbsorbEffect(transform, health.shield!, AbsorbEffect(3, 0.025, 1.25.m, 7, upgrader.shieldColor, 0.75.m, body))
         
         trail = TrailEffect(self, 0.1, 4 + (1 - upgrader.shieldpower.range.percent) * 4)
+        
+        weapon.delegate = PlayerWeaponSound(self)
+        animation = PlayerWalk(body, animator)
+        event = DeathEvent(self)
+        
+        reaction = DamageReaction(self)
+    }
+    
+    func createShieldMaterial() {
+        let shield_material = ShieldMaterial(health.shield!, transform, upgrader.shieldColor, handle.hull.getBounds().bounds.y)
+        shield_material["texture"] = material["texture"]
+        handle.materials.append(shield_material)
     }
     
     func damage(_ amount: Float) {
-        health.damage(amount)
-        let h = Audio("hit1")
-        h.volume = sound_volume
-        h.start()
-        affector.damaged = true
+        let augment = amount * (Float(GameData.info.challenge) * 0.25)
+        health.damage(amount + augment)
+        Audio.start("hit1")
     }
     
     override func update() {
@@ -182,95 +84,26 @@ class Player: Entity, Damagable {
             trail.update()
         }
         
-        absorb.update()
-        if !dead {
-            if let shield = health.shield {
-                material.color = float4(1)
-                material.color = affector.apply(material.color)
-                if shield.broke {
-                    shield.explode(transform)
-                }
-                let a = shield.percent
-                shield.update()
-                let b = shield.percent
-                if a < b {
-                    absorb.generate()
-                }
-            }
-        }
+        health.shield?.update()
         
-        let per = weapon.percent
         weapon.update()
-        if !firing {
-            if per < 1 && weapon.percent >= 1 {
-                let audio = Audio("power_full")
-                audio.volume = sound_volume
-                audio.start()
-            }
-        }
         
-        body.velocity.x *= drag
-        if firing {
-            body.velocity.x *= 0.8
-        }
+        body.velocity.x *= drag * (firing ? 0.8 : 1)
         firing = false
         
-        
-        if health.percent <= 0 {
-            if !dead {
-                let die = Audio("player_died")
-                die.volume = sound_volume
-                die.start()
-            }
-            dead = true
-            animator.set(1)
-            Audio("1 Battle").stop()
-            Game.instance.physics.speed = 0.05
-            Time.scale = 0.05
-        }
-        
-        if dead {
-            death_timer += Time.normal
-            if death_timer >= 5 {
-                alive = false
-                Game.instance.physics.speed = 1
-                Time.scale = 1
-                terminator?.terminate()
-            }
-            let c = Float(Int(death_timer * 400) % 2)
-            material["color"] = float4(1, c, c, 1)
-            anim_timer += Time.normal
-            if anim_timer >= 1 && animator.frame < 11 {
-                anim_timer = 0
-                let die = Audio("player_fall")
-                die.volume = 0.75 * sound_volume
-                die.start()
-                animator.animate()
+        if let e = event {
+            if e.isActive() {
+                e.trigger()
+                event = nil
             }
         }
         
-        if !dead {
-            if abs(body.velocity.x) >= 2 {
-                anim_timer += Time.delta
-                if anim_timer >= 0.05 {
-                    anim_timer = 0
-                    animator.animate()
-                    if animator.frame == 2 {
-                        let step = Audio("player-step")
-                        step.volume = 0.75 * sound_volume
-                        step.start()
-                    }
-                }
-            }else{
-                animator.current.animation.index = 0
-            }
-        }
+        animation.update()
         
         material.coordinates = animator.coordinates
     }
     
 }
-
 
 
 

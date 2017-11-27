@@ -13,9 +13,10 @@ class Scenery {
     let castle: Castle
     let floor: Render
     
-    init(_ map: Map) {
+    init(_ barriers: [Wall]) {
         let height: Float = 256
-        castle = Castle(float2(map.size.x / 2, -height / 2))
+        castle = Castle(float2(Camera.size.x / 2, -height / 2))
+        castle.barriers = barriers
         
         floor = Display(Rect(float2(GameScreen.size.x / 2, -GameScreen.size.y / 2), GameScreen.size), GLTexture("rockfloor"))
     }
@@ -43,7 +44,6 @@ class Castle {
     var velocity: float2
     
     var barriers: [Wall]
-    weak var player: Player!
     
     init(_ location: float2) {
         let bounds = float2(Camera.size.x, 256)
@@ -104,11 +104,13 @@ class Castle {
             }
         }
         if destroyed || falling_apart {
-            if player.transform.location.x <= Camera.size.x * 0.325 {
-                player.transform.location.x = Camera.size.x * 0.325
-            }
-            if player.transform.location.x >= Camera.size.x * 0.675 {
-                player.transform.location.x = Camera.size.x * 0.675
+            if let player = Player.player {
+                if player.transform.location.x <= Camera.size.x * 0.325 {
+                    player.transform.location.x = Camera.size.x * 0.325
+                }
+                if player.transform.location.x >= Camera.size.x * 0.675 {
+                    player.transform.location.x = Camera.size.x * 0.675
+                }
             }
         }
     }

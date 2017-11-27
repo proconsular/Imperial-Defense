@@ -8,24 +8,6 @@
 
 import Foundation
 
-class StandardSoldier: Soldier {
-    
-    convenience init(_ location: float2) {
-        let shield = Shield(Float(15), Float(1.5), Float(30))
-        let health = Health(5, shield)
-        
-        self.init(location, health, float4(1))
-        
-        let firer = Firer(2, Impact(15, 8.m), Casing(float2(0.5.m, 0.14.m), float4(1, 0.25, 0, 1), "player"))
-        weapon = Weapon(transform, float2(0, 1), firer)
-        weapon?.offset = float2(-0.275.m, -0.5.m)
-        
-        behavior.base.append(MarchBehavior(self, animator))
-        behavior.base.append(ShootBehavior(weapon!, self))
-    }
-    
-}
-
 class Infrantry: Soldier {
     
     required convenience init(_ location: float2) {

@@ -17,11 +17,15 @@ class ShieldMaterial: Material {
     var lastDamage: Float = 0
     var opacity: Float = 1
     
+    var overlay_color: float4
+    var overlay: Bool = false
+    
     init(_ shield: Shield, _ transform: Transform, _ color: float4, _ height: Float) {
         self.shield = shield
         self.transform = transform
         self.color = color
         self.height = height
+        overlay_color = float4(1)
         super.init()
     }
     
@@ -53,9 +57,15 @@ class ShieldMaterial: Material {
         
         let blend = (1 - opacity) * red + (opacity - 1) * green + color * opacity
         
+        var output_color = float4(blend.x, blend.y, blend.z, 1) * float4(0.2 * shield.percent + 0.3)
+        
+        if overlay {
+            output_color = overlay_color
+        }
+        
         let shader = Graphics.bind(2)
         
-        shader.setProperty("color", vector4: float4(blend.x, blend.y, blend.z, 1) * float4(0.2 * shield.percent + 0.3))
+        shader.setProperty("color", vector4: output_color)
         shader.setProperty("location", vector2: transform(transform.location))
         shader.setProperty("level", vector2: transform(transform.location - float2(0, height * shield.percent - height / 2)))
         

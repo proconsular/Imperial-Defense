@@ -15,7 +15,6 @@ class Soldier: Entity, Damagable {
     var health: Health
     
     var terminator: ActorTerminationDelegate?
-    var drop: Drop?
     
     var behavior: SoldierBehavior
     
@@ -32,6 +31,13 @@ class Soldier: Entity, Damagable {
     var reflective: Bool = false
     
     var trail: TrailEffect!
+    
+    var immune: Bool = false
+    
+    var shield_material: ShieldMaterial?
+    
+    var immune_flicker: Float = 0
+    var immune_timer: Float = 0
     
     init(_ location: float2, _ health: Health, _ color: float4, _ texture: String = "Soldier4") {
         self.color = color
@@ -56,18 +62,21 @@ class Soldier: Entity, Damagable {
         
         terminator = SoldierTerminator(self)
         
-        animator = BaseMarchAnimator(body, 0.04, 26.m)
+        animator = BaseMarchAnimator(body, 0.04 + (Float(GameData.info.challenge) * -0.005), 26.m)
         animator.apply(material)
         
         if let shield = health.shield {
-            let shield_material = ShieldMaterial(shield, transform, float4(0.1, 0.7, 1, 1), rect.bounds.y)
-            shield_material["texture"] = material["texture"]
-            handle.materials.append(shield_material)
+            let sm = ShieldMaterial(shield, transform, float4(0.1, 0.7, 1, 1), rect.bounds.y)
+            sm["texture"] = material["texture"]
+            handle.materials.append(sm)
+            shield_material = sm
             shield.delegate = EnemyShieldAudio()
             absorb = AbsorbEffect(3, 0.075, 0.75.m, 4, float4(0.1, 0.7, 1, 1), 0.25.m, body)
         }
         
         trail = TrailEffect(self, 0.15, 1.5)
+        
+        reaction = DamageReaction(self)
     }
     
     func sprint() {
@@ -78,15 +87,37 @@ class Soldier: Entity, Damagable {
         }
     }
     
+    func stop(_ time: Float, _ action: @escaping () -> ()) {
+        let animator = BaseMarchAnimator(body, 10, 0.0.m)
+        animator.set(sprinter ? 1 : 0)
+        behavior.push(TemporaryBehavior(MarchBehavior(self, animator), time))
+        behavior.push(TemporaryBehavior(MarchBehavior(self, animator), 0.1, action))
+    }
+    
+    func setImmunity(_ immune: Bool, _ time: Float = 0) {
+        self.immune = immune
+        self.immune_timer = time
+        if immune {
+            if let shield = health.shield {
+                shield.points.amount = shield.points.limit
+            }
+        }
+        if let mat = shield_material {
+            mat.overlay = immune
+            mat.overlay_color = float4(1, 1, 1, 1)
+        }
+    }
+    
     func damage(_ amount: Float) {
+        if immune { return }
         if transform.location.y < -GameScreen.size.y + 0.5.m { return }
         if let shield = health.shield, shield.percent > 0 {
             let hit = Audio("enemy-shield-hit")
-            hit.volume = sound_volume
+            hit.volume = sound_volume * 10
             hit.start()
         }else{
             let hit = Audio("enemy-health-hit")
-            hit.volume = sound_volume
+            hit.volume = sound_volume * 4
             hit.start()
         }
         health.damage(amount)
@@ -96,7 +127,6 @@ class Soldier: Entity, Damagable {
         super.update()
         
         sprintCooldown -= Time.delta
-        
         if sprintCounter >= 0 && !sprinter {
             sprintCounter -= Time.delta
             
@@ -104,6 +134,20 @@ class Soldier: Entity, Damagable {
             
             if sprintCounter <= 0 {
                 animator.set(0)
+            }
+        }
+        
+        if immune {
+            if let mat = shield_material {
+                immune_flicker += Time.delta
+                if immune_flicker >= 0.05 {
+                    immune_flicker = 0
+                    mat.overlay_color = mat.overlay_color.w == 1 ? float4(0.5) : float4(1)
+                }
+            }
+            immune_timer -= Time.delta
+            if immune_timer <= 0 {
+                setImmunity(false)
             }
         }
         

@@ -31,6 +31,8 @@ class GhostEffect: Entity {
         
         material["order"] = (entity.handle.material["order"] as! Int) - 1
         
+        transform.orientation = entity.transform.orientation
+        
         body.noncolliding = true
         body.mask = 0b0
     }

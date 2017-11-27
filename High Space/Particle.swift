@@ -132,6 +132,12 @@ class Explosion: Entity {
         body.noncolliding = true
     }
     
+    static func create(_ location: float2, _ radius: Float, _ color: float4) {
+        let exp = Explosion(location, radius)
+        exp.color = color
+        Map.current.append(exp)
+    }
+    
     override func update() {
         super.update()
         opacity *= rate

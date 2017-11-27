@@ -62,7 +62,7 @@ class LegionDisplay {
     func render() {
         plate.render()
         soldier.render()
-        text.setString("\(Game.instance.coordinator.waves.first?.health ?? 0)")
+        text.setString("\(0)")
         text.render()
     }
     

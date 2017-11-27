@@ -109,23 +109,6 @@ class ShootBehavior: Behavior {
     }
     
     func update() {
-        if canSee() && !weapon.canFire {
-            charge_timer += Time.delta
-            if charge_timer >= 0.025 + 0.35 * (1 - weapon.firer.charge) {
-                charge_timer = 0
-//                let range = 0.25.m
-//                let particle = Particle(weapon.firepoint + float2(random(-range, range), random(-range, range)), random(3, 6))
-//                particle.rate = 2.5 - 1 * weapon.firer.charge
-//                let col = float4(0.65, 0.5, 0.5, 1)
-//                particle.color = col
-//                particle.material.color = col
-//                let t = Transform(weapon.firepoint - soldier.transform.location)
-//                t.assign(soldier.transform)
-//                particle.guider = FollowGuider(particle.body, t, 0.1.m + 0.1.m * weapon.firer.charge)
-//                Map.current.append(particle)
-            }
-        }
-        
         if shouldFire() && canSee() {
             fire()
         }

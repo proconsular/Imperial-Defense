@@ -45,12 +45,10 @@
 		221A5F101D986B21004B1516 /* Adamina-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 221A5F0F1D986A8C004B1516 /* Adamina-Regular.ttf */; };
 		221A5F121D986C60004B1516 /* Metropolis-ExtraLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = 221A5F111D986C57004B1516 /* Metropolis-ExtraLight.otf */; };
 		2224041A1E6AA19C00A8B5E0 /* GLHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 222404191E6AA19C00A8B5E0 /* GLHelper.m */; };
-		2226F9651F0AE3210017569B /* story.txt in Resources */ = {isa = PBXBuildFile; fileRef = 2226F9641F0AE3210017569B /* story.txt */; };
 		2229864F1E48025000389B49 /* shield_weak.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2229864E1E48025000389B49 /* shield_weak.wav */; };
 		222986541E4806EA00389B49 /* death.wav in Resources */ = {isa = PBXBuildFile; fileRef = 222986501E4806EA00389B49 /* death.wav */; };
 		222986561E4806EA00389B49 /* power_low.wav in Resources */ = {isa = PBXBuildFile; fileRef = 222986521E4806EA00389B49 /* power_low.wav */; };
 		222986591E48156B00389B49 /* power_full.wav in Resources */ = {isa = PBXBuildFile; fileRef = 222986581E48156B00389B49 /* power_full.wav */; };
-		2229865B1E4C320A00389B49 /* Coin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2229865A1E4C320A00389B49 /* Coin.swift */; };
 		2229865D1E4C464C00389B49 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2229865C1E4C464C00389B49 /* Media.xcassets */; };
 		2229865F1E4C466500389B49 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2229865E1E4C466500389B49 /* Launch Screen.storyboard */; };
 		222B96591F15CD8200D47922 /* Emperor.png in Resources */ = {isa = PBXBuildFile; fileRef = 222B96581F15CD8200D47922 /* Emperor.png */; };
@@ -77,7 +75,7 @@
 		2254AB0B1F1B169B0020DD01 /* Laser.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 2254AB0A1F1B169B0020DD01 /* Laser.fsh */; };
 		2254AB0F1F1B2DA80020DD01 /* laser.png in Resources */ = {isa = PBXBuildFile; fileRef = 2254AB0E1F1B2DA80020DD01 /* laser.png */; };
 		2254AB111F1B372F0020DD01 /* Lava.png in Resources */ = {isa = PBXBuildFile; fileRef = 2254AB101F1B372F0020DD01 /* Lava.png */; };
-		2254AB131F1B382C0020DD01 /* Boss.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2254AB121F1B382C0020DD01 /* Boss.swift */; };
+		2254AB131F1B382C0020DD01 /* FinalBattle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2254AB121F1B382C0020DD01 /* FinalBattle.swift */; };
 		225D2E911DC073F800E46E56 /* break1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 225D2E901DC073F800E46E56 /* break1.wav */; };
 		225DC2D51E5016980068B566 /* Shield.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225DC2D41E5016980068B566 /* Shield.swift */; };
 		225E516A1DC55CB30065EECF /* UserInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225E51691DC55CB30065EECF /* UserInterface.swift */; };
@@ -109,11 +107,11 @@
 		22613D0C1DC555D400FECAB0 /* Physics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222DD8941D48854700A70FA8 /* Physics.swift */; };
 		22613D0D1DC555D400FECAB0 /* Shapes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222DD8AB1D48854700A70FA8 /* Shapes.swift */; };
 		22613D0E1DC555D400FECAB0 /* Structure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A9F80D1D5818DD0097FD61 /* Structure.swift */; };
-		22613D101DC555D400FECAB0 /* Enemies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2251DEEC1DAB249F0022D711 /* Enemies.swift */; };
+		22613D101DC555D400FECAB0 /* MarchAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2251DEEC1DAB249F0022D711 /* MarchAnimator.swift */; };
 		22613D111DC555D400FECAB0 /* Weapon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2251DEEE1DAB43350022D711 /* Weapon.swift */; };
 		22613D121DC555D400FECAB0 /* Wall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E03C491DAC8B53001349E2 /* Wall.swift */; };
 		22613D131DC555D400FECAB0 /* Particle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22EB500F1DB09A5900F769D9 /* Particle.swift */; };
-		22613D141DC555D400FECAB0 /* Upgrades.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A37E961DB1E8C60050816F /* Upgrades.swift */; };
+		22613D141DC555D400FECAB0 /* Upgrade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A37E961DB1E8C60050816F /* Upgrade.swift */; };
 		22613D151DC555D400FECAB0 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2249C3551DBC307A00D4EEBF /* Player.swift */; };
 		22613D191DC555D400FECAB0 /* DynamicText.m in Sources */ = {isa = PBXBuildFile; fileRef = 222DD86E1D48854600A70FA8 /* DynamicText.m */; };
 		22613D1A1DC555D400FECAB0 /* Graphics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222DD8851D48854700A70FA8 /* Graphics.swift */; };
@@ -163,7 +161,51 @@
 		228CC2171F004FFA00E6F75C /* player_died.wav in Resources */ = {isa = PBXBuildFile; fileRef = 228CC2161F004FFA00E6F75C /* player_died.wav */; };
 		228CC21B1F00526700E6F75C /* player_fall.wav in Resources */ = {isa = PBXBuildFile; fileRef = 228CC21A1F00526700E6F75C /* player_fall.wav */; };
 		228CC2231F005D8D00E6F75C /* weapon_lowpower.wav in Resources */ = {isa = PBXBuildFile; fileRef = 228CC2221F005D8D00E6F75C /* weapon_lowpower.wav */; };
-		229582FF1F5CF927009F7131 /* 5 Night.wav in Resources */ = {isa = PBXBuildFile; fileRef = 229582FD1F5CF927009F7131 /* 5 Night.wav */; };
+		229523691FAE904E000E62F6 /* Scene1-Dream.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2295233D1FAE904E000E62F6 /* Scene1-Dream.wav */; };
+		2295236A1FAE904E000E62F6 /* Scene2-Father.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2295233E1FAE904E000E62F6 /* Scene2-Father.wav */; };
+		2295236B1FAE904E000E62F6 /* Scene3a-Recruit.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2295233F1FAE904E000E62F6 /* Scene3a-Recruit.wav */; };
+		2295236C1FAE904E000E62F6 /* Scene3b-Recruit.wav in Resources */ = {isa = PBXBuildFile; fileRef = 229523401FAE904E000E62F6 /* Scene3b-Recruit.wav */; };
+		2295236D1FAE904E000E62F6 /* Scene3c-Recruit.wav in Resources */ = {isa = PBXBuildFile; fileRef = 229523411FAE904E000E62F6 /* Scene3c-Recruit.wav */; };
+		2295236E1FAE904E000E62F6 /* Scene4-Republic.wav in Resources */ = {isa = PBXBuildFile; fileRef = 229523421FAE904E000E62F6 /* Scene4-Republic.wav */; };
+		2295236F1FAE904E000E62F6 /* Scene5-HerPursuit.wav in Resources */ = {isa = PBXBuildFile; fileRef = 229523431FAE904E000E62F6 /* Scene5-HerPursuit.wav */; };
+		229523701FAE904E000E62F6 /* Scene6-Ignore.wav in Resources */ = {isa = PBXBuildFile; fileRef = 229523441FAE904E000E62F6 /* Scene6-Ignore.wav */; };
+		229523711FAE904E000E62F6 /* Scene7-DontKnow.wav in Resources */ = {isa = PBXBuildFile; fileRef = 229523451FAE904E000E62F6 /* Scene7-DontKnow.wav */; };
+		229523721FAE904E000E62F6 /* Scene8-Stranger.wav in Resources */ = {isa = PBXBuildFile; fileRef = 229523461FAE904E000E62F6 /* Scene8-Stranger.wav */; };
+		229523731FAE904E000E62F6 /* Scene9-Princeps.wav in Resources */ = {isa = PBXBuildFile; fileRef = 229523471FAE904E000E62F6 /* Scene9-Princeps.wav */; };
+		229523741FAE904E000E62F6 /* Scene10-Emperor.wav in Resources */ = {isa = PBXBuildFile; fileRef = 229523481FAE904E000E62F6 /* Scene10-Emperor.wav */; };
+		229523751FAE904E000E62F6 /* Scene11-Market.wav in Resources */ = {isa = PBXBuildFile; fileRef = 229523491FAE904E000E62F6 /* Scene11-Market.wav */; };
+		229523761FAE904E000E62F6 /* Scene12-DarkHeir.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2295234A1FAE904E000E62F6 /* Scene12-DarkHeir.wav */; };
+		229523771FAE904E000E62F6 /* Scene13-NewForm.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2295234B1FAE904E000E62F6 /* Scene13-NewForm.wav */; };
+		229523781FAE904E000E62F6 /* Scene14-Emprate.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2295234C1FAE904E000E62F6 /* Scene14-Emprate.wav */; };
+		229523791FAE904E000E62F6 /* Scene15-Money.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2295234D1FAE904E000E62F6 /* Scene15-Money.wav */; };
+		2295237A1FAE904E000E62F6 /* Scene16-Mother.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2295234E1FAE904E000E62F6 /* Scene16-Mother.wav */; };
+		2295237B1FAE904E000E62F6 /* Scene17-NominatedHeir.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2295234F1FAE904E000E62F6 /* Scene17-NominatedHeir.wav */; };
+		2295237C1FAE904E000E62F6 /* Scene18-BuyBook.wav in Resources */ = {isa = PBXBuildFile; fileRef = 229523501FAE904E000E62F6 /* Scene18-BuyBook.wav */; };
+		2295237D1FAE904E000E62F6 /* Scene19-Farlands.wav in Resources */ = {isa = PBXBuildFile; fileRef = 229523511FAE904E000E62F6 /* Scene19-Farlands.wav */; };
+		2295237E1FAE904E000E62F6 /* Scene20-Aemilia.wav in Resources */ = {isa = PBXBuildFile; fileRef = 229523521FAE904E000E62F6 /* Scene20-Aemilia.wav */; };
+		2295237F1FAE904E000E62F6 /* Scene21-Thief.wav in Resources */ = {isa = PBXBuildFile; fileRef = 229523531FAE904E000E62F6 /* Scene21-Thief.wav */; };
+		229523801FAE904E000E62F6 /* Scene22-NewEmperors.wav in Resources */ = {isa = PBXBuildFile; fileRef = 229523541FAE904E000E62F6 /* Scene22-NewEmperors.wav */; };
+		229523811FAE904E000E62F6 /* Scene23-Learning.wav in Resources */ = {isa = PBXBuildFile; fileRef = 229523551FAE904E000E62F6 /* Scene23-Learning.wav */; };
+		229523821FAE904E000E62F6 /* Scene24-Order.wav in Resources */ = {isa = PBXBuildFile; fileRef = 229523561FAE904E000E62F6 /* Scene24-Order.wav */; };
+		229523831FAE904E000E62F6 /* Scene25-Greatness.wav in Resources */ = {isa = PBXBuildFile; fileRef = 229523571FAE904E000E62F6 /* Scene25-Greatness.wav */; };
+		229523841FAE904E000E62F6 /* Scene26-HateBook.wav in Resources */ = {isa = PBXBuildFile; fileRef = 229523581FAE904E000E62F6 /* Scene26-HateBook.wav */; };
+		229523851FAE904E000E62F6 /* Scene27-DarkMagic.wav in Resources */ = {isa = PBXBuildFile; fileRef = 229523591FAE904E000E62F6 /* Scene27-DarkMagic.wav */; };
+		229523861FAE904E000E62F6 /* Scene28-Fight.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2295235A1FAE904E000E62F6 /* Scene28-Fight.wav */; };
+		229523871FAE904E000E62F6 /* Scene29-WeakUnion.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2295235B1FAE904E000E62F6 /* Scene29-WeakUnion.wav */; };
+		229523881FAE904E000E62F6 /* Scene30-Scribe.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2295235C1FAE904E000E62F6 /* Scene30-Scribe.wav */; };
+		229523891FAE904E000E62F6 /* Scene31-Work.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2295235D1FAE904E000E62F6 /* Scene31-Work.wav */; };
+		2295238A1FAE904E000E62F6 /* Scene32-Nullified.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2295235E1FAE904E000E62F6 /* Scene32-Nullified.wav */; };
+		2295238B1FAE904E000E62F6 /* Scene33-SoleEmperor.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2295235F1FAE904E000E62F6 /* Scene33-SoleEmperor.wav */; };
+		2295238C1FAE904E000E62F6 /* Scene34-Hurt.wav in Resources */ = {isa = PBXBuildFile; fileRef = 229523601FAE904E000E62F6 /* Scene34-Hurt.wav */; };
+		2295238D1FAE904E000E62F6 /* Scene35-Assurance.wav in Resources */ = {isa = PBXBuildFile; fileRef = 229523611FAE904E000E62F6 /* Scene35-Assurance.wav */; };
+		2295238E1FAE904E000E62F6 /* Scene36-Escape.wav in Resources */ = {isa = PBXBuildFile; fileRef = 229523621FAE904E000E62F6 /* Scene36-Escape.wav */; };
+		2295238F1FAE904E000E62F6 /* Scene37-Hide.wav in Resources */ = {isa = PBXBuildFile; fileRef = 229523631FAE904E000E62F6 /* Scene37-Hide.wav */; };
+		229523901FAE904E000E62F6 /* Scene38-DarkForest.wav in Resources */ = {isa = PBXBuildFile; fileRef = 229523641FAE904E000E62F6 /* Scene38-DarkForest.wav */; };
+		229523911FAE904E000E62F6 /* Scene39-Dread.wav in Resources */ = {isa = PBXBuildFile; fileRef = 229523651FAE904E000E62F6 /* Scene39-Dread.wav */; };
+		229523921FAE904E000E62F6 /* Scene40-Desire.wav in Resources */ = {isa = PBXBuildFile; fileRef = 229523661FAE904E000E62F6 /* Scene40-Desire.wav */; };
+		229523931FAE904E000E62F6 /* Scene41-Murder.wav in Resources */ = {isa = PBXBuildFile; fileRef = 229523671FAE904E000E62F6 /* Scene41-Murder.wav */; };
+		229523941FAE904E000E62F6 /* Scene42-Sacrifice.wav in Resources */ = {isa = PBXBuildFile; fileRef = 229523681FAE904E000E62F6 /* Scene42-Sacrifice.wav */; };
+		229523961FAE9238000E62F6 /* story.txt in Resources */ = {isa = PBXBuildFile; fileRef = 229523951FAE9238000E62F6 /* story.txt */; };
 		229583001F5CF927009F7131 /* 6 Castle.wav in Resources */ = {isa = PBXBuildFile; fileRef = 229582FE1F5CF927009F7131 /* 6 Castle.wav */; };
 		229583031F5F9108009F7131 /* Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229583021F5F9108009F7131 /* Layout.swift */; };
 		229583051F5F92AC009F7131 /* LayoutFormer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229583041F5F92AC009F7131 /* LayoutFormer.swift */; };
@@ -175,15 +217,11 @@
 		229583191F6CDFAB009F7131 /* SaveFile.png in Resources */ = {isa = PBXBuildFile; fileRef = 229583181F6CDFAB009F7131 /* SaveFile.png */; };
 		2295831B1F6D96EC009F7131 /* Quant-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2295831A1F6D9684009F7131 /* Quant-Light.otf */; };
 		229583201F6DAE20009F7131 /* 7 Emprate.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2295831D1F6DAE20009F7131 /* 7 Emprate.wav */; };
-		229583211F6DAE20009F7131 /* 8 Legions.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2295831E1F6DAE20009F7131 /* 8 Legions.wav */; };
-		229583231F6DAF8A009F7131 /* 4 Empress.wav in Resources */ = {isa = PBXBuildFile; fileRef = 229583221F6DAF8A009F7131 /* 4 Empress.wav */; };
 		229583291F6E1E98009F7131 /* Scout.png in Resources */ = {isa = PBXBuildFile; fileRef = 229583281F6E1E98009F7131 /* Scout.png */; };
-		229583331F6ED91D009F7131 /* 9 Princeps.wav in Resources */ = {isa = PBXBuildFile; fileRef = 229583321F6ED91D009F7131 /* 9 Princeps.wav */; };
 		229583351F6EDB0C009F7131 /* Victory.wav in Resources */ = {isa = PBXBuildFile; fileRef = 229583341F6EDB0C009F7131 /* Victory.wav */; };
 		229583371F6EDB1D009F7131 /* Defeat.wav in Resources */ = {isa = PBXBuildFile; fileRef = 229583361F6EDB1D009F7131 /* Defeat.wav */; };
 		229583421F6F3AAE009F7131 /* Thief.png in Resources */ = {isa = PBXBuildFile; fileRef = 229583411F6F3AAE009F7131 /* Thief.png */; };
 		229583461F6F40BD009F7131 /* Commander.png in Resources */ = {isa = PBXBuildFile; fileRef = 229583451F6F40BD009F7131 /* Commander.png */; };
-		229583501F6F5D1D009F7131 /* 1 Battle.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2295834F1F6F5D1D009F7131 /* 1 Battle.wav */; };
 		229583521F6F5D26009F7131 /* 3 Emperor.wav in Resources */ = {isa = PBXBuildFile; fileRef = 229583511F6F5D26009F7131 /* 3 Emperor.wav */; };
 		229583541F701FD0009F7131 /* Captain.png in Resources */ = {isa = PBXBuildFile; fileRef = 229583531F701FD0009F7131 /* Captain.png */; };
 		229583561F7024EE009F7131 /* Heavy.png in Resources */ = {isa = PBXBuildFile; fileRef = 229583551F7024EE009F7131 /* Heavy.png */; };
@@ -217,8 +255,8 @@
 		229B21381EC6A9C4001B3110 /* soldier_walk.png in Resources */ = {isa = PBXBuildFile; fileRef = 229B21371EC6A9C4001B3110 /* soldier_walk.png */; };
 		229B213D1EC6B070001B3110 /* Soldier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229B213C1EC6B070001B3110 /* Soldier.swift */; };
 		229B213F1EC6B08A001B3110 /* Infantry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229B213E1EC6B08A001B3110 /* Infantry.swift */; };
-		229B21411EC6B0A9001B3110 /* SoldierTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229B21401EC6B0A9001B3110 /* SoldierTypes.swift */; };
-		229B21431EC6B0DF001B3110 /* Formations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229B21421EC6B0DF001B3110 /* Formations.swift */; };
+		229B21411EC6B0A9001B3110 /* Emperor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229B21401EC6B0A9001B3110 /* Emperor.swift */; };
+		229B21431EC6B0DF001B3110 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229B21421EC6B0DF001B3110 /* Coordinator.swift */; };
 		229B21451EC6B10B001B3110 /* SoldierBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229B21441EC6B10B001B3110 /* SoldierBehavior.swift */; };
 		229B21471EC6B139001B3110 /* ActorUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229B21461EC6B139001B3110 /* ActorUtility.swift */; };
 		229B214B1EC6C600001B3110 /* Effects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229B214A1EC6C600001B3110 /* Effects.swift */; };
@@ -233,9 +271,49 @@
 		229C29A11F57B1200080717A /* PointRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229C29A01F57B1200080717A /* PointRenderer.swift */; };
 		22A6FA771F57B6F9007B1B9C /* Point.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 22A6FA761F57B6F9007B1B9C /* Point.vsh */; };
 		22A6FA791F57B706007B1B9C /* Point.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 22A6FA781F57B706007B1B9C /* Point.fsh */; };
-		22A8BEFB1F28366400F32FC0 /* AI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A8BEFA1F28366400F32FC0 /* AI.swift */; };
-		22A9944E1DDD62F4009F6660 /* Generator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A9944D1DDD62F4009F6660 /* Generator.swift */; };
-		22AED56F1F5B621600A5D2E0 /* 0 Title.wav in Resources */ = {isa = PBXBuildFile; fileRef = 22AED56E1F5B621600A5D2E0 /* 0 Title.wav */; };
+		22A75AB71FB9529600AA625B /* MiscScreens.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A75AB61FB9529600AA625B /* MiscScreens.swift */; };
+		22A75AB91FBBC2A300AA625B /* Tutorial.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A75AB81FBBC2A300AA625B /* Tutorial.swift */; };
+		22A75ABB1FBC186300AA625B /* 0 Title.wav in Resources */ = {isa = PBXBuildFile; fileRef = 22A75ABA1FBC186300AA625B /* 0 Title.wav */; };
+		22A75AC11FBC1AFC00AA625B /* 1 Battle.wav in Resources */ = {isa = PBXBuildFile; fileRef = 22A75AC01FBC1AFC00AA625B /* 1 Battle.wav */; };
+		22A75AC41FBCDA0200AA625B /* ShowInput-Base.png in Resources */ = {isa = PBXBuildFile; fileRef = 22A75AC21FBCDA0200AA625B /* ShowInput-Base.png */; };
+		22A75AC51FBCDA0200AA625B /* ShowInput-Case.png in Resources */ = {isa = PBXBuildFile; fileRef = 22A75AC31FBCDA0200AA625B /* ShowInput-Case.png */; };
+		22A75AC71FBE222D00AA625B /* Tutorial.wav in Resources */ = {isa = PBXBuildFile; fileRef = 22A75AC61FBE222D00AA625B /* Tutorial.wav */; };
+		22A75ACA1FC3B5DF00AA625B /* Scout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A75AC91FC3B5DE00AA625B /* Scout.swift */; };
+		22A75ACC1FC3B5F700AA625B /* Captain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A75ACB1FC3B5F700AA625B /* Captain.swift */; };
+		22A75ACE1FC3B62000AA625B /* Thief.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A75ACD1FC3B62000AA625B /* Thief.swift */; };
+		22A75AD01FC3B63900AA625B /* Commander.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A75ACF1FC3B63900AA625B /* Commander.swift */; };
+		22A75AD21FC3B64A00AA625B /* Healer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A75AD11FC3B64A00AA625B /* Healer.swift */; };
+		22A75AD41FC3B65B00AA625B /* Heavy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A75AD31FC3B65B00AA625B /* Heavy.swift */; };
+		22A75AD61FC3B67600AA625B /* Sniper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A75AD51FC3B67600AA625B /* Sniper.swift */; };
+		22A75AD81FC3B68A00AA625B /* Mage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A75AD71FC3B68A00AA625B /* Mage.swift */; };
+		22A75ADC1FC3BAA700AA625B /* PlayerInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A75ADB1FC3BAA700AA625B /* PlayerInterface.swift */; };
+		22A75AE01FC3BADB00AA625B /* ExplosionTerminator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A75ADF1FC3BADB00AA625B /* ExplosionTerminator.swift */; };
+		22A75AE21FC4E8F700AA625B /* PlayerWalk.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A75AE11FC4E8F700AA625B /* PlayerWalk.swift */; };
+		22A75AE41FC4E91100AA625B /* PlayerDeath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A75AE31FC4E91100AA625B /* PlayerDeath.swift */; };
+		22A75AE61FC4E92C00AA625B /* DeathEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A75AE51FC4E92C00AA625B /* DeathEvent.swift */; };
+		22A75AE81FC4E95700AA625B /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A75AE71FC4E95700AA625B /* Types.swift */; };
+		22A75AEC1FC4E9E900AA625B /* FirepowerUpgrade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A75AEB1FC4E9E900AA625B /* FirepowerUpgrade.swift */; };
+		22A75AEE1FC4E9FC00AA625B /* ShieldUpgrade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A75AED1FC4E9FC00AA625B /* ShieldUpgrade.swift */; };
+		22A75AF01FC4EA1B00AA625B /* BarrierUpgrade.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A75AEF1FC4EA1B00AA625B /* BarrierUpgrade.swift */; };
+		22A75AF21FC4F4EC00AA625B /* ChargeBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A75AF11FC4F4EC00AA625B /* ChargeBehavior.swift */; };
+		22A75AF41FC4F51300AA625B /* GuardBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A75AF31FC4F51300AA625B /* GuardBehavior.swift */; };
+		22A75AF61FC4F59D00AA625B /* DodgeBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A75AF51FC4F59D00AA625B /* DodgeBehavior.swift */; };
+		22A75AF81FC4F5FF00AA625B /* AllfireBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A75AF71FC4F5FF00AA625B /* AllfireBehavior.swift */; };
+		22A75AFC1FC4F63700AA625B /* RapidFireBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A75AFB1FC4F63700AA625B /* RapidFireBehavior.swift */; };
+		22A75AFE1FC4F64F00AA625B /* HealBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A75AFD1FC4F64F00AA625B /* HealBehavior.swift */; };
+		22A75B001FC4F66200AA625B /* GlideBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A75AFF1FC4F66200AA625B /* GlideBehavior.swift */; };
+		22A75B031FC4FC5700AA625B /* FireBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A75B021FC4FC5700AA625B /* FireBehavior.swift */; };
+		22A75B051FC5004300AA625B /* CaptainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A75B041FC5004300AA625B /* CaptainController.swift */; };
+		22A8BEFB1F28366400F32FC0 /* BehaviorLimits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A8BEFA1F28366400F32FC0 /* BehaviorLimits.swift */; };
+		22AC52B81FC9402D005ABFAF /* MissileFireBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AC52B71FC9402D005ABFAF /* MissileFireBehavior.swift */; };
+		22AC52BE1FC956C7005ABFAF /* Missile.png in Resources */ = {isa = PBXBuildFile; fileRef = 22AC52BD1FC956C7005ABFAF /* Missile.png */; };
+		22AC52C01FCB1970005ABFAF /* Upgrader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AC52BF1FCB1970005ABFAF /* Upgrader.swift */; };
+		22AC52C21FCB1995005ABFAF /* GameScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AC52C11FCB1995005ABFAF /* GameScreen.swift */; };
+		22AC52C41FCB1A28005ABFAF /* GameLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AC52C31FCB1A28005ABFAF /* GameLevel.swift */; };
+		22AC52C61FCB2D9A005ABFAF /* Creator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AC52C51FCB2D9A005ABFAF /* Creator.swift */; };
+		22AC52C81FCB8599005ABFAF /* EventList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AC52C71FCB8599005ABFAF /* EventList.swift */; };
+		22AC52CA1FCBB188005ABFAF /* Level.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AC52C91FCBB188005ABFAF /* Level.swift */; };
+		22AC52CC1FCBB68D005ABFAF /* GameDisplayLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AC52CB1FCBB68D005ABFAF /* GameDisplayLayer.swift */; };
 		22B8C35D1D7D302400806C16 /* spineboy.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 22B8C35A1D7D302400806C16 /* spineboy.atlas */; };
 		22B8C35F1D7D302400806C16 /* spineboy.png in Resources */ = {isa = PBXBuildFile; fileRef = 22B8C35C1D7D302400806C16 /* spineboy.png */; };
 		22B8C3681D8262C400806C16 /* spineboy.json in Resources */ = {isa = PBXBuildFile; fileRef = 22B8C3671D8262C400806C16 /* spineboy.json */; };
@@ -246,9 +324,21 @@
 		22B8C3781D85465400806C16 /* charge2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 22B8C3771D85465400806C16 /* charge2.wav */; };
 		22B8C37A1D85465B00806C16 /* hit6.wav in Resources */ = {isa = PBXBuildFile; fileRef = 22B8C3791D85465B00806C16 /* hit6.wav */; };
 		22B8C37C1D8546D700806C16 /* hit7.wav in Resources */ = {isa = PBXBuildFile; fileRef = 22B8C37B1D8546D700806C16 /* hit7.wav */; };
+		22BB487B1FC7516B006CD5C1 /* HeavyController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BB487A1FC7516B006CD5C1 /* HeavyController.swift */; };
+		22BB487E1FC76080006CD5C1 /* HomingWeapon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BB487D1FC76080006CD5C1 /* HomingWeapon.swift */; };
+		22BB48801FC760A9006CD5C1 /* WeaponAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BB487F1FC760A9006CD5C1 /* WeaponAdapter.swift */; };
+		22BB48821FC8C99C006CD5C1 /* PowerWarning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BB48811FC8C99C006CD5C1 /* PowerWarning.swift */; };
+		22BB48841FC8C9B4006CD5C1 /* Power.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BB48831FC8C9B4006CD5C1 /* Power.swift */; };
+		22BB48861FC8C9EB006CD5C1 /* WeaponDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BB48851FC8C9EB006CD5C1 /* WeaponDelegate.swift */; };
+		22BB48881FC8CA04006CD5C1 /* PlayerWeapon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BB48871FC8CA04006CD5C1 /* PlayerWeapon.swift */; };
+		22BB488A1FC8CA21006CD5C1 /* Laser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BB48891FC8CA21006CD5C1 /* Laser.swift */; };
+		22BB488C1FC8CAC2006CD5C1 /* HomingBullet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BB488B1FC8CAC2006CD5C1 /* HomingBullet.swift */; };
+		22BB488E1FC8CAEA006CD5C1 /* BulletTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BB488D1FC8CAEA006CD5C1 /* BulletTypes.swift */; };
+		22BB48901FC8CAFC006CD5C1 /* Firer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BB488F1FC8CAFC006CD5C1 /* Firer.swift */; };
+		22BB48921FC8CB18006CD5C1 /* HomingFirer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BB48911FC8CB18006CD5C1 /* HomingFirer.swift */; };
+		22BB48941FC8CB3B006CD5C1 /* Damagable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BB48931FC8CB3B006CD5C1 /* Damagable.swift */; };
 		22BE4D8F1EED061000C641EC /* dodge.wav in Resources */ = {isa = PBXBuildFile; fileRef = 22BE4D8E1EED061000C641EC /* dodge.wav */; };
 		22BE4DA11EF50EFC00C641EC /* Mage.png in Resources */ = {isa = PBXBuildFile; fileRef = 22BE4DA01EF50EFC00C641EC /* Mage.png */; };
-		22C159B21E8F3D510001DB65 /* 2 Imperial.wav in Resources */ = {isa = PBXBuildFile; fileRef = 22C159B11E8F3D510001DB65 /* 2 Imperial.wav */; };
 		22C456AD1E2F0BA60003FBA8 /* TitleUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C456AC1E2F0BA60003FBA8 /* TitleUI.swift */; };
 		22C4E5661D73A9940077DFCB /* jump1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 22C4E5651D73A9940077DFCB /* jump1.wav */; };
 		22C4E5681D73A9990077DFCB /* make1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 22C4E5671D73A9990077DFCB /* make1.wav */; };
@@ -337,12 +427,10 @@
 		221A5F111D986C57004B1516 /* Metropolis-ExtraLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Metropolis-ExtraLight.otf"; sourceTree = "<group>"; };
 		222404181E6AA19C00A8B5E0 /* GLHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GLHelper.h; sourceTree = "<group>"; };
 		222404191E6AA19C00A8B5E0 /* GLHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GLHelper.m; sourceTree = "<group>"; };
-		2226F9641F0AE3210017569B /* story.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = story.txt; sourceTree = "<group>"; };
 		2229864E1E48025000389B49 /* shield_weak.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = shield_weak.wav; sourceTree = "<group>"; };
 		222986501E4806EA00389B49 /* death.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = death.wav; sourceTree = "<group>"; };
 		222986521E4806EA00389B49 /* power_low.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = power_low.wav; sourceTree = "<group>"; };
 		222986581E48156B00389B49 /* power_full.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = power_full.wav; sourceTree = "<group>"; };
-		2229865A1E4C320A00389B49 /* Coin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coin.swift; sourceTree = "<group>"; };
 		2229865C1E4C464C00389B49 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		2229865E1E4C466500389B49 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		222B96581F15CD8200D47922 /* Emperor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Emperor.png; sourceTree = "<group>"; };
@@ -411,13 +499,13 @@
 		22429FD61E5C0620004BCBD0 /* IndexMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IndexMap.swift; sourceTree = "<group>"; };
 		2249C3551DBC307A00D4EEBF /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Player.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		2249C3611DBC6A3900D4EEBF /* hit2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = hit2.wav; sourceTree = "<group>"; };
-		2251DEEC1DAB249F0022D711 /* Enemies.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Enemies.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		2251DEEC1DAB249F0022D711 /* MarchAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = MarchAnimator.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		2251DEEE1DAB43350022D711 /* Weapon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Weapon.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		2254AB081F1B16900020DD01 /* Laser.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Laser.vsh; sourceTree = "<group>"; };
 		2254AB0A1F1B169B0020DD01 /* Laser.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Laser.fsh; sourceTree = "<group>"; };
 		2254AB0E1F1B2DA80020DD01 /* laser.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = laser.png; sourceTree = "<group>"; };
 		2254AB101F1B372F0020DD01 /* Lava.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Lava.png; sourceTree = "<group>"; };
-		2254AB121F1B382C0020DD01 /* Boss.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Boss.swift; sourceTree = "<group>"; };
+		2254AB121F1B382C0020DD01 /* FinalBattle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinalBattle.swift; sourceTree = "<group>"; };
 		225D2E901DC073F800E46E56 /* break1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = break1.wav; sourceTree = "<group>"; };
 		225DC2D41E5016980068B566 /* Shield.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shield.swift; sourceTree = "<group>"; };
 		225E51691DC55CB30065EECF /* UserInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInterface.swift; sourceTree = "<group>"; };
@@ -461,7 +549,51 @@
 		228CC2161F004FFA00E6F75C /* player_died.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = player_died.wav; sourceTree = "<group>"; };
 		228CC21A1F00526700E6F75C /* player_fall.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = player_fall.wav; sourceTree = "<group>"; };
 		228CC2221F005D8D00E6F75C /* weapon_lowpower.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = weapon_lowpower.wav; sourceTree = "<group>"; };
-		229582FD1F5CF927009F7131 /* 5 Night.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "5 Night.wav"; sourceTree = "<group>"; };
+		2295233D1FAE904E000E62F6 /* Scene1-Dream.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Scene1-Dream.wav"; sourceTree = "<group>"; };
+		2295233E1FAE904E000E62F6 /* Scene2-Father.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Scene2-Father.wav"; sourceTree = "<group>"; };
+		2295233F1FAE904E000E62F6 /* Scene3a-Recruit.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Scene3a-Recruit.wav"; sourceTree = "<group>"; };
+		229523401FAE904E000E62F6 /* Scene3b-Recruit.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Scene3b-Recruit.wav"; sourceTree = "<group>"; };
+		229523411FAE904E000E62F6 /* Scene3c-Recruit.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Scene3c-Recruit.wav"; sourceTree = "<group>"; };
+		229523421FAE904E000E62F6 /* Scene4-Republic.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Scene4-Republic.wav"; sourceTree = "<group>"; };
+		229523431FAE904E000E62F6 /* Scene5-HerPursuit.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Scene5-HerPursuit.wav"; sourceTree = "<group>"; };
+		229523441FAE904E000E62F6 /* Scene6-Ignore.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Scene6-Ignore.wav"; sourceTree = "<group>"; };
+		229523451FAE904E000E62F6 /* Scene7-DontKnow.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Scene7-DontKnow.wav"; sourceTree = "<group>"; };
+		229523461FAE904E000E62F6 /* Scene8-Stranger.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Scene8-Stranger.wav"; sourceTree = "<group>"; };
+		229523471FAE904E000E62F6 /* Scene9-Princeps.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Scene9-Princeps.wav"; sourceTree = "<group>"; };
+		229523481FAE904E000E62F6 /* Scene10-Emperor.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Scene10-Emperor.wav"; sourceTree = "<group>"; };
+		229523491FAE904E000E62F6 /* Scene11-Market.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Scene11-Market.wav"; sourceTree = "<group>"; };
+		2295234A1FAE904E000E62F6 /* Scene12-DarkHeir.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Scene12-DarkHeir.wav"; sourceTree = "<group>"; };
+		2295234B1FAE904E000E62F6 /* Scene13-NewForm.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Scene13-NewForm.wav"; sourceTree = "<group>"; };
+		2295234C1FAE904E000E62F6 /* Scene14-Emprate.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Scene14-Emprate.wav"; sourceTree = "<group>"; };
+		2295234D1FAE904E000E62F6 /* Scene15-Money.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Scene15-Money.wav"; sourceTree = "<group>"; };
+		2295234E1FAE904E000E62F6 /* Scene16-Mother.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Scene16-Mother.wav"; sourceTree = "<group>"; };
+		2295234F1FAE904E000E62F6 /* Scene17-NominatedHeir.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Scene17-NominatedHeir.wav"; sourceTree = "<group>"; };
+		229523501FAE904E000E62F6 /* Scene18-BuyBook.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Scene18-BuyBook.wav"; sourceTree = "<group>"; };
+		229523511FAE904E000E62F6 /* Scene19-Farlands.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Scene19-Farlands.wav"; sourceTree = "<group>"; };
+		229523521FAE904E000E62F6 /* Scene20-Aemilia.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Scene20-Aemilia.wav"; sourceTree = "<group>"; };
+		229523531FAE904E000E62F6 /* Scene21-Thief.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Scene21-Thief.wav"; sourceTree = "<group>"; };
+		229523541FAE904E000E62F6 /* Scene22-NewEmperors.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Scene22-NewEmperors.wav"; sourceTree = "<group>"; };
+		229523551FAE904E000E62F6 /* Scene23-Learning.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Scene23-Learning.wav"; sourceTree = "<group>"; };
+		229523561FAE904E000E62F6 /* Scene24-Order.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Scene24-Order.wav"; sourceTree = "<group>"; };
+		229523571FAE904E000E62F6 /* Scene25-Greatness.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Scene25-Greatness.wav"; sourceTree = "<group>"; };
+		229523581FAE904E000E62F6 /* Scene26-HateBook.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Scene26-HateBook.wav"; sourceTree = "<group>"; };
+		229523591FAE904E000E62F6 /* Scene27-DarkMagic.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Scene27-DarkMagic.wav"; sourceTree = "<group>"; };
+		2295235A1FAE904E000E62F6 /* Scene28-Fight.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Scene28-Fight.wav"; sourceTree = "<group>"; };
+		2295235B1FAE904E000E62F6 /* Scene29-WeakUnion.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Scene29-WeakUnion.wav"; sourceTree = "<group>"; };
+		2295235C1FAE904E000E62F6 /* Scene30-Scribe.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Scene30-Scribe.wav"; sourceTree = "<group>"; };
+		2295235D1FAE904E000E62F6 /* Scene31-Work.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Scene31-Work.wav"; sourceTree = "<group>"; };
+		2295235E1FAE904E000E62F6 /* Scene32-Nullified.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Scene32-Nullified.wav"; sourceTree = "<group>"; };
+		2295235F1FAE904E000E62F6 /* Scene33-SoleEmperor.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Scene33-SoleEmperor.wav"; sourceTree = "<group>"; };
+		229523601FAE904E000E62F6 /* Scene34-Hurt.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Scene34-Hurt.wav"; sourceTree = "<group>"; };
+		229523611FAE904E000E62F6 /* Scene35-Assurance.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Scene35-Assurance.wav"; sourceTree = "<group>"; };
+		229523621FAE904E000E62F6 /* Scene36-Escape.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Scene36-Escape.wav"; sourceTree = "<group>"; };
+		229523631FAE904E000E62F6 /* Scene37-Hide.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Scene37-Hide.wav"; sourceTree = "<group>"; };
+		229523641FAE904E000E62F6 /* Scene38-DarkForest.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Scene38-DarkForest.wav"; sourceTree = "<group>"; };
+		229523651FAE904E000E62F6 /* Scene39-Dread.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Scene39-Dread.wav"; sourceTree = "<group>"; };
+		229523661FAE904E000E62F6 /* Scene40-Desire.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Scene40-Desire.wav"; sourceTree = "<group>"; };
+		229523671FAE904E000E62F6 /* Scene41-Murder.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Scene41-Murder.wav"; sourceTree = "<group>"; };
+		229523681FAE904E000E62F6 /* Scene42-Sacrifice.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "Scene42-Sacrifice.wav"; sourceTree = "<group>"; };
+		229523951FAE9238000E62F6 /* story.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = story.txt; sourceTree = "<group>"; };
 		229582FE1F5CF927009F7131 /* 6 Castle.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "6 Castle.wav"; sourceTree = "<group>"; };
 		229583021F5F9108009F7131 /* Layout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Layout.swift; sourceTree = "<group>"; };
 		229583041F5F92AC009F7131 /* LayoutFormer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayoutFormer.swift; sourceTree = "<group>"; };
@@ -473,15 +605,11 @@
 		229583181F6CDFAB009F7131 /* SaveFile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SaveFile.png; sourceTree = "<group>"; };
 		2295831A1F6D9684009F7131 /* Quant-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Quant-Light.otf"; sourceTree = "<group>"; };
 		2295831D1F6DAE20009F7131 /* 7 Emprate.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "7 Emprate.wav"; sourceTree = "<group>"; };
-		2295831E1F6DAE20009F7131 /* 8 Legions.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "8 Legions.wav"; sourceTree = "<group>"; };
-		229583221F6DAF8A009F7131 /* 4 Empress.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "4 Empress.wav"; sourceTree = "<group>"; };
 		229583281F6E1E98009F7131 /* Scout.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Scout.png; sourceTree = "<group>"; };
-		229583321F6ED91D009F7131 /* 9 Princeps.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "9 Princeps.wav"; sourceTree = "<group>"; };
 		229583341F6EDB0C009F7131 /* Victory.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Victory.wav; sourceTree = "<group>"; };
 		229583361F6EDB1D009F7131 /* Defeat.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Defeat.wav; sourceTree = "<group>"; };
 		229583411F6F3AAE009F7131 /* Thief.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Thief.png; sourceTree = "<group>"; };
 		229583451F6F40BD009F7131 /* Commander.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Commander.png; sourceTree = "<group>"; };
-		2295834F1F6F5D1D009F7131 /* 1 Battle.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "1 Battle.wav"; sourceTree = "<group>"; };
 		229583511F6F5D26009F7131 /* 3 Emperor.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "3 Emperor.wav"; sourceTree = "<group>"; };
 		229583531F701FD0009F7131 /* Captain.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Captain.png; sourceTree = "<group>"; };
 		229583551F7024EE009F7131 /* Heavy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Heavy.png; sourceTree = "<group>"; };
@@ -515,8 +643,8 @@
 		229B21371EC6A9C4001B3110 /* soldier_walk.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = soldier_walk.png; sourceTree = "<group>"; };
 		229B213C1EC6B070001B3110 /* Soldier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Soldier.swift; sourceTree = "<group>"; };
 		229B213E1EC6B08A001B3110 /* Infantry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Infantry.swift; sourceTree = "<group>"; };
-		229B21401EC6B0A9001B3110 /* SoldierTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoldierTypes.swift; sourceTree = "<group>"; };
-		229B21421EC6B0DF001B3110 /* Formations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Formations.swift; sourceTree = "<group>"; };
+		229B21401EC6B0A9001B3110 /* Emperor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Emperor.swift; sourceTree = "<group>"; };
+		229B21421EC6B0DF001B3110 /* Coordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		229B21441EC6B10B001B3110 /* SoldierBehavior.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoldierBehavior.swift; sourceTree = "<group>"; };
 		229B21461EC6B139001B3110 /* ActorUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActorUtility.swift; sourceTree = "<group>"; };
 		229B214A1EC6C600001B3110 /* Effects.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Effects.swift; sourceTree = "<group>"; };
@@ -529,14 +657,54 @@
 		229C299B1F57A93F0080717A /* ParticleSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParticleSystem.swift; sourceTree = "<group>"; };
 		229C299D1F57AFDF0080717A /* Point.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Point.swift; sourceTree = "<group>"; };
 		229C29A01F57B1200080717A /* PointRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PointRenderer.swift; sourceTree = "<group>"; };
-		22A37E961DB1E8C60050816F /* Upgrades.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Upgrades.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		22A37E961DB1E8C60050816F /* Upgrade.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Upgrade.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		22A6FA761F57B6F9007B1B9C /* Point.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Point.vsh; sourceTree = "<group>"; };
 		22A6FA781F57B706007B1B9C /* Point.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Point.fsh; sourceTree = "<group>"; };
-		22A8BEFA1F28366400F32FC0 /* AI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AI.swift; sourceTree = "<group>"; };
-		22A9944D1DDD62F4009F6660 /* Generator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Generator.swift; sourceTree = "<group>"; };
+		22A75AB61FB9529600AA625B /* MiscScreens.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MiscScreens.swift; sourceTree = "<group>"; };
+		22A75AB81FBBC2A300AA625B /* Tutorial.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tutorial.swift; sourceTree = "<group>"; };
+		22A75ABA1FBC186300AA625B /* 0 Title.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "0 Title.wav"; sourceTree = "<group>"; };
+		22A75AC01FBC1AFC00AA625B /* 1 Battle.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "1 Battle.wav"; sourceTree = "<group>"; };
+		22A75AC21FBCDA0200AA625B /* ShowInput-Base.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ShowInput-Base.png"; sourceTree = "<group>"; };
+		22A75AC31FBCDA0200AA625B /* ShowInput-Case.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ShowInput-Case.png"; sourceTree = "<group>"; };
+		22A75AC61FBE222D00AA625B /* Tutorial.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Tutorial.wav; sourceTree = "<group>"; };
+		22A75AC91FC3B5DE00AA625B /* Scout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Scout.swift; sourceTree = "<group>"; };
+		22A75ACB1FC3B5F700AA625B /* Captain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Captain.swift; sourceTree = "<group>"; };
+		22A75ACD1FC3B62000AA625B /* Thief.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Thief.swift; sourceTree = "<group>"; };
+		22A75ACF1FC3B63900AA625B /* Commander.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Commander.swift; sourceTree = "<group>"; };
+		22A75AD11FC3B64A00AA625B /* Healer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Healer.swift; sourceTree = "<group>"; };
+		22A75AD31FC3B65B00AA625B /* Heavy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Heavy.swift; sourceTree = "<group>"; };
+		22A75AD51FC3B67600AA625B /* Sniper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sniper.swift; sourceTree = "<group>"; };
+		22A75AD71FC3B68A00AA625B /* Mage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mage.swift; sourceTree = "<group>"; };
+		22A75ADB1FC3BAA700AA625B /* PlayerInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerInterface.swift; sourceTree = "<group>"; };
+		22A75ADF1FC3BADB00AA625B /* ExplosionTerminator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExplosionTerminator.swift; sourceTree = "<group>"; };
+		22A75AE11FC4E8F700AA625B /* PlayerWalk.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerWalk.swift; sourceTree = "<group>"; };
+		22A75AE31FC4E91100AA625B /* PlayerDeath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerDeath.swift; sourceTree = "<group>"; };
+		22A75AE51FC4E92C00AA625B /* DeathEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeathEvent.swift; sourceTree = "<group>"; };
+		22A75AE71FC4E95700AA625B /* Types.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Types.swift; sourceTree = "<group>"; };
+		22A75AEB1FC4E9E900AA625B /* FirepowerUpgrade.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirepowerUpgrade.swift; sourceTree = "<group>"; };
+		22A75AED1FC4E9FC00AA625B /* ShieldUpgrade.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShieldUpgrade.swift; sourceTree = "<group>"; };
+		22A75AEF1FC4EA1B00AA625B /* BarrierUpgrade.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarrierUpgrade.swift; sourceTree = "<group>"; };
+		22A75AF11FC4F4EC00AA625B /* ChargeBehavior.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChargeBehavior.swift; sourceTree = "<group>"; };
+		22A75AF31FC4F51300AA625B /* GuardBehavior.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GuardBehavior.swift; sourceTree = "<group>"; };
+		22A75AF51FC4F59D00AA625B /* DodgeBehavior.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DodgeBehavior.swift; sourceTree = "<group>"; };
+		22A75AF71FC4F5FF00AA625B /* AllfireBehavior.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllfireBehavior.swift; sourceTree = "<group>"; };
+		22A75AFB1FC4F63700AA625B /* RapidFireBehavior.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RapidFireBehavior.swift; sourceTree = "<group>"; };
+		22A75AFD1FC4F64F00AA625B /* HealBehavior.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealBehavior.swift; sourceTree = "<group>"; };
+		22A75AFF1FC4F66200AA625B /* GlideBehavior.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlideBehavior.swift; sourceTree = "<group>"; };
+		22A75B021FC4FC5700AA625B /* FireBehavior.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FireBehavior.swift; sourceTree = "<group>"; };
+		22A75B041FC5004300AA625B /* CaptainController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaptainController.swift; sourceTree = "<group>"; };
+		22A8BEFA1F28366400F32FC0 /* BehaviorLimits.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BehaviorLimits.swift; sourceTree = "<group>"; };
 		22A9F80B1D5806650097FD61 /* Display.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Display.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		22A9F80D1D5818DD0097FD61 /* Structure.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Structure.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		22AED56E1F5B621600A5D2E0 /* 0 Title.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "0 Title.wav"; sourceTree = "<group>"; };
+		22AC52B71FC9402D005ABFAF /* MissileFireBehavior.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MissileFireBehavior.swift; sourceTree = "<group>"; };
+		22AC52BD1FC956C7005ABFAF /* Missile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Missile.png; sourceTree = "<group>"; };
+		22AC52BF1FCB1970005ABFAF /* Upgrader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Upgrader.swift; sourceTree = "<group>"; };
+		22AC52C11FCB1995005ABFAF /* GameScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameScreen.swift; sourceTree = "<group>"; };
+		22AC52C31FCB1A28005ABFAF /* GameLevel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameLevel.swift; sourceTree = "<group>"; };
+		22AC52C51FCB2D9A005ABFAF /* Creator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Creator.swift; sourceTree = "<group>"; };
+		22AC52C71FCB8599005ABFAF /* EventList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventList.swift; sourceTree = "<group>"; };
+		22AC52C91FCBB188005ABFAF /* Level.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Level.swift; sourceTree = "<group>"; };
+		22AC52CB1FCBB68D005ABFAF /* GameDisplayLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameDisplayLayer.swift; sourceTree = "<group>"; };
 		22B8C35A1D7D302400806C16 /* spineboy.atlas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = spineboy.atlas; sourceTree = "<group>"; };
 		22B8C35C1D7D302400806C16 /* spineboy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spineboy.png; sourceTree = "<group>"; };
 		22B8C3671D8262C400806C16 /* spineboy.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = spineboy.json; sourceTree = "<group>"; };
@@ -547,10 +715,22 @@
 		22B8C3771D85465400806C16 /* charge2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = charge2.wav; sourceTree = "<group>"; };
 		22B8C3791D85465B00806C16 /* hit6.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = hit6.wav; sourceTree = "<group>"; };
 		22B8C37B1D8546D700806C16 /* hit7.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = hit7.wav; sourceTree = "<group>"; };
+		22BB487A1FC7516B006CD5C1 /* HeavyController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeavyController.swift; sourceTree = "<group>"; };
+		22BB487D1FC76080006CD5C1 /* HomingWeapon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomingWeapon.swift; sourceTree = "<group>"; };
+		22BB487F1FC760A9006CD5C1 /* WeaponAdapter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeaponAdapter.swift; sourceTree = "<group>"; };
+		22BB48811FC8C99C006CD5C1 /* PowerWarning.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PowerWarning.swift; sourceTree = "<group>"; };
+		22BB48831FC8C9B4006CD5C1 /* Power.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Power.swift; sourceTree = "<group>"; };
+		22BB48851FC8C9EB006CD5C1 /* WeaponDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeaponDelegate.swift; sourceTree = "<group>"; };
+		22BB48871FC8CA04006CD5C1 /* PlayerWeapon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerWeapon.swift; sourceTree = "<group>"; };
+		22BB48891FC8CA21006CD5C1 /* Laser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Laser.swift; sourceTree = "<group>"; };
+		22BB488B1FC8CAC2006CD5C1 /* HomingBullet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomingBullet.swift; sourceTree = "<group>"; };
+		22BB488D1FC8CAEA006CD5C1 /* BulletTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BulletTypes.swift; sourceTree = "<group>"; };
+		22BB488F1FC8CAFC006CD5C1 /* Firer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Firer.swift; sourceTree = "<group>"; };
+		22BB48911FC8CB18006CD5C1 /* HomingFirer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomingFirer.swift; sourceTree = "<group>"; };
+		22BB48931FC8CB3B006CD5C1 /* Damagable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Damagable.swift; sourceTree = "<group>"; };
 		22BE4D8E1EED061000C641EC /* dodge.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = dodge.wav; sourceTree = "<group>"; };
 		22BE4DA01EF50EFC00C641EC /* Mage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Mage.png; sourceTree = "<group>"; };
 		22BE5DBE1D6D3BE30038FAA8 /* Grid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Grid.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		22C159B11E8F3D510001DB65 /* 2 Imperial.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "2 Imperial.wav"; sourceTree = "<group>"; };
 		22C2BCA71D59846C00C8F1D5 /* Sky_s_Melody_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sky_s_Melody_Tests.swift; sourceTree = "<group>"; };
 		22C456AC1E2F0BA60003FBA8 /* TitleUI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleUI.swift; sourceTree = "<group>"; };
 		22C4E5591D7278350077DFCB /* RectSolver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RectSolver.swift; sourceTree = "<group>"; };
@@ -644,6 +824,8 @@
 			children = (
 				22032F551E0F02CE001462C2 /* Data.swift */,
 				22032F571E0F02F0001462C2 /* Gateways.swift */,
+				22AC52BF1FCB1970005ABFAF /* Upgrader.swift */,
+				22AC52C11FCB1995005ABFAF /* GameScreen.swift */,
 			);
 			name = data;
 			sourceTree = "<group>";
@@ -663,11 +845,13 @@
 		22032F601E0F045D001462C2 /* player */ = {
 			isa = PBXGroup;
 			children = (
-				22032F591E0F030D001462C2 /* PointRange.swift */,
-				2251DEEE1DAB43350022D711 /* Weapon.swift */,
-				22A37E961DB1E8C60050816F /* Upgrades.swift */,
+				22A75AEA1FC4E9C200AA625B /* upgrades */,
+				22A75AE91FC4E96800AA625B /* animation */,
 				2249C3551DBC307A00D4EEBF /* Player.swift */,
-				225DC2D41E5016980068B566 /* Shield.swift */,
+				22A75ADB1FC3BAA700AA625B /* PlayerInterface.swift */,
+				22A75ADF1FC3BADB00AA625B /* ExplosionTerminator.swift */,
+				22A75AE51FC4E92C00AA625B /* DeathEvent.swift */,
+				22A75AE71FC4E95700AA625B /* Types.swift */,
 			);
 			name = player;
 			sourceTree = "<group>";
@@ -717,6 +901,11 @@
 			children = (
 				222DD8661D48854600A70FA8 /* MainGame.swift */,
 				222DD8721D48854600A70FA8 /* Game.swift */,
+				22AC52C31FCB1A28005ABFAF /* GameLevel.swift */,
+				22AC52C51FCB2D9A005ABFAF /* Creator.swift */,
+				22AC52C71FCB8599005ABFAF /* EventList.swift */,
+				22AC52C91FCBB188005ABFAF /* Level.swift */,
+				22AC52CB1FCBB68D005ABFAF /* GameDisplayLayer.swift */,
 			);
 			name = primary;
 			sourceTree = "<group>";
@@ -735,7 +924,7 @@
 		2241540B1F04B1460046CFDA /* story */ = {
 			isa = PBXGroup;
 			children = (
-				2226F9641F0AE3210017569B /* story.txt */,
+				229523951FAE9238000E62F6 /* story.txt */,
 				22ED3F881F26416900BFE5AF /* outro.txt */,
 			);
 			name = story;
@@ -744,6 +933,7 @@
 		225B15AD1E862606008F8D55 /* audio */ = {
 			isa = PBXGroup;
 			children = (
+				22A6F1911F9DB57700CB97E1 /* story */,
 				225B15AF1E86263D008F8D55 /* music */,
 				225B15AE1E862630008F8D55 /* sounds */,
 			);
@@ -802,18 +992,14 @@
 		225B15AF1E86263D008F8D55 /* music */ = {
 			isa = PBXGroup;
 			children = (
-				22AED56E1F5B621600A5D2E0 /* 0 Title.wav */,
-				2295834F1F6F5D1D009F7131 /* 1 Battle.wav */,
-				22C159B11E8F3D510001DB65 /* 2 Imperial.wav */,
+				22A75ABA1FBC186300AA625B /* 0 Title.wav */,
+				22A75AC01FBC1AFC00AA625B /* 1 Battle.wav */,
 				229583511F6F5D26009F7131 /* 3 Emperor.wav */,
-				229583221F6DAF8A009F7131 /* 4 Empress.wav */,
-				229582FD1F5CF927009F7131 /* 5 Night.wav */,
 				229582FE1F5CF927009F7131 /* 6 Castle.wav */,
 				2295831D1F6DAE20009F7131 /* 7 Emprate.wav */,
-				2295831E1F6DAE20009F7131 /* 8 Legions.wav */,
-				229583321F6ED91D009F7131 /* 9 Princeps.wav */,
 				229583341F6EDB0C009F7131 /* Victory.wav */,
 				229583361F6EDB1D009F7131 /* Defeat.wav */,
+				22A75AC61FBE222D00AA625B /* Tutorial.wav */,
 			);
 			name = music;
 			sourceTree = "<group>";
@@ -843,6 +1029,8 @@
 				22FAEA7D1ED259EF0014DD1F /* SplashElements.swift */,
 				22C456AC1E2F0BA60003FBA8 /* TitleUI.swift */,
 				2205EEF31EA451D600DEFFF2 /* StartLayer.swift */,
+				22A75AB61FB9529600AA625B /* MiscScreens.swift */,
+				22A75AB81FBBC2A300AA625B /* Tutorial.swift */,
 			);
 			name = GameUI;
 			sourceTree = "<group>";
@@ -894,17 +1082,11 @@
 		2292324D1D5064B600F47D02 /* entity */ = {
 			isa = PBXGroup;
 			children = (
+				22A75ADA1FC3B8FA00AA625B /* general */,
+				22A75AD91FC3B6E600AA625B /* AI */,
 				229583011F5F90EA009F7131 /* generation */,
 				229B213B1EC6B05E001B3110 /* soldiers */,
 				22032F601E0F045D001462C2 /* player */,
-				2251DEEC1DAB249F0022D711 /* Enemies.swift */,
-				229B21461EC6B139001B3110 /* ActorUtility.swift */,
-				22032F531E0F0187001462C2 /* Actor.swift */,
-				22032F5B1E0F0342001462C2 /* Bullet.swift */,
-				2229865A1E4C320A00389B49 /* Coin.swift */,
-				2205EF3B1EB19EC400DEFFF2 /* Behavior.swift */,
-				2205EF6C1EC2D0C200DEFFF2 /* Animator.swift */,
-				2254AB121F1B382C0020DD01 /* Boss.swift */,
 			);
 			name = entity;
 			sourceTree = "<group>";
@@ -1108,7 +1290,6 @@
 		229583011F5F90EA009F7131 /* generation */ = {
 			isa = PBXGroup;
 			children = (
-				22A9944D1DDD62F4009F6660 /* Generator.swift */,
 				229583021F5F9108009F7131 /* Layout.swift */,
 				229583041F5F92AC009F7131 /* LayoutFormer.swift */,
 			);
@@ -1157,12 +1338,16 @@
 			isa = PBXGroup;
 			children = (
 				229B213C1EC6B070001B3110 /* Soldier.swift */,
+				22A75AC91FC3B5DE00AA625B /* Scout.swift */,
 				229B213E1EC6B08A001B3110 /* Infantry.swift */,
-				229B21401EC6B0A9001B3110 /* SoldierTypes.swift */,
-				229B21421EC6B0DF001B3110 /* Formations.swift */,
-				229B21441EC6B10B001B3110 /* SoldierBehavior.swift */,
-				222B965A1F15E6FD00D47922 /* BossBehaviors.swift */,
-				22A8BEFA1F28366400F32FC0 /* AI.swift */,
+				22A75ACB1FC3B5F700AA625B /* Captain.swift */,
+				22A75ACD1FC3B62000AA625B /* Thief.swift */,
+				22A75ACF1FC3B63900AA625B /* Commander.swift */,
+				22A75AD11FC3B64A00AA625B /* Healer.swift */,
+				22A75AD31FC3B65B00AA625B /* Heavy.swift */,
+				22A75AD51FC3B67600AA625B /* Sniper.swift */,
+				22A75AD71FC3B68A00AA625B /* Mage.swift */,
+				229B21401EC6B0A9001B3110 /* Emperor.swift */,
 			);
 			name = soldiers;
 			sourceTree = "<group>";
@@ -1176,6 +1361,123 @@
 			name = renderers;
 			sourceTree = "<group>";
 		};
+		22A6F1911F9DB57700CB97E1 /* story */ = {
+			isa = PBXGroup;
+			children = (
+				2295233D1FAE904E000E62F6 /* Scene1-Dream.wav */,
+				2295233E1FAE904E000E62F6 /* Scene2-Father.wav */,
+				2295233F1FAE904E000E62F6 /* Scene3a-Recruit.wav */,
+				229523401FAE904E000E62F6 /* Scene3b-Recruit.wav */,
+				229523411FAE904E000E62F6 /* Scene3c-Recruit.wav */,
+				229523421FAE904E000E62F6 /* Scene4-Republic.wav */,
+				229523431FAE904E000E62F6 /* Scene5-HerPursuit.wav */,
+				229523441FAE904E000E62F6 /* Scene6-Ignore.wav */,
+				229523451FAE904E000E62F6 /* Scene7-DontKnow.wav */,
+				229523461FAE904E000E62F6 /* Scene8-Stranger.wav */,
+				229523471FAE904E000E62F6 /* Scene9-Princeps.wav */,
+				229523481FAE904E000E62F6 /* Scene10-Emperor.wav */,
+				229523491FAE904E000E62F6 /* Scene11-Market.wav */,
+				2295234A1FAE904E000E62F6 /* Scene12-DarkHeir.wav */,
+				2295234B1FAE904E000E62F6 /* Scene13-NewForm.wav */,
+				2295234C1FAE904E000E62F6 /* Scene14-Emprate.wav */,
+				2295234D1FAE904E000E62F6 /* Scene15-Money.wav */,
+				2295234E1FAE904E000E62F6 /* Scene16-Mother.wav */,
+				2295234F1FAE904E000E62F6 /* Scene17-NominatedHeir.wav */,
+				229523501FAE904E000E62F6 /* Scene18-BuyBook.wav */,
+				229523511FAE904E000E62F6 /* Scene19-Farlands.wav */,
+				229523521FAE904E000E62F6 /* Scene20-Aemilia.wav */,
+				229523531FAE904E000E62F6 /* Scene21-Thief.wav */,
+				229523541FAE904E000E62F6 /* Scene22-NewEmperors.wav */,
+				229523551FAE904E000E62F6 /* Scene23-Learning.wav */,
+				229523561FAE904E000E62F6 /* Scene24-Order.wav */,
+				229523571FAE904E000E62F6 /* Scene25-Greatness.wav */,
+				229523581FAE904E000E62F6 /* Scene26-HateBook.wav */,
+				229523591FAE904E000E62F6 /* Scene27-DarkMagic.wav */,
+				2295235A1FAE904E000E62F6 /* Scene28-Fight.wav */,
+				2295235B1FAE904E000E62F6 /* Scene29-WeakUnion.wav */,
+				2295235C1FAE904E000E62F6 /* Scene30-Scribe.wav */,
+				2295235D1FAE904E000E62F6 /* Scene31-Work.wav */,
+				2295235E1FAE904E000E62F6 /* Scene32-Nullified.wav */,
+				2295235F1FAE904E000E62F6 /* Scene33-SoleEmperor.wav */,
+				229523601FAE904E000E62F6 /* Scene34-Hurt.wav */,
+				229523611FAE904E000E62F6 /* Scene35-Assurance.wav */,
+				229523621FAE904E000E62F6 /* Scene36-Escape.wav */,
+				229523631FAE904E000E62F6 /* Scene37-Hide.wav */,
+				229523641FAE904E000E62F6 /* Scene38-DarkForest.wav */,
+				229523651FAE904E000E62F6 /* Scene39-Dread.wav */,
+				229523661FAE904E000E62F6 /* Scene40-Desire.wav */,
+				229523671FAE904E000E62F6 /* Scene41-Murder.wav */,
+				229523681FAE904E000E62F6 /* Scene42-Sacrifice.wav */,
+			);
+			name = story;
+			sourceTree = "<group>";
+		};
+		22A75AD91FC3B6E600AA625B /* AI */ = {
+			isa = PBXGroup;
+			children = (
+				22A75B011FC4F66E00AA625B /* behaviors */,
+				2254AB121F1B382C0020DD01 /* FinalBattle.swift */,
+				2205EF3B1EB19EC400DEFFF2 /* Behavior.swift */,
+				229B21441EC6B10B001B3110 /* SoldierBehavior.swift */,
+				222B965A1F15E6FD00D47922 /* BossBehaviors.swift */,
+				22A8BEFA1F28366400F32FC0 /* BehaviorLimits.swift */,
+				229B21421EC6B0DF001B3110 /* Coordinator.swift */,
+				2251DEEC1DAB249F0022D711 /* MarchAnimator.swift */,
+			);
+			name = AI;
+			sourceTree = "<group>";
+		};
+		22A75ADA1FC3B8FA00AA625B /* general */ = {
+			isa = PBXGroup;
+			children = (
+				22BB487C1FC76042006CD5C1 /* weapon */,
+				22032F591E0F030D001462C2 /* PointRange.swift */,
+				225DC2D41E5016980068B566 /* Shield.swift */,
+				229B21461EC6B139001B3110 /* ActorUtility.swift */,
+				22032F531E0F0187001462C2 /* Actor.swift */,
+				2205EF6C1EC2D0C200DEFFF2 /* Animator.swift */,
+			);
+			name = general;
+			sourceTree = "<group>";
+		};
+		22A75AE91FC4E96800AA625B /* animation */ = {
+			isa = PBXGroup;
+			children = (
+				22A75AE11FC4E8F700AA625B /* PlayerWalk.swift */,
+				22A75AE31FC4E91100AA625B /* PlayerDeath.swift */,
+			);
+			name = animation;
+			sourceTree = "<group>";
+		};
+		22A75AEA1FC4E9C200AA625B /* upgrades */ = {
+			isa = PBXGroup;
+			children = (
+				22A37E961DB1E8C60050816F /* Upgrade.swift */,
+				22A75AEB1FC4E9E900AA625B /* FirepowerUpgrade.swift */,
+				22A75AED1FC4E9FC00AA625B /* ShieldUpgrade.swift */,
+				22A75AEF1FC4EA1B00AA625B /* BarrierUpgrade.swift */,
+			);
+			name = upgrades;
+			sourceTree = "<group>";
+		};
+		22A75B011FC4F66E00AA625B /* behaviors */ = {
+			isa = PBXGroup;
+			children = (
+				22A75AF11FC4F4EC00AA625B /* ChargeBehavior.swift */,
+				22A75AF31FC4F51300AA625B /* GuardBehavior.swift */,
+				22A75AF51FC4F59D00AA625B /* DodgeBehavior.swift */,
+				22A75AF71FC4F5FF00AA625B /* AllfireBehavior.swift */,
+				22A75B021FC4FC5700AA625B /* FireBehavior.swift */,
+				22A75AFB1FC4F63700AA625B /* RapidFireBehavior.swift */,
+				22A75AFD1FC4F64F00AA625B /* HealBehavior.swift */,
+				22A75AFF1FC4F66200AA625B /* GlideBehavior.swift */,
+				22A75B041FC5004300AA625B /* CaptainController.swift */,
+				22BB487A1FC7516B006CD5C1 /* HeavyController.swift */,
+				22AC52B71FC9402D005ABFAF /* MissileFireBehavior.swift */,
+			);
+			name = behaviors;
+			sourceTree = "<group>";
+		};
 		22B8C3591D7D301C00806C16 /* spine */ = {
 			isa = PBXGroup;
 			children = (
@@ -1184,6 +1486,27 @@
 				22B8C35C1D7D302400806C16 /* spineboy.png */,
 			);
 			name = spine;
+			sourceTree = "<group>";
+		};
+		22BB487C1FC76042006CD5C1 /* weapon */ = {
+			isa = PBXGroup;
+			children = (
+				22032F5B1E0F0342001462C2 /* Bullet.swift */,
+				2251DEEE1DAB43350022D711 /* Weapon.swift */,
+				22BB487D1FC76080006CD5C1 /* HomingWeapon.swift */,
+				22BB487F1FC760A9006CD5C1 /* WeaponAdapter.swift */,
+				22BB48811FC8C99C006CD5C1 /* PowerWarning.swift */,
+				22BB48831FC8C9B4006CD5C1 /* Power.swift */,
+				22BB48851FC8C9EB006CD5C1 /* WeaponDelegate.swift */,
+				22BB48871FC8CA04006CD5C1 /* PlayerWeapon.swift */,
+				22BB48891FC8CA21006CD5C1 /* Laser.swift */,
+				22BB488B1FC8CAC2006CD5C1 /* HomingBullet.swift */,
+				22BB488D1FC8CAEA006CD5C1 /* BulletTypes.swift */,
+				22BB488F1FC8CAFC006CD5C1 /* Firer.swift */,
+				22BB48911FC8CB18006CD5C1 /* HomingFirer.swift */,
+				22BB48931FC8CB3B006CD5C1 /* Damagable.swift */,
+			);
+			name = weapon;
 			sourceTree = "<group>";
 		};
 		22C2BCA61D59846C00C8F1D5 /* Sky's Melody Tests */ = {
@@ -1227,6 +1550,8 @@
 		22D56A561EDA8A010017F7AE /* game */ = {
 			isa = PBXGroup;
 			children = (
+				22A75AC21FBCDA0200AA625B /* ShowInput-Base.png */,
+				22A75AC31FBCDA0200AA625B /* ShowInput-Case.png */,
 				2205EEE51EA09F0300DEFFF2 /* GameUIBack.png */,
 				2205EED91EA013E000DEFFF2 /* stonefloor.png */,
 				229B21371EC6A9C4001B3110 /* soldier_walk.png */,
@@ -1239,6 +1564,7 @@
 				228CC2121EFF032A00E6F75C /* Player.png */,
 				229583571F70ACB1009F7131 /* Healer.png */,
 				229583531F701FD0009F7131 /* Captain.png */,
+				22AC52BD1FC956C7005ABFAF /* Missile.png */,
 				228C2F851F7AB12B00EFCABD /* rockfloor.png */,
 				229583551F7024EE009F7131 /* Heavy.png */,
 				22BE4DA01EF50EFC00C641EC /* Mage.png */,
@@ -1397,41 +1723,57 @@
 				22968DB41F1095CB009A2E3D /* shield-regen.wav in Resources */,
 				22A6FA791F57B706007B1B9C /* Point.fsh in Resources */,
 				22E671E01F11D912006B5B59 /* enemy-rush.wav in Resources */,
+				2295237E1FAE904E000E62F6 /* Scene20-Aemilia.wav in Resources */,
 				2229865D1E4C464C00389B49 /* Media.xcassets in Resources */,
 				22968DB91F1098FE009A2E3D /* enemy-shoot.wav in Resources */,
 				22D6F0BE1ED0006000F36F00 /* thunder.wav in Resources */,
 				22968D971F0DEE7D009A2E3D /* barrier-hit.wav in Resources */,
+				229523851FAE904E000E62F6 /* Scene27-DarkMagic.wav in Resources */,
 				22B8C35F1D7D302400806C16 /* spineboy.png in Resources */,
 				22D6F0B81ECFF15E00F36F00 /* Splash_Cloud_2.png in Resources */,
+				2295238E1FAE904E000E62F6 /* Scene36-Escape.wav in Resources */,
 				221A5F101D986B21004B1516 /* Adamina-Regular.ttf in Resources */,
 				221A5F0E1D986A39004B1516 /* Aaargh.ttf in Resources */,
 				228CC2111EFEFB9E00E6F75C /* bullet.png in Resources */,
+				22A75AC51FBCDA0200AA625B /* ShowInput-Case.png in Resources */,
+				22A75AC41FBCDA0200AA625B /* ShowInput-Base.png in Resources */,
 				229583461F6F40BD009F7131 /* Commander.png in Resources */,
 				229583201F6DAE20009F7131 /* 7 Emprate.wav in Resources */,
 				22968D941F0DEE7D009A2E3D /* enemy-die-big.wav in Resources */,
+				2295238C1FAE904E000E62F6 /* Scene34-Hurt.wav in Resources */,
 				22E671E41F11D912006B5B59 /* enemy-shoot-heavy.wav in Resources */,
+				229523721FAE904E000E62F6 /* Scene8-Stranger.wav in Resources */,
 				229583351F6EDB0C009F7131 /* Victory.wav in Resources */,
 				22D56A4D1ED7E2850017F7AE /* Lora-Regular.ttf in Resources */,
 				22E671E21F11D912006B5B59 /* enemy-shoot-snipe.wav in Resources */,
+				229523841FAE904E000E62F6 /* Scene26-HateBook.wav in Resources */,
 				228CC2171F004FFA00E6F75C /* player_died.wav in Resources */,
 				22D56A671EDB80EE0017F7AE /* Forge-Brick.png in Resources */,
 				2205EF141EABE6D500DEFFF2 /* barrier_destroy.wav in Resources */,
 				22D56A4F1ED7E38B0017F7AE /* AUGUSTUS.TTF in Resources */,
+				229523831FAE904E000E62F6 /* Scene25-Greatness.wav in Resources */,
 				22D73B251F23D23A00C01997 /* Rubble.png in Resources */,
 				221A5F121D986C60004B1516 /* Metropolis-ExtraLight.otf in Resources */,
 				229B21381EC6A9C4001B3110 /* soldier_walk.png in Resources */,
 				229583901F740F59009F7131 /* upgrade_buy.wav in Resources */,
+				229523941FAE904E000E62F6 /* Scene42-Sacrifice.wav in Resources */,
 				222B96591F15CD8200D47922 /* Emperor.png in Resources */,
 				22968D981F0DEE7D009A2E3D /* castle-break.wav in Resources */,
 				22E671E31F11D912006B5B59 /* enemy-shoot-magic.wav in Resources */,
 				222DD8D51D48854700A70FA8 /* Default.fsh in Resources */,
 				22968D911F0DEE7D009A2E3D /* march-sprint.wav in Resources */,
+				229523931FAE904E000E62F6 /* Scene41-Murder.wav in Resources */,
 				226DA14C1DD1A4FA0065EB00 /* movement.png in Resources */,
+				229523961FAE9238000E62F6 /* story.txt in Resources */,
 				2232938C1ECBFA4A00A2B032 /* Bloom.fsh in Resources */,
 				2295831B1F6D96EC009F7131 /* Quant-Light.otf in Resources */,
 				22968DC01F109B96009A2E3D /* player-shoot.wav in Resources */,
 				2232938A1ECBFA3D00A2B032 /* Bloom.vsh in Resources */,
-				229583501F6F5D1D009F7131 /* 1 Battle.wav in Resources */,
+				229523791FAE904E000E62F6 /* Scene15-Money.wav in Resources */,
+				229523921FAE904E000E62F6 /* Scene40-Desire.wav in Resources */,
+				2295236C1FAE904E000E62F6 /* Scene3b-Recruit.wav in Resources */,
+				229523871FAE904E000E62F6 /* Scene29-WeakUnion.wav in Resources */,
+				2295237D1FAE904E000E62F6 /* Scene19-Farlands.wav in Resources */,
 				222986541E4806EA00389B49 /* death.wav in Resources */,
 				2249C3621DBC6A3900D4EEBF /* hit2.wav in Resources */,
 				222DD8EE1D48854700A70FA8 /* Lighting.fsh in Resources */,
@@ -1444,8 +1786,10 @@
 				22C4E5661D73A9940077DFCB /* jump1.wav in Resources */,
 				22E671E11F11D912006B5B59 /* forge-hit.wav in Resources */,
 				226ECBAA1E29B9EC00334585 /* pause.png in Resources */,
+				229523771FAE904E000E62F6 /* Scene13-NewForm.wav in Resources */,
 				22968D961F0DEE7D009A2E3D /* barrier-destroyed.wav in Resources */,
 				22D6F0B91ECFF15E00F36F00 /* Splash_Cloud_3.png in Resources */,
+				229523901FAE904E000E62F6 /* Scene38-DarkForest.wav in Resources */,
 				22D56A661EDB80EE0017F7AE /* Forge-Back.png in Resources */,
 				22D56A5D1EDB450E0017F7AE /* Anvil.png in Resources */,
 				2205EF181EABE8F900DEFFF2 /* charge.wav in Resources */,
@@ -1454,67 +1798,87 @@
 				22D31C1C1D94D0DE00818AFA /* pickup2.wav in Resources */,
 				2229864F1E48025000389B49 /* shield_weak.wav in Resources */,
 				22D31C241D94D58D00818AFA /* door1.wav in Resources */,
+				2295236B1FAE904E000E62F6 /* Scene3a-Recruit.wav in Resources */,
+				2295237B1FAE904E000E62F6 /* Scene17-NominatedHeir.wav in Resources */,
 				2295835E1F70B809009F7131 /* Soldier4.png in Resources */,
 				22BE4DA11EF50EFC00C641EC /* Mage.png in Resources */,
 				22B8C35D1D7D302400806C16 /* spineboy.atlas in Resources */,
 				229583561F7024EE009F7131 /* Heavy.png in Resources */,
-				229583211F6DAE20009F7131 /* 8 Legions.wav in Resources */,
 				229B215F1EC98D9C001B3110 /* explosion1.wav in Resources */,
+				229523891FAE904E000E62F6 /* Scene31-Work.wav in Resources */,
 				2205EF0E1EABE47100DEFFF2 /* enemy_hit.wav in Resources */,
+				229523801FAE904E000E62F6 /* Scene22-NewEmperors.wav in Resources */,
 				22D56A691EDBA6800017F7AE /* Treasure.png in Resources */,
 				229583941F74BB47009F7131 /* Explosion.fsh in Resources */,
 				22D6F0AA1ECFDFF500F36F00 /* Splash_Sky.png in Resources */,
 				22D6F0BA1ECFF15E00F36F00 /* Splash_Cloud_4.png in Resources */,
 				22B8C36A1D84F6E000806C16 /* shoot2.wav in Resources */,
+				229523881FAE904E000E62F6 /* Scene30-Scribe.wav in Resources */,
+				2295236A1FAE904E000E62F6 /* Scene2-Father.wav in Resources */,
 				2254AB111F1B372F0020DD01 /* Lava.png in Resources */,
 				22968DA61F0DF550009A2E3D /* march.wav in Resources */,
 				22D31C1E1D94D0E700818AFA /* jet1.wav in Resources */,
+				229523731FAE904E000E62F6 /* Scene9-Princeps.wav in Resources */,
 				2205EEEC1EA0BDCA00DEFFF2 /* Pixel.ttf in Resources */,
 				2295830F1F697DB5009F7131 /* Splash_Castle_Scene.png in Resources */,
 				226DA1461DD19A570065EB00 /* gun.png in Resources */,
+				22AC52BE1FC956C7005ABFAF /* Missile.png in Resources */,
 				226DA14A1DD1A07A0065EB00 /* bomb.png in Resources */,
 				2295838C1F736A34009F7131 /* Plates.png in Resources */,
 				22A6FA771F57B6F9007B1B9C /* Point.vsh in Resources */,
+				229523691FAE904E000E62F6 /* Scene1-Dream.wav in Resources */,
 				228CC2131EFF032A00E6F75C /* Player.png in Resources */,
 				229583421F6F3AAE009F7131 /* Thief.png in Resources */,
 				22722BA01D4887B700BFA78A /* MainView.storyboard in Resources */,
+				2295237F1FAE904E000E62F6 /* Scene21-Thief.wav in Resources */,
 				22FAEA7C1ED101E60014DD1F /* Splash_Player.png in Resources */,
 				229583921F74BB36009F7131 /* Explosion.vsh in Resources */,
-				229582FF1F5CF927009F7131 /* 5 Night.wav in Resources */,
 				22D31C201D94D0F200818AFA /* hit8.wav in Resources */,
 				229583581F70ACB1009F7131 /* Healer.png in Resources */,
 				228CC2231F005D8D00E6F75C /* weapon_lowpower.wav in Resources */,
 				226DA1501DD1A5460065EB00 /* barrier.png in Resources */,
 				222986591E48156B00389B49 /* power_full.wav in Resources */,
 				22B8C37A1D85465B00806C16 /* hit6.wav in Resources */,
+				22A75AC71FBE222D00AA625B /* Tutorial.wav in Resources */,
 				22968D991F0DEE7D009A2E3D /* castle-crack.wav in Resources */,
 				22C4E5681D73A9990077DFCB /* make1.wav in Resources */,
 				229B21651EC992BE001B3110 /* enemy_charge.wav in Resources */,
+				229523711FAE904E000E62F6 /* Scene7-DontKnow.wav in Resources */,
+				2295237A1FAE904E000E62F6 /* Scene16-Mother.wav in Resources */,
+				2295237C1FAE904E000E62F6 /* Scene18-BuyBook.wav in Resources */,
 				229583151F6B7142009F7131 /* Upgrades.png in Resources */,
+				2295236D1FAE904E000E62F6 /* Scene3c-Recruit.wav in Resources */,
+				229523701FAE904E000E62F6 /* Scene6-Ignore.wav in Resources */,
 				229B21611EC98EBC001B3110 /* shield_break.wav in Resources */,
 				22968D931F0DEE7D009A2E3D /* enemy-die-weak.wav in Resources */,
 				229583111F69858F009F7131 /* Splash_Castle.png in Resources */,
 				229583001F5CF927009F7131 /* 6 Castle.wav in Resources */,
+				229523741FAE904E000E62F6 /* Scene10-Emperor.wav in Resources */,
 				22B8C3741D85424600806C16 /* hit5.wav in Resources */,
 				22ED4A201F20F933002B8A8F /* Castle-Rightpiece.png in Resources */,
 				228C2F861F7AB12B00EFCABD /* rockfloor.png in Resources */,
+				2295236F1FAE904E000E62F6 /* Scene5-HerPursuit.wav in Resources */,
+				22A75ABB1FBC186300AA625B /* 0 Title.wav in Resources */,
 				2205EEFE1EA9C7B600DEFFF2 /* Splash.png in Resources */,
 				22D872D61F2792D300C792C8 /* laser-fire.png in Resources */,
 				2271AAE01DB9C2DB00C87152 /* hit1.wav in Resources */,
+				229523811FAE904E000E62F6 /* Scene23-Learning.wav in Resources */,
 				2295830D1F6825A4009F7131 /* wind.wav in Resources */,
 				2295835A1F70B1C3009F7131 /* Sniper.png in Resources */,
 				2205EEC61E9EEE6A00DEFFF2 /* Crystal.png in Resources */,
-				2226F9651F0AE3210017569B /* story.txt in Resources */,
 				22D6F0B71ECFF15E00F36F00 /* Splash_Cloud_1.png in Resources */,
-				229583231F6DAF8A009F7131 /* 4 Empress.wav in Resources */,
+				2295238D1FAE904E000E62F6 /* Scene35-Assurance.wav in Resources */,
 				22ED4A1E1F20F933002B8A8F /* Castle-Centerpiece.png in Resources */,
 				22C4E56C1D73A9A20077DFCB /* shoot1.wav in Resources */,
 				222DD8D61D48854700A70FA8 /* Default.vsh in Resources */,
-				22C159B21E8F3D510001DB65 /* 2 Imperial.wav in Resources */,
+				2295238B1FAE904E000E62F6 /* Scene33-SoleEmperor.wav in Resources */,
 				22B8C3781D85465400806C16 /* charge2.wav in Resources */,
+				2295238F1FAE904E000E62F6 /* Scene37-Hide.wav in Resources */,
 				2254AB0F1F1B2DA80020DD01 /* laser.png in Resources */,
 				22B8C3681D8262C400806C16 /* spineboy.json in Resources */,
 				229583291F6E1E98009F7131 /* Scout.png in Resources */,
+				229523861FAE904E000E62F6 /* Scene28-Fight.wav in Resources */,
+				2295238A1FAE904E000E62F6 /* Scene32-Nullified.wav in Resources */,
 				229583521F6F5D26009F7131 /* 3 Emperor.wav in Resources */,
 				22968DB61F10968E009A2E3D /* player-step.wav in Resources */,
 				22968DAC1F107DB5009A2E3D /* barrier-breakdown.wav in Resources */,
@@ -1522,8 +1886,10 @@
 				229583371F6EDB1D009F7131 /* Defeat.wav in Resources */,
 				22722C171D488D2700BFA78A /* white.png in Resources */,
 				22B8C3761D8544A900806C16 /* charge1.wav in Resources */,
+				229523781FAE904E000E62F6 /* Scene14-Emprate.wav in Resources */,
+				22A75AC11FBC1AFC00AA625B /* 1 Battle.wav in Resources */,
 				2254AB091F1B16900020DD01 /* Laser.vsh in Resources */,
-				22AED56F1F5B621600A5D2E0 /* 0 Title.wav in Resources */,
+				2295236E1FAE904E000E62F6 /* Scene4-Republic.wav in Resources */,
 				228CC2151F004CB400E6F75C /* health_warning.wav in Resources */,
 				22E671E61F11D912006B5B59 /* button-click.wav in Resources */,
 				22E671E51F11D912006B5B59 /* enemy-shoot-light.wav in Resources */,
@@ -1545,14 +1911,17 @@
 				229583541F701FD0009F7131 /* Captain.png in Resources */,
 				2254AB0B1F1B169B0020DD01 /* Laser.fsh in Resources */,
 				22B8C3721D85424100806C16 /* hit4.wav in Resources */,
+				229523821FAE904E000E62F6 /* Scene24-Order.wav in Resources */,
 				2205EF0C1EABE2FD00DEFFF2 /* barrier_hit.wav in Resources */,
 				229583131F6A1BB2009F7131 /* Splash_FarCliffs.png in Resources */,
 				2271AACB1DB41B6C00C87152 /* laser.wav in Resources */,
 				228CC2031EFE3A3B00E6F75C /* barrier_castle.png in Resources */,
 				229583191F6CDFAB009F7131 /* SaveFile.png in Resources */,
 				222DD8F01D48854700A70FA8 /* Lighting.vsh in Resources */,
-				229583331F6ED91D009F7131 /* 9 Princeps.wav in Resources */,
+				229523911FAE904E000E62F6 /* Scene39-Dread.wav in Resources */,
 				229B215B1EC81DFC001B3110 /* Shield.vsh in Resources */,
+				229523761FAE904E000E62F6 /* Scene12-DarkHeir.wav in Resources */,
+				229523751FAE904E000E62F6 /* Scene11-Market.wav in Resources */,
 				2271AADE1DB7B6DB00C87152 /* shoot4.wav in Resources */,
 				22BE4D8F1EED061000C641EC /* dodge.wav in Resources */,
 				2205EF121EABE5F300DEFFF2 /* barrier_ruin.wav in Resources */,
@@ -1575,111 +1944,159 @@
 				22032F581E0F02F0001462C2 /* Gateways.swift in Sources */,
 				22613CE81DC555D400FECAB0 /* Audio.swift in Sources */,
 				22613CE91DC555D400FECAB0 /* PauseScreen.swift in Sources */,
+				22BB48861FC8C9EB006CD5C1 /* WeaponDelegate.swift in Sources */,
+				22A75B001FC4F66200AA625B /* GlideBehavior.swift in Sources */,
 				22429FD31E56C8FF004BCBD0 /* Extensions.swift in Sources */,
+				22AC52C01FCB1970005ABFAF /* Upgrader.swift in Sources */,
+				22A75AD81FC3B68A00AA625B /* Mage.swift in Sources */,
 				22613CEA1DC555D400FECAB0 /* Interactive.swift in Sources */,
 				229583031F5F9108009F7131 /* Layout.swift in Sources */,
 				227016331E1B04CD0062442B /* Screen.swift in Sources */,
+				22BB48941FC8CB3B006CD5C1 /* Damagable.swift in Sources */,
 				22613CEE1DC555D400FECAB0 /* AppDelegate.m in Sources */,
 				2205EE971E9AC90300DEFFF2 /* Animation.swift in Sources */,
 				226DA1361DC584AA0065EB00 /* Manifold.swift in Sources */,
+				22A75AE41FC4E91100AA625B /* PlayerDeath.swift in Sources */,
 				22613CEF1DC555D400FECAB0 /* Aux.swift in Sources */,
+				22BB48901FC8CAFC006CD5C1 /* Firer.swift in Sources */,
+				22A75AB71FB9529600AA625B /* MiscScreens.swift in Sources */,
 				2241540F1F04B1880046CFDA /* Story.swift in Sources */,
 				2205EF3C1EB19EC400DEFFF2 /* Behavior.swift in Sources */,
 				22613CF01DC555D400FECAB0 /* Utlity.swift in Sources */,
 				2239566E1F45323D00EB5CBA /* Sorting.swift in Sources */,
+				22A75AB91FBBC2A300AA625B /* Tutorial.swift in Sources */,
 				22429FD51E5B9CDD004BCBD0 /* Actorate.swift in Sources */,
 				22032F5C1E0F0342001462C2 /* Bullet.swift in Sources */,
 				22613CF21DC555D400FECAB0 /* Bridge.m in Sources */,
+				22BB488A1FC8CA21006CD5C1 /* Laser.swift in Sources */,
 				22032F3B1E0EFB9C001462C2 /* Scheme.swift in Sources */,
 				22613CF31DC555D400FECAB0 /* main.m in Sources */,
 				223956701F47C66500EB5CBA /* BaseRenderer.swift in Sources */,
 				22613CF41DC555D400FECAB0 /* High Space-Bridging-Header.h in Sources */,
 				22032F431E0EFE87001462C2 /* Rect.swift in Sources */,
-				2254AB131F1B382C0020DD01 /* Boss.swift in Sources */,
+				2254AB131F1B382C0020DD01 /* FinalBattle.swift in Sources */,
+				22A75AEC1FC4E9E900AA625B /* FirepowerUpgrade.swift in Sources */,
+				22AC52C41FCB1A28005ABFAF /* GameLevel.swift in Sources */,
+				22A75ACA1FC3B5DF00AA625B /* Scout.swift in Sources */,
+				22A75AEE1FC4E9FC00AA625B /* ShieldUpgrade.swift in Sources */,
 				2211AFCC1F2AD90C00F8B584 /* GraphicIndexer.swift in Sources */,
 				22613CF51DC555D400FECAB0 /* MainGame.swift in Sources */,
 				22613CF61DC555D400FECAB0 /* Game.swift in Sources */,
 				22613CF81DC555D400FECAB0 /* GameViewController.m in Sources */,
 				22032F451E0EFECF001462C2 /* Circle.swift in Sources */,
+				22A75AF61FC4F59D00AA625B /* DodgeBehavior.swift in Sources */,
+				22BB48841FC8C9B4006CD5C1 /* Power.swift in Sources */,
 				22429FD11E542CAD004BCBD0 /* Experimental.swift in Sources */,
 				222FA5F71E5E98E100D4A931 /* Texture.swift in Sources */,
 				22032F4D1E0EFF7A001462C2 /* RawScheme.swift in Sources */,
 				22613CFD1DC555D400FECAB0 /* Grid.swift in Sources */,
 				22032F411E0EFE23001462C2 /* Form.swift in Sources */,
+				22BB488C1FC8CAC2006CD5C1 /* HomingBullet.swift in Sources */,
 				22613D011DC555D400FECAB0 /* Map.swift in Sources */,
+				22A75AE61FC4E92C00AA625B /* DeathEvent.swift in Sources */,
 				22032F4F1E0EFF99001462C2 /* RawSchemeGroup.swift in Sources */,
+				22A75AFC1FC4F63700AA625B /* RapidFireBehavior.swift in Sources */,
 				22032F3F1E0EFDCC001462C2 /* Shape.swift in Sources */,
 				22613D021DC555D400FECAB0 /* Controller.swift in Sources */,
 				22FBF6B81E131EF400B7824C /* GLTexture.swift in Sources */,
-				22A8BEFB1F28366400F32FC0 /* AI.swift in Sources */,
+				22A8BEFB1F28366400F32FC0 /* BehaviorLimits.swift in Sources */,
 				225E516C1DC55D180065EECF /* PhysicsTypes.swift in Sources */,
 				22032F4B1E0EFF5B001462C2 /* VisualTypes.swift in Sources */,
 				227016211E19FE0E0062442B /* Text.swift in Sources */,
 				229583051F5F92AC009F7131 /* LayoutFormer.swift in Sources */,
+				22BB487B1FC7516B006CD5C1 /* HeavyController.swift in Sources */,
 				22D6F0A41ECD568500F36F00 /* Techniques.swift in Sources */,
+				22A75AD21FC3B64A00AA625B /* Healer.swift in Sources */,
 				229C29A11F57B1200080717A /* PointRenderer.swift in Sources */,
 				22032F521E0F0016001462C2 /* Polygon.swift in Sources */,
 				2270162F1E1B02A40062442B /* StoryScreen.swift in Sources */,
 				22032F491E0EFF41001462C2 /* Hull.swift in Sources */,
 				2205EF6D1EC2D0C200DEFFF2 /* Animator.swift in Sources */,
+				22A75AF81FC4F5FF00AA625B /* AllfireBehavior.swift in Sources */,
+				22A75B031FC4FC5700AA625B /* FireBehavior.swift in Sources */,
 				22613D031DC555D400FECAB0 /* Interaction.swift in Sources */,
+				22A75B051FC5004300AA625B /* CaptainController.swift in Sources */,
 				22613D041DC555D400FECAB0 /* Camera.swift in Sources */,
 				229B213D1EC6B070001B3110 /* Soldier.swift in Sources */,
 				22613D051DC555D400FECAB0 /* Solver.swift in Sources */,
+				22A75ACE1FC3B62000AA625B /* Thief.swift in Sources */,
+				22A75AE01FC3BADB00AA625B /* ExplosionTerminator.swift in Sources */,
+				22A75ADC1FC3BAA700AA625B /* PlayerInterface.swift in Sources */,
+				22AC52CC1FCBB68D005ABFAF /* GameDisplayLayer.swift in Sources */,
+				22A75AFE1FC4F64F00AA625B /* HealBehavior.swift in Sources */,
 				22613D061DC555D400FECAB0 /* CirclePolygonSolver.swift in Sources */,
 				222FA5F51E5DFCE200D4A931 /* Materials.swift in Sources */,
+				22BB488E1FC8CAEA006CD5C1 /* BulletTypes.swift in Sources */,
 				229B21451EC6B10B001B3110 /* SoldierBehavior.swift in Sources */,
 				22613D071DC555D400FECAB0 /* CircleSolver.swift in Sources */,
 				227016361E1B04F90062442B /* InterfaceLayer.swift in Sources */,
-				229B21431EC6B0DF001B3110 /* Formations.swift in Sources */,
+				229B21431EC6B0DF001B3110 /* Coordinator.swift in Sources */,
+				22A75AD61FC3B67600AA625B /* Sniper.swift in Sources */,
 				229B21471EC6B139001B3110 /* ActorUtility.swift in Sources */,
+				22A75AE21FC4E8F700AA625B /* PlayerWalk.swift in Sources */,
 				22613D081DC555D400FECAB0 /* PolygonSolver.swift in Sources */,
 				22613D091DC555D400FECAB0 /* RectSolver.swift in Sources */,
 				22613D0B1DC555D400FECAB0 /* Broadphase.swift in Sources */,
 				22613D0C1DC555D400FECAB0 /* Physics.swift in Sources */,
+				22A75AE81FC4E95700AA625B /* Types.swift in Sources */,
 				229B213F1EC6B08A001B3110 /* Infantry.swift in Sources */,
 				227016231E1AFFD90062442B /* StatusLayer.swift in Sources */,
 				225E516A1DC55CB30065EECF /* UserInterface.swift in Sources */,
 				226ECBB61E2CA1AB00334585 /* Splash.swift in Sources */,
 				227016291E1B02560062442B /* StoreScreen.swift in Sources */,
+				22A75AF01FC4EA1B00AA625B /* BarrierUpgrade.swift in Sources */,
 				229C299E1F57AFDF0080717A /* Point.swift in Sources */,
 				22613D0D1DC555D400FECAB0 /* Shapes.swift in Sources */,
 				22613D0E1DC555D400FECAB0 /* Structure.swift in Sources */,
 				22ED3F871F263AEF00BFE5AF /* StoryOutro.swift in Sources */,
-				22A9944E1DDD62F4009F6660 /* Generator.swift in Sources */,
 				225DC2D51E5016980068B566 /* Shield.swift in Sources */,
 				227016271E1B023D0062442B /* EndScreen.swift in Sources */,
 				229B214B1EC6C600001B3110 /* Effects.swift in Sources */,
 				2205EEF41EA451D600DEFFF2 /* StartLayer.swift in Sources */,
+				22AC52C61FCB2D9A005ABFAF /* Creator.swift in Sources */,
 				227016311E1B04B70062442B /* ScreenSpace.swift in Sources */,
 				22032F541E0F0187001462C2 /* Actor.swift in Sources */,
 				226DA1341DC584790065EB00 /* Body.swift in Sources */,
-				22613D101DC555D400FECAB0 /* Enemies.swift in Sources */,
+				22BB48821FC8C99C006CD5C1 /* PowerWarning.swift in Sources */,
+				22613D101DC555D400FECAB0 /* MarchAnimator.swift in Sources */,
 				22C456AD1E2F0BA60003FBA8 /* TitleUI.swift in Sources */,
 				22613D111DC555D400FECAB0 /* Weapon.swift in Sources */,
 				22FAEA7E1ED259EF0014DD1F /* SplashElements.swift in Sources */,
 				22032F5A1E0F030D001462C2 /* PointRange.swift in Sources */,
 				22613D121DC555D400FECAB0 /* Wall.swift in Sources */,
+				22AC52C81FCB8599005ABFAF /* EventList.swift in Sources */,
 				22032F471E0EFEE6001462C2 /* BoundingShapes.swift in Sources */,
+				22BB487E1FC76080006CD5C1 /* HomingWeapon.swift in Sources */,
 				22613D131DC555D400FECAB0 /* Particle.swift in Sources */,
+				22BB48921FC8CB18006CD5C1 /* HomingFirer.swift in Sources */,
 				2270162B1E1B026A0062442B /* TitleScreen.swift in Sources */,
-				229B21411EC6B0A9001B3110 /* SoldierTypes.swift in Sources */,
+				229B21411EC6B0A9001B3110 /* Emperor.swift in Sources */,
 				22429FD71E5C0620004BCBD0 /* IndexMap.swift in Sources */,
+				22A75AF41FC4F51300AA625B /* GuardBehavior.swift in Sources */,
+				22AC52B81FC9402D005ABFAF /* MissileFireBehavior.swift in Sources */,
+				22A75AD41FC3B65B00AA625B /* Heavy.swift in Sources */,
 				22FBF6B31E13198300B7824C /* DisplayAdapter.swift in Sources */,
 				2241540A1F04AFEC0046CFDA /* StoryIntro.swift in Sources */,
 				222B965B1F15E6FD00D47922 /* BossBehaviors.swift in Sources */,
-				22613D141DC555D400FECAB0 /* Upgrades.swift in Sources */,
+				22613D141DC555D400FECAB0 /* Upgrade.swift in Sources */,
 				22613D151DC555D400FECAB0 /* Player.swift in Sources */,
 				22613D191DC555D400FECAB0 /* DynamicText.m in Sources */,
+				22BB48801FC760A9006CD5C1 /* WeaponAdapter.swift in Sources */,
 				2211AFCE1F2ADCFD00F8B584 /* GraphicData.swift in Sources */,
+				22AC52C21FCB1995005ABFAF /* GameScreen.swift in Sources */,
+				22A75ACC1FC3B5F700AA625B /* Captain.swift in Sources */,
 				22613D1A1DC555D400FECAB0 /* Graphics.swift in Sources */,
+				22A75AF21FC4F4EC00AA625B /* ChargeBehavior.swift in Sources */,
 				22032F561E0F02CE001462C2 /* Data.swift in Sources */,
 				2270162D1E1B028F0062442B /* PrincipalScreen.swift in Sources */,
 				2224041A1E6AA19C00A8B5E0 /* GLHelper.m in Sources */,
 				229C299C1F57A93F0080717A /* ParticleSystem.swift in Sources */,
+				22AC52CA1FCBB188005ABFAF /* Level.swift in Sources */,
 				22613D1B1DC555D400FECAB0 /* Visual.swift in Sources */,
+				22A75AD01FC3B63900AA625B /* Commander.swift in Sources */,
 				229C02D81F785CC40079B3C6 /* Ghost.swift in Sources */,
 				22032F3D1E0EFD7A001462C2 /* Transform.swift in Sources */,
+				22BB48881FC8CA04006CD5C1 /* PlayerWeapon.swift in Sources */,
 				22613D1F1DC555D400FECAB0 /* GLVisualDisplay.m in Sources */,
 				22613D201DC555D400FECAB0 /* Display.swift in Sources */,
 				226ECBA61E25FDC500334585 /* Scenery.swift in Sources */,
@@ -1690,7 +2107,6 @@
 				22613D2A1DC555D400FECAB0 /* GLTextureLoader.m in Sources */,
 				22613D2B1DC555D400FECAB0 /* Atlas.swift in Sources */,
 				22613D301DC555D400FECAB0 /* TextureRepo.m in Sources */,
-				2229865B1E4C320A00389B49 /* Coin.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

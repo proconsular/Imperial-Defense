@@ -53,13 +53,44 @@ class StoryScreen: Screen {
             
             let quote = display.quotes[0]
             
-            if quote.contains("empress") {
-                music = "4 Empress"
-            }else if quote.contains("legions") {
-                music = "8 Legions"
-            }else if quote.contains("princeps") {
-                music = "9 Princeps"
+//            if quote.contains("empress") {
+//                music = "4 Empress"
+//            }else if quote.contains("legions") {
+//                music = "8 Legions"
+//            }else if quote.contains("princeps") {
+//                music = "9 Princeps"
+//            }
+            
+//            let sounds = AudioLibrary.shared().sounds!
+//            
+            
+//            for sound in sounds.allKeys as! [String] {
+//                if sound.contains(mus) {
+//                    music = sound
+//                    break
+//                }
+//            }
+            
+            let mus = "Scene\(GameData.info.wave)"
+            var name = ""
+            
+            let docsPath = Bundle.main.resourcePath!
+            let fileManager = FileManager.default
+            
+            do {
+                let docsArray = try fileManager.contentsOfDirectory(atPath: docsPath)
+                for m in docsArray {
+                    if m.contains(mus) {
+                        name = m.components(separatedBy: ".")[0]
+                        break
+                    }
+                }
+            } catch {
+                print(error)
             }
+            
+            music = name
+            AudioLibrary.shared().loadAudio(name, 44100)
             
             if display.quotes.count == 1 {
                 let complete = TextButton(Text("Another battle", FontStyle(defaultFont, float4(1, 1, 1, 1), 56)), float2(Camera.size.x / 2, Camera.size.y / 2 + 425) + float2(0, -GameScreen.size.y)) {
@@ -83,6 +114,8 @@ class StoryScreen: Screen {
                             UserInterface.space.wipe()
                             UserInterface.controller.reduce()
                             UserInterface.space.push(PrincipalScreen())
+//                            GameData.info.wave += 1
+//                            UserInterface.space.push(StoryScreen())
                         }
                     }
                 }
@@ -93,8 +126,6 @@ class StoryScreen: Screen {
         
         layers.append(layer)
         
-        
-        
         let sound = Audio(music)
         sound.loop = true
         sound.start()
@@ -103,6 +134,8 @@ class StoryScreen: Screen {
     deinit {
         let sound = Audio(music)
         sound.stop()
+        
+        AudioLibrary.shared().unloadMusic(withName: music)
     }
     
     override func update() {

@@ -27,8 +27,8 @@ class StartPrompt: Screen {
             UserInterface.space.pop()
             UserInterface.controller.reduce()
             if let princ = UserInterface.space.contents[0] as? PrincipalScreen {
-                princ.game.physics.unhalt()
-                princ.game.start()
+                princ.game.level.simulation.unhalt()
+                //princ.game.start()
             }
         }))
         
@@ -107,7 +107,11 @@ class EndPrompt: Screen {
             UserInterface.fade {
                 UserInterface.space.wipe()
                 UserInterface.controller.reduce()
-                UserInterface.space.push(StoryScreen())
+                if enableStory {
+                    UserInterface.space.push(StoryScreen())
+                }else{
+                    UserInterface.space.push(PrincipalScreen())
+                }
             }
         }))
         

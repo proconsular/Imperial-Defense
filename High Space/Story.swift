@@ -31,7 +31,7 @@ class StoryGateway {
         for line in lines {
             let cleaned_line = line.trimmed
             if cleaned_line.isEmpty { continue }
-            if cleaned_line.contains(":") && cleaned_line.contains("Screen") {
+            if cleaned_line.contains(":") && cleaned_line.contains("Scene") {
                 if !screen.isEmpty {
                     story.screens.append(screen.trimmed)
                     screen = ""

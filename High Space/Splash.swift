@@ -83,7 +83,11 @@ class Splash: Screen {
             UserInterface.fade {
                 UserInterface.space.wipe()
                 UserInterface.controller.reduce()
-                UserInterface.space.push(StoryScreen())
+                if enableStory {
+                    UserInterface.space.push(StoryScreen())
+                }else{
+                    UserInterface.space.push(PrincipalScreen())
+                }
             }
         })
         
@@ -97,7 +101,14 @@ class Splash: Screen {
                 hit.volume = sound_volume * 2
                 hit.start()
             }
-            
+        })
+        
+        layer.objects.append(TextButton(Text("settings", FontStyle(defaultFont, float4(1, 1, 1, 1), 36)), float2(Camera.size.x - 90, 35) + float2(0, -GameScreen.size.y)) {
+            UserInterface.fade {
+                UserInterface.space.wipe()
+                UserInterface.controller.reduce()
+                UserInterface.space.push(Settings())
+            }
         })
         
         layers.append(layer)
@@ -197,6 +208,8 @@ class SaveDisplay: Entity, Damagable {
         body.tag = "save"
         body.object = self
         body.mask = 0b10
+        
+        reaction = DamageReaction(self)
     }
     
     func damage(_ amount: Float) {

@@ -11,6 +11,7 @@ import Foundation
 class Bullet: Entity {
     var impact: Impact
     var casing: Casing
+    var terminator: ActorTerminationDelegate!
     
     init(_ location: float2, _ direction: float2, _ impact: Impact, _ casing: Casing) {
         self.impact = impact
@@ -19,9 +20,9 @@ class Bullet: Entity {
         let rect = Rect(location, casing.size)
         super.init(rect, rect, Substance(PhysicalMaterial(.wood), Mass(0.05, 0), Friction(.iron)))
         
+        let coords = SheetLayout(casing.tag == "player" ? casing.index != -1 ? casing.index : 1 : 0, 1, 4).coordinates
         material["texture"] = GLTexture("bullet").id
-        material.coordinates = SheetLayout(casing.tag == "player" ? casing.index != -1 ? casing.index : 1 : 0, 1, 4).coordinates
-        //display.color = casing.color
+        material.coordinates = coords
         
         body.noncolliding = true
         body.callback = { [unowned self] (body, collision) in
@@ -30,8 +31,11 @@ class Bullet: Entity {
         
         body.velocity = impact.speed * direction
         body.orientation = atan2(direction.y, direction.x)
+        
         body.mask = casing.tag == "player" ? 0b11 : 0b100
         body.object = self
+        
+        terminator = DefaultTerminator(self)
     }
     
     override func compile() {
@@ -39,38 +43,123 @@ class Bullet: Entity {
     }
     
     func hit(_ body: Body, _ collision: Collision) {
-        if !self.alive {
-            return
-        }
-        if let tag = body.tag, self.casing.tag == tag || self.casing.tag == "" {
-            if let char = body.object as? Damagable {
-                if char.reflective {
-                    let dl = body.location - self.body.location
-                    let dir = normalize(dl)
-                    let normal = float2(-dir.y, dir.x)
-                    let reflect = -(dl - 2 * dot(dl, normal) * normal)
-                    self.body.velocity += normalize(reflect) * impact.speed
-                    self.transform.orientation = atan2(reflect.y, reflect.x)
-                    self.casing.tag = ""
-                    self.body.mask = 0b111
-                    return
-                }else{
-                    char.damage(impact.damage)
-                }
-            }
-        }
-        if let char = body.object as? Wall {
-            char.damage(impact.damage)
-        }
-        self.alive = false
-        let count = Int(random(3, 5))
-        for _ in 0 ..< count {
-            makeParts()
+        guard self.alive else { return }
+        guard let object = body.object as? Hittable else { return }
+        object.reaction?.react(self)
+    }
+    
+}
+
+class Missile: Bullet {
+    var trail: TrailEffect!
+    
+    init(_ location: float2, _ direction: float2, _ casing: Casing) {
+        super.init(location, direction, Impact(50, 16.m), casing)
+        material["texture"] = GLTexture("Missile").id
+        material.coordinates = [float2(0, 0), float2(1, 0), float2(1, 1), float2(0, 1)].rotate(1)
+        terminator = MissileExplosion(self)
+        
+        trail = TrailEffect(self, 0.001, 8)
+    }
+    
+    override func compile() {
+        Graphics.create(handle)
+    }
+    
+    override func update() {
+        super.update()
+        trail.update()
+        
+        if transform.location.y >= -0.5.m {
+            terminator.terminate()
         }
     }
     
-    func makeParts() {
-        let spark = Particle(transform.location + normalize(body.velocity) * casing.size.x / 2, random(4, 9))
+}
+
+class DefaultTerminator: ActorTerminationDelegate {
+    unowned let actor: Actor
+    
+    init(_ actor: Actor) {
+        self.actor = actor
+    }
+    
+    func terminate() {
+        actor.alive = false
+    }
+}
+
+class MissileExplosion: ActorTerminationDelegate {
+    unowned let actor: Entity
+    
+    init(_ actor: Entity) {
+        self.actor = actor
+    }
+    
+    func terminate() {
+        Map.current.apply(FixedRect(actor.transform.location, float2(1.5.m))) { [unowned actor] in
+            if let player = $0 as? Player {
+                let dl = actor.transform.location - player.transform.location
+                if dl.length <= 1.5.m {
+                    player.damage((1 - dl.length / 1.5.m) * 30 + 15)
+                }
+            }
+        }
+        Explosion.create(actor.transform.location, 1.5.m, float4(1))
+        Audio.start("explosion1", 3)
+        actor.alive = false
+    }
+}
+
+protocol HitReaction {
+    func react(_ bullet: Bullet)
+}
+
+class DamageReaction: HitReaction {
+    unowned let object: Damagable
+    
+    init(_ object: Damagable) {
+        self.object = object
+    }
+    
+    func react(_ bullet: Bullet) {
+        object.damage(bullet.impact.damage)
+        Spark.create(randomInt(3, 5), bullet.body, bullet.casing)
+        bullet.terminator.terminate()
+    }
+    
+}
+
+class ReflectReaction: HitReaction {
+    unowned let body: Body
+    
+    init(_ body: Body) {
+        self.body = body
+    }
+    
+    func react(_ bullet: Bullet) {
+        let delta = body.location - bullet.body.location
+        let direction = normalize(delta)
+        let normal = float2(-direction.y, direction.x)
+        let reflect = -(delta - 2 * dot(delta, normal) * normal)
+        bullet.body.velocity += normalize(reflect) * bullet.impact.speed
+        bullet.body.orientation = atan2(reflect.y, reflect.x)
+        bullet.casing.tag = ""
+        bullet.body.mask = 0b111
+    }
+    
+}
+
+class Spark {
+    
+    static func create(_ count: Int, _ body: Body, _ casing: Casing) {
+        for _ in 0 ..< count {
+            Spark.makeParts(body, casing)
+        }
+    }
+    
+    static func makeParts(_ body: Body, _ casing: Casing) {
+        let spark = Particle(body.location + normalize(body.velocity) * casing.size.x / 2, random(4, 9))
         spark.color = casing.color
         let velo: Float = 300
         spark.rate = 3.5
@@ -78,131 +167,7 @@ class Bullet: Entity {
         Map.current.append(spark)
     }
     
-    override func update() {
-        super.update()
-        if casing.tag == "enemy" {
-            let limit = -Camera.size.y + 1.m
-            let percent: Float = 0.7
-            var o = 1 - (body.location.y - limit * percent) / (limit - limit * percent)
-            if body.location.y > limit * percent {
-                o = 1
-            }
-            material.color = casing.color * o
-//            display.refresh()
-        }
-    }
-    
 }
-
-class HomingBullet: Bullet {
-    
-    var target: Entity
-    
-    init(_ location: float2, _ target: Entity, _ impact: Impact, _ casing: Casing) {
-        self.target = target
-        super.init(location, float2(), impact, casing)
-    }
-    
-    override func update() {
-        let dl = target.transform.location - transform.location
-        body.orientation = atan2(dl.y, dl.x)
-        if dl.length > 0 {
-            body.velocity = impact.speed * normalize(dl)
-        }
-    }
-    
-}
-
-protocol Damagable {
-    var reflective: Bool { get set }
-    func damage(_ amount: Float)
-}
-
-struct Impact {
-    var damage: Float
-    var speed: Float
-    
-    init(_ damage: Float, _ speed: Float) {
-        self.damage = damage
-        self.speed = speed
-    }
-    
-}
-
-struct Casing {
-    var size: float2
-    var color: float4
-    var index: Int = -1
-    var tag: String
-    
-    init(_ size: float2, _ color: float4, _ tag: String, _ index: Int = -1) {
-        self.size = size
-        self.color = color
-        self.tag = tag
-        self.index = index
-    }
-}
-
-class Firer {
-    
-    var rate: Float
-    var counter: Float
-    
-    var impact: Impact
-    var casing: Casing
-    
-    var mods: [Impact]
-    
-    init(_ rate: Float, _ impact: Impact, _ casing: Casing) {
-        self.rate = rate
-        self.impact = impact
-        self.casing = casing
-        self.casing.size *= 2
-        mods = []
-        counter = 0
-    }
-    
-    func update() {
-        counter += Time.delta
-    }
-    
-    func fire(_ location: float2, _ direction: float2) {
-        let bullet = Bullet(location, direction, computeFinalImpact(), casing)
-        Map.current.append(bullet)
-        counter = 0
-    }
-    
-    func computeFinalImpact() -> Impact {
-        var final = impact
-        for i in mods {
-            final.damage += i.damage
-            final.speed += i.speed
-        }
-        return final
-    }
-    
-    var operable: Bool {
-        return counter >= rate
-    }
-    
-    var charge: Float {
-        return counter / rate
-    }
-    
-}
-
-class HomingFirer: Firer {
-    
-    func fire(_ location: float2, _ target: Entity) {
-        let bullet = HomingBullet(location, target, computeFinalImpact(), casing)
-        Map.current.append(bullet)
-        counter = 0
-    }
-    
-}
-
-
-
 
 
 

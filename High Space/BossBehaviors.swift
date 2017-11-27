@@ -458,28 +458,23 @@ class SummonLegionBehavior: ActiveBehavior {
     var alive: Bool = true
     var active: Bool = true
     
-    let generator: RowGenerator
     unowned let transform: Transform
     
     var timer: Float = 0
     
     init(_ transform: Transform) {
         self.transform = transform
-        let diff = Difficulty(0)
-        diff.wave = 49
-        diff.row = 1
-        generator = RowGenerator(GenerationContext(), diff)
     }
     
     func activate() {
         active = true
-        generator.difficulty.row = 1
-        generator.amount = Int(4 + 4 * FinalBattle.instance.challenge)
+//        generator.difficulty.row = 1
+//        generator.amount = Int(4 + 4 * FinalBattle.instance.challenge)
         let count = Int(1 + 2 * FinalBattle.instance.challenge)
         let side = arc4random() % 2 == 0 ? Map.current.size.x / 4 : Map.current.size.x * 3 / 4
-        for i in 0 ..< count {
-            let _ = generator.create(float2(side, -Camera.size.y - 2.m) + float2(0, -1.25.m * Float(i)))
-        }
+//        for i in 0 ..< count {
+//            let _ = generator.create(float2(side, -Camera.size.y - 2.m) + float2(0, -1.25.m * Float(i)))
+//        }
     }
     
     func update() {

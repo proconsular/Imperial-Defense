@@ -162,6 +162,36 @@ struct ShieldPower {
     }
 }
 
+protocol ShieldEffect {
+    func update()
+}
+
+class ShieldAbsorbEffect: ShieldEffect {
+    unowned let transform: Transform
+    unowned let shield: Shield
+    let absorb: AbsorbEffect
+    var percent: Float
+    
+    init(_ transform: Transform, _ shield: Shield, _ absorb: AbsorbEffect) {
+        self.transform = transform
+        self.shield = shield
+        self.absorb = absorb
+        percent = 0
+    }
+    
+    func update() {
+        absorb.update()
+        if shield.broke {
+            shield.explode(transform)
+        }
+        if shield.percent > percent {
+            absorb.generate()
+        }
+        percent = shield.percent
+    }
+    
+}
+
 class Shield: Life {
     var points: PointRange
     var timer: Timer!
@@ -169,6 +199,7 @@ class Shield: Life {
     var broke = false
     
     var delegate: ShieldDelegate?
+    var effect: ShieldEffect?
     
     var power: ShieldPower
     
@@ -212,6 +243,7 @@ class Shield: Life {
                  points.recharge(final.recharge * Time.delta)
             }
         }
+        effect?.update()
         broke = false
     }
     

@@ -1,330 +1,1184 @@
-Screen 2:
+Scene: 1 Dream
 
-The Empress was at the edge of death. 
-Yet, her spirit remains and she breathes; 
-only immobilized by her darkly wound.
-
-Screen 3:
-
-“The Empress was superior in all her abilities.
-No emperor could match her power and might.
-Her wisdom was far above those even of the Senate.”
-–Lord Emperor Varius of the Second Imperial Province
-
-Screen 4:
-
-The dark legions grow stronger.
-Though they are being measly rationed;
-there must be another battle, elsewhere.
-
-Screen 5:
-
-“The Republic became slow.
-The Senate and lethargy became friends;
-so that the people sought to slay them both.”
-–Records of the Emprate
-
-Screen 6:
-
-The legions now seem to be guided;
-no longer are they mere scouts.
-There must be no other battle now.
-
-Screen 7:
-
-“The Senate was nearly unresponsive.
-Action was not a word spoken;
-Quick was never an attribute to be valued.”
-–Records of the Emprate
-
-Screen 8:
-
-“The people became restless. 
-They petitioned for change;
-but the Senate did not hear.”
-–Records of the Emprate
-
-Screen 9:
-
-The Empress’ spirit has strengthened.
-Her body moves; but only sightly.
-
-Screen 10: 
-
-The castle walls roar; bits of brick have broken off.
-But even so, the dark legions continue to grow.
-
-Screen 11:
-
-“Then, the princeps turned his ear;
-He went to the people and heard all of their words;
-and spoke great things to them.”
-–Records of the Emprate
-
-Screen 12:
-
-The blasts of every battle 
-have burned the castle’s systems.
-There is no rebuilding now.
-
-Screen 13:
-
-“The people were in awe of the princeps;
-they loved him like as a father.
-All of the things he said they heard.”
-–Records of the Emprate
-
-Screen 14:
-
-The Empress moves more freely.
-Her eyes open; but only slightly.
-
-Screen 15:
-
-More strength do the dark legions acquire.
-The legions from afar must now be arriving.
-
-Screen 16:
-
-“The people with great fervor moved;
-and they made the princeps an emperor;
-that he should rule over them and direct them.”
-–Records of the Emprate
-
-Screen 17:
-
-The Empress freezes suddenly.
-Her body unhealed from the darkly wound;
-but she still breathes.
-
-Screen 18:
-
-“The Emperor–unrepentant–hated his new power.
-He despised even the concept of what he had become.
-This was not what he desired from the people.”
-–Records of the Emprate
-
-Screen 19:
-
-“Thus, the Emperor decided to create a different system.
-One that would appease the desire of the people.
-Yet not let them be oppressed.”
-–Records of the Emprate
-
-Screen 20:
-
-Commanders now join the dark legions.
-Yet the castle somehow is withstanding.
-
-Screen 21:
-
-“That day was great.
-The Emperor formed the Emprate.
-He then laid down his power.
-The people were greatly satisfied.”
-–Records of the Emprate
-
-Screen 22:
-
-The Empress remains frozen;
-but she speaks a word:
-“The light… fades.”
-
-Screen 23:
-
-Her hands move again;
-but again they are still weak.
-
-Screen 24:
-
-Something within it, is stirring;
-the castle seems to be strengthened.
-
-Screen 25:
-
-The Empress raises swiftly.
-“I’ve escaped!”
-But a dark mist from her darkly wound
-envelops her; it solidifies around her.
+In her dreams, “I stand on a precipice. The eternal winds
+of the night blow perpetually as I look down at the Emprate.
+Its lights bright and its cities innumerable.
+But my fears grow strong, and I feel nervous terror. The world
+begins to shake and the cliff cracks behind me. I fall into the 
+darkness.
+~
+I walk up onto the top of a mountain. A hill that looks over
+my province. I see a path, one that leads into the valley. But I
+look to the side and I see him, silhouetted. My mentor, his supreme
+armor tells me it’s him, stands far out. I collapse to the ground. 
+My wound flairs hotly, the pain is so great! I look at my hand, 
+the blackness consumes it and spreads like a root into my wrist. 
+It has grown.
+~
+I get up. I begin to walk down the path to the Emprate, but I pause.
+I look back at him. ‘I miss him, but why? Where has he been?’ I question
+myself. I decide to walk to him, to see him. But every step or so, my wound’s
+pain deepens and my hand becomes heavier. ‘I must see him again, it’s been
+so long,’ I determine. But as I nearly reach him, my hand becomes too heavy.
+~
+I fall to my knees, trying to bare the great burden. ‘Cornelius! Cornelius!’
+I call out. But he doesn’t move. ‘Cornelius! It’s me!’ I shout. He turns,
+but as he turns I notice his face is darkened and hidden. ‘Why can’t I see
+his face?’ I think. But my wound, my hand, becomes the weight of a legion
+and slams into the ground cracking it into a fissure. I scream! I watch
+Cornelius fall as the cliff collapses underneath.”
+~
+You hear the Empress’ scream.
 But you cannot help her; you cannot leave the wall.
 
-Screen 26:
+Scene: 2 Father
 
-“Each emperor must rule fairly in his own province, 
-	lest the citizens make petition to the Senate.”
-–Statutes of the Emprate
+In her dreams, “My father holds my small hand as he
+takes me through the festival. ‘Where are we going?’ I think.
+It’s very cold, and I begin to shiver. ‘I’m cold, father.’ I say.
+‘We’re almost there, Caia.’ He replies.
+~
+We arrive at a merchant and my father buys drinks from him.
+I drink mine, its hot and sweet like summer. ‘I need to tell you,
+something Caia.’ My father speaks gravely. ‘What is it?’ I wonder.
+‘The emperor is fighting a new war far away, and I’ve been recruited.’
+~
+‘What do mean? Do you have to leave?’ I ask, confused.
+His face is sullen but softened. ‘Yes, Caia. I have to leave.’”
 
-Screen 27:
+Scene: 3 Leave
+
+In her dreams, “I weep bitterly. ‘Why do you have to go father?’ I had asked.
+‘I don’t want to, but I don’t know another way.’ He had said. ‘Caia! They’re here!’
+My brother calls. I wipe my face and descend the stairs. I walk outside
+and I see them.
+~
+Many calvary pass by on the stone road. My father stands in his armor in
+front. I run up to him, and he sees me. ‘Caia, have you seen the horses,
+they’re pretty aren’t they?’ He asks. I watch them for a moment, then many men
+on foot walk past holding strange objects. ‘Those are lictors, Caia, they hold
+the symbols of the emperor’s power.’ Then I see him.
+~
+The emperor dismounts his horse and walks up to my father and me.
+‘Lord Emperor, I am honored that you admit me directly.’ My father says.
+‘Sir Claudius, you are a great man. I’ve heard many things about you.’ The emperor states
+gratefully. ‘Please, join your fellow soldiers.’ My father obeys and says goodbye
+to my family and me. But the emperor remains.
+~
+‘Caia,’ the emperor speaks softly. ’I know you are greatly saddened.
+But if you pursue virtue and seek greatness, your life will be full
+and you will be greatly empowered.’”
+
+Scene: 4 Republic
+
+“In antiquity, the Republic was inert and powerless.
+The Senate was fractured, its senators were always will-less.
+The people sought only to slay them utterly.”
+–Records from Historium Imperium
+
+Scene: 5 Her Pursuit
+
+In her dreams, “I walk along the wooden fence. My mind deep in
+thought. I remember walking with my father here many times. 
+But my mind remembers the emperor. The words the emperor spoke to me. 
+‘Pursue virtue and seek greatness and you will be greatly empowered.’ 
+I feel a deep yearning within me. My heart, it clings to these words.”
+
+Scene: 6 Senate Ignore
+
+“The voices of the people were loud and expressive.
+But the Senate was a moral-less body, only concerned 
+with its own frivolous vanity. It decided that it 
+would never listen to the lesser.”
+–Records from Historium Imperium
+
+Scene: 7 Don’t Know
+
+In her dreams, “’I don’t know, Caia.’ My mother replies.
+‘But, I want one. Do they sell them in the market?’ I ask.
+‘I don’t know anything about those. I’ve only heard about them
+from your father. I’ve never seen one myself.’ She says.”
+
+Scene: 8 Strange Man
+
+In her dreams, “I see a strange man enter an inn. I follow him. 
+I see, he has one. I walk timidly to him. ‘Excuse me, is that
+a book?’ He looks at me peculiarly. His face hard and cruel.
+~
+‘It is. How did you know?’ He asks. ‘My father told me that wise
+men read.’ The man smiles. ‘Indeed, you are right. Would you like
+me to make you a little wiser?’ He asks. I agree and he reads to me
+for a little while until he leaves.”
+
+Scene: 9 Princeps
+
+“The princeps, the senator of senators, 
+was greatly moved by the desires of the people.
+He went to them, and listened to all of their voices.
+He greatly spoke among them, and taught them much wisdom.”
+–Records from Historium Imperium
+
+Scene: 10 Emperor
+
+“The people were astonished and their astonishment
+stirred within them great admiration. They said in
+their hearts, ‘He is like a father to us, he is like a
+mentor.’
+~
+Thus, they moved with fervor and made the
+princeps an emperor that he should rule
+over them and direct them.”
+–Records from Historium Imperium
+
+Scene: 11 Market
+
+In her dreams, “I walk in the market. People move around
+me as it gets more crowded. I look all around for a merchant
+that sells books, but I don’t see any. I ask a man, ‘Excuse me,
+does anyone sell books?’ But he ignores me. I continue on. I look 
+at all the shops but I don’t find what I’m looking for.
+‘They must be rare,’ I think.
+~
+I walk on, but a man shoves me to ground and my money spills out.
+I try to gather it quickly but then a boy grabs some and runs off.
+I get up and chase him. I try to get to him but I lose him. I walk
+tiredly, realizing I’m in the outskirts of the market.
+~
+A man appears in front of me. He has a book in his hand.
+‘Excuse me, where did you buy that?’ I ask. He looks at me
+harshly. He continues on. ‘Please! I want to buy one!’ I exclaim.
+He turns. ‘You can’t afford one. Only imperial officials and the wealthy 
+~
+purchase these.’ He declares. ‘How much is it? I’ll work up the money.’ I say.
+‘The cost for my work is 6,451 sestertii. If you pay me that I’ll write
+a copy for you.’ He says. I’m shocked but I resolve myself. 
+‘I’ll do it.’ I say.”
+
+Scene: 12 Dark Heir
+
+“The emperor was exceedingly shocked by the people.
+‘These men! I abhor this power! I must deprecate myself immediately
+and release this barbaric burden from my back before I die
+and leave it to some foolish, dark heir!’ He would say.”
+–Records from Historium Imperium
+
+Scene: 13 New Form
+
+“The emperor decided to found a new form of government.
+‘We must destroy this atrocity before it destroys us!’ He
+had said to his advisors. ‘I want strength without weakness,
+authority without tyranny, power without might.’ He had commanded.”
+–Records from Historium Imperium
+
+Scene: 14 The Emprate
+
+“The empire was fully assembled. The emperor spoke completely.
+‘A great darkness lingers around us, within us, through us. A darkness
+that has existed forever and never dies because it is death itself.
+For when we think we destroy it, it only transforms into a new enemy,
+one that we are unequipped to conquer in every present moment.’
+He had begun.
+~
+‘Even with my great power, I cannot slay it. If only one had
+the power to do such an absolute action could we be fully unified.
+However, with death’s persistence, I must as emperor protect you
+from its dark forms as powerfully as possible.
+~
+Therefore, I propose a new form of rule. One that will
+retain both strengths of the republic and the empire
+into a greater form of order and direction.’ He had spoken.
+~
+He then decreed into law, the Emprate, and laid down
+his power. The people rejoiced and were greatly
+satisfied with their new order.”
+-Records from Historium Imperium
+
+Scene: 15 Money
+
+In her dreams, “‘It’s been so long.’ I think. ‘I remember
+when I first started.’ I imagine it. So much work, but I’ve done it.
+‘The tales I remember being read. I’ll have them soon.’ I reflect.
+I count my coins. Each one represents animals, eggs, meat, anything
+extra from this farm that I sold. ‘But it’s worth it.’ I tell myself.”
+
+Scene: 16 Mother
+
+In her dreams, “‘You can use that money for other things, Caia.’ My mother
+says. I feel rage boil within me, but I refuse its display. ‘I want this, mother.
+I would not have earned this to spend it on lesser things.’ I state.
+‘You’re being foolish. What does a book profit you? I’ve never needed them.’ She
+retorts. I ignore her and leave.”
+
+Scene: 17 Nominated Heir
 
 “A nominated heir cannot be a relation of the nominating emperor,
 	nor can the heir have any connections with the other emperors.”
 –Statutes of the Emprate
 
-Screen 28:
+Scene: 18 Buy Book
 
-You feel strange.
-There is something beyond the legions.
-Something darker.
+In her dreams, “I find the house of the imperial scribe.
+I knock and he appears. ‘Good evening, can I still buy a book from you?’
+I ask politely. The scribe is astonished. ‘That was years ago.’ He states,
+and ushers me in. ‘I have the money. Will you do it?’ I ask.‘
+~
+Yes, I will, however, I’ve been burdened by the magistrates with significant
+work. Thus I will have to charge a higher price of 9,677 sestertii.’ He says. 
+‘What?!’ I exclaim. ‘Can you not afford it?’ He states, plainly. 
+~
+‘I can. I-I can.’ I say, forcefully. ‘Good, then I’m glad we 
+can make a deal. It will take me a year to produce.’ 
+He says. I am outraged, but I conceal it. ‘I must be calm, 
+I must get this!’ I think. ‘Let it be done.’ I say and pay him.  
 
-Screen 29:
+Scene: 19 Farlands
 
-The dark mist continues to solidify the Empress.
-She can barely breath now.
-But you cannot help her; you cannot leave the wall.
-
-Screen 30:
-
-More specialized soldiers arrive with the legions.
-
-Screen 31:
-
-“The farlands contain great darkness.
-Survivors say the night was living and stalking them.
-One must be careful of this evil place.”
+“It is a place of great evil. One must avoid it.
+Over the course of our great Emprate and even before
+in the time of antiquity we faced tremendous and ill-weakened
+foes from that region.
+~
+Though, I never-could-would venture that far. In the farlands
+beyond the ancient-desolate provinces–dare I even write of them!–
+there was mentioned a permanent darkness. 
+~
+A night that never was persuaded by the light. 
+Be careful future emperors, your enemy is hidden, 
+for he is dark, and who can see him!”
 –Lord Emperor Marius of the Third Imperial Province
 
-Screen 32:
+Scene: 20 Aemilia
 
-“The people were satisfied with their new emperors.
-Each in their own province, defined in the Emprate,
-with the Senatorial province in their midst.”
-–Records of the Emprate
+In her dreams, “‘What is a book?’ My little sister asks.
+‘It’s like a large collection of stories.’ I say.
+We walk along the wooden fence to the pasture.
+‘What kind of stories?’ She asks. ‘About our history,
+about the past.’ I say. ‘Will you tell me them?’ She asks.
+‘Of course I will.’ I smile. ‘I’ve told you every story
+I know so far, haven’t I?’ I say.”
 
-Screen 33:
+Scene: 21 Thief
 
-A strange feeling eclipses you; stronger this time.
-You notice the night getting darker;
-Darker than the twilight that it was.
+In her dreams, “A messenger arrives. He is from the scribe
+and informs me the book is done. My heart leaps and I leave quickly.
+I travel on the road, but I’m blocked at the intersection by marching
+legions. ‘Another recruitment.’ I think. I take a different path around.
+I approach the scribe’s house from the back road. I look over and notice
+something strange.
+~
+The house looks ransacked and in disarray. I run over to the front.
+The door is ajar. I walk in and it’s a mess. I feel terror. ‘What’s
+happened!’ I think. I run to look out the back. I hear clashing of metal.
+I see a sword and grab it. I walk outside and I see two men fighting 
+near the forest.
+~
+I run over. ‘A thief!’ I realize. The thief slashes forward and knocks
+the scribe unconscious. ‘Stop!’ I yell. My sword to his neck.
+He looks at me surprised. ‘Put your sword down.’ I command. But the 
+thief slides back and slashes my sword. I move back and he stabs forward.
+I slash his blade away, and retreat further. He swirls and swings hard. 
+~
+I brace with both hands, and his sword clangs loudly. I hold with all
+my strength but he is stronger than me. My strength gives out and his
+blade lightly slices across my body. The pain streaks across me. He 
+prepares another swing. I stumble back dazed, holding my hand out.
+His blade slices it harshly and I collapse to the ground.
+~
+I try to swing in the defense but he hits my sword hard disarming
+me. I craw back but he holds his blade to my neck. He pauses. I look at
+him, he looks familiar. ‘What do you want?’ I ask. He pauses but says nothing.
+~
+‘What do you want?’ I repeat. I look at him again, there is something
+strange about him. I look at his hand, it’s blackened.
+‘The life of i–i–’ He stutters and begins to convulse erratically.
+I crawl back and he turns black. His body becomes weak and collapses
+completely.
+~
+I get up meekly. The pain in my hand and across my body flares.
+After sometime, the scribe and I recover in his house. 
+He presents me the book. I hold it in my hands, and my joy is full.
+‘Finally!’ I think. ‘Now, I can be wise!’”
 
-Screen 34:
+Scene: 22 New Emperors
 
-The Empress struggles to breath. 
-She tries to move, but the black shell around her restricts.
-You would help her; but you cannot leave the wall.
+“The people loved their emperors that reigned within
+their own provinces. A purer form that they had sought,
+they had achieved. And a system by which they could
+themselves become emperors if their ambitions gained
+them such greatness.”
+–Records from Historium Imperium
 
-Screen 35:
+Scene: 23 Learning
 
-You watch the coming legions.
-Snipers are in their midst;
-one must be weary of them.
+In her dreams, “‘th-the Lor-d,’ I read poorly. I persist, but
+become frustrated. ‘Why is this so hard?’ I think. I try again,
+‘the Lord Em-per.’ That’s better. ‘The Lord Emperor Cas-si-us 
+comm-an-d-ed.’ I continue. ‘You can’t even read it!’ My mother
+says. 
+~
+I look up at her across the room. ‘I can. I just need
+practice.’ I reply. ‘For the time you’ve spent reading a
+worthless book you could have been working in the farm.
+You could’ve made more money, but instead you spent it
+on that!’ She retorts and walks out.”
 
-Screen 36:
+Scene: 24 Order
 
-“Their emperors gave them order.
-The absolute order that they craved.”
-–Records of the Emprate
+“The order of an emperor, the decrees made by one man,
+this was what they craved. A rapidity that was never
+possible in the dead Republic. Every person increased
+their confidence and their spirits were highly lifted
+in this time of control.”
+–Records from Historium Imperium
 
-Screen 37:
+Scene: 25 Greatness
 
-“The Emprate has not seen a drip of blood 
-spilled within its borders for centuries. 
-Surely this testifies of its great construction.”
+“The Emprate–truly a great, unmatched institution–has
+rarely seen violence or bloodshed within since its 
+wondrous founding. A direct and vividly clear demonstration
+of our shared observation of its profound excellency.
+~
+I proclaim as Lord Emperor, that with all available
+and potential power, one must with absolution preserve our
+crystalline rule and civilization to the uttermost limit.”
 –Lord Emperor Cornelius of the First Imperial Province
 
-Screen 38:
+Scene: 26 Mother hates book
 
-The night deepens;
-yet it was already midnight.
+In her dreams, “‘and the emperor was nullified by the Senate.
+His actions were strange–’ I read, but I hear footsteps in the
+grass. ‘Caia!’ My little sister exclaims. ‘I found you!’ She runs over 
+and sits in my lap. ‘Why are all the way out here?’ She asks. 
+I stroke her hair. ‘Mother doesn’t like my book.’ I say.”
 
-Screen 39:
+Scene: 27 Dark Magic
 
-The Empress struggles to move once more;
-her shell cracks slightly; but it constricts her chest.
-Her breaths are very short now.
-You would help her; but you cannot leave the wall.
+“In the farlands, as I stated previously, there is a
+great darkness. From this darkness has arisen a new thing.
+One must be careful of it–for many deny it. This ‘thing’
+is nearly like what the master emperor had spoken of.
+~
+A horrific thing, utterly terrible to consider. I’ve heard
+many names for it–many unspoken of. But I’ve heard it
+rudely called ‘dark magic.’ A stupid name for it, it does not
+remotely quantify its hellish, murderous, traitorous, tyrannical
+effect on a man. A great enemy this is!”
+–Lord Emperor Marius of the Third Imperial Province
 
-Screen 40:
+Scene: 28 Fight
 
-“Dark magic changes one. 
-It transforms them into a different person. 
-It changes ones desires to its desires.”
-–Records of the Emprate
+In her dreams, “‘The Lord Emperor Crassus of the First Imperial Province
+decreed that a wall should be built on the frontier. And th–’
+‘Wait! What’s a proovins?’ My little sister asks. I smile.
+‘A province is a place where an emperor rules.’ I say. ‘We live in one.’
+‘Really?’ Her eyes light up. ‘Caia!’ I hear. I look out and it’s my mother.
+~
+I brace myself. ‘What are you doing?’ She asks. ‘Reading to Aemilia.’ I say.
+‘I want you sell it.’ She says harshly. ‘Why? It’s just a book!’ I declare.
+‘Don’t question me! I told you to sell it!’ She yells. ‘No! I will not!’ I scream.
+~
+My mother is stunned. ‘I don’t understand your obsession with this book. Why don’t
+you leave me alone!’ I retort. ‘Because you almost died because of that book!’ She 
+claims. ‘I almost died because of a thief! There are thieves everywhere, wars everywhere,
+just because the book–’ She interrupts, ‘The book attracts the thieves!’
+~
+‘Everything attracts thieves! You fool!’ I scream. Her face becomes placid.
+’Take your things and leave!’ She commands. I’m shocked, yet I feel relieved. 
+‘Fine. I will and I’m taking Aemilia with me.’ I say. ‘What! No you’re not!’ She yells.
+~
+‘Let’s go Aemilia.’ I say to my sister. She looks between my mother and me.
+‘Let’s go.’ I say. ‘Stay with me, Aemilia!’ My mother states.
+She looks at me takes my hand and we leave.”
 
-Screen 41:
+Scene: 29 Weak Union
 
-“For all the greatness of the Emprate,
-it yet lacked; unification between the emperors
-was challenging; nonetheless the people were
-not blind to this.”
-–Princeps Cicero of the Senatorial Province
+“For all of the luster of the Emprate, its glory was
+never boundless, and therefore its limits perceivable.
+The Lord Emperors lacked unification and thus would
+face many intersecting goals.
+~
+The Emprate was rarely an absolute unit, by fault of
+the four dominate provinces’ co-equality. Though, the
+Senate can destroy emperors it cannot compel them.
+~
+This weak union is proving dangerously for the war.
+The wars before did challenge us but not as fiercely. 
+I sense, the people’s hate is beginning to rewaken,
+for it despised a lack of control.”
+–Princeps Atticus of the Senatorial Province
 
-Screen 42:
+Scene: 30 Scribe’s House
 
-“The people remembered the Master Emperor;
-the great one who created their emprate.
-Yet they thought of the reign of one man again.”
+In her dreams, “We travel to the scribe’s house with our things.
+I knock and he appears. I greet him and say, ‘We need a place to stay. 
+I can’t pay you though. I have no money.’ 
+He agrees. ‘You saved my life. That is worth something.’”
 
-Screen 43:
+Scene: 31 Work
 
-“The idea grew; its roots stumbled upon forgotten lakes.
-Deep lakes of zeal and passion.
-‘A Supreme Emperor’ their hearts leaped.
-That is what we desire!”
+In her dreams, “‘You can work on my farm for rent.’ The scribe says.
+I look at the animals, the herd of sheep led by a worker. 
+‘I have a few workers currently, but they can use help.’ He continues. 
+~
+I notice my sister playing with a little lamb. 
+‘Have you found a friend, Aemilia?’ I ask. The lamb runs from
+her then trips, falling into the grass. ‘I think I’ll call him, Stumby.’ She
+says. I turn to the scribe. ‘We’d be glad to help.’ I reply.”
 
-Screen 44:
+Scene: 32 Nullified
 
-“They looked; deeply they looked among
-the emperors and their nominated heirs;
-searching for what they desired.”
+In her dreams, “‘Ah, yes! The nullification of the Lord Emperor Cassius.
+The greatness of the Emprate at work.’ He states. ‘Why did he become tyrannical?’
+I ask. ‘Good question. It is a mystery, the only one to become so.’ He states.
+‘Why?’ My sister asks. ‘Well, in the Emprate the emperors can be checked.
+That’s why the very first emperor laid down his power and created this system.’
+He says.
+~
+‘What happened to him?’ I ask. ‘He was exiled.’ He says. ‘What else?’
+I press. ‘I’m unsure. There are strange tales about him. But I don’t know
+anything else.’ He says, timidly. ‘Nevertheless, it’s gotten too late.
+But it was an interesting discussion. Please, continue with your
+reading and I will do my best to assist.’ He states.”
 
-Screen 45:
+Scene: 33 Sole Emperor
 
-“But no emperor or nominated heir even
-matched their beloved Master Emperor.
-Not one was glorious enough to direct them.”
+“The people are growing weary. Beyond the frontier,
+the battles have been stalled in perpetual place.
+Unmoving, they have been but we must persist, I
+have encouraged.
+~
+But they react unevenly to what I hoped to expect.
+I’ve heard them, rumors, that they desire stronger
+authority, greater unity. ‘After antiquity, there
+was an empire, a singular emperor,’ they remember.”
+–Princeps Atticus of the Senatorial Province
 
-Screen 46:
+Scene: 34 Hurt
 
-“Yet one day, an emperor made 
-an uncommon nomination; a young woman
-who was obscure and lowly.”
+In her dreams, “‘I’ve heard in the forum. An imperial 
+censor has gone out.’ A worker says. We watch the sheep 
+as the shepherd leads them. ‘What does this censor 
+look for?’ I ask. ‘Some men said it was a direct 
+order from the emperor, look–’ He cuts off. 
+’Time for work!’ The work mistress yells.
+~
+I return to helping clean out the animal stalls.
+The other worker has already finished his side.
+I hear someone behind me. ‘You’ve lagged behind,
+girl.’ The mistress states. 
+~
+‘I’ll work faster.’ I say. I speed up my pace. 
+I finish a few stalls in succession, feeling a slight 
+relief. I enter the next and it is disgusting.
+I brush harshly the gross filth on the floor.
+~
+It’s caked and cemented and won’t break down. 
+I scrub as hard as I can. ‘Ow!’ I yell. 
+I look at my hand, my scar writhes. I try to
+continue, but my hand inhibits me. I become
+nervous but try to push through. I break down,
+‘I- can’t. My hand!’ I think.”
 
-Screen 47:
+Scene: 35 Assurance
 
-“The young nominated heir was so pure,
-innocent and very peaceful in her way.
-Her tongue spoke no harshness, but only wisdom.
-Every man could only admire her.”
+In her dreams, “I read. My tenth time through, 
+and I feel that I understand still very little. 
+‘Caia.’ My sister wakes. ‘Yes.’ I say. 
+‘Will we stay?’ She asks.
+~
+I remember my hand and the day before.
+‘I hope so.’ I say, looking down.
+She cries. ‘I don’t want to go home!
+I like it here!’ She weeps.
+~
+‘Aemilia! It’s okay. We’re here.
+We’re not going back.’ I say. ‘Are you 
+sure?’ She asks, looking at me. ‘I’ll do
+the best I can.’ I say.”
 
-Screen 48:
+Scene: 36 Escape
 
-“The people wondered; their hearts inquired;
-‘Could this be?’ 
-‘Could this be the one?’
-‘Have we found our ruler once and for all?’”
+In her dreams, “I return from working on the farm.
+I look up at the horizon and at the house. There are
+many people that I’ve never seen before. I approach
+then suddenly realize. ‘It’s my mother! She has
+soldiers!’ I gasp.
+~
+I run and hide in the forest. ‘Aemilia!’ I think
+and spy out where she is. I feel a tug on my
+clothes. I look down and its her. ‘What’s going on?’
+I whisper. ‘Mother’s coming for us.’ She answers.
+~
+‘We have to leave.’ I say. I take her hand
+and venture into the forest. ‘Where are we
+going?’ She asks. ‘I don’t know. But we’ll
+find a place.’ I say.”
 
-Screen 49:
+Scene: 37 Hide
 
-“Her nominating emperor died in a battle on the frontier.
-Thus, she was seated as the Empress; and as empress
-she did many great things in her province so that
-the people loved her and she was as like a mother.”
+In her dreams, “We travel far and have passed
+through the forest into great plains. We walk
+then climb a small hill. ‘I’m tired.’ My sister
+says. ‘We’ll find somewhere.’ I encourage.
+~
+I look back. ‘Oh no!’ I gasp. I see men emerge
+from the forest far off. ‘It’s her!’ My sister
+says. I grab her hand and we run over the top
+of the hill to be concealed.”
 
-Screen 50:
+Scene: 38 Dark Forest
 
-“The people moved to make her—the Supremess; 
-a supreme empress over them all. But the battles on
-the frontier became greater. The other emperors
-were in retreat and the Senate’s proconsuls defeated.
-Thus, the Empress took her legions to fight.”
+In her dreams, “We run down the hill and up
+a higher one. I look back and feel relieved
+at the hill’s blankness. We run along the
+high hill and enter a dark forest.
+~
+‘Stop!’ My sister cries. ‘We have keep going.’
+I say. ‘I’m tired. I need a break.’ She says.
+‘Fine, but we can only stay for a moment.’ I say.
+We sit in the grass. It’s getting very dark.
+‘Are you ready?’ I ask. ‘No.’ She says.
+~
+‘We have to go now.’ I say. She gets up and
+we continue on. We run deeper into the forest
+and it becomes hard to see. ‘I can’t see!’ My sister says. 
+~
+We step carefully and quietly. ‘Ah!’ My sister screams. 
+I look over and she’s fallen down a slope. 
+‘Caia!’ I hear. ‘I’m coming.’ I reply. 
+I feel my way through the branches
+and brush. But as I walk along, I feel a dark
+form shadow me.”
 
-Screen 51:
+Scene: 39 Dread
 
-And at last, you the last imperial legate of the empress,
+In her dreams, “I pause. I feel it, a dark
+presence. The darkness creeps around me, it
+feels heavy and thick. I hear a footstep
+behind me close to me. I run! ‘Run Aemilia!’
+I shout.
+~
+I run quickly and I hear it galloping behind.
+The branches scrap me as I fail to see. I notice
+a log in the moonlight. I leap up it and over.
+I continue to run but realize it’s gone.
+~
+I walk out of the forest. I collapse in weariness.
+I feel exhausted and worn out. ‘I- can barely,
+barely breath.’ I think. I fall onto my back.
+My heart beats rapidly and my head spins like
+the world has no restraint.
+~
+A thousand moments seem to pass. I get up in
+horror. ‘Aemilia! I have to find her!’ I fear.
+I rise and enter the forest again. My fear
+transforms into dread. But I determine
+in myself. ‘I must find her. I will not
+let her die!’”
+
+Scene: 40 Desire
+
+“The people have become enamored with
+this idea. A sole emperor, a strange concept to say
+the least. Yet, their hearts have wrapped their tendrils
+around it, desperate for it to be real. ‘A supreme emperor,’
+they say, ‘that is what we desire!’”
+–Senator Tiberius of the Senatorial Province
+
+Scene: 41 Murder
+
+In her dreams, “I find the log again. A gate
+into a dark place, it seems. I climb onto
+it. I look out and see only evil trees
+and tainted brush. My dread and guilt
+collide within me. ‘I must find her quickly!’
+I think.
+~
+I slide off the log and creep meekly.
+I take many steps and wander far, but 
+I remember nothing and have no sense of
+place. ‘Aemilia.’ I whisper. ‘Aemilia.’
+I say. The darkness remains silent, 
+and the trees hinder me.
+~
+‘What if I can’t find her.’ I despair. I
+feel the trees and the branches as I persist.
+‘We should’ve stayed or gone somewhere else.’
+I reflect. The branches are harsh and are hard
+to avoid. ‘I’m such a fool! Why did I pursue this?
+It’s my fault! My error!’ I cry in my heart.
+~
+I reach a place that seems familiar. The branches
+have strips of my clothes on them as I pass.
+‘I hate her! That cruel woman! She is the tyrant!
+She is the evil form! She is the beast! A foul,
+disgusting, tainting, vile beast from the farlands
+itself!’ I rage.
+~
+‘I will murder her! I will murder the beast! Even
+if it kills me, I will save my sister from death itself!’
+I resolve. My mind becomes sharp, and my sight piercing.
+I hear a branch break, and I look for its place.
+~
+‘Foolish, stupid. You’ve always been that way.
+You never wanted to learn, never wanted to change,
+never wanted to live! You idiot, you dumb peasant.
+~
+Father never loved you, he loved me. He wanted to leave
+you but stay with me. I’ve become far better than you,
+far better than you could have ever been! And now I
+will slay you, I will kill death itself!’ I shout in
+my heart.
+~
+The beast wanders blindly. It stumbles and bites
+the air. ‘I need no blade. Wisdom is my sword. I
+need no help. Greatness is my power!’ I think.
+I sneak behind the beast, holding a stone. It
+stops and sniffs. ‘Breathe in your last breaths
+you idiot!’ I think.
+~
+It turns to me. It looks at me but can’t see me.
+I throw the stone away from its side. It charges
+at it and I run and leap onto its back, wrapping
+my arms around its throat. It writhes and whirls
+but I hold firm and choke its neck hard.
+~
+It growls and roars but I hold it with my
+legs and press harder at its throat. It wrestles
+strongly but weakens, then faints. I get up
+off it and take the stone and bash its head,
+until its broken open.”
+
+Scene: 42 Sacrifice
+
+In her dreams, “I leave the dead beast and find 
+the slope where my sister was lost. ‘Aemilia!’ 
+I call out. Only silence, I hear. I look down 
+and I see a shred of her clothing. I walk along 
+finding more, I follow the loose path they form. 
+I leave the forest and a steep valley lays 
+before me. I see her. She lays far below 
+at the bottom.
+~
+‘Aemilia!’ I cry. I rush to her, almost falling down
+into the valley. ‘Aemilia! Wake up!’ I plead. 
+But she doesn’t respond. I notice she’s wounded, 
+there’s a gash on her arm. I pull out my scarf 
+from my bag and wrap it around. I feel her head 
+and her chest. She’s weak and cold. ‘I
+must make a fire.’ I think.
+~
+I look in my bag and there’s only my
+book to burn. I look up to the forest, but it
+is steep and it’ll take too long to reach.
+’But I can’t!’ I think. ‘I can’t burn it,
+it’s all I have!’ I say. I rip my parts of
+my clothes and make a pile. ‘It’s not enough.’
+I say.
+~
+I look up at the forest again and at my sister.
+I take her into my lap and hold her. She’s so
+cold and my body’s heat isn’t enough. I take
+my book, ‘Historium Imperium.’ I open it and
+feel my hands across its pages. ‘So much wisdom,
+so much power.’ I think. Layers of time and history,
+the glory and greatness of the Emprate wrapped 
+within and throughout.
+~
+I linger on it. ‘I won’t.’ I say. I breath on 
+my hands and rub them to make them hotter.
+I rub my sister, trying to heat her. ‘Wake up,
+wake up, Aemilia.’ I ask. I turn her toward me
+and hold her tight. ‘Wake up, little sister, 
+wake up.’ I repeat. I persist for a few moments
+but I know it isn’t working.
+~
+I hold my book again. ’She’s too cold. There’s
+no other way.’ I decide. With great resistance,
+I tear pages out and crumble them. I add to the
+pile and ready it. I start the fire. I lay down
+with my sister as the flames kindle. ‘You’ll be
+alright, Aemilia. You’re safe now.’ I whisper.
+I kiss her and caress her hair as the flames
+burn fiercely.”
+
+Scene: 43 Censor
+
+In her dreams, “‘Aemilia.’ I say softly. ‘Aemilia.’
+I repeat. Her eyes open slightly. ‘Caia.’ She says
+weakly. ‘Are you okay?’ I ask. ‘I- I- feel sick.’
+She stutters. ‘How so?’ I ask. ‘I-I think I got bit.’
+She says. I pick her up and look at her. ‘Where?’
+I ask. ‘My foot hurts.’ She says. I look at her feet,
+I find a bite mark on her heel.
+~
+‘How do you feel?’ I ask, fearful. ‘Cold.’ She says.
+I feel her head, she’s warm. ‘We’ll find something to
+eat along the way. That should help.’ I say. I help
+her onto my back and we leave. I look behind at the
+plains and see a hill. I see a man and others, they
+are very far. ‘Mother.’ I think.
+~
+We travel into the plains and beyond. I see nothing
+but grass and small hills. ‘I never knew there was
+such vast land out here. Am I beyond the Emprate?’
+I wonder. I walk far and into the distance. Nothing
+seems to change, it seems so boundless, but free.
+~
+I look toward my sister. ‘How do you feel?’ I ask.
+‘I’m hungry.’ She says. ‘We’ll eat something soon.’
+I say. I continue on and up a steer hill. I feel 
+my sisters arms loosening. ‘Hold tight!’ I order
+and push her up. I climb up and reach the top.
+~
+I look out and see a deep valley filled with
+a cascading and opulent city. ’The capital.’ 
+I say. I walk down the great hill into the
+city. I see a formal man walking strictly
+but dejectedly. I greet him and ask him
+to help me. He looks at me curiously.
+~
+‘What is your name?’ He asks, resolutely.
+‘I’m Caia Claudia.’ I say. He hesitates, bewildered.
+‘Your mother lied to an imperial censor.’ He declares.
+‘What? What did she say?’ I ask. ‘I, an imperial censor,
+was ordered by the emperor to find you. But your
+mother told me she had no older daughter, and that
+her only daughter had gone missing.’ He says.
+~
+‘What?’ I say. ‘That is what she told me, which
+made me highly confused as the emperor was very
+direct in his order, for he told me that a terrible
+thing had happened and he wanted to speak to you
+directly.’ He continues.
+~
+I think about all of this. ‘When did you come
+to my house?’ I ask. ‘It took me sometime to find
+your house, but that was a long time ago, a little after
+the time when the new recruitment was gone out.’
+He says. My eyes begin to water, but I try
+to repress and conceal my feelings.
+~
+‘The emperor desires to speak to you.’ He says.
+‘Will you come with me to see him?’ He asks.
+I look down. ‘What does the emperor want with
+me?’ I think. ‘Even my own mother rejects me,
+how can I be of any worth.’ I reflect.
+~
+‘Do you accept?’ He asks. I hesitate. ‘I- I-
+do. I will come.’ I reply. ‘Excellent. Please,
+follow me. It won’t take long to get there.’ 
+He says.” 
+
+Scene: 44 New Heir
+
+In her dreams, “We enter the imperial castle. They take
+my sister to heal her. ‘The emperor sits on his throne. 
+Once he is ready you will be escorted in.’ The censor says. 
+I sit and wait. I look all around at the marble and stonework. 
+Immense crystals hang from above. They glow powerfully with bright energy.
+I remember. ‘In the Republic, they mined the crystals until they evaporated
+mysteriously. They only seem to appear when needed. Or that’s what they think.’
+~
+‘He is ready.’ A soldier says and he escorts me in. I enter and I’m shocked.
+The floor is paved with crystal bricks, thick marble pillars line the wide path
+that leads all the way up to the glowing throne. On the throne, sits the emperor, in
+darkened crystal-steel armor, the armor of an emperor. I walk up to the throne, the
+emperor sits commandingly with his right hand on his bright scepter. 
+I bow and pay homage.
+~
+‘Leave us, Marcellus.’ The emperor commands, his voice profound. The man leaves.
+‘Stand Caia.’ He says, and I stand. ‘Do you know why I’m not at war, Caia.’ He asks.
+I try to think. ‘I don’t know, Lord Emperor.’ I say. ‘The war beyond the frontier
+has grown strong, but I’m here, not there. The other emperors are marching their
+legions now, that it has intensified.’
+~
+‘Many months ago, I learned of your great achievements. Your ambition.
+I sent a censor to bring you here. That you might be assisted in your
+efforts. But in that time, I must tell you a horrific thing has happened.
+Your father, Caia, is dead.’ He says.
+~
+‘What.’ I say, breathless. I fall to my knees and begin to cry.
+‘Are you sure?’ I say, looking to the floor. ‘Yes, I am.’ He replies.
+I weep and cry until I can’t anymore and I feel exhausted.
+‘Caia, I know you have faced hardship in your life. I am emperor,
+and I reward those who are good with good. Now, I have
+a great thing to tell you, a greater purpose than you
+could’ve ever imagined.’ He says.
+~
+He pauses, then stands and walks. ’In the Emprate, the tribunes of cities 
+become praetors of districts and the emperor of a province nominates a praetor 
+as heir. So when that emperor dies that praetor becomes emperor.’
+~
+He examines the bookshelf in the wall. ‘But these men, they are noble in the 
+beginning, even great at the start. The creation of the nation, the start of 
+governance is always most pure because war forces it to be.’ He looks through
+a book. 
+~
+‘However, time and people tend to putrefy the system as they learn its weakness 
+and break it open eagerly.’ He waits. ’The master emperor did not make
+this system to last forever.’ He remarks, then turns. ‘Nevertheless, Caia, you are
+different than them. You have virtue.’ He walks back to his throne.
+~
+‘Virtue. A purest form of excellence. So many fools seek lesser things.’ He sits.
+‘Excellenca pura. Pure excellence, the virtue of virtues. One must become its
+absolute embodiment in order to obtain immortal glory.’ He pauses. ‘Now, Caia.
+I know that you have lacked your father for most of your life. The imperial scribe
+taught you a few things. 
+~
+But I will teach you everything, I will make you wise, I will make you great.
+I will make you the empress. But first you must become an heir.’ He says. 
+‘The empress?’ I think. My heart leaps as it has found my true purpose.
+‘I will. I will become the greatest that ever was and ever will be.’ 
+I proclaim.”
+
+Scene: 45 Their Pursuit
+
+“A taintful pursuit they have begun. How can these
+men, these people find one that is glorious enough?
+Yet, they continue. A mortiful endeavor in my opinion.
+I only stand to see who they uncover, for if they succeed,
+what a great man that shall be.”
+–Senator Tiberius of the Senatorial Province
+
+Scene: 46 No one
+
+“I knew they would fail. They say, ‘there is no
+one, no one that will lead us, not one that is
+great enough.’ It is a depressing reality. To
+find a pure leader for such a great and majestic
+position is near impossible. But I admire their
+tenacity.”
+–Princeps Atticus of the Senatorial Province
+
+Scene: 47 Nomination
+
+“I must record this most peculiar event.
+A nomination of a new heir has occurred.
+But one must revile in the newness of it.
+A young woman, a nominated heir has be 
+chosen.”
+–Princeps Atticus of the Senatorial Province
+
+Scene: 48 Pure Heir
+
+“The new heir is so pure. Her tongue speaks
+only virtuously and her temper is immeasurably
+peaceable. I have never seen a person like this,
+a purest form of serenity. Every man can only
+admire her.
+~
+The people were astonished for a moment but then 
+their hearts seemed to leap within, ‘This new heir, 
+an heir of heirs, an heir better than those before.’ 
+I sense their admiration, for even in my own heart,
+I feel this deep craving.”
+–Princeps Atticus of the Senatorial Province
+
+Scene: 49 Empress
+
+“A truly tragic event has occurred. The people
+of the third province weep deeply at this terror.
+‘A great one,’ they called him. An archetype of
+greatness, even one that could have been sole
+emperor.
+~
+But as her nominating emperor has died in battle
+on the frontier, the pure heir has now been seated
+as empress. Her wisdom proceeds her and has gone out
+before her, and shown us many glimpses of her glory.”
+–Princeps Atticus of the Senatorial Province
+
+Scene: 50 Supremess
+
+“It was to be a great day. The empress was superior
+and wise beyond all. The people they were moved as before.
+They nearly made her: the supremess. A supreme empress over
+the Emprate.
+~
+A grand event, an excellent venture, but the war would not
+let us. The Senate’s proconsuls have been defeated, the senatorial
+legions destroyed. The other emperors are retreating.
+Thus the empress lead the last of the legions to war.”
+–Princeps Atticus of the Senatorial Province
+
+Scene: 51 The Final Battle
+
+In her dreams, “I cry profusely. ‘Cornelius! Why did you have to die!’
+I say. The Emprate is far below, its brightness now seems dimmer.
+‘The darkness. It has taken everything from me.’ I look at my hand, 
+the wound darkened. ‘Everything I gain, it steals. 
+Why? Where does it come from?’ I question.
+~
+But the world then shakes violently. And I barely hold onto the mountain.
+The Emprate turns dark. ‘What. What’s happening?’ I wonder. I feel
+terrible pain across my body. I look at myself, the blackness has 
+spread throughout. 
+~
+I feel a convulsion, like a worm is within me, wrapped around my body. 
+I scream in pain as it convulses again. My breath becomes short as 
+I feel it compress my chest. ‘I-I can’t die! I must live!’ I think.
+And I remember all that happened to me. I remember Aemilia. But it compresses
+my chest further and my breath stops.”
+~
+“As I’ve seen. This evil force consumes sacrifices 
+to increase its power. It requires the death of the
+innocent to strengthen it and fuel it. Only the destruction
+of the good can make it powerful.”
+–Princeps Atticus of the Senatorial Province
+~
+And at last, you the last imperial legate of the Empress,
 you sense something incredibly dark and yet there are no legions left
 for a dark force to be beyond.
 ~
-The Empress continues to struggle; again the shell cracks further;
-but constricts around her chest pushing her breath out of her.
-The light in her eyes fades.
+But are you truly a legate?
+
+In Battle:
+
+You notice a dark form approach the wall.
+
+The Empress is dead and all of her innocence, 
+all of her virtue, 
+all of her greatness
+is transformed into dark magic. 
+And all of that dark magic empowers the dark emperor to the uttermost.
+
+You. 
+You are the only one.
+
+Outro:
+
+The dark emperor has been defeated and you have single-handedly 
+defeated all of his dark legions. With nothing to fight and with the 
+wall needing no defense you rush into the castle and climb up to the Empress’ chamber.
 ~
-“Dark magic requires sacrifice. 
-The death of the innocent fuels its power. 
-Only the destruction of good makes it stronger.”
-–Records of the Emprate
+You find her dead on her bed.
+She lays limp but you take your hand that has been infused with 
+all the power of the dark emperor and touch her face. 
+You command the power to heal her and it evaporates into her. 
 ~
-The night darkens further beyond what night is.
-But you notice something approaches the wall.
+You wait.
+~
+A moment passes.
+~
+An hour passes.
+~
+The light in her eyes brightens.
+~
+She sits up and looks at you. ‘Cornelius?’ She asks.
+‘It’s me, Caia.’ You say, softly. ‘Cornelius!’ She leaps, 
+throwing her arms around you. She pulls back, her eyes fill with tears.
+~
+‘I thought you were dead!’ She says, her eyes questioning.
+‘I was lost at battle. I had worn the armor of a legate, as my 
+councilors advised, to protect me. But after I recovered, 
+I realized my legions were retreated. Thus, I tried to return, 
+only discovering my path hindered by the enemy.’ You say.
+~
+‘What has happened? How did you get here? How did you save me?’ She asks.
+You explain all that had happened, how you defeated the great dark enemy and used his
+power to heal her. But you begin to feel weak within yourself.
+‘You’ve saved the Emprate!’ She praises, her eyes filled with admiration.
+~
+‘I have.’ You say, but for a moment you become dazed. ‘Cornelius!’ 
+She exclaims. ‘What’s wrong?’ ‘Caia. You know I cannot return with you. 
+You must be empress. I am a dead emperor.’ You say.
+~
+‘No! You’re not dead.’ She cries.
+‘You must be the supremess, Caia.’ You say, as you collapse on the floor.
+She gets up and hovers over you. ‘Cornelius. Live!’ She begs.
+You tell her to come close.
+~
+‘Caia, you have imbued within yourself great virtue. 
+Now spread that virtue throughout the Emprate.’ You say.
+~
+‘I will.’ She says. But as she looks at you again, 
+she realizes you’ve died. ‘No! Cornelius! No.’ She says.
+‘I- I- can’t do it on my own. I’m not great enough.’
+She lays down, in shock. ‘I- I- am lost.’ She says
+and stares at ceiling until she fades into sleep.
+~
+In her dreams, “I wake. I rise and find myself
+on a narrow path. I get up and feel the sharp
+rocks that make up the way. I look over the 
+sides and there is only black void. ‘Where am
+I?’ I think. I hear something in the distance.
+I look and see a form approaching far away.
+~
+I step back but the rocks pierce my bare feet.
+I wince in pain, and soften my steps. The form
+is closer now and its steps are loud and harsh.
+It looks familiar but it’s still far. ‘Who are you?’
+I ask. But it doesn’t reply. ‘Mother?’ I question.
+~
+It takes shape and I see what it is. It is my
+mother, the thief and the beast. They have become
+one. They have become a demon. ‘Caia, my love, my
+perfect daughter, my purest offspring, where have
+you gone? What are you doing? How have you been?’
+It asks. ‘What are you?’ I ask in horror. ‘I’m
+your mother, as I’ve always been.’ It replies.
+~
+‘No, you are a demon.’ I say. It draws near but
+it is still not close. ‘A demon? What a strange
+thing. In the imperial records, demons are
+rarely ever mentioned. How wise of you to
+have remembered them.’ It says.
+~
+It is not far now and its looks frighten me.
+’Stay away!’ I say. It stops, to my surprise.
+‘Why? I am your mother, I haven’t seen you in
+so long. You’ve accomplished so much, will you
+not let me embrace you and hold you in my arms?’
+It asks.
+~
+‘What–’ It interrupts. ‘I love you, Caia. I always
+have. I know deep in your heart you long for
+my embrace as you always have. I know I’ve
+been harsh on you but I was only trying to improve
+you, to help you. Forgive me if I was quite improper
+in my way and made many errors. You know that I
+was a fool and knew very little.’ It says.
+~
+‘Please, come to me, my dear.’ It says. It holds
+its arms out. ‘Come to me, come into my arms.’ It
+asks. I feel strange, my heart yearns for what my
+mother never gave me, but it is a demon, it is trying
+to fool me. ‘Go away!’ I say.
+~
+‘W-What?’ It says. ‘Go away, you demon!’ I command.
+‘How could say such a thing? I’m your mother.’ It begins
+to cry. ‘I know what you are. Your tricks won’t fool me.’
+I retort. It weeps and cries profusely. ‘You reject your
+own mother. Even when I tried to repent.’ It says. My heart
+feels slight pity. ‘I only wanted to change, Caia. That’s
+all. To be your mother properly for once.’ It says.
+~
+I feel sadness. ‘I do wish my mother was different.’
+I think. ‘Please, Caia, come to me, help me.’ It says.
+I hesitate. ‘It’s not her, it’s a lie.’ I tell myself.
+But my heart feels empathy and I take a step. It continues
+to cry looking at the ground. I approach slowly
+and timidly.
+~
+I am almost near and it looks up at me. ‘Caia!’ It
+says, its face is like my mother’s, it’s beautiful
+and prettier than I remember. ‘Mother.’ I say.
+It walks toward me and reaches its hand out.
+It touches my arm gently.
+~
+‘I need to tell you something, Caia.’ She says.
+‘What is it?’ I ask. ‘I should have killed you
+in my womb! Let the birds eat when you were born!
+Slit your throat when you were young!’ It screams.
+It crushes my arm and it breaks. I scream in pain.
+~
+It pushes me to ground. My knees are cut by the sharp
+path. The demon transforms and transfigures. Its face,
+its body crack and break into a new form. I feel
+horror and pain, the darkness and void weigh on
+me greatly. I feel waterless and dry.
+~
+I look at the demon and it has transformed into
+the dark emperor. ‘When I slayed your father’s legion,
+I made him bow down before me. He was frail and weak!
+I gave him a choice, worship me or die. He chose
+the former and he became my chief legate. Follow
+in your father’s footsteps, be wise, be empowered,
+worship me and I will make you a goddess!’ He says.
+~
+‘I- I- wil,’ I think weakly. ‘I- I-I wil- no.’
+I can’t. Stop. ‘I- wil- sto,’ I think. I- I
+I wil- no -no. I ‘Worship me, Caia. Become
+the dark empress.’ He says. ‘I wil- -no’ I say.
+‘Speak!’ He says. ‘I w-il -no n-n I.’ I say.
+~
+‘Speak! And it will be done!’ He orders. I-
+I- think to my-self. ‘I- am not weak, I am
+strong! I will destroy this evil and death!
+He is weak! That is why is screams so loudly
+and lies so quickly.’ I stand up with ease
+and my wounds heal.
+~
+‘I am the Supremess Caia Claudia, the most wise,
+the most pure, the most excellent! All you 
+are is foolishness and lies!’ I shout and in my
+hand forms a crystal sword that I stab into
+his heart.”  
+~
+She awakes. ‘I have become great. I have done what
+my true father, the Lord Emperor, has told me to do.
+And I have achieved pure excellence.’ She declares, 
+her face glowing like that of a star.
+~
+She leaves the castle. She finds the Emprate was left in ruins 
+but there were many places that were untouched. Only the capitals 
+were partly destroyed and the Senatorial Province obliterated. 
+And thus the people saw her and they said, “Let us make her the supremess.” 
+~
+And so they took her to her province–The Third Imperial Province–and they made 
+a new throne for her, one higher than all of the ones before it. And they made 
+her a new crown, one greater than all of the ones before it, even greater than 
+that of the master emperor. And ceremony was put forth and at the end
+~
+they gave her title of Supremess and they gave her a new name so 
+that her full title and name were the Supremess Cornelia,
+the supreme empress over all of the people of Illyica. 
+~
+And therefore, she was seated on her throne and crowned. 
+Then all the people shouted, “Every man is subservient to the Supremess! 
+Every man is subservient to the Supremess!” 
+As was their custom for their new rulers. For they believed:
+~
+“All things must be ordered, all things must be delineated,
+all things must be subordinate.”
+~
+And as she was now supremess they discovered that the power 
+that healed her made it so she would live for a thousand years 
+and thus so she would reign for a thousand years.
+~
+The End.
+~
+“The strange thing about dark magic is that when someone kills its 
+embodiment all of its power is infused into that destroyer. 
+But then it is by principle no longer dark magic, as dark magic
+~
+requires the death of the innocent, but if one reverses that by 
+killing the guilty–and the very guilty at that–one gains whatever 
+is the opposite of dark magic. And therefore, gains a great benevolent power.”
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

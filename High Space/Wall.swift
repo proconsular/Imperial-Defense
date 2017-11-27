@@ -9,8 +9,6 @@
 import Foundation
 
 class Wall: Structure, Damagable {
-    var reflective: Bool = false
-    
     var health: Float
     var max: Float
     var sheet: SheetLayout
@@ -21,21 +19,18 @@ class Wall: Structure, Damagable {
         let amount = upgrader.barrier.range.amount
         sheet = SheetLayout(3 - Int(amount / 1.5), 1, 6)
         super.init(location, float2(64, 32) * 4)
-        material["texture"] = GLTexture("barrier_castle").id
-        material["color"] = float4(1, 1, 1, 1)
-        material.coordinates = sheet.coordinates
+        material.set(-1, GLTexture("barrier_castle").id, sheet.coordinates)
         body.object = self
         body.mask = 0b1
-        material["order"] = -1
+        body.tag = ""
+        material["color"] = float4(1)
+        reaction = DamageReaction(self)
     }
     
     override func update() {
         if health <= 0 {
-            let destroy = Audio("barrier-destroyed")
-            destroy.volume = 1
-            destroy.start()
+            Audio.start("barrier-destroyed", 4)
             alive = false
-            //handle.active = false
             let count = Int(random(5, 10))
             for _ in 0 ..< count {
                 makeParts()
@@ -44,7 +39,7 @@ class Wall: Structure, Damagable {
     }
     
     func damage(_ amount: Float) {
-        health -= amount
+        health -= amount + amount * (Float(GameData.info.challenge) * 0.25)
         play("barrier-hit")
         
         let percent = Float(health) / Float(max)

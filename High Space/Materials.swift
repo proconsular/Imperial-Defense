@@ -272,6 +272,12 @@ class ClassicMaterial: Material {
         self.init(GLTexture(), float4(1))
     }
     
+    func set(_ order: Int, _ texture: GLuint, _ coordinates: [float2]) {
+        self["order"] = order
+        self["texture"] = texture
+        self.coordinates = coordinates
+    }
+    
     override func bind() {
         Graphics.bindDefault()
         glBindTexture(GLenum(GL_TEXTURE_2D), self["texture"] as! GLuint)

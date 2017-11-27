@@ -78,7 +78,11 @@ class StoreScreen: Screen {
             UserInterface.fade {
                 UserInterface.space.wipe()
                 UserInterface.controller.reduce()
-                UserInterface.space.push(StoryScreen())
+                if enableStory {
+                    UserInterface.space.push(StoryScreen())
+                }else{
+                    UserInterface.space.push(PrincipalScreen())
+                }
             }
         }))
         

@@ -31,6 +31,8 @@ class GameDefaultsGateway: Gateway<GameInfo> {
         info.points = defaults.integer(forKey: "points")
         info.weapon = defaults.integer(forKey: "weapon")
         info.wave = defaults.integer(forKey: "wave")
+        info.challenge = defaults.integer(forKey: "challenge")
+        info.tutorial = defaults.bool(forKey: "tutorial")
         for u in info.upgrades.keys {
             info.upgrades.updateValue(defaults.integer(forKey: u), forKey: u)
         }
@@ -44,6 +46,8 @@ class GameDefaultsGateway: Gateway<GameInfo> {
         defaults.set(item.points, forKey: "points")
         defaults.set(item.weapon, forKey: "weapon")
         defaults.set(item.wave, forKey: "wave")
+        defaults.set(item.challenge, forKey: "challenge")
+        defaults.set(item.tutorial, forKey: "tutorial")
         defaults.setValuesForKeys(item.upgrades)
     }
     
