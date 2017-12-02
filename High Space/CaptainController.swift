@@ -17,7 +17,7 @@ class CaptainController: Behavior {
     var protect: GuardBehavior
     var fire: AllfireBehavior
     
-    var power: Float = 0
+    var power: Float = 1
     var save: Int = 1
     
     var queued: CooldownBehavior?
@@ -38,9 +38,11 @@ class CaptainController: Behavior {
         protect.update()
         fire.update()
         
+        let wave = GameData.info.wave + 1
+        
         if soldier.transform.location.y <= -Camera.size.y { return }
         
-        power += 0.25 * Time.delta
+        power += 0.2 * Time.delta
         
         if !ActorUtility.hasLineOfSight(soldier) { return }
         
@@ -48,26 +50,26 @@ class CaptainController: Behavior {
             let dx = soldier.transform.location.x - player.transform.location.x
             
             let char = roll(clamp(abs(dx / 2.m), min: 0, max: 1))
-            if char && roll(0.25) && charge.available && power >= 1 {
-                queue(charge, 1)
+            if char && roll(0.1) && charge.available && power >= 1 {
+                queue(charge, 0.25)
                 power -= 1
             }
             
             let pro = roll(1 - clamp(abs(dx / 0.5.m), min: 0, max: 1))
-            if pro && protect.available && power >= 1 {
-                queue(protect, 0.5)
+            if wave >= 23 && roll(0.1) && pro && protect.available && power >= 1 {
+                queue(protect, 0.25)
                 power -= 1
             }
             
             let fir = roll(1 - clamp(abs(dx / 1.m), min: 0, max: 1))
-            if fir && fire.available && power >= 1 {
-                queue(fire, 0.5)
+            if wave >= 27 && fir && fire.available && power >= 1 {
+                queue(fire, 0.25)
                 power -= 1
             }
             
-            if fir && soldier.health.percent <= 0.25 && power >= 1 && save > 0 {
+            if wave >= 33 && soldier.health.percent <= 0.25 && power >= 1 && save > 0 {
                 soldier.stop(2) { [unowned soldier] in
-                    soldier.setImmunity(true, 2)
+                    soldier.setImmunity(true, 0.5)
                 }
                 
                 power = 0

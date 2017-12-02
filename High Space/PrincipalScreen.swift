@@ -10,9 +10,13 @@ import Foundation
 
 class PrincipalScreen: Screen {
     let game: Game
+    var setter: GameSetter
     
     override init() {
         game = Game()
+        
+        setter = debug ? DebugSetter() : LevelSetter()
+        setter.set(game)
         
         super.init()
         

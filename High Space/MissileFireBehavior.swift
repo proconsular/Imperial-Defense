@@ -25,7 +25,7 @@ class MissileFireBehavior: CooldownBehavior {
         soldier.stop(0.5) { [unowned soldier] in
             let direction = float2(0, 1)
             let location = soldier.transform.location + 0.75.m * direction + float2(-0.2.m, -0.7.m)
-            let missile = Missile(location, direction, Casing(float2(0.4.m, 0.6.m), float4(1), "player"))
+            let missile = Missile(location, direction, Casing(float2(0.4.m, 0.8.m), float4(1), "player"))
             Map.current.append(missile)
         }
     }

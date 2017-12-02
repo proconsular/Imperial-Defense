@@ -62,7 +62,15 @@ class LegionDisplay {
     func render() {
         plate.render()
         soldier.render()
-        text.setString("\(0)")
+        
+        var count = 0
+        for unit in Map.current.actorate.actors {
+            if unit is Soldier {
+                count += 1
+            }
+        }
+        
+        text.setString("\(count)")
         text.render()
     }
     
@@ -84,8 +92,8 @@ class WaveDisplay {
     func render() {
         plate.render()
         var string = "Legio \(wave.roman)"
-        if wave >= 51 {
-            string = "Emperor"
+        if wave >= 101 {
+            string = "Lord Saal"
         }
         text.setString(string)
         text.render()

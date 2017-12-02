@@ -58,7 +58,6 @@ class InteractiveElement: InterfaceElement, Interface {
 }
 
 class TextButton: InteractiveElement {
-    
     var text: Text
     
     init(_ text: Text, _ location: float2, _ event: @escaping () -> ()) {
@@ -68,7 +67,6 @@ class TextButton: InteractiveElement {
     }
     
     override func update() {
-        //super.update()
         text.location = location
     }
     
@@ -76,7 +74,18 @@ class TextButton: InteractiveElement {
         guard active else { return }
         text.render()
     }
+}
+
+class ToggleTextButton: TextButton {
+    var activated = true
     
+    init(_ text: Text, _ location: float2, _ event: @escaping (Bool) -> ()) {
+        super.init(text, location, {})
+        self.event = { [unowned self] in
+            self.activated = !self.activated
+            event(self.activated)
+        }
+    }
 }
 
 class Button: InteractiveElement {
@@ -94,6 +103,12 @@ class Button: InteractiveElement {
     }
     
 }
+
+
+
+
+
+
 
 
 

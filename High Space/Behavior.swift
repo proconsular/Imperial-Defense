@@ -26,6 +26,7 @@ class ComplexBehavior: Behavior {
         behaviors.forEach{
             $0.update()
         }
+        behaviors = behaviors.filter{ $0.alive }
     }
     
     func append(_ behavior: Behavior) {
@@ -169,6 +170,14 @@ class HomingShootBehavior: ShootBehavior {
         }
     }
     
+}
+
+class EmptyBehavior: Behavior {
+    var alive: Bool = true
+    
+    func update() {
+        
+    }
 }
 
 class TemporaryBehavior: Behavior {

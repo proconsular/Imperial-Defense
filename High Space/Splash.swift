@@ -111,6 +111,29 @@ class Splash: Screen {
             }
         })
         
+        layer.objects.append(TextButton(Text("levels", FontStyle(defaultFont, float4(1, 1, 1, 1), 36)), float2(90, 35) + float2(0, -GameScreen.size.y)) {
+            UserInterface.fade {
+                UserInterface.space.wipe()
+                UserInterface.controller.reduce()
+                UserInterface.space.push(LevelScreen())
+            }
+        })
+        
+        let text = Text("Debug: \(debug ? "On" : "Off")", FontStyle(defaultFont, float4(1, 1, 1, 1), 36))
+        let toggle = ToggleTextButton(text, float2(Camera.size.x - 500, 35) + float2(0, -GameScreen.size.y)) { (active) in
+            debug = active
+            text.setString("Debug: \(debug ? "On" : "Off")")
+        }
+        layer.objects.append(toggle)
+        
+        let text_story = Text("Story: \(enableStory ? "On" : "Off")", FontStyle(defaultFont, float4(1, 1, 1, 1), 36))
+        let toggle_story = ToggleTextButton(text_story, float2(500, 35) + float2(0, -GameScreen.size.y)) { (active) in
+            enableStory = active
+            text_story.setString("Story: \(enableStory ? "On" : "Off")")
+        }
+        layer.objects.append(toggle_story)
+        
+        
         layers.append(layer)
     }
     
@@ -259,8 +282,8 @@ class SaveDisplay: Entity, Damagable {
         top.render()
         bottom.render()
         var st = "\((GameData.info.wave + 1).roman)"
-        if GameData.info.wave >= 50 {
-            st = "The Emperor"
+        if GameData.info.wave >= 100 {
+            st = "Lord Saal"
         }
         legion.setString(st)
         legion.render()

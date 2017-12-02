@@ -64,7 +64,7 @@ struct BaseWaveInfo: WaveInfo {
     }
     
     var depth: Int {
-        var d = 6 + Int(Float(wave) / 3.5)
+        var d = 6 + Int(Float(wave) / 2.5)
         if (wave + 1) % 5 == 0 && wave > 0 {
             d = Int(Float(d) * 1.25)
         }
@@ -72,28 +72,21 @@ struct BaseWaveInfo: WaveInfo {
     }
     
     var max: Int {
-        var m = 50 + Int((Float(wave) / 50) * 90)
+        var m = 36 + Int((Float(wave) / 20) * 50)
         
-        if wave > 29 {
-            m = 90 + Int((Float(wave - 29) / 10) * 20)
+        if wave >= 20 {
+            m = 75
         }
         
-        if wave > 39 {
-            m = 100 + Int(Float(wave - 39) * 2)
+        if wave > 0 && (wave + 1) % 5 == 0 {
+            m = Int(Float(m) * 1.25)
         }
         
-        if wave % 10 == 4 {
-            m = 50 + 10 * Int(Float(wave) / 20)
-        }
-        
-        if wave == 0 {
-            m = 32
-        }
         return m
     }
     
     var startWidth: Int {
-        return clamp(7 + wave / 10, min: 5, max: 10)
+        return clamp(7 + wave / 10, min: 5, max: 12)
     }
     
     var variance: Int {
@@ -153,10 +146,10 @@ class BaseLayoutModifier: LayoutModifier {
         for index in 0 ..< layout.rows.count {
             let row = layout.rows[index]
             
-            var rate: Float = 0.1
+            var rate: Float = clamp(0.1 - (Float(GameData.info.wave) / 250), min: 0, max: 1)
             
             if index == 0 {
-                rate = 0.7
+                rate = clamp(0.7 - (Float(GameData.info.wave) / 35), min: 0, max: 1)
             }
             
             for n in 0 ..< row.pieces.count {
@@ -185,27 +178,54 @@ class SpecialLayoutModifier: LayoutModifier {
         
         let wave = GameData.info.wave + 1
         
-        let baseline: Float = 0.25 * (1 + (Float(wave - 1) / 25))
-        let specialization = (Float((wave - 1) % 5) / 5) * 0.75 + baseline
-        let class_level = Float(wave - 5) / 25
+        var class_level = 0
         
-        let intensity: Float = specialization * 0.1 * (wave < 5 ? 0 : 1)
+        //Act I
         
-        let unit = 2 + Int(clamp(class_level * 6, min: 0, max: 6))
+        if wave >= 12 {
+            class_level = 1
+        }
+        
+        //Act II
+        
+        if wave >= 21 {
+            class_level = 2
+        }
+        if wave >= 30 {
+            class_level = 3
+        }
+        
+        //Act III
+        
+        if wave >= 81 {
+            class_level = 4
+        }
+        if wave >= 85 {
+            class_level = 5
+        }
+        
+        var intensity: Float = 0.05
+        
+        if wave % 2 == 0 {
+            intensity *= 2
+        }
+        
+        let unit = 2 + Int(clamp(class_level, min: 0, max: 6))
         
         let low_variance = Int(clamp(6, min: 0, max: 6))
-        let high_variance = Int(clamp(0 * 6, min: 0, max: 6))
+        let high_variance = Int(clamp(0, min: 0, max: 6))
         
         for index in 0 ..< layout.rows.count {
             let row = layout.rows[index]
             
             for n in 0 ..< row.pieces.count {
                 if row[n] == -1 || row[n] == 2 { continue }
+                if wave < 5 { continue }
                 var id = unit
                 id = 0.95 >= random(0, 1) ? unit + randomInt(-low_variance, 1 + high_variance) : id
                 id = clamp(id, min: 2, max: 8)
                 
-                if isSpecialNear(row, n) || isSpecialClose(layout, index, n) {
+                if isSpecialNearInRow(row, n) || isSpecialNearVertical(layout, index, n) {
                     continue
                 }
                 
@@ -216,9 +236,10 @@ class SpecialLayoutModifier: LayoutModifier {
         
     }
     
-    func isSpecialNear(_ row: LevelRow, _ n: Int) -> Bool {
-        for i in 0 ..< 5 {
-            let m = i - 2 + n
+    func isSpecialNearInRow(_ row: LevelRow, _ n: Int) -> Bool {
+        let range = 8
+        for i in 0 ..< range {
+            let m = i - range / 2 + n
             if m < 0 || m >= row.pieces.count || m == n { continue }
             if row[m] >= 2 {
                 return true
@@ -227,7 +248,7 @@ class SpecialLayoutModifier: LayoutModifier {
         return false
     }
     
-    func isSpecialClose(_ layout: LevelLayout, _ index: Int, _ n: Int) -> Bool {
+    func isSpecialNearVertical(_ layout: LevelLayout, _ index: Int, _ n: Int) -> Bool {
         let center = layout.rows[index]
         let a = Float(n / center.count)
         for i in 0 ..< 3 {
@@ -235,7 +256,7 @@ class SpecialLayoutModifier: LayoutModifier {
             if m < 0 || m >= layout.rows.count || m == index { continue }
             let row = layout.rows[m]
             let b = Float(a * Float(row.count))
-            return isSpecialNear(row, Int(b))
+            return isSpecialNearInRow(row, Int(b))
         }
         return false
     }
@@ -412,11 +433,13 @@ class SoldierMapper {
         map.updateValue(Producer(Infrantry.init), forKey: 1)
         map.updateValue(Producer(Captain.init), forKey: 2)
         map.updateValue(Producer(Heavy.init), forKey: 3)
+        
         map.updateValue(Producer(Thief.init), forKey: 4)
-        map.updateValue(Producer(Commander.init), forKey: 5)
-        map.updateValue(Producer(Healer.init), forKey: 6)
-        map.updateValue(Producer(Sniper.init), forKey: 7)
-        map.updateValue(Producer(Mage.init), forKey: 8)
+        map.updateValue(Producer(Warrior.init), forKey: 5)
+        
+        map.updateValue(Producer(Titan.init), forKey: 6)
+        map.updateValue(Producer(Phantom.init), forKey: 7)
+        
     }
     
     subscript(_ value: Int) -> Producer<Soldier> {

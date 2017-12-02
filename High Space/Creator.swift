@@ -30,7 +30,7 @@ class GameCreator {
         
         let firer = Firer(0.1075, Impact(15, 14.m + 2.m * upgrader.firepower.range.percent), Casing(GameCreator.computeFireSize(), GameCreator.computeFireColor(), "enemy"))
         
-        var power = Power(175, 235, 30)
+        var power = Power(200, 115, 15)
         upgrader.firepower.apply(&power)
         
         return Player(float2(Camera.size.x / 2, -1.5.m), health, firer, power)

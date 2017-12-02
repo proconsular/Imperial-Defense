@@ -11,7 +11,7 @@ import Foundation
 class Thief: Soldier {
     
     required init(_ location: float2) {
-        super.init(location, Health(45, nil), float4(1), "Thief")
+        super.init(location, Health(5, Shield(Float(15), Float(1.25), Float(20))), float4(1), "Thief")
         let firer = Firer(1.0, Impact(5, 12.m), Casing(float2(0.4.m, 0.1.m), float4(1, 0.25, 0.25, 1), "player"))
         weapon = Weapon(transform, float2(0, 1), firer)
         weapon?.offset = float2(-0.2.m, -0.7.m)
@@ -22,8 +22,6 @@ class Thief: Soldier {
         
         behavior.base.append(MarchBehavior(self, animator))
         behavior.base.append(ShootBehavior(weapon!, self, "enemy-shoot-light"))
-        behavior.base.append(DodgeBehavior(self, 0.5))
-        
     }
     
 }

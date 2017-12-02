@@ -128,16 +128,11 @@ class GameControllerLayer: ControllerLayer {
         super.init()
         let movement = LimitedController(HorizontialMovementController(), FixedRect(float2(Camera.size.x / 4, Camera.size.y / 2), float2(Camera.size.x / 2, Camera.size.y)))
         
+        let jump = LimitedController(PointController(1), FixedRect(float2(Camera.size.x * 3 / 4, Camera.size.y / 2), float2(Camera.size.x / 2, Camera.size.y)))
         
-        let shoot1 = LimitedController(PointController(2), FixedRect(float2(Camera.size.x * 3 / 4, Camera.size.y * 5 / 8), float2(Camera.size.x / 2, Camera.size.y * 1 / 4)))
+        let interface = LimitedController(PointController(4), FixedRect(float2(Camera.size.x / 2, Camera.size.y * 0.25 / 2), float2(Camera.size.x, Camera.size.y * 0.25)))
         
-        let shoot2 = LimitedController(PointController(3), FixedRect(float2(Camera.size.x * 3 / 4, Camera.size.y * 2 / 8), float2(Camera.size.x / 2, Camera.size.y * 2 / 4)))
-        
-        
-        let jump = LimitedController(PointController(1), FixedRect(float2(Camera.size.x * 3 / 4, Camera.size.y * 7 / 8), float2(Camera.size.x / 2, Camera.size.y * 1 / 4)))
-        
-        let interface = LimitedController(PointController(4), FixedRect(float2(Camera.size.x / 2, Camera.size.y / 20), float2(Camera.size.x, Camera.size.y / 10)))
-        self.subcontrollers = [interface, movement, shoot1, shoot2, jump]
+        self.subcontrollers = [interface, movement, jump]
     }
     
 }

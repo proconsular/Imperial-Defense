@@ -9,8 +9,8 @@
 import Foundation
 
 class FireBehavior: Behavior {
-    
     var alive: Bool = true
+    
     unowned var soldier: Soldier
     var cooldown: Float
     var rate: Float
@@ -26,9 +26,7 @@ class FireBehavior: Behavior {
         if cooldown <= 0 {
             if let gun = soldier.weapon {
                 gun.fire()
-                let s = Audio("shoot3")
-                s.volume = sound_volume
-                s.start()
+                Audio.start("shoot3")
                 cooldown = rate
             }
         }

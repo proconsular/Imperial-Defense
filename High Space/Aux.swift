@@ -286,6 +286,10 @@ public func ==(_ a: float4, _ b: float4) -> Bool {
     return a.x == b.x && a.y == b.y && a.z == b.z && a.w == b.w
 }
 
+func roll(_ percent: Float) -> Bool {
+    return 1 - percent <= random(0, 1)
+}
+
 extension float4: Equatable {
     
 }

@@ -9,7 +9,6 @@
 import Foundation
 
 protocol Damagable: class {
-    var body: Body { get }
     func damage(_ amount: Float)
 }
 

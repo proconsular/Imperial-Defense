@@ -19,26 +19,13 @@ class Game: DisplayLayer {
     init() {
         GameSystem.start()
         
-        layers.append(DebugLayer())
-        
         level = Level()
         sequence = EventSequence()
         
         Map.current.append(GameCreator.createPlayer())
         interface = GameCreator.createInterface()
         
-        setupSequence()
-        
         Game.instance = self
-    }
-    
-    func setupSequence() {
-        if GameData.info.tutorial {
-            sequence.append(TutorialLevel(interface))
-        }
-        sequence.append(WaveLevel())
-        sequence.append(WaitElement(2))
-        sequence.append(VictoryEvent())
     }
     
     func use(_ command: Command) {

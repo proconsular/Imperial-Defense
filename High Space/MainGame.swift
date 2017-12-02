@@ -126,7 +126,8 @@ class GameTester: GameInterface {
 
 var upgrader: Upgrader!
 
-let enableStory: Bool = false
+var enableStory: Bool = false
+var debug = false
 
 class GameBase: GameInterface {
     
@@ -142,7 +143,7 @@ class GameBase: GameInterface {
             u.range.amount = Float(GameData.info.upgrades[u.name]!)
         }
 
-//        debug(wave: 20, gun: 0, shield: 2, barrier: 2)
+        //GameBase.debug(wave: 10, gun: 0, shield: 1, barrier: 1)
         
         let main = ScreenSpace()
         main.push(Splash())
@@ -162,12 +163,13 @@ class GameBase: GameInterface {
         UserInterface.display()
     }
     
-    func debug(wave: Int, gun: Int, shield: Int, barrier: Int) {
+    static func debug(wave: Int, gun: Int, shield: Int, barrier: Int) {
         GameData.info.wave = wave - 1
         
         upgrader.firepower.range.amount = Float(gun)
         upgrader.shieldpower.range.amount = Float(shield)
         upgrader.barrier.range.amount = Float(barrier)
+        GameData.info.points = 0
     }
     
 }
