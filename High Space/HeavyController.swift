@@ -8,54 +8,49 @@
 
 import Foundation
 
-class HeavyController: Behavior {
-    var alive = true
-    
-    unowned let soldier: Soldier
-    
-    var rapidfire: RapidFireBehavior
-    var missilefire: MissileFireBehavior
-    var lockdown: LockdownBehavior
-    
-    var power: Float = 1
+class HeavyController: UnitController {
     
     init(_ soldier: Soldier) {
-        self.soldier = soldier
+        super.init(soldier, 1, 0.1, 0.25)
         
-        rapidfire = RapidFireBehavior(soldier, 8)
-        missilefire = MissileFireBehavior(soldier, 8)
-        lockdown = LockdownBehavior(soldier, 0.25, 3)
-    }
-    
-    func update() {
-        rapidfire.update()
-        missilefire.update()
-        lockdown.update()
+        power = 1
         
         let wave = GameData.info.wave + 1
         
-        power += 0.25 * Time.delta
+        let fire = RapidFirePower(soldier, 1, 1, 2)
+        fire.conditions.append(LineOfSightCondition(soldier))
         
-        if soldier.transform.location.y <= -Camera.size.y - 2.m { return }
+        let missile = MissilePower(soldier, 0.5, 4)
+        missile.conditions.append(LineOfSightCondition(soldier))
         
-        if rapidfire.available && roll(0.01) && power >= 1 {
-            rapidfire.activate()
-            power -= 1
+        let lockdown = LockdownPower(soldier, 0.25, 0.25, 4)
+        lockdown.conditions.append(ThreatenedCondition(soldier.transform))
+        
+        if wave < 60 {
+            powers.append(fire)
         }
         
-        if wave >= 25 && missilefire.available && roll(0.01) && power >= 1 {
-            missilefire.activate()
-            power -= 1
+        if wave >= 25 {
+            powers.append(missile)
         }
         
-        if wave >= 29 && lockdown.available && soldier.health.shield!.percent <= 0.25 && power >= 1 {
-            lockdown.activate()
-            power -= 1
+        if wave >= 30 {
+            powers.append(lockdown)
         }
-    }
-    
-    func roll(_ percent: Float) -> Bool {
-        return 1 - percent <= random(0, 1)
+        
+        if wave >= 60 {
+            let shortfire = RapidFirePower(soldier, 0.5, 0.5, 1)
+            shortfire.conditions.append(LineOfSightCondition(soldier))
+            let longfire = RapidFirePower(soldier, 2, 2, 2)
+            longfire.conditions.append(LineOfSightCondition(soldier))
+            
+            let firecomplex = ComplexPower()
+            firecomplex.append(0, shortfire)
+            firecomplex.append(1, fire)
+            firecomplex.append(2, longfire)
+            
+            powers.append(firecomplex)
+        }
     }
     
 }

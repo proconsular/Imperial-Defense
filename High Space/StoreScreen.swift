@@ -50,15 +50,15 @@ class StoreScreen: Screen {
         
         let uspacing = float2(600, 500)
         
-        layer.objects.append(UpgradeView(float2(GameScreen.size.x / 2 - uspacing.x, GameScreen.size.y / 2 - uspacing.y / 2), upgrader.firepower)
+//        layer.objects.append(UpgradeView(float2(GameScreen.size.x / 2 - uspacing.x, GameScreen.size.y / 2 - uspacing.y / 2), upgrader.firepower)
+//        { [unowned self] in
+//            self.buy($0)
+//        })
+        layer.objects.append(UpgradeView(float2(GameScreen.size.x / 2 - uspacing.x / 2, GameScreen.size.y / 2 - uspacing.y / 2), upgrader.shieldpower)
         { [unowned self] in
             self.buy($0)
         })
-        layer.objects.append(UpgradeView(float2(GameScreen.size.x / 2, GameScreen.size.y / 2 - uspacing.y / 2), upgrader.shieldpower)
-        { [unowned self] in
-            self.buy($0)
-        })
-        layer.objects.append(UpgradeView(float2(GameScreen.size.x / 2 + uspacing.x, GameScreen.size.y / 2 - uspacing.y / 2), upgrader.barrier)
+        layer.objects.append(UpgradeView(float2(GameScreen.size.x / 2 + uspacing.x / 2, GameScreen.size.y / 2 - uspacing.y / 2), upgrader.barrier)
         { [unowned self] in
             self.buy($0)
         })

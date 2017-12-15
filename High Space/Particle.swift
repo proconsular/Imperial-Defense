@@ -45,6 +45,59 @@ class Particle: Entity {
     
 }
 
+class FireEnergy: Particle {
+    var effect: ColorEffect? = FlashEffect()
+    
+    override func update() {
+        super.update()
+        
+        if let effect = effect {
+            handle.material["color"] = effect.affect(color) * opacity
+            effect.update()
+        }
+        
+        if let player = Player.player {
+            let dl = player.transform.location - transform.global.location
+            if dl.length <= size * 3 && opacity >= 0.1 {
+                Player.player.damage(10)
+                alive = false
+            }
+        }
+    }
+    
+}
+
+protocol ColorEffect {
+    func affect(_ color: float4) -> float4
+    func update()
+}
+
+class FlashEffect: ColorEffect {
+    var phase = true
+    var counter: Float = 0
+    var rate: Float = 0.25
+    
+    func affect(_ color: float4) -> float4 {
+        return phase ? color : float4(1)
+    }
+    
+    func update() {
+        counter += Time.delta
+        if counter >= rate {
+            counter = 0
+            phase = !phase
+        }
+    }
+}
+
+//class WaveEffect: ColorEffect {
+//    
+//    func affect(_ color: float4) -> float4 {
+//        return color
+//    }
+//    
+//}
+
 class DarkEnergy: Particle {
     
     override func update() {

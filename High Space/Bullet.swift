@@ -42,6 +42,11 @@ class Bullet: Entity {
         BulletSystem.current.append(handle)
     }
     
+    override func update() {
+        super.update()
+        body.orientation = atan2f(body.velocity.y, body.velocity.x)
+    }
+    
     func hit(_ body: Body, _ collision: Collision) {
         guard self.alive else { return }
         guard let object = body.object as? Hittable else { return }

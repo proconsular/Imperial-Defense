@@ -8,111 +8,128 @@
 
 import Foundation
 
-class CaptainController: Behavior {
-    var alive = true
-    
-    unowned let soldier: Soldier
-    
-    var charge: RushBehavior
-    var protect: GuardBehavior
-    var fire: AllfireBehavior
-    
-    var power: Float = 1
-    var save: Int = 1
-    
-    var queued: CooldownBehavior?
-    var timer: Float = 0
-    var flicker: Float = 0
-    var shield_on: Bool = true
+class CaptainController: UnitController {
     
     init(_ soldier: Soldier) {
-        self.soldier = soldier
+        super.init(soldier, 1, 0.1, 0.25)
         
-        charge = RushBehavior(soldier.transform, 3.m, 4)
-        protect = GuardBehavior(soldier, 4)
-        fire = AllfireBehavior(soldier.transform, 3.m, 4)
-    }
-    
-    func update() {
-        charge.update()
-        protect.update()
-        fire.update()
+        power = 1
         
         let wave = GameData.info.wave + 1
         
-        if soldier.transform.location.y <= -Camera.size.y { return }
+        let charge = ChargePower(soldier.transform, 3.m, 1.5, 1, 1)
+        charge.conditions.append(PlayerAwayCondition(soldier.transform, 2.5.m))
         
-        power += 0.2 * Time.delta
+        let protect = GuardPower(soldier, 0.5, 6)
+        protect.conditions.append(ThreatenedCondition(soldier.transform))
         
-        if !ActorUtility.hasLineOfSight(soldier) { return }
+        let fire = FireCallPower(soldier.transform, 3.m, 5, 1, 2)
+        fire.conditions.append(LineOfSightCondition(soldier))
         
-        if let player = Player.player {
-            let dx = soldier.transform.location.x - player.transform.location.x
-            
-            let char = roll(clamp(abs(dx / 2.m), min: 0, max: 1))
-            if char && roll(0.1) && charge.available && power >= 1 {
-                queue(charge, 0.25)
-                power -= 1
-            }
-            
-            let pro = roll(1 - clamp(abs(dx / 0.5.m), min: 0, max: 1))
-            if wave >= 23 && roll(0.1) && pro && protect.available && power >= 1 {
-                queue(protect, 0.25)
-                power -= 1
-            }
-            
-            let fir = roll(1 - clamp(abs(dx / 1.m), min: 0, max: 1))
-            if wave >= 27 && fir && fire.available && power >= 1 {
-                queue(fire, 0.25)
-                power -= 1
-            }
-            
-            if wave >= 33 && soldier.health.percent <= 0.25 && power >= 1 && save > 0 {
-                soldier.stop(2) { [unowned soldier] in
-                    soldier.setImmunity(true, 0.5)
-                }
-                
-                power = 0
-                save -= 1
-            }
+        if wave <= 50 {
+            powers.append(charge)
         }
         
-        timer -= Time.delta
-        
-        if timer > 0 {
-            flicker += Time.delta
-            if flicker >= 0.05 {
-                flicker = 0
-                let sh = soldier.shield_material!.color
-                shield_on = !shield_on
-                soldier.shield_material!.overlay_color = shield_on ? float4(1, 0, 0, 1) * Float(0.5) : sh
-            }
+        if wave >= 21 {
+            powers.append(protect)
         }
         
-        if timer <= 0 {
-            if let saved = queued {
-                saved.activate()
-                soldier.shield_material!.overlay = false
-                queued = nil
-            }
+        if wave >= 25 && wave < 55  {
+            powers.append(fire)
         }
-    }
-    
-    func queue(_ behavior: CooldownBehavior, _ time: Float) {
-        if queued == nil {
-            queued = behavior
-            timer = time
-            soldier.shield_material!.overlay = true
+        
+        if wave >= 51 {
+            let longcharge = ChargePower(soldier.transform, 3.m, 2.5, 2, 1)
+            longcharge.conditions.append(PlayerAwayCondition(soldier.transform, 2.5.m))
+            let shortcharge = ChargePower(soldier.transform, 5.m, 0.5, 0.5, 1)
+            
+            let chargecomplex = ComplexPower()
+            chargecomplex.append(0, shortcharge)
+            chargecomplex.append(1, charge)
+            chargecomplex.append(2, longcharge)
+            chargecomplex.set(1)
+            
+            powers.append(chargecomplex)
         }
-    }
-    
-    func roll(_ percent: Float) -> Bool {
-        return 1 - percent <= random(0, 1)
+        
+        if wave >= 55 {
+            let shortfire = FireCallPower(soldier.transform, 5.m, 2, 0.5, 1)
+            shortfire.conditions.append(LineOfSightCondition(soldier))
+            let longfire = FireCallPower(soldier.transform, 2.m, 15, 2, 2)
+            longfire.conditions.append(LineOfSightCondition(soldier))
+            
+            let firecomplex = ComplexPower()
+            firecomplex.append(0, shortfire)
+            firecomplex.append(1, fire)
+            firecomplex.append(2, longfire)
+            firecomplex.set(1)
+            
+            powers.append(firecomplex)
+        }
+        
     }
     
 }
 
+class ComplexPower: UnitPower {
+    var powers: [RankedPower]
+    var rank: Int
+    
+    var selectedPower: UnitPower?
+    
+    init() {
+        rank = 0
+        powers = []
+    }
+    
+    var cost: Float {
+        return selectedPower?.cost ?? 0
+    }
+    
+    func set(_ rank: Int) {
+        selectedPower = find(rank)
+    }
+    
+    func append(_ rank: Int, _ power: UnitPower) {
+        powers.append(RankedPower(rank, power))
+    }
+    
+    func isAvailable(_ power: Float) -> Bool {
+        return selectedPower?.isAvailable(power) ?? false
+    }
+    
+    func invoke() {
+        selectedPower?.invoke()
+    }
+    
+    func find(_ rank: Int) -> UnitPower? {
+        var select: [RankedPower] = []
+        for ranked in powers {
+            if ranked.rank == rank {
+                select.append(ranked)
+            }
+        }
+        if select.isEmpty { return nil }
+        return select[randomInt(0, select.count)].power
+    }
+    
+    func update() {
+        for ranked in powers {
+            ranked.power.update()
+        }
+    }
+    
+}
 
+struct RankedPower {
+    var rank: Int
+    var power: UnitPower
+    
+    init(_ rank: Int, _ power: UnitPower) {
+        self.rank = rank
+        self.power = power
+    }
+}
 
 
 

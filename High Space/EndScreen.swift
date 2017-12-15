@@ -28,13 +28,6 @@ class EndScreen: Screen {
         let layer = InterfaceLayer()
         
         layer.objects.append(Text(GameScreen.size / 2 + float2(0, -200) + float2(0, -GameScreen.size.y), win ? "Victory!" : "DEFEATUM ABSOLUTUM", FontStyle("Augustus", float4(1), 128)))
-        //layer.objects.append(Text(Camera.size / 2 + float2(-200, 100), "Level \(GameData.info.level + 1)", FontStyle(defaultFont, float4(1), 72)))
-        
-//        layer.objects.append(Text(GameScreen.size / 2 + float2(0, -50) + float2(0, -GameScreen.size.y), "Legio \(Coordinator.wave.roman)", FontStyle(defaultFont, float4(1), 72)))
-//        layer.objects.append(Text(GameScreen.size / 2 + float2(200, -100) + float2(0, -GameScreen.size.y), "Crystal \(GameData.info.points)", FontStyle(defaultFont, float4(1), 72)))
-//        let text = Text(GameScreen.size / 2 + float2(0, 200) + float2(0, -GameScreen.size.y), "Legio \(Coordinator.wave.roman) has crushed you. The castle has been raided and the Empress captured. You have failed.", FontStyle(defaultFont, float4(1), 48), float2(300, 50))
-//        text.location = Camera.size / 2 + float2(150 / 4, 100) + float2(0, -GameScreen.size.y)
-//        layer.objects.append(text)
         
         let spacing = float2(500, 0)
         let offset = float2(0, 450) + float2(0, -GameScreen.size.y)

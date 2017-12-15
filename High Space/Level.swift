@@ -15,7 +15,7 @@ class Level {
     let map: Map
     
     init() {
-        map = Map(float2(20.m, 40.m))
+        map = Map(float2(20.m, 60.m))
         simulation = Simulation(map.grid)
         GameCreator.createWalls(Map.current, 0.15.m)
         scenery = Scenery(GameCreator.createBarriers())

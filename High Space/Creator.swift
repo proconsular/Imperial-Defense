@@ -63,6 +63,7 @@ class GameSystem {
         Graphics.method.clear()
         ParticleSystem.current.clear()
         BulletSystem.current.clear()
+        GameplayController.current = GameplayController()
         Camera.current = Camera()
         Time.scale = 1
     }
@@ -70,6 +71,7 @@ class GameSystem {
     static func update() {
         ParticleSystem.current.update()
         BulletSystem.current.update()
+        GameplayController.current.update()
     }
     
     static func render() {

@@ -165,7 +165,7 @@ GLKView *glkview;
     int width = 2001;// [UIScreen mainScreen].bounds.size.width * [UIScreen mainScreen].scale;
     int height = 1125;//[UIScreen mainScreen].bounds.size.height * [UIScreen mainScreen].scale;
     
-    float s = 2001 / (float)width;
+    //float s = 2001 / (float)width;
     
     double scale = 1;
     projectionMatrix = GLKMatrix4MakeOrtho(-width * (scale - 1), width * scale, height * scale, -height * (scale - 1), 1, -1);

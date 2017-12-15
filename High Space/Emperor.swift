@@ -236,10 +236,10 @@ class Emperor: Soldier {
         status_health.update()
         particle_shielding.update()
         
-        reflective = false
-        if let l = particle_shielding.effect, l is DefendEffect {
-            reflective = true
-        }
+//        reflective = false
+//        if let l = particle_shielding.effect, l is DefendEffect {
+//            reflective = true
+//        }
         
         let broke = Game.instance.level.scenery.castle.brokeness
         
@@ -267,7 +267,7 @@ class Emperor: Soldier {
     
     override func terminate() {
         if health.stamina.percent <= 0 && !dead {
-            reflective = false
+            //reflective = false
             particle_shielding.enabled = false
             behavior.push(DeathBehavior(self))
             dead = true

@@ -85,11 +85,6 @@ class EndPrompt: Screen {
         
         let layer = InterfaceLayer()
         
-//        layer.objects.append(Text(GameScreen.size / 2 + float2(0, 50) + float2(0, -GameScreen.size.y), "Legio \(wave.roman) has been destroyed.", FontStyle("Augustus", float4(1), 48)))
-        
-//        layer.objects.append(Text(GameScreen.size / 2 + float2(0, -50) + float2(0, -GameScreen.size.y), "Legio \(wave.roman)", FontStyle(defaultFont, float4(1), 72)))
-//        layer.objects.append(Text(GameScreen.size / 2 + float2(200, -100) + float2(0, -GameScreen.size.y), "Crystal \(GameData.info.points)", FontStyle(defaultFont, float4(1), 72)))
-        
         let spacing = float2(500, 0)
         let offset = float2(0, 450) + float2(0, -GameScreen.size.y)
         
@@ -152,12 +147,6 @@ class EndPrompt: Screen {
         let c = points / 4
         
         amount += clamp(c, min: 0, max: Int(m))
-        
-        let p_m = upgrader.firepower.range.limit - upgrader.firepower.range.amount
-        
-        if m == 0 {
-            amount += clamp(points / 8, min: 0, max: Int(p_m))
-        }
         
         return amount
     }

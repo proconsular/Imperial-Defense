@@ -52,7 +52,7 @@ class LevelScreen: Screen {
         case 15:
             GameBase.debug(wave: index, gun: 0, shield: 1, barrier: 2)
         case 20:
-            GameBase.debug(wave: index, gun: 0, shield: 2, barrier: 2)
+            GameBase.debug(wave: index, gun: 0, shield: 2, barrier: 3)
         case 25:
             GameBase.debug(wave: index, gun: 0, shield: 3, barrier: 3)
         case 30:
@@ -64,6 +64,7 @@ class LevelScreen: Screen {
         case 45:
             GameBase.debug(wave: index, gun: 0, shield: 5, barrier: 5)
         default:
+            GameBase.debug(wave: index, gun: 0, shield: 5, barrier: 5)
             break
         }
     }

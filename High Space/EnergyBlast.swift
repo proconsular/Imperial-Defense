@@ -16,6 +16,9 @@ class EnergyBlast {
     var velocity: float2
     var health: Float
     
+    var engaged = false
+    var direction: Float = 1
+    
     init(_ location: float2, _ health: Float) {
         transform = Transform(location)
         self.health = health
@@ -23,7 +26,7 @@ class EnergyBlast {
     }
     
     func update() {
-        health += -10 * Time.delta
+        health += -30 * Time.delta
         
         transform.location += velocity * Time.delta
         velocity *= 0.99
@@ -37,7 +40,22 @@ class EnergyBlast {
             velocity += normalize(dl) * 1.m
             
             if dl.length <= 15.m && dl.x != 0 {
-                player.body.velocity.x += clamp((15.m / -dl.x) * 10, min: -2.m, max: 2.m) * (health / 50)
+                player.body.velocity.x += clamp((25.m / -dl.x) * 10, min: -4.m, max: 4.m) * (health / 25)
+            }
+            
+            if dl.length <= 2.m {
+                engaged = true
+                direction = randomInt(0, 1) == 0 ? 1 : -1
+            }
+        }
+        
+        if engaged {
+            let dl = float2(direction == 1 ? Camera.size.x : 0, -Camera.size.y * 0.1) - transform.location
+            velocity.x += dl.x / 10
+            velocity.y += dl.y / 3
+            velocity.y *= 0.9
+            if dl.length <= 0.5.m {
+                health = 0
             }
         }
         

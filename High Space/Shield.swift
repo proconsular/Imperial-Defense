@@ -212,6 +212,10 @@ class Shield: Life {
         timer = Timer(timeout, recover)
     }
     
+    func set(_ percent: Float) {
+        points.amount = points.limit * percent
+    }
+    
     func recover() {
         self.damaged = false
         delegate?.recover(points.percent)

@@ -86,7 +86,7 @@ class MarchBehavior: Behavior {
     }
     
     func update() {
-        if ActorUtility.spaceInFront(entity, float2(0.75.m, 0)) {
+        if ActorUtility.spaceInFront(entity, float2(0.25.m, 0)) {
             animator.update()
             animator.apply(entity.material)
         }

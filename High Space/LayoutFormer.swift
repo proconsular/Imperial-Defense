@@ -79,14 +79,14 @@ struct BaseWaveInfo: WaveInfo {
         }
         
         if wave > 0 && (wave + 1) % 5 == 0 {
-            m = Int(Float(m) * 1.25)
+            m = Int(Float(m) * 1.1)
         }
         
         return m
     }
     
     var startWidth: Int {
-        return clamp(7 + wave / 10, min: 5, max: 12)
+        return clamp(7 + wave / 10, min: 5, max: 8)
     }
     
     var variance: Int {
@@ -174,35 +174,11 @@ class BaseLayoutModifier: LayoutModifier {
 
 class SpecialLayoutModifier: LayoutModifier {
     
+    let map = UnitValueMap()
+    
     func modify(_ layout: LevelLayout) {
         
         let wave = GameData.info.wave + 1
-        
-        var class_level = 0
-        
-        //Act I
-        
-        if wave >= 12 {
-            class_level = 1
-        }
-        
-        //Act II
-        
-        if wave >= 21 {
-            class_level = 2
-        }
-        if wave >= 30 {
-            class_level = 3
-        }
-        
-        //Act III
-        
-        if wave >= 81 {
-            class_level = 4
-        }
-        if wave >= 85 {
-            class_level = 5
-        }
         
         var intensity: Float = 0.05
         
@@ -210,20 +186,13 @@ class SpecialLayoutModifier: LayoutModifier {
             intensity *= 2
         }
         
-        let unit = 2 + Int(clamp(class_level, min: 0, max: 6))
-        
-        let low_variance = Int(clamp(6, min: 0, max: 6))
-        let high_variance = Int(clamp(0, min: 0, max: 6))
-        
         for index in 0 ..< layout.rows.count {
             let row = layout.rows[index]
             
             for n in 0 ..< row.pieces.count {
                 if row[n] == -1 || row[n] == 2 { continue }
                 if wave < 5 { continue }
-                var id = unit
-                id = 0.95 >= random(0, 1) ? unit + randomInt(-low_variance, 1 + high_variance) : id
-                id = clamp(id, min: 2, max: 8)
+                let id = randomInt(2, map.map.count)
                 
                 if isSpecialNearInRow(row, n) || isSpecialNearVertical(layout, index, n) {
                     continue
@@ -310,19 +279,24 @@ class LayoutConverter {
 
 class LayoutGrader {
     
+    let map = UnitValueMap()
+    
     func grade(_ layout: LevelLayout) -> Float {
         var value: Float = 0
         let average = computeAverageRowGrade(layout)
         
         for row in layout.rows {
             for piece in row.pieces {
-                value += Float(piece.type + 1)
+                value += map.get(piece.type)
             }
             if row.count == 0 {
                 value -= average / 2
             }
             if row.pieces.count >= 8 && row.count >= 8 {
                 value += Float(row.pieces.count) / 2
+            }
+            if row.pieces.count >= 10 && row.count >= 4 {
+                value += Float(row.count) / 2
             }
         }
         
@@ -363,7 +337,14 @@ class WaveGenerator {
     }
     
     func generate() -> Legion {
-        let layout = findBestLayout(75, 20)
+        let wave = GameData.info.wave + 1
+        var ideal: Float = 75
+        
+        if wave % 5 == 0 && wave > 0 {
+            ideal = 85
+        }
+        
+        let layout = findBestLayout(ideal, 20)
         
         let grade = grader.grade(layout)
         let value = grade / computePowerGrade()
@@ -447,3 +428,147 @@ class SoldierMapper {
     }
     
 }
+
+struct SoldierValue {
+    let id: Int
+    let value: Float
+    
+    init(_ id: Int, _ value: Float) {
+        self.id = id
+        self.value = value
+    }
+}
+
+class UnitValueMap {
+    var map: [SoldierValue]
+    
+    init() {
+        map = []
+        
+        let wave = GameData.info.wave + 1
+        
+        map.append(SoldierValue(0, 1))
+        map.append(SoldierValue(1, 2))
+        
+        if wave >= 5 {
+            var value: Float = 3
+            
+            if wave >= 21 {
+                value = 4
+            }
+            
+            if wave >= 25 {
+                value = 4.5
+            }
+            
+            map.append(SoldierValue(2, value))
+        }
+        
+        if wave >= 12 {
+            var value: Float = 4
+            
+            if wave >= 25 {
+                value = 5
+            }
+            
+            if wave >= 30 {
+                value = 5.5
+            }
+            
+            map.append(SoldierValue(3, value))
+        }
+        
+        if wave >= 21 {
+            map.append(SoldierValue(4, 5))
+            
+        }
+        
+        if wave >= 30 {
+            var value: Float = 6
+            
+            if wave >= 35 {
+                value = 7
+            }
+            
+            if wave >= 40 {
+                value = 7.5
+            }
+            
+            map.append(SoldierValue(5, value))
+        }
+        
+        if wave >= 81 {
+            map.append(SoldierValue(6, 25))
+        }
+        
+        if wave >= 85 {
+            map.append(SoldierValue(7, 30))
+        }
+    }
+    
+    func get(_ id: Int) -> Float {
+        for value in map {
+            if value.id == id {
+                return value.value
+            }
+        }
+        return 0
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

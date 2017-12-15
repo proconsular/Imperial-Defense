@@ -100,6 +100,7 @@
     [self prefetch:@"Soldier4"];
     [self prefetch:@"Scout"];
     [self prefetch:@"Captain"];
+    [self prefetch:@"Warrior"];
     [self prefetch:@"Thief"];
     [self prefetch:@"Heavy"];
     [self prefetch:@"Commander"];
@@ -114,6 +115,7 @@
     [self prefetch:@"Emperor"];
     [self prefetch:@"Sniper"];
     [self prefetch:@"Healer"];
+    [self prefetch:@"Titan"];
     [self prefetch:@"Castle-Centerpiece"];
     [self prefetch:@"Castle-Rightpiece"];
     [self prefetch:@"Castle-Leftpiece"];

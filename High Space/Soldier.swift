@@ -23,26 +23,17 @@ class Soldier: Entity, Damagable {
     var anim: Float = 0
     
     var absorb: AbsorbEffect?
-    var canSprint: Bool = false
-    var sprintCounter: Float = 0
-    var sprinter: Bool = false
-    var sprintCooldown: Float = 0
-    
-    var reflective: Bool = false
-    
     var trail: TrailEffect!
     
-    var immune: Bool = false
+    var sprinter: Bool = false
+    var canSprint: Bool = false
     
     var shield_material: ShieldMaterial?
-    
-    var immune_flicker: Float = 0
-    var immune_timer: Float = 0
     
     init(_ location: float2, _ health: Health, _ color: float4, _ texture: String = "Soldier4") {
         self.color = color
         let rect = Rect(location, float2(125))
-        let bodyhull = Rect(location, float2(65, 85))
+        let bodyhull = Rect(location, float2(50, 85))
         bodyhull.transform = rect.transform
         self.health = health
         
@@ -79,14 +70,6 @@ class Soldier: Entity, Damagable {
         reaction = DamageReaction(self)
     }
     
-    func sprint() {
-        if canSprint {
-            animator.set(1)
-            sprintCounter = 1.5
-            sprintCooldown = 5
-        }
-    }
-    
     func stop(_ time: Float, _ action: @escaping () -> ()) {
         let animator = BaseMarchAnimator(body, 10, 0.0.m)
         animator.set(sprinter ? 1 : 0)
@@ -94,22 +77,7 @@ class Soldier: Entity, Damagable {
         behavior.push(TemporaryBehavior(MarchBehavior(self, animator), 0.1, action))
     }
     
-    func setImmunity(_ immune: Bool, _ time: Float = 0) {
-        self.immune = immune
-        self.immune_timer = time
-        if immune {
-            if let shield = health.shield {
-                shield.points.amount = shield.points.limit
-            }
-        }
-        if let mat = shield_material {
-            mat.overlay = immune
-            mat.overlay_color = float4(1, 1, 1, 1)
-        }
-    }
-    
     func damage(_ amount: Float) {
-        if immune { return }
         if transform.location.y < -GameScreen.size.y + 0.5.m { return }
         if let shield = health.shield, shield.percent > 0 {
             let hit = Audio("enemy-shield-hit")
@@ -126,31 +94,6 @@ class Soldier: Entity, Damagable {
     override func update() {
         super.update()
         
-        sprintCooldown -= Time.delta
-        if sprintCounter >= 0 && !sprinter {
-            sprintCounter -= Time.delta
-            
-            trail.update()
-            
-            if sprintCounter <= 0 {
-                animator.set(0)
-            }
-        }
-        
-        if immune {
-            if let mat = shield_material {
-                immune_flicker += Time.delta
-                if immune_flicker >= 0.05 {
-                    immune_flicker = 0
-                    mat.overlay_color = mat.overlay_color.w == 1 ? float4(0.5) : float4(1)
-                }
-            }
-            immune_timer -= Time.delta
-            if immune_timer <= 0 {
-                setImmunity(false)
-            }
-        }
-        
         weapon?.update()
         behavior.update()
         absorb?.update()
@@ -163,6 +106,7 @@ class Soldier: Entity, Damagable {
             }
         }
         body.velocity.y *= 0.95
+        body.velocity.x *= 0.9
         terminate()
         updateShield()
     }

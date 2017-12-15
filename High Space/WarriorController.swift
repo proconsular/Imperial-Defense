@@ -8,54 +8,50 @@
 
 import Foundation
 
-class WarriorController: Behavior {
-    var alive = true
-    
-    unowned let soldier: Soldier
-    
-    var spray: SprayFireBehavior
-    var roam: RoamBehavior
-    var reflect: ReflectBehavior
-    
-    var power: Float = 1
+class WarriorController: UnitController {
     
     init(_ soldier: Soldier) {
-        self.soldier = soldier
+        super.init(soldier, 1, 0.1, 0.25)
         
-        spray = SprayFireBehavior(soldier, 4)
-        roam = RoamBehavior(soldier, 4)
-        reflect = ReflectBehavior(soldier, 3)
-    }
-    
-    func update() {
-        spray.update()
-        roam.update()
-        reflect.update()
+        power = 1
         
         let wave = GameData.info.wave + 1
         
-        power += 0.25 * Time.delta
+        let roam = FreeRoamPower(soldier, 1, 0.5, 3)
+        roam.conditions.append(LineOfSightCondition(soldier))
         
-        if soldier.transform.location.y <= -Camera.size.y && ActorUtility.hasLineOfSight(soldier) { return }
+        let spray = FireSprayPower(soldier, 1, 1)
+        spray.conditions.append(LineOfSightCondition(soldier))
         
-        if spray.available && roll(0.25) && power >= 1 {
-            spray.activate()
-            power -= 1
+        let reflect = ReflectPower(soldier, 1, 4)
+        reflect.conditions.append(ThreatenedCondition(soldier.transform))
+        
+        if wave < 65 {
+            powers.append(roam)
         }
         
-        if wave >= 35 && roam.available && roll(0.25) && power >= 1 {
-            roam.activate()
-            power -= 1
+        if wave >= 35 {
+            powers.append(spray)
         }
         
-        if wave >= 37 && reflect.available && roll(1 - soldier.health.shield!.percent) && power >= 1 {
-            reflect.activate()
-            power -= 1
+        if wave >= 40 {
+            powers.append(reflect)
         }
-    }
-    
-    func roll(_ percent: Float) -> Bool {
-        return 1 - percent <= random(0, 1)
+        
+        if wave >= 65 {
+            let shortroam = FreeRoamPower(soldier, 0.5, 0.25, 1.5)
+            shortroam.conditions.append(LineOfSightCondition(soldier))
+            let longroam = FreeRoamPower(soldier, 2, 1.5, 3)
+            longroam.conditions.append(LineOfSightCondition(soldier))
+            
+            let roamcomplex = ComplexPower()
+            roamcomplex.append(0, shortroam)
+            roamcomplex.append(1, roam)
+            roamcomplex.append(2, longroam)
+            roamcomplex.set(1)
+            
+            powers.append(roamcomplex)
+        }
     }
     
 }
