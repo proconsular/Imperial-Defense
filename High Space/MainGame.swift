@@ -31,11 +31,11 @@ let sound_volume: Float = 0.005
         super.init()
     }
     
-    func update() {
+    @objc func update() {
         interface.update()
     }
     
-    func display() {
+    @objc func display() {
         interface.render()
     }
     
@@ -128,6 +128,7 @@ var upgrader: Upgrader!
 
 var enableStory: Bool = false
 var debug = false
+var debugDisplay = true
 
 class GameBase: GameInterface {
     
@@ -143,7 +144,7 @@ class GameBase: GameInterface {
             u.range.amount = Float(GameData.info.upgrades[u.name]!)
         }
 
-        //GameBase.debug(wave: 10, gun: 0, shield: 1, barrier: 1)
+//        GameBase.debug(wave: 101, gun: 0, shield: 5, barrier: 5)
         
         let main = ScreenSpace()
         main.push(Splash())
@@ -179,7 +180,7 @@ class GameBase: GameInterface {
     static var scale: Float = 1
     static var normal: Float = 0
     
-    static func set(_ time: Float) {
+    @objc static func set(_ time: Float) {
         self.delta = time * scale
         self.normal = time
     }

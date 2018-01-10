@@ -12,7 +12,7 @@ import Foundation
     let display: Display
     let rect: Rect
     
-    init(_ location: float2, _ bounds: float2, _ texture: GLuint) {
+    @objc init(_ location: float2, _ bounds: float2, _ texture: GLuint) {
         rect = Rect(location, bounds)
         display = Display(rect, GLTexture(texture))
         //display.transform.assign(Camera.current.transform)
@@ -26,7 +26,7 @@ import Foundation
         display.transform.assign(nil)
     }
     
-    func render() {
+    @objc func render() {
         display.render()
     }
     
@@ -39,7 +39,7 @@ import Foundation
         set { display.color = newValue }
     }
     
-    var location: float2 {
+    @objc var location: float2 {
         get { return display.transform.location }
         set { display.transform.location = newValue }
     }

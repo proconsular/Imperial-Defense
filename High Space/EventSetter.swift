@@ -20,7 +20,14 @@ class LevelSetter: GameSetter {
         game.sequence.append(WaveLevel())
         game.sequence.append(WaitElement(2))
         game.sequence.append(VictoryEvent())
-        game.layers.append(DebugLayer())
+        
+        if debugDisplay {
+            game.layers.append(DebugLayer())
+        }
+        
+        if GameData.info.wave + 1 >= 101 {
+            game.layers.append(FinalBattleLayer())
+        }
     }
 }
 

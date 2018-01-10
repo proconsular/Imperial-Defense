@@ -468,13 +468,18 @@ class SummonLegionBehavior: ActiveBehavior {
     
     func activate() {
         active = true
-//        generator.difficulty.row = 1
-//        generator.amount = Int(4 + 4 * FinalBattle.instance.challenge)
-        let count = Int(1 + 2 * FinalBattle.instance.challenge)
+        let width = Int(4 + 4 * FinalBattle.instance.challenge)
+        let rows = Int(2 + 3 * FinalBattle.instance.challenge)
         let side = arc4random() % 2 == 0 ? Map.current.size.x / 4 : Map.current.size.x * 3 / 4
-//        for i in 0 ..< count {
-//            let _ = generator.create(float2(side, -Camera.size.y - 2.m) + float2(0, -1.25.m * Float(i)))
-//        }
+        for i in 0 ..< rows {
+            let location = float2(side, -Camera.size.y - 2.m) + float2(0, -0.75.m * Float(i))
+            for n in 0 ..< width {
+                let spacing = -0.8.m
+                let loc = location + float2(spacing * Float(n) - Float(width / 2) * spacing + spacing / 2, 0)
+                let soldier = Infrantry(loc)
+                Map.current.append(soldier)
+            }
+        }
     }
     
     func update() {
@@ -576,7 +581,6 @@ class ParticleWaveBehavior: ActiveBehavior {
     }
     
 }
-
 
 class ParticleBeamBehavior: ActiveBehavior {
     var alive: Bool = true

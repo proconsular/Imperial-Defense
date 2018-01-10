@@ -71,7 +71,7 @@ class Sorter {
     }
     
     static func findRightMostVertex(_ vertices: [float2]) -> Int {
-        return findBestIndex(1 ..< vertices.count, -FLT_MAX, >) { vertices[$0].x }!
+        return findBestIndex(1 ..< vertices.count, -Float.greatestFiniteMagnitude, >) { vertices[$0].x }!
     }
 }
 

@@ -33,7 +33,7 @@ class Coordinator {
         Coordinator.wave += 1
         
         if GameData.info.wave >= 100 {
-            let emp = Emperor(float2(Camera.size.x / 2, -Camera.size.y + 3.m))
+            let emp = Emperor(float2(Camera.size.x / 2, -Camera.size.y + 1.m))
             let legion = Legion([Row([emp])])
             Map.current.append(emp)
             waves.append(legion)

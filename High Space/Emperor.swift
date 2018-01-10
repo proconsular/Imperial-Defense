@@ -25,6 +25,8 @@ class Emperor: Soldier {
     
     var dead = false
     
+    var reflectiveShell: Body!
+    
     required init(_ location: float2) {
         laser = Laser(location, 20, float2(0, 1))
         pulseLaser = Laser(location, 10, float2(0, 1))
@@ -63,7 +65,12 @@ class Emperor: Soldier {
         march_animation = t.list[0]
         
         setupBehaviors()
-       
+        
+        reaction = DamageReaction(self)
+        
+        reflectiveShell = Body(Circle(transform, 1.25.m), Substance.getStandard(1))
+        reflectiveShell.noncolliding = true
+        
         Emperor.instance = self
     }
     
@@ -78,7 +85,6 @@ class Emperor: Soldier {
         
         let timeline = BossBehavior()
         behavior.push(timeline)
-        
         
         timeline.append(ConditionalBehavior(setupFirstSegment()) { [unowned self] in
             self.health.stamina.percent > 0.75
@@ -236,10 +242,15 @@ class Emperor: Soldier {
         status_health.update()
         particle_shielding.update()
         
-//        reflective = false
-//        if let l = particle_shielding.effect, l is DefendEffect {
-//            reflective = true
-//        }
+        if let l = particle_shielding.effect {
+            if l is DefendEffect {
+                if let react = reaction, react is DamageReaction {
+                    reaction = ReflectReaction(reflectiveShell)
+                }
+            }else{
+                reaction = DamageReaction(self)
+            }
+        }
         
         let broke = Game.instance.level.scenery.castle.brokeness
         
@@ -256,13 +267,6 @@ class Emperor: Soldier {
         if health.stamina.percent <= 0.1 && !Game.instance.level.scenery.castle.destroyed {
             Game.instance.level.scenery.castle.destroy()
         }
-        
-        if health.stamina.percent <= 0.5 {
-            if !Player.player.alive {
-                //Game.instance.showFailScreen()
-            }
-        }
-        
     }
     
     override func terminate() {
@@ -282,7 +286,6 @@ class Emperor: Soldier {
             status_health.render()
             status_shield.render()
         }
-        
     }
     
 }

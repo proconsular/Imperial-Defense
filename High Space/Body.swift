@@ -42,7 +42,7 @@ class Body {
         get { return shape.transform.orientation }
     }
     
-    init (_ shape: Hull, _ substance: Substance, callback: @escaping Callback = { _ in }) {
+    init (_ shape: Hull, _ substance: Substance, callback: @escaping Callback = { _,_  in }) {
         self.shape = shape
         self.substance = substance
         self.callback = callback

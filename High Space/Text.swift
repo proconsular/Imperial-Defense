@@ -19,8 +19,8 @@ struct FontStyle {
         self.size = size
     }
     
-    var attributes: [String: Any?] {
-        return [NSFontAttributeName: fontFamily, NSForegroundColorAttributeName: fontColor]
+    var attributes: [NSAttributedStringKey: Any] {
+        return [NSAttributedStringKey(rawValue: NSAttributedStringKey.font.rawValue): fontFamily, NSAttributedStringKey(rawValue: NSAttributedStringKey.foregroundColor.rawValue): fontColor]
     }
     
     var fontFamily: UIFont {
@@ -67,7 +67,7 @@ class Text: InterfaceElement {
     
     private static func computeString(_ string: String, _ style: FontStyle) -> NSAttributedString {
         let a = style.attributes
-        return NSAttributedString(string: string, attributes: a ?? [:])
+        return NSAttributedString(string: string, attributes: a)
     }
     
     func setString(_ string: String) {

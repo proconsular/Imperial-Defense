@@ -111,7 +111,7 @@ class WaveLevel: GameElement {
     
     func update() {
         if isLevelFailed() {
-            showFailScreen()
+            Game.showFailScreen()
         }
         coordinator.update()
         separate()
@@ -157,14 +157,6 @@ class WaveLevel: GameElement {
             }
         }
         return false
-    }
-    
-    func showFailScreen() {
-        Audio.stop("1 Battle")
-        UserInterface.fade {
-            UserInterface.space.push(EndScreen(false))
-        }
-        Game.instance.playing = false
     }
     
 }

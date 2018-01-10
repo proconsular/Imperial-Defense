@@ -48,6 +48,14 @@ class Game: DisplayLayer {
         layers.forEach{ $0.render() }
     }
     
+    static func showFailScreen() {
+        Audio.stop("1 Battle")
+        UserInterface.fade {
+            UserInterface.space.push(EndScreen(false))
+        }
+        Game.instance.playing = false
+    }
+    
     deinit {
         Audio.stop("1 Battle")
         Audio.stop("3 Emperor")

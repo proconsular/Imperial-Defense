@@ -81,16 +81,22 @@ class Castle {
         
         if falling_apart {
             let side = broken_pieces[fall_index]
-            let barrier = barriers[fall_index * 3]
+            var barrier: Wall?
+            
+            if fall_index * 2 < barriers.count {
+                barrier = barriers[fall_index * 2]
+            }
             
             velocity += float2(0, 6.m) * Time.delta
             side.transform.location += velocity * Time.delta
-            barrier.transform.location += velocity * Time.delta
+            barrier?.transform.location += velocity * Time.delta
             velocity *= 0.95
             
             if side.transform.location.y >= -0.1.m {
                 side.color = float4(0)
-                barrier.damage(barrier.health)
+                if let wall = barrier {
+                    wall.damage(wall.health)
+                }
                 fall_index += 1
                 velocity = float2()
                 let place = float2((fall_index == 1 ? Camera.size.x * 0.75 : Camera.size.x * 0.25), 0)

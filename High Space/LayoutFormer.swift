@@ -350,9 +350,12 @@ class WaveGenerator {
         let value = grade / computePowerGrade()
         let formatter = NumberFormatter()
         formatter.maximumFractionDigits = 1
-        if let game = Game.instance {
-            if let debug = game.layers[0] as? DebugLayer {
-                debug.grade.setString("Grade: \(formatter.string(from: value as NSNumber)!)")
+        
+        if debugDisplay {
+            if let game = Game.instance {
+                if let debug = game.layers[0] as? DebugLayer {
+                    debug.grade.setString("Grade: \(formatter.string(from: value as NSNumber)!)")
+                }
             }
         }
         

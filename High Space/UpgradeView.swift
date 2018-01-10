@@ -133,11 +133,10 @@ class CrystalSlot {
     
     func render() {
         let spacing: Float = 30
-        var y: Float = 0
         var i: Int = 0
         var n: Int = 0
         while i < count {
-            slot.transform.location = location + float2(Float(n) * spacing - Float(count) / 2 * spacing + spacing / 2, y * 40)
+            slot.transform.location = location + float2(Float(n) * spacing - Float(count) / 2 * spacing + spacing / 2, 0)
             if i < GameData.info.points {
                 slot.color = float4(1)
             }else{
@@ -147,10 +146,6 @@ class CrystalSlot {
             slot.render()
             i += 1
             n += 1
-//            if i % 4 == 0 && i > 0 {
-//                y += 1
-//                n = 0
-//            }
         }
     }
     

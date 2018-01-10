@@ -248,7 +248,7 @@ class Rubble: Entity {
         body.noncolliding = true
         body.mask = 0b0
         
-        material.texture = GLTexture("Rubble")
+        material["texture"] = GLTexture("Rubble").id
         material.coordinates = SheetLayout(randomInt(1, 2), 3, 1).coordinates
     }
     

@@ -59,13 +59,12 @@ class Audio: AudioElement {
     
 }
 
-@objc
-class RawAudio: NSObject {
+@objc class RawAudio: NSObject {
     
-    let source, buffer: UInt32
+    @objc let source, buffer: UInt32
     fileprivate(set) var volume, pitch: Float
     
-    init (_ source: UInt32, _ buffer: UInt32) {
+    @objc init (_ source: UInt32, _ buffer: UInt32) {
         self.source = source
         self.buffer = buffer
         volume = 1
@@ -78,11 +77,11 @@ class RawAudio: NSObject {
         alSourcePlay(source)
     }
     
-    func stop () {
+    @objc func stop () {
         alSourceStop(source)
     }
   
-    func newVolume(_ volume: Float) {
+    @objc func newVolume(_ volume: Float) {
         alSourcef(source, AL_GAIN, volume)
         self.volume = volume
     }

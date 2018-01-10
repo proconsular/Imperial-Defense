@@ -30,3 +30,26 @@ class DebugLayer: GameDisplayLayer {
     }
     
 }
+
+class FinalBattleLayer: GameDisplayLayer {
+    let battle: FinalBattle
+    
+    init() {
+        battle = FinalBattle()
+    }
+    
+    func update() {
+        if let player = Player.player {
+            if !player.alive {
+                Game.showFailScreen()
+            }
+        }
+    }
+    
+    func render() {
+        if let emperor = Emperor.instance {
+            emperor.render()
+        }
+    }
+    
+}

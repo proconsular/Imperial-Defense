@@ -9,19 +9,15 @@
 import Foundation
 
 class FinalBattle {
-    
     static weak var instance: FinalBattle!
     
-    unowned let emperor: Emperor
-    
-    init(_ emperor: Emperor) {
-        self.emperor = emperor
+    init() {
         FinalBattle.instance = self
     }
     
     var challenge: Float {
         var out: Float = 0
-        let c = 1 - emperor.health.stamina.percent
+        let c = 1 - Emperor.instance.health.stamina.percent
         let base = c / 6
         out = base
         if c > 0.25 {

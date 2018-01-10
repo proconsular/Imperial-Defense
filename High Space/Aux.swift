@@ -27,7 +27,6 @@ extension String {
     
 }
 
-extension int2: Equatable {}
 extension int2: CustomStringConvertible {
     public var description: String {
         return "\(x), \(y)"
@@ -48,27 +47,27 @@ public func + (prime: int2, secunde: int2) -> int2 {
     return int2(prime.x + secunde.x, prime.y + secunde.y)
 }
 
-func == <Value: Comparable> (prime: IndexedValue<Value>, secunde: IndexedValue<Value>) -> Bool {
+func == <Value> (prime: IndexedValue<Value>, secunde: IndexedValue<Value>) -> Bool {
     return prime.value == secunde.value
 }
 
-func > <Value: Comparable> (prime: IndexedValue<Value>, secunde: IndexedValue<Value>) -> Bool {
+func > <Value> (prime: IndexedValue<Value>, secunde: IndexedValue<Value>) -> Bool {
     return prime.value > secunde.value
 }
 
-func >= <Value: Comparable> (prime: IndexedValue<Value>, secunde: IndexedValue<Value>) -> Bool {
+func >= <Value> (prime: IndexedValue<Value>, secunde: IndexedValue<Value>) -> Bool {
     return prime.value >= secunde.value
 }
 
-func < <Value: Comparable> (prime: IndexedValue<Value>, secunde: IndexedValue<Value>) -> Bool {
+func < <Value> (prime: IndexedValue<Value>, secunde: IndexedValue<Value>) -> Bool {
     return prime.value < secunde.value
 }
 
-func <= <Value: Comparable> (prime: IndexedValue<Value>, secunde: IndexedValue<Value>) -> Bool {
+func <= <Value> (prime: IndexedValue<Value>, secunde: IndexedValue<Value>) -> Bool {
     return prime.value <= secunde.value
 }
 
-extension float2: Equatable {
+extension float2 {
     func GLKVector () -> GLKVector2 {
         return GLKVector2Make(self.x, self.y)
     }
@@ -125,9 +124,9 @@ extension MutableCollection where Iterator.Element == float2, Index == Int, Inde
     }
 }
 
-public func == (alpha: float2, beta: float2) -> Bool {
-    return alpha.x == beta.x && alpha.y == beta.y
-}
+//public func == (alpha: float2, beta: float2) -> Bool {
+//    return alpha.x == beta.x && alpha.y == beta.y
+//}
 
 extension Float {
     
@@ -282,16 +281,12 @@ func vectorize(_ angle: Float) -> float2 {
     return float2(cosf(angle), sinf(angle))
 }
 
-public func ==(_ a: float4, _ b: float4) -> Bool {
-    return a.x == b.x && a.y == b.y && a.z == b.z && a.w == b.w
-}
+//public func ==(_ a: float4, _ b: float4) -> Bool {
+//    return a.x == b.x && a.y == b.y && a.z == b.z && a.w == b.w
+//}
 
 func roll(_ percent: Float) -> Bool {
     return 1 - percent <= random(0, 1)
-}
-
-extension float4: Equatable {
-    
 }
 
 extension Float {
@@ -360,9 +355,9 @@ func alpha (_ primary: Float, _ secondary: Float) -> Float {
     return primary / (primary - secondary)
 }
 
-func / (vector: float2, scalar: Float) -> float2 {
-    return float2 (vector.x / scalar, vector.y / scalar)
-}
+//func / (vector: float2, scalar: Float) -> float2 {
+//    return float2 (vector.x / scalar, vector.y / scalar)
+//}
 
 func clamp <T: Comparable> (_ x: T, min: T, max: T) -> T {
     if x < min {
@@ -402,5 +397,5 @@ func crossff2(_ a: Float, _ b: float2) -> float2 {
 }
 
 func equal (_ p: Float, _ s: Float) -> Bool {
-    return abs(p - s) <= FLT_EPSILON
+    return abs(p - s) <= Float.ulpOfOne
 }

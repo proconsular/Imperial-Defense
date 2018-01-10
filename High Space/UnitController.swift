@@ -20,18 +20,17 @@ class UnitController: Behavior {
     
     var powers: [UnitPower]
     
-    let turn_rate: Float
-    var turn_counter: Float = 0
+    var counter: Counter
     
     var turn: Turn!
     
     init(_ soldier: Soldier, _ limit: Int, _ turn_rate: Float, _ rate: Float) {
         self.soldier = soldier
         self.limit = limit
-        self.turn_rate = turn_rate
-        self.rate = rate
+        counter = Counter(turn_rate)
         power = 0
         powers = []
+        self.rate = rate
         powers.append(NullPower())
         powers.append(DelayPower(self, 0.25))
         
@@ -45,9 +44,7 @@ class UnitController: Behavior {
         
         power += rate * Time.delta
         
-        turn_counter += Time.delta
-        if turn_counter >= turn_rate {
-            turn_counter = 0
+        counter.update(Time.delta) {
             turn.process()
         }
     }
@@ -148,7 +145,7 @@ class DelayPower: UnitPower {
     }
     
     func invoke() {
-        controller.turn_counter = -amount
+        controller.counter.increment = -amount
     }
     
     func update() {

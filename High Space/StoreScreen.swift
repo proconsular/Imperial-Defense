@@ -48,12 +48,8 @@ class StoreScreen: Screen {
         
         let layer = InterfaceLayer()
         
-        let uspacing = float2(600, 500)
+        let uspacing = float2(700, 500)
         
-//        layer.objects.append(UpgradeView(float2(GameScreen.size.x / 2 - uspacing.x, GameScreen.size.y / 2 - uspacing.y / 2), upgrader.firepower)
-//        { [unowned self] in
-//            self.buy($0)
-//        })
         layer.objects.append(UpgradeView(float2(GameScreen.size.x / 2 - uspacing.x / 2, GameScreen.size.y / 2 - uspacing.y / 2), upgrader.shieldpower)
         { [unowned self] in
             self.buy($0)
@@ -103,16 +99,13 @@ class StoreScreen: Screen {
     }
     
     func buy(_ upgrade: Upgrade) {
-        let uspacing = float2(600, 500)
+        let uspacing = float2(700, 500)
         
-        if upgrade.name == "Gun" {
-            buy_effect.activate(float2(GameScreen.size.x / 2 - uspacing.x, GameScreen.size.y / 2 - uspacing.y / 2))
-        }
         if upgrade.name == "Shield" {
-            buy_effect.activate(float2(GameScreen.size.x / 2, GameScreen.size.y / 2 - uspacing.y / 2))
+            buy_effect.activate(float2(GameScreen.size.x / 2 - uspacing.x / 2, GameScreen.size.y / 2 - uspacing.y / 2))
         }
         if upgrade.name == "Barrier" {
-            buy_effect.activate(float2(GameScreen.size.x / 2 + uspacing.x, GameScreen.size.y / 2 - uspacing.y / 2))
+            buy_effect.activate(float2(GameScreen.size.x / 2 + uspacing.x / 2, GameScreen.size.y / 2 - uspacing.y / 2))
         }
         
         let audio = Audio("upgrade_buy")

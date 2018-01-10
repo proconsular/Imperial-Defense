@@ -18,7 +18,7 @@ class Interaction: UIGestureRecognizer {
     
     static var presses: [Interaction] = []
     
-    class func appendTouch (_ touch: Interaction) {
+    @objc class func appendTouch (_ touch: Interaction) {
         presses.append(touch)
     }
     

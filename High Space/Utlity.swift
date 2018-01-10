@@ -48,6 +48,20 @@ struct Timer {
     }
 }
 
+struct Counter {
+    var rate: Float
+    var increment: Float
+    
+    init(_ rate: Float) {
+        self.rate = rate
+        increment = 0
+    }
+    
+    mutating func update(_ amount: Float, _ event: () -> ()) {
+        count(&increment, amount, rate, event())
+    }
+}
+
 class Processor {
     
     private let limit: Double

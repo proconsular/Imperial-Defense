@@ -11,10 +11,10 @@ import Foundation
 @objc
 class Texture: NSObject {
     
-    var id: GLuint
+    @objc var id: GLuint
     var bounds: float2
     
-    init(_ id: GLuint, _ bounds: float2) {
+    @objc init(_ id: GLuint, _ bounds: float2) {
         self.id = id
         self.bounds = bounds
         super.init()

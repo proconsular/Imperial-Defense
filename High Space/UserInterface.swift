@@ -76,11 +76,11 @@ class FadeTransition {
     
     init(_ rate: Float) {
         fade = Fade(rate)
-        callback = {_ in}
+        callback = {}
         active = false
     }
     
-    func transition(_ direction: Float, _ callback: @escaping () -> () = {_ in}) {
+    func transition(_ direction: Float, _ callback: @escaping () -> () = {}) {
         fade.direction = direction
         fade.opacity = direction == 1 ? 0 : 1
         self.callback = callback
