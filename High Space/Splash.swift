@@ -53,7 +53,7 @@ class Splash: Screen {
         firer = SplashFirer(float2(Camera.size.x - 0.5.m, Camera.size.y) + float2(0, -GameScreen.size.y), float2(2.5.m, 0), player.player.transform, 0.25)
         //map.append(player)
         
-        audio = Audio("0 Title")
+        audio = Audio("Title")
         if !audio.playing {
             audio.loop = true
             audio.volume = 1
@@ -91,15 +91,12 @@ class Splash: Screen {
             }
         })
         
-        layer.objects.append(TextButton(Text("Reset", FontStyle(defaultFont, float4(1, 1, 1, 1), 56)), float2(Camera.size.x / 2, Camera.size.y / 2 + 425) + float2(0, -GameScreen.size.y)) { [weak self] in
+        layer.objects.append(BorderedButton(Text("Reset", FontStyle(defaultFont, float4(1, 1, 1, 1), 56)), float2(Camera.size.x / 2, Camera.size.y / 2 + 425) + float2(0, -GameScreen.size.y), float2(0, -24), GLTexture("ButtonBorder")) { [weak self] in
             if self!.save.alive {
                 let loc = float2(Camera.size.x, Camera.size.y / 2) + float2(0, -GameScreen.size.y)
                 let bullet = Bullet(loc, normalize(self!.save.transform.location - loc), Impact(1, 16.m), Casing(float2(0.5.m, 0.1.m) * 1.75, float4(1, 0, 0, 1), "save"))
                 bullet.body.mask = 0b11
                 Map.current.append(bullet)
-                let hit = Audio("shoot2")
-                hit.volume = sound_volume * 2
-                hit.start()
             }
         })
         
@@ -188,9 +185,7 @@ class ShootEvent: Event {
     func activate() {
         let bullet = Bullet(location, direction, Impact(0, 12.m), Casing(float2(0.5.m, 0.1.m), float4(0, 1, 0, 1), ""))
         Map.current.append(bullet)
-        let hit = Audio("shoot2")
-        hit.volume = sound_volume * 0.1
-        hit.start()
+        Audio.play("shoot2", 0.05)
     }
     
 }

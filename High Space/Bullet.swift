@@ -38,6 +38,10 @@ class Bullet: Entity {
         terminator = DefaultTerminator(self)
     }
     
+    var hitPoint: float2 {
+        return transform.location + normalize(body.velocity) * casing.size.x / 2
+    }
+    
     override func compile() {
         BulletSystem.current.append(handle)
     }

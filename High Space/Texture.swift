@@ -70,7 +70,6 @@ class Texture: NSObject {
         glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_MIN_FILTER), GL_NEAREST);
         glTexParameteri(GLenum(GL_TEXTURE_2D), GLenum(GL_TEXTURE_MAG_FILTER), GL_NEAREST);
         
-        //glPixelStorei(GLenum(GL_UNPACK_ALIGNMENT), 4);
         glEnable(GLenum(GL_BLEND));
         glBlendFunc(GLenum(GL_ONE), GLenum(GL_ONE_MINUS_SRC_ALPHA));
         

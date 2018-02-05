@@ -12,7 +12,7 @@ class GLTexture {
     var id: GLuint
     
     init(_ name: String = "white") {
-        id = TextureRepo.sharedLibrary().texture(withName: name)
+        id = GLTextureLibrary.shared().texture(withName: name)
     }
     
     init (_ id: GLuint) {

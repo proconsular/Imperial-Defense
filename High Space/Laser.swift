@@ -46,9 +46,9 @@ class Laser {
         display.visual.refresh()
         if visible {
             if display.color.w == 1 {
-                let audio = Audio("laser2")
-                audio.volume = sound_volume
-                audio.start()
+//                let audio = Audio("laser2")
+//                audio.volume = sound_volume
+//                audio.start()
             }
         }
     }

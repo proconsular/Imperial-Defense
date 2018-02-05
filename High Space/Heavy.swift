@@ -12,7 +12,7 @@ class Heavy: Soldier {
     
     required init(_ location: float2) {
         super.init(location, Health(50, Shield(Float(50), Float(0.5), Float(50))), float4(1), "Heavy")
-        let firer = Firer(1.5, Impact(30, 10.m), Casing(float2(0.5.m, 0.14.m) * 1.1, float4(1, 0, 1, 1), "player", 2))
+        let firer = Firer(1.5, Impact(30, 14.m), Casing(float2(0.5.m, 0.14.m) * 1.1, float4(1, 0, 1, 1), "player", 2))
         weapon = Weapon(transform, float2(0, 1), firer)
         weapon?.offset = float2(-0.2.m, -0.7.m)
         

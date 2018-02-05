@@ -8,7 +8,7 @@
 
 #import "Bridge.h"
 #import "DynamicText.h"
-#import "TextureRepo.h"
+#import "GLTextureLibrary.h"
 #import "AudioLibrary.h"
 #import "Imperial_Defense-Swift.h"
 
@@ -29,7 +29,7 @@ static Bridge *sharedInstance;
 -(instancetype)init {
     self = [super init];
     
-    [TextureRepo sharedLibrary];
+    [GLTextureLibrary sharedLibrary];
     [AudioLibrary sharedLibrary];
     
     game = [MainGame new];

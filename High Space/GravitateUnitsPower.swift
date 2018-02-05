@@ -20,6 +20,7 @@ class GravitateUnitsPower: TimedUnitPower {
         super.invoke()
         
         soldier.behavior.base.append(TemporaryBehavior(PullUnitsBehavior(soldier.transform, 5.m), 0.1))
+        Audio.play("pull-close", 0.75)
     }
     
 }

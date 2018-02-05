@@ -61,7 +61,7 @@ class Soldier: Entity, Damagable {
             sm["texture"] = material["texture"]
             handle.materials.append(sm)
             shield_material = sm
-            shield.delegate = EnemyShieldAudio()
+            shield.delegates.append(EnemyShieldAudio())
             absorb = AbsorbEffect(3, 0.075, 0.75.m, 4, float4(0.1, 0.7, 1, 1), 0.25.m, body)
         }
         
@@ -79,16 +79,20 @@ class Soldier: Entity, Damagable {
     
     func damage(_ amount: Float) {
         if transform.location.y < -GameScreen.size.y + 0.5.m { return }
-        if let shield = health.shield, shield.percent > 0 {
-            let hit = Audio("enemy-shield-hit")
-            hit.volume = sound_volume * 10
-            hit.start()
-        }else{
-            let hit = Audio("enemy-health-hit")
-            hit.volume = sound_volume * 4
-            hit.start()
-        }
+        hit()
         health.damage(amount)
+    }
+    
+    func hit() {
+        if let mat = shield_material, mat.overlay {
+            Audio.play("immune-hit", 0.2)
+        }else{
+            if let shield = health.shield, shield.percent > 0 {
+                Audio.play("enemy-shield-hit", 0.4)
+            }else{
+                Audio.play("enemy-health-hit", 0.2)
+            }
+        }
     }
     
     override func update() {

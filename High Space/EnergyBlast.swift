@@ -19,14 +19,17 @@ class EnergyBlast {
     var engaged = false
     var direction: Float = 1
     
+    var hum: Counter
+    
     init(_ location: float2, _ health: Float) {
         transform = Transform(location)
         self.health = health
         velocity = float2()
+        hum = Counter(0.05)
     }
     
     func update() {
-        health += -30 * Time.delta
+        health += -15 * Time.delta
         
         transform.location += velocity * Time.delta
         velocity *= 0.99
@@ -61,6 +64,10 @@ class EnergyBlast {
         
         if health <= 0 {
             alive = false
+        }
+        
+        hum.update(Time.delta) {
+            Audio.play("energy-move", 0.75)
         }
     }
     

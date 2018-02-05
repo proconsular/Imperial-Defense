@@ -34,9 +34,12 @@ class RadiateBehavior: Behavior {
     
     var offset: Float = 0
     
+    var hum: Counter
+    
     init(_ transform: Transform) {
         self.transform = transform
         energy = []
+        hum = Counter(0.1)
     }
     
     func update() {
@@ -61,6 +64,10 @@ class RadiateBehavior: Behavior {
                     fire.alive = false
                 }
             }
+        }
+        
+        hum.update(Time.delta) {
+            Audio.play("energy-pour", 0.1)
         }
     }
     

@@ -42,6 +42,7 @@ class ConsumePower: TimedUnitPower {
                     self.battery.amount += total * 2
                 }
             })
+            Audio.play("eat", 0.1)
         }
     }
     

@@ -14,6 +14,7 @@ class UpgradeView: InterfaceElement, Interface {
     
     let background: Display
     var icon: Display?
+    let border: Display
     
     var text: Text!
     var button: InteractiveElement!
@@ -34,10 +35,16 @@ class UpgradeView: InterfaceElement, Interface {
         self.upgrade = upgrade
         self.selected = callback
         
-        background = Display(Circle(Transform(location + float2(0, -GameScreen.size.y)), 135), GLTexture("white"))
+        let loc = location + float2(0, -GameScreen.size.y)
+        
+        let transform = Transform(loc)
+        
+        background = Display(Circle(transform, 135), GLTexture("white"))
         background.color = float4(133 / 255, 35 / 255, 38 / 255, 1)
         
-        icon = Display(Rect(background.transform, float2(300)), GLTexture("Upgrades"))
+        border = Display(Rect(loc, float2(360, 450)), GLTexture("UpgradeBorder"))
+        
+        icon = Display(Rect(background.transform, float2(275)), GLTexture("Upgrades"))
         
         var i = 0
         if upgrade.name.lowercased() == "shield" {
@@ -48,14 +55,14 @@ class UpgradeView: InterfaceElement, Interface {
         
         icon?.material.coordinates = SheetLayout(i, 3, 1).coordinates
         
-        slots = CrystalSlot(location + float2(0, 200) + float2(0, -GameScreen.size.y), upgrade.computeCost())
+        slots = CrystalSlot(location + float2(0, 190) + float2(0, -GameScreen.size.y), upgrade.computeCost())
         
         button = InteractiveElement(location + float2(0, -GameScreen.size.y), float2(300)) {
             self.buy()
         }
         
-        text = Text("\(upgrade.title)", FontStyle("Augustus", float4(1), 48))
-        text.location = location + float2(0, 265) + float2(0, -GameScreen.size.y)
+        text = Text("\(upgrade.title)", FontStyle("Augustus", float4(1), 24))
+        text.location = location + float2(0, -190) + float2(0, -GameScreen.size.y)
     }
     
     func buy() {
@@ -102,6 +109,8 @@ class UpgradeView: InterfaceElement, Interface {
             icon?.refresh()
         }
         
+        border.render()
+        
         icon?.render()
         if upgrade.range.amount > 0 {
             text.setString("\(Int(upgrade.range.amount).roman)".trimmed)
@@ -123,16 +132,16 @@ class CrystalSlot {
     init(_ location: float2, _ count: Int) {
         self.location = location
         self.count = count
-        slot = Display(Rect(float2(), float2(50)), GLTexture("Crystal"))
+        slot = Display(Rect(float2(), float2(40)), GLTexture("Crystal"))
         slot.material["color"] = float4(0, 0, 0, 1)
-        slot.color = float4(0.25, 0.25, 0.25, 1)
+        slot.color = float4(0, 0, 0, 1)
         slot.material.coordinates = SheetLayout(0, 4, 1).coordinates
         crystal = Display(Rect(float2(), float2(75)), GLTexture("Crystal"))
         crystal.material.coordinates = SheetLayout(0, 4, 1).coordinates
     }
     
     func render() {
-        let spacing: Float = 30
+        let spacing: Float = 35
         var i: Int = 0
         var n: Int = 0
         while i < count {
@@ -140,7 +149,7 @@ class CrystalSlot {
             if i < GameData.info.points {
                 slot.color = float4(1)
             }else{
-                slot.color = float4(0.45, 0.45, 0.45, 1)
+                slot.color = float4(0, 0, 0, 1)
             }
             slot.refresh()
             slot.render()

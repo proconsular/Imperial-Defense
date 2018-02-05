@@ -163,6 +163,25 @@ protocol UnitPower {
     func update()
 }
 
+class UnitBehavior: Behavior {
+    var alive: Bool = true
+    
+    let power: UnitPower
+    
+    init(_ power: UnitPower) {
+        self.power = power
+        
+    }
+    
+    func update() {
+        power.update()
+        if power.isAvailable(100) {
+            power.invoke()
+        }
+    }
+    
+}
+
 class NullPower: UnitPower {
     var cost: Float = 0
     

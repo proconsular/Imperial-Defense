@@ -23,7 +23,7 @@ class GameCreator {
     
     static func createPlayer() -> Player {
         let shield = PlayerShield(Float(40), Float(2), Float(20))
-        shield.delegate = ShieldAudio()
+        shield.delegates.append(ShieldAudio())
         let health = Health(30, shield)
         
         upgrader.shieldpower.apply(shield)

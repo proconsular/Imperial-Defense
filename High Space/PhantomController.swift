@@ -24,14 +24,14 @@ class PhantomController: UnitController {
         
         powers.append(ConsumePower(soldier, battery, 0, 1))
         
-        let blast = EnergyBlastPower(soldier, battery, pool, 0.5, 3)
+        let blast = EnergyBlastPower(soldier, battery, pool, 0.5, 2)
         blast.conditions.append(BatteryChargedCondition(battery, 100))
         
         powers.append(blast)
         
         powers.append(GravitateUnitsPower(soldier, 0.25, 2))
         
-        powers.append(RadiatePower(soldier, 0.5, 2))
+        powers.append(RadiatePower(soldier, 0.75, 2))
     }
     
     override func update() {

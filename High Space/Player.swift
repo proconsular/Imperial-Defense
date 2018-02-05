@@ -33,6 +33,7 @@ class Player: Entity, Damagable {
         
         let transform = Transform(location)
         weapon = PlayerWeapon(transform, float2(0, -1), power, firer)
+        weapon.offset = float2(0, -0.25.m)
         
         animator = TextureAnimator(GLTexture("Player").id, SheetLayout(0, 8, 4))
         animator.append(SheetAnimator(0.1, [], SheetAnimation(0, 5, 8, 1)))
@@ -54,7 +55,9 @@ class Player: Entity, Damagable {
         terminator = ExplosionTerminator(self, 17.5.m, float4(1))
         
         createShieldMaterial()
-        health.shield!.effect = ShieldAbsorbEffect(transform, health.shield!, AbsorbEffect(3, 0.025, 1.25.m, 7, upgrader.shieldColor, 0.75.m, body))
+        //health.shield!.effect = ShieldAbsorbEffect(transform, health.shield!, AbsorbEffect(3, 0.025, 1.25.m, 7, upgrader.shieldColor, 0.75.m, body))
+        
+        health.shield!.delegates.append(PlayerShieldEffect(transform))
         
         trail = TrailEffect(self, 0.1, 4 + (1 - upgrader.shieldpower.range.percent) * 4)
         
@@ -74,7 +77,7 @@ class Player: Entity, Damagable {
     func damage(_ amount: Float) {
         let augment = amount * (Float(GameData.info.challenge) * 0.25)
         health.damage(amount + augment)
-        Audio.start("hit1")
+        Audio.play("player_hit", 0.2)
     }
     
     override func update() {
@@ -101,6 +104,25 @@ class Player: Entity, Damagable {
         animation.update()
         
         material.coordinates = animator.coordinates
+    }
+    
+}
+
+class PlayerShieldEffect: ShieldDelegate {
+    unowned let transform: Transform
+    
+    init(_ transform: Transform) {
+        self.transform = transform
+    }
+    
+    func recover(_ percent: Float) {
+        if percent < 0.9 {
+            Map.current.append(Halo(transform.location, 3.25.m))
+        }
+    }
+    
+    func damage() {
+        
     }
     
 }

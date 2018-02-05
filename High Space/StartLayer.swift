@@ -62,9 +62,7 @@ class EndPrompt: Screen {
     override init() {
         UserInterface.controller.push(PointController(0))
         
-        background = Display(Rect(GameScreen.size / 2 + float2(0, -GameScreen.size.y), GameScreen.size) , GLTexture())
-        background.camera = false
-        background.color = float4(0, 0, 0, 1)
+        background = Display(Rect(GameScreen.size / 2 + float2(0, -GameScreen.size.y), GameScreen.size) , GLTexture("Background"))
         
         let wave = GameData.info.wave + 1
         
@@ -88,7 +86,7 @@ class EndPrompt: Screen {
         let spacing = float2(500, 0)
         let offset = float2(0, 450) + float2(0, -GameScreen.size.y)
         
-        layer.objects.append(TextButton(Text("Improve", FontStyle("Augustus", float4(1), 64)), GameScreen.size / 2 + offset - spacing, {
+        layer.objects.append(BorderedButton(Text("Improve", FontStyle(defaultFont, float4(1), 64)), GameScreen.size / 2 + offset - spacing, float2(8, -16), GLTexture("ButtonBorder"), {
             UserInterface.fade {
                 UserInterface.space.wipe()
                 UserInterface.controller.reduce()
@@ -98,7 +96,7 @@ class EndPrompt: Screen {
         
         notifier = ShinyNotifier(GameScreen.size / 2 + offset - spacing + float2(220, -5))
         
-        layer.objects.append(TextButton(Text("Defend", FontStyle("Augustus", float4(1), 64)), GameScreen.size / 2 + offset + spacing, {
+        layer.objects.append(BorderedButton(Text("Defend", FontStyle(defaultFont, float4(1), 64)), GameScreen.size / 2 + offset + spacing, float2(8, -16), GLTexture("ButtonBorder"), {
             UserInterface.fade {
                 UserInterface.space.wipe()
                 UserInterface.controller.reduce()

@@ -117,7 +117,7 @@ class StatusLayer: InterfaceLayer {
         
         let health = Player.player.health
         
-        let sh = LifeDisplayAdapter(health.shield!, float4(48 / 255, 181 / 255, 206 / 255, 1))
+        let sh = LifeDisplayAdapter(health.shield!, float4(109 / 255, 107 / 255, 255 / 255, 1))
         sh.warnings.append(ShieldLowPowerWarning(float4(1, 0, 0, 1), 0.125, 0.33))
         
         let shieldBlocks = Int(13 + 5 * upgrader.shieldpower.range.percent)

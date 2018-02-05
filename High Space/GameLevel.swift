@@ -82,26 +82,26 @@ class TutorialLevel: GameLayer {
 
 class WaveLevel: GameElement {
     let coordinator: Coordinator
+    var timer: Counter
     
     init() {
         coordinator = Coordinator(GameData.info.wave)
+        timer = Counter(0.05)
     }
     
     func activate() {
         coordinator.next()
         
-        let audio = Audio("1 Battle")
-        if !audio.playing {
-            audio.loop = true
-            audio.volume = 1
-            audio.start()
+        var name = "Battle"
+        if GameData.info.wave + 1 >= 101 {
+            name = "Emperor"
         }
         
-        let wind = Audio("wind")
-        if !wind.playing {
-            wind.loop = true
-            wind.volume = 0.25
-            wind.start()
+        let audio = Audio(name)
+        if !audio.playing {
+            audio.loop = true
+            audio.volume = 0.9
+            audio.start()
         }
     }
     
@@ -111,11 +111,15 @@ class WaveLevel: GameElement {
     
     func update() {
         if isLevelFailed() {
+            Audio.play("level_defeat", 0.75)
             Game.showFailScreen()
         }
         coordinator.update()
-        separate()
-        computeDrawOrder()
+        
+        timer.update(Time.delta) {
+            separate()
+            computeDrawOrder()
+        }
     }
     
     func separate() {
@@ -175,10 +179,10 @@ class VictoryEvent: GameEvent {
             UserInterface.space.push(screen)
         }
         
-        let audio = Audio("1 Battle")
+        let audio = Audio("Battle")
         audio.stop()
         
-        let s = Audio("3 Emperor")
+        let s = Audio("Emperor")
         s.stop()
         
         GameData.info.wave += 1

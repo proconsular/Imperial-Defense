@@ -27,6 +27,8 @@ class EnergyBlastPower: TimedUnitPower {
         blast.velocity = float2(0, random(0.25.m, 2.m))
         pool.blasts.append(blast)
         battery.amount = 75
+        
+        Audio.play("fire-energy", 0.5)
     }
     
 }

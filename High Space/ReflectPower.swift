@@ -18,15 +18,16 @@ class ReflectPower: TimedUnitPower {
     
     override func invoke() {
         super.invoke()
-        soldier.behavior.push(TemporaryBehavior(EmptyBehavior(), 0.25) { [unowned soldier] in
+        soldier.behavior.push(TemporaryBehavior(EmptyBehavior(), 0.5) { [unowned soldier] in
             soldier.reaction = DamageReaction(soldier)
             soldier.shield_material!.overlay = false
         })
         soldier.reaction = ReflectReaction(soldier.body)
         soldier.shield_material!.overlay = true
-        soldier.shield_material!.overlay_color = float4(0.3, 0.6, 1, 1) * 0.75
+        soldier.shield_material!.overlay_color = float4(39 / 255, 215 / 255, 1, 1) * 0.9
         if let shield = soldier.health.shield {
             shield.points.amount = shield.points.limit
         }
+        Audio.play("enemy-shield-reflect", 0.5)
     }
 }

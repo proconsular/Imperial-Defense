@@ -11,7 +11,7 @@ import Foundation
 class StoryScreen: Screen {
     var background: Display!
     var story: StoryElement!
-    var music: String = "7 Emprate"
+    var music: String = "Emprate"
     
     override init() {
         super.init()

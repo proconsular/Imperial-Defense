@@ -25,6 +25,9 @@ class Immunity: Behavior {
             if flicker >= 0.05 {
                 flicker = 0
                 mat.overlay_color = mat.overlay_color.w == 1 ? float4(0.5) : float4(1)
+                if mat.overlay_color.w == 1 {
+                    Audio.play("immune", 0.05)
+                }
             }
         }
         if let shield = soldier.health.shield {

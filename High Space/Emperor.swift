@@ -60,7 +60,7 @@ class Emperor: Soldier {
         
         handle.materials.removeLast()
         
-        animator = BaseMarchAnimator(body, 0.35, 26.m)
+        animator = BaseMarchAnimator(body, 0.1, 26.m)
         let t = animator.player.animation as! TextureAnimator
         march_animation = t.list[0]
         
@@ -76,7 +76,7 @@ class Emperor: Soldier {
     
     func setupBehaviors() {
         laserBlast = LaserBlastBehavior(Float.pi / 24, 6, laser, particle_shielding)
-        march = TimedBehavior(MarchBehavior(self, animator), 3)
+        march = TimedBehavior(MarchBehavior(self, animator), 1)
         
         let clear = ActionBehavior{ [unowned self] in
             self.laser.visible = false
@@ -116,7 +116,7 @@ class Emperor: Soldier {
         let first = BossBehavior()
         
         first.append(march)
-        first.append(DarkEnergyBlastBehavior(transform))
+        first.append(TimedBehavior(UnitBehavior(EnergyWavePower(transform, 0, 0.75)), 5))
         first.append(StompBehavior(0.75, 4, 25))
         first.append(SummonLegionBehavior(transform))
         first.append(laserBlast)

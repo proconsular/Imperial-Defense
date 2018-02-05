@@ -1,5 +1,5 @@
 #import "Bridge.h"
-#import "TextureRepo.h"
+#import "GLTextureLibrary.h"
 #import "GameViewController.h"
 #import "AudioLibrary.h"
 #import "Shader.h"

@@ -20,9 +20,6 @@ class LockdownPower: TimedUnitPower {
     
     override func invoke() {
         super.invoke()
-//        soldier.stop(duration) { [unowned soldier, unowned self] in
-//            soldier.setImmunity(true, self.duration)
-//        }
         soldier.behavior.push(TemporaryBehavior(Immunity(soldier), duration) { [unowned soldier] in
             soldier.shield_material?.overlay = false
         })

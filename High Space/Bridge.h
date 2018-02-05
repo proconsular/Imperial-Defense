@@ -8,7 +8,7 @@
 
 @import Foundation;
 
-@class TextureRepo;
+@class GLTextureLibrary;
 
 @interface Bridge : NSObject
 

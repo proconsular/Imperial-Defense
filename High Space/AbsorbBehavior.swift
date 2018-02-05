@@ -25,6 +25,7 @@ class StealEnergyPower: TimedUnitPower {
     override func invoke() {
         super.invoke()
         soldier.behavior.base.append(TemporaryBehavior(AbsorbBehavior(soldier, battery, radius), time))
+        Audio.play("absorb-shield", 0.5)
     }
     
 }

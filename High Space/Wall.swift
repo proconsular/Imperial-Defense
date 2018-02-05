@@ -29,7 +29,7 @@ class Wall: Structure, Damagable {
     
     override func update() {
         if health <= 0 {
-            Audio.start("barrier-destroyed", 4)
+            Audio.play("barrier-destroyed", 0.1)
             alive = false
             let count = Int(random(5, 10))
             for _ in 0 ..< count {
@@ -40,7 +40,7 @@ class Wall: Structure, Damagable {
     
     func damage(_ amount: Float) {
         health -= amount + amount * (Float(GameData.info.challenge) * 0.25)
-        play("barrier-hit")
+        Audio.play("barrier-hit", 0.025)
         
         let percent = Float(health) / Float(max)
         
@@ -59,7 +59,7 @@ class Wall: Structure, Damagable {
         material.coordinates = sheet.coordinates
         
         if index != sheet.index {
-            play("barrier-breakdown")
+            Audio.play("barrier-breakdown", 0.05)
             let count = Int(random(5, 10))
             for _ in 0 ..< count {
                 makeParts()

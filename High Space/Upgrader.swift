@@ -25,9 +25,9 @@ class Upgrader {
     }
     
     var shieldColor: float4 {
-        let blue = float4(48 / 255, 181 / 255, 206 / 255, 1)
-        let green = float4(63 / 255, 206 / 255, 48 / 255, 1)
-        return blue * (1 - shieldpower.range.percent) + green * shieldpower.range.percent
+        let blue = float4(71 / 255, 71 / 255, 255 / 255, 1)//float4(48 / 255, 181 / 255, 206 / 255, 1)
+        //let green = float4(63 / 255, 206 / 255, 48 / 255, 1)
+        return blue //* (1 - shieldpower.range.percent) + green * shieldpower.range.percent
     }
     
 }

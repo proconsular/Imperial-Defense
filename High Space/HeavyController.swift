@@ -39,7 +39,7 @@ class HeavyController: UnitController {
         }
         
         if wave >= 60 {
-            let shortfire = RapidFirePower(soldier, 0.5, 0.5, 1)
+            let shortfire = RapidFirePower(soldier, 0.75, 0.5, 1)
             shortfire.conditions.append(LineOfSightCondition(soldier))
             let longfire = RapidFirePower(soldier, 2, 2, 2)
             longfire.conditions.append(LineOfSightCondition(soldier))

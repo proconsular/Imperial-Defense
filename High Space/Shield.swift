@@ -79,7 +79,7 @@ class ShieldLowPowerWarning: PowerWarning {
     
     func notify() {
         let a = Audio("shield_weak")
-        a.volume = sound_volume
+        a.volume = 0.05
         a.start()
     }
     
@@ -107,7 +107,7 @@ class NoShieldPowerWarning: ShieldLowPowerWarning {
     }
     
     override func notify() {
-        play("health_warning")
+        Audio.play("health_warning", 0.025)
     }
     
 }
@@ -121,19 +121,12 @@ class ShieldAudio: ShieldDelegate {
     
     func recover(_ percent: Float) {
         if percent <= 0.9 {
-            let a = Audio("shield-regen")
-            a.volume = sound_volume
-            a.start()
+            Audio.play("shield-regen", 0.2)
         }
     }
     
     func damage() {
-        let a = Audio("hit8")
-        a.volume = sound_volume
-        a.pitch = 0.65
-        if !a.playing {
-            a.start()
-        }
+       
     }
     
 }
@@ -141,9 +134,9 @@ class ShieldAudio: ShieldDelegate {
 class EnemyShieldAudio: ShieldDelegate {
     
     func recover(_ percent: Float) {
-        if percent < 1 {
-            play("enemy_charge")
-        }
+//        if percent < 1 {
+//            Audio.play("enemy_charge", 0.05)
+//        }
     }
     
     func damage() {
@@ -198,7 +191,7 @@ class Shield: Life {
     var damaged = false
     var broke = false
     
-    var delegate: ShieldDelegate?
+    var delegates: [ShieldDelegate]
     var effect: ShieldEffect?
     
     var power: ShieldPower
@@ -209,6 +202,7 @@ class Shield: Life {
         power = ShieldPower(amount, recharge)
         points = PointRange(amount)
         mods = []
+        delegates = []
         timer = Timer(timeout, recover)
     }
     
@@ -218,7 +212,7 @@ class Shield: Life {
     
     func recover() {
         self.damaged = false
-        delegate?.recover(points.percent)
+        delegates.forEach{ $0.recover(percent) }
     }
     
     func damage(_ amount: Float) {
@@ -227,11 +221,11 @@ class Shield: Life {
         let previous = points.amount
         points.increase(-amount)
         broke = points.amount == 0 && previous > 0
-        delegate?.damage()
+        delegates.forEach{ $0.damage() }
     }
     
     func explode(_ transform: Transform) {
-        play("shield_break")
+        Audio.play("shield_break", 0.025)
         let explosion = Explosion(transform.location, 1.m)
         explosion.color = float4(0.2, 0.6, 1, 1)
         Map.current.append(explosion)
@@ -310,7 +304,7 @@ class Stamina: Life {
 
 class Health: Life {
     
-    let shield: Shield?
+    var shield: Shield?
     let stamina: Stamina
     
     init(_ amount: Float, _ shield: Shield?) {

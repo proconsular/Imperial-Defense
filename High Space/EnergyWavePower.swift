@@ -11,9 +11,11 @@ import Foundation
 class EnergyWavePower: TimedUnitPower {
     
     unowned let transform: Transform
+    var waves: [EnergyWave]
     
     init(_ transform: Transform, _ cost: Float, _ wait: Float) {
         self.transform = transform
+        waves = []
         super.init(cost, wait)
     }
     
@@ -28,27 +30,77 @@ class EnergyWavePower: TimedUnitPower {
         }
         
         for i in 0 ..< 2 {
-            createWave(Float(i) * 0.005.m + 0.05.m, angle)
+            waves.append(EnergyWave(transform.location, Float(i) * 0.005.m + 0.05.m, angle))
         }
+        
+        Audio.play("wave-blast", 0.5)
     }
     
-    func createWave(_ distance: Float, _ start: Float) {
-        let range = 15.toRadians
-        let step = 1.toRadians / 4
-        
-        let count = Int(range / step)
-        
+    override func update() {
+        super.update()
+        waves = waves.filter{ $0.alive }
+        waves.forEach{ $0.update() }
+    }
+    
+}
+
+class EnergyWave {
+    let location: float2
+    let range = 15.toRadians
+    let step = 1.toRadians / 4
+    var count: Int
+    
+    var alive = true
+    
+    weak var transform: Transform?
+    
+    var hum: Counter
+    
+    init(_ location: float2, _ distance: Float, _ start: Float) {
+        self.location = location
+        count = Int(range / step)
+        hum = Counter(0.2)
+        create(distance, start)
+    }
+    
+    func create(_ distance: Float, _ start: Float) {
         for i in 0 ..< count {
             let angle = start + -range / 2 + step * Float(i)
             let normal = float2(cosf(angle), sinf(angle))
-            let red = FireEnergy(distance * 20 * normal + transform.location, random(10, 14))
+            let red = FireEnergy(distance * 20 * normal + location, random(10, 14))
             red.transform.location -= distance * 19 * float2(cosf(start), sinf(start))
             red.color = float4(1, 0.5, 0.5, 1)
             red.rate = 0.5
             red.body.velocity += normal * 8.m
-//            red.drag = float2(0.995)
             Map.current.append(red)
+            if i == count / 2 {
+                transform = red.transform
+            }
+        }
+    }
+    
+    func update() {
+        alive = transform != nil
+        
+        hum.update(Time.delta) {
+            Audio.play("wave-move", 0.25)
         }
     }
     
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

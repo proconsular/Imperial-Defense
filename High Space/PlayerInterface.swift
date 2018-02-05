@@ -33,7 +33,7 @@ class PlayerInterface: Interface {
                 if player.weapon.canFire {
                     let shoot = Audio("player-shoot")
                     shoot.pitch = player.weapon.isHighPower ? 0.6 : 1
-                    shoot.volume = sound_volume
+                    shoot.volume = 0.05
                     shoot.start()
                     player.weapon.fire()
                 }

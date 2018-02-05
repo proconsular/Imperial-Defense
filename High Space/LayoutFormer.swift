@@ -172,9 +172,87 @@ class BaseLayoutModifier: LayoutModifier {
     
 }
 
+class ModerateLayoutModifier: LayoutModifier {
+    
+    var map: [Int] = []
+    
+    init() {
+        let wave = GameData.info.wave + 1
+        
+        if wave >= 21 {
+            map.append(4)
+            map.append(8)
+        }
+        
+        if wave >= 30 {
+            map.append(10)
+        }
+        
+//        if wave >= 40 {
+//            map.append(11)
+//        }
+        
+        if wave >= 50 {
+            map.append(9)
+        }
+    }
+    
+    func modify(_ layout: LevelLayout) {
+        let wave = GameData.info.wave + 1
+        
+        var intensity: Float = 0.01
+        
+        if wave % 2 == 0 {
+            intensity /= 2
+        }
+        
+        if map.count == 0 { return }
+        
+        for index in 0 ..< layout.rows.count {
+            let row = layout.rows[index]
+            
+            for n in 0 ..< row.pieces.count {
+                if row[n] == -1 || row[n] == 2 { continue }
+                let id = map[randomInt(0, map.count)]
+                
+                row[n] = intensity >= random(0, 1) ? id : row[n]
+            }
+            
+        }
+    }
+    
+}
+
 class SpecialLayoutModifier: LayoutModifier {
     
-    let map = UnitValueMap()
+    var map: [Int]
+    
+    init() {
+        map = []
+        
+        let wave = GameData.info.wave + 1
+        
+        if wave >= 5 {
+            map.append(2)
+        }
+        
+        if wave >= 12 {
+            map.append(3)
+        }
+        
+        if wave >= 30 {
+            map.append(5)
+        }
+        
+        if wave >= 81 {
+            map.append(6)
+        }
+        
+        if wave >= 85 {
+            map.append(7)
+        }
+        
+    }
     
     func modify(_ layout: LevelLayout) {
         
@@ -192,7 +270,7 @@ class SpecialLayoutModifier: LayoutModifier {
             for n in 0 ..< row.pieces.count {
                 if row[n] == -1 || row[n] == 2 { continue }
                 if wave < 5 { continue }
-                let id = randomInt(2, map.map.count)
+                let id = map[randomInt(0, map.count)]
                 
                 if isSpecialNearInRow(row, n) || isSpecialNearVertical(layout, index, n) {
                     continue
@@ -202,7 +280,6 @@ class SpecialLayoutModifier: LayoutModifier {
             }
             
         }
-        
     }
     
     func isSpecialNearInRow(_ row: LevelRow, _ n: Int) -> Bool {
@@ -333,6 +410,10 @@ class WaveGenerator {
         
         modifiers = []
         modifiers.append(BaseLayoutModifier())
+        
+        let moderate = ModerateLayoutModifier()
+        
+        modifiers.append(moderate)
         modifiers.append(SpecialLayoutModifier())
     }
     
@@ -414,7 +495,14 @@ class SoldierMapper {
         map = [:]
         
         map.updateValue(Producer(Scout.init), forKey: 0)
+        map.updateValue(Producer(PusherScout.init), forKey: 10)
+        
         map.updateValue(Producer(Infrantry.init), forKey: 1)
+        map.updateValue(Producer(ArmoredInfrantry.init), forKey: 8)
+        map.updateValue(Producer(HardInfrantry.init), forKey: 9)
+        
+        map.updateValue(Producer(Charger.init), forKey: 11)
+        
         map.updateValue(Producer(Captain.init), forKey: 2)
         map.updateValue(Producer(Heavy.init), forKey: 3)
         
@@ -452,16 +540,19 @@ class UnitValueMap {
         
         map.append(SoldierValue(0, 1))
         map.append(SoldierValue(1, 2))
+        map.append(SoldierValue(10, 10))
+        map.append(SoldierValue(11, 18))
+        map.append(SoldierValue(9, 14))
         
         if wave >= 5 {
             var value: Float = 3
             
             if wave >= 21 {
-                value = 4
+                value = 5
             }
             
             if wave >= 25 {
-                value = 4.5
+                value = 7
             }
             
             map.append(SoldierValue(2, value))
@@ -471,30 +562,30 @@ class UnitValueMap {
             var value: Float = 4
             
             if wave >= 25 {
-                value = 5
+                value = 7
             }
             
             if wave >= 30 {
-                value = 5.5
+                value = 10
             }
             
             map.append(SoldierValue(3, value))
         }
         
         if wave >= 21 {
-            map.append(SoldierValue(4, 5))
-            
+            map.append(SoldierValue(4, 4))
+            map.append(SoldierValue(8, 4))
         }
         
         if wave >= 30 {
             var value: Float = 6
             
             if wave >= 35 {
-                value = 7
+                value = 8
             }
             
             if wave >= 40 {
-                value = 7.5
+                value = 12
             }
             
             map.append(SoldierValue(5, value))

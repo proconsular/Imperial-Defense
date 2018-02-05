@@ -29,85 +29,21 @@
     _device = alcOpenDevice(NULL);
     _context = alcCreateContext(_device, NULL);
     alcMakeContextCurrent(_context);
+    
     _sounds = [NSMutableDictionary new];
     
-    [self loadAudio:@"hit1"];
-    [self loadAudio:@"explosion1"];
-    [self loadAudio:@"jump1"];
-    [self loadAudio:@"make1"];
-    [self loadAudio:@"shield-re1"];
-    [self loadAudio:@"shoot1"];
-    [self loadAudio:@"shoot2"];
-    [self loadAudio:@"shoot3"];
-    [self loadAudio:@"shoot4"];
-    [self loadAudio:@"hit2"];
-    [self loadAudio:@"hit5"];
-    [self loadAudio:@"hit4"];
-    [self loadAudio:@"hit6"];
-    [self loadAudio:@"hit7"];
-    [self loadAudio:@"hit8"];
-    [self loadAudio:@"charge1"];
-    [self loadAudio:@"charge2"];
-    [self loadAudio:@"pickup1"];
-    [self loadAudio:@"pickup2"];
-    [self loadAudio:@"door1"];
-    [self loadAudio:@"laser"];
-    [self loadAudio:@"laser2"];
-    [self loadAudio:@"break1"];
-    [self loadAudio:@"shield_weak"];
-    [self loadAudio:@"shield_break"];
-    [self loadAudio:@"power_full"];
-    [self loadAudio:@"power_low"];
-    [self loadAudio:@"death"];
-    [self loadAudio:@"barrier_hit"];
-    [self loadAudio:@"enemy_hit"];
-    [self loadAudio:@"barrier_ruin"];
-    [self loadAudio:@"barrier_destroy"];
-    [self loadAudio:@"charge"];
-    [self loadAudio:@"enemy_charge"];
-    [self loadAudio:@"thunder"];
-    [self loadAudio:@"dodge"];
-    [self loadAudio:@"player_died"];
-    [self loadAudio:@"player_fall"];
-    [self loadAudio:@"health_warning"];
-    [self loadAudio:@"weapon_lowpower"];
+    NSArray *files = [[NSBundle mainBundle] pathsForResourcesOfType:@"wav" inDirectory:@""];
     
-    
-    [self loadAudio:@"march"];
-    [self loadAudio:@"march-2"];
-    [self loadAudio:@"player-die"];
-    [self loadAudio:@"barrier-hit"];
-    [self loadAudio:@"barrier-destroyed"];
-    [self loadAudio:@"barrier-breakdown"];
-    [self loadAudio:@"enemy-shield-hit"];
-    [self loadAudio:@"enemy-health-hit"];
-    [self loadAudio:@"shield-regen"];
-    [self loadAudio:@"player-step"];
-    [self loadAudio:@"player-shoot"];
-    [self loadAudio:@"enemy-shoot"];
-    [self loadAudio:@"button-click"];
-    [self loadAudio:@"enemy-shoot-light"];
-    [self loadAudio:@"enemy-shoot-heavy"];
-    [self loadAudio:@"enemy-shoot-magic"];
-    [self loadAudio:@"enemy-shoot-snipe"];
-    [self loadAudio:@"forge-hit"];
-    [self loadAudio:@"enemy-rush"];
-    [self loadAudio:@"enemy-allfire"];
-    [self loadAudio:@"enemy-heal"];
-    [self loadAudio:@"enemy-dodge"];
-    [self loadAudio:@"stomp"];
-    [self loadAudio:@"wind"];
-    [self loadAudio:@"upgrade_buy"];
-    
-    
-    [self loadAudio:@"0 Title" :44100];
-    [self loadAudio:@"1 Battle" :44100];
-    [self loadAudio:@"3 Emperor" :44100];
-    [self loadAudio:@"6 Castle" :44100];
-    [self loadAudio:@"7 Emprate" :44100];
-    [self loadAudio:@"Defeat" :44100];
-    [self loadAudio:@"Victory" :44100];
-    [self loadAudio:@"Tutorial" :44100];
+    for (NSString *name in files) {
+        NSString *reference = [[name componentsSeparatedByString:@"/"] lastObject];
+         NSString *fixed = [[reference componentsSeparatedByString:@"."] firstObject];
+        if ([reference hasPrefix:@"s_"]) {
+            [self loadSound:fixed];
+        }
+        if ([reference hasPrefix:@"m_"]) {
+            [self loadMusic:fixed];
+        }
+    }
     
     _hasMusic = YES;
     _hasSound = YES;
@@ -118,6 +54,22 @@
 -(void)loadAudio:(NSString *)name{
     @try{
         [_sounds addEntriesFromDictionary:@{name: [self loadAudioWithName:name]}];
+    }@catch(NSException* e){
+        NSLog(@"%@", [e debugDescription]);
+    }
+}
+
+-(void)loadSound:(NSString *)name{
+    @try{
+        [_sounds addEntriesFromDictionary:@{[name substringFromIndex:2]: [self loadAudioWithName:name]}];
+    }@catch(NSException* e){
+        NSLog(@"%@", [e debugDescription]);
+    }
+}
+
+-(void)loadMusic:(NSString *)name{
+    @try{
+        [_sounds addEntriesFromDictionary:@{[name substringFromIndex:2]: [self loadAudioWithName:name format:AL_FORMAT_STEREO16 rate:44100]}];
     }@catch(NSException* e){
         NSLog(@"%@", [e debugDescription]);
     }

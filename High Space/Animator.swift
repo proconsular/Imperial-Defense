@@ -31,20 +31,20 @@ class MarchEvent: Event {
     func activate() {
         body.velocity.y += amount * (0.016666)
         
-        var dl: Float = 0
-        if let player = Player.player {
-            dl = (player.body.location - body.location).length
-        }
-        
-        let audio = Audio(foot == 0 ? "march" : "march-2")
-        if !audio.playing {
-            let value = clamp(0.05 + 1 + body.location.y / Camera.size.y, min: 0, max: 1)
-            let distance = clamp(1 - dl / 50.m, min: 0, max: 1)
-            audio.volume = sound_volume * 2 * value * distance
-            audio.pitch = pitch
-            audio.start()
-        }
-        foot = foot == 0 ? 1 : 0
+//        var dl: Float = 0
+//        if let player = Player.player {
+//            dl = (player.body.location - body.location).length
+//        }
+//
+//        let audio = Audio(foot == 0 ? "march" : "march-2")
+//        if !audio.playing {
+//            let value = clamp(0.05 + 1 + body.location.y / Camera.size.y, min: 0, max: 1)
+//            let distance = clamp(1 - dl / 50.m, min: 0, max: 1)
+//            audio.volume = sound_volume * 2 * value * distance
+//            audio.pitch = pitch
+//            audio.start()
+//        }
+//        foot = foot == 0 ? 1 : 0
     }
     
 }

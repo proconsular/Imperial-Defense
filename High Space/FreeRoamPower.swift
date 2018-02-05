@@ -27,6 +27,8 @@ class FreeRoamPower: TimedUnitPower {
         soldier.behavior.push(TemporaryBehavior(complex, duration) { [unowned soldier] in
             soldier.animator.set(0)
         })
+        Map.current.append(Halo(soldier.transform.location, 2.m))
+        Audio.play("warrior-roam", 0.6)
     }
 }
 

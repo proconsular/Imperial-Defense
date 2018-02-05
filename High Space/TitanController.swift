@@ -23,7 +23,7 @@ class TitanController: UnitController {
         
         soldier.behavior.base.append(counterdefend)
         
-        powers.append(StealEnergyPower(soldier, powersource, 2.m, 2, 0.5, 2.5))
+        powers.append(StealEnergyPower(soldier, powersource, 2.m, 2, 0.75, 2.5))
         powers.append(StealEnergyPower(soldier, powersource, 4.m, 0.5, 1, 3))
         
         let wave = EnergyWavePower(soldier.transform, 0.5, 1.5)
@@ -31,8 +31,8 @@ class TitanController: UnitController {
         
         powers.append(wave)
         
-        let quake = QuakePower(soldier, 0.75, 1)
-        quake.conditions.append(BatteryChargedCondition(powersource, 50))
+        let quake = QuakePower(soldier, 0.5, 1.5)
+        quake.conditions.append(BatteryChargedCondition(powersource, 25))
         
         powers.append(quake)
     }

@@ -30,7 +30,8 @@ struct FixedRect {
     }
     
     var bounds: float2 {
-        return halfbounds * 2
+        get { return halfbounds * 2 }
+        set { halfbounds = newValue / 2 }
     }
 }
 

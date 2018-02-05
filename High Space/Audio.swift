@@ -27,6 +27,12 @@ class Audio: AudioElement {
         audio.start()
     }
     
+    static func play(_ name: String, _ volume: Float = 1) {
+        let audio = Audio(name)
+        audio.volume = volume
+        audio.start()
+    }
+    
     static func stop(_ name: String) {
         Audio(name).stop()
     }

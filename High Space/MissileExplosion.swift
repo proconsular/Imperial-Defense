@@ -39,7 +39,7 @@ class MissileExplosion: ActorTerminationDelegate {
             }
         }
         Explosion.create(actor.transform.location, radius, float4(1))
-        Audio.start("explosion1", 3)
+        Audio.play("missile-explode", 0.7)
         actor.alive = false
     }
 }

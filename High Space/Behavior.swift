@@ -94,6 +94,26 @@ class MarchBehavior: Behavior {
     
 }
 
+class PushMarchBehavior: Behavior {
+    
+    var alive: Bool = true
+    unowned let entity: Entity
+    var animator: Animator
+    
+    init(_ entity: Entity, _ animator: Animator) {
+        self.entity = entity
+        self.animator = animator
+    }
+    
+    func update() {
+        if ActorUtility.spaceInFront(entity, float2(0.1.m, 0)) {
+            animator.update()
+            animator.apply(entity.material)
+        }
+    }
+    
+}
+
 class ShootBehavior: Behavior {
     
     var alive: Bool = true
@@ -133,18 +153,7 @@ class ShootBehavior: Behavior {
     func fire() {
         if weapon.canFire {
             weapon.fire()
-            let s = Audio(sound)
-            s.volume = sound_volume
-            s.start()
-            for _ in 0 ..< 3 {
-                let particle = Particle(weapon.firepoint, random(2, 4))
-                particle.rate = 3.5
-                let col = float4(0.85, 0.85, 0.85, 1)
-                particle.color = col
-                particle.material.color = col
-                particle.body.velocity = weapon.direction * 2.5.m + float2(random(-1.m, 1.m), 0)
-                Map.current.append(particle)
-            }
+            Audio.play(sound, 0.05)
         }
     }
     

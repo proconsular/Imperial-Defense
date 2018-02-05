@@ -62,7 +62,7 @@ class StoreScreen: Screen {
         let spacing = float2(600, 0)
         let offset = float2(0, 475 - GameScreen.size.y)
         
-        layer.objects.append(TextButton(Text("Escape", FontStyle("Augustus", float4(1), 64)), Camera.size / 2 + offset - spacing, {
+        layer.objects.append(BorderedButton(Text("Escape", FontStyle(defaultFont, float4(1), 64)), Camera.size / 2 + offset - spacing, float2(8, -16), GLTexture("ButtonBorder"), {
             UserInterface.fade {
                 UserInterface.space.wipe()
                 UserInterface.controller.reduce()
@@ -70,7 +70,7 @@ class StoreScreen: Screen {
             }
         }))
         
-        layer.objects.append(TextButton(Text("Defend", FontStyle("Augustus", float4(1), 64)), Camera.size / 2 + offset + spacing, {
+        layer.objects.append(BorderedButton(Text("Defend", FontStyle(defaultFont, float4(1), 64)), Camera.size / 2 + offset + spacing, float2(8, -16), GLTexture("ButtonBorder"), {
             UserInterface.fade {
                 UserInterface.space.wipe()
                 UserInterface.controller.reduce()
@@ -84,7 +84,7 @@ class StoreScreen: Screen {
         
         layers.append(layer)
         
-        let music = Audio("6 Castle")
+        let music = Audio("Castle")
         music.loop = true
         music.start()
         
@@ -94,7 +94,7 @@ class StoreScreen: Screen {
     }
     
     deinit {
-        let music = Audio("6 Castle")
+        let music = Audio("Castle")
         music.stop()
     }
     

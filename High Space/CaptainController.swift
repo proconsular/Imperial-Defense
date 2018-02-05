@@ -41,7 +41,7 @@ class CaptainController: UnitController {
         if wave >= 51 {
             let longcharge = ChargePower(soldier.transform, 3.m, 2.5, 2, 1)
             longcharge.conditions.append(PlayerAwayCondition(soldier.transform, 2.5.m))
-            let shortcharge = ChargePower(soldier.transform, 5.m, 0.5, 0.5, 1)
+            let shortcharge = ChargePower(soldier.transform, 4.m, 0.5, 0.75, 2)
             
             let chargecomplex = ComplexPower()
             chargecomplex.append(0, shortcharge)
@@ -53,7 +53,7 @@ class CaptainController: UnitController {
         }
         
         if wave >= 55 {
-            let shortfire = FireCallPower(soldier.transform, 5.m, 2, 0.5, 1)
+            let shortfire = FireCallPower(soldier.transform, 5.m, 2, 0.75, 1.5)
             shortfire.conditions.append(LineOfSightCondition(soldier))
             let longfire = FireCallPower(soldier.transform, 2.m, 15, 2, 2)
             longfire.conditions.append(LineOfSightCondition(soldier))

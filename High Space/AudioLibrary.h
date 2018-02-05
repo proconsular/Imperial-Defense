@@ -32,6 +32,9 @@
 -(void)loadAudio:(NSString *)name;
 -(void)loadAudio:(NSString *)name :(unsigned int)rate;
 
+-(void)loadSound:(NSString *)sound;
+-(void)loadMusic:(NSString *)music;
+
 +(RawAudio *)getAudio:(NSString *)name;
 
 @end

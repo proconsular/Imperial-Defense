@@ -49,7 +49,7 @@ class Game: DisplayLayer {
     }
     
     static func showFailScreen() {
-        Audio.stop("1 Battle")
+        Audio.stop("Battle")
         UserInterface.fade {
             UserInterface.space.push(EndScreen(false))
         }
@@ -57,8 +57,8 @@ class Game: DisplayLayer {
     }
     
     deinit {
-        Audio.stop("1 Battle")
-        Audio.stop("3 Emperor")
+        Audio.stop("Battle")
+        Audio.stop("Emperor")
         Audio.stop("wind")
     }
 }

@@ -17,9 +17,7 @@ class EndScreen: Screen {
     init(_ win: Bool) {
         UserInterface.controller.push(PointController(0))
         
-        background = Display(Rect(GameScreen.size / 2 + float2(0, -GameScreen.size.y), GameScreen.size) , GLTexture())
-        background.camera = false
-        background.color = float4(0, 0, 0, 1)
+        background = Display(Rect(GameScreen.size / 2 + float2(0, -GameScreen.size.y), GameScreen.size) , GLTexture("Background"))
         
         quote = StoryQuote("Legion \(Coordinator.wave.roman) has obliterated the castle and killed the Empress.\n Absolute Defeat.", GameScreen.size / 2 + float2(0, 100) + float2(0, -GameScreen.size.y))
         
@@ -32,7 +30,7 @@ class EndScreen: Screen {
         let spacing = float2(500, 0)
         let offset = float2(0, 450) + float2(0, -GameScreen.size.y)
         
-        layer.objects.append(TextButton(Text("Escape", FontStyle("Augustus", float4(1), 64)), GameScreen.size / 2 + offset - spacing, {
+        layer.objects.append(BorderedButton(Text("Escape", FontStyle(defaultFont, float4(1), 64)), GameScreen.size / 2 + offset - spacing, float2(8, -16), GLTexture("ButtonBorder"), {
             UserInterface.fade {
                 UserInterface.space.wipe()
                 UserInterface.controller.reduce()
@@ -40,7 +38,7 @@ class EndScreen: Screen {
             }
         }))
         
-        layer.objects.append(TextButton(Text("Defend", FontStyle("Augustus", float4(1), 64)), GameScreen.size / 2 + offset + spacing, {
+        layer.objects.append(BorderedButton(Text("Defend", FontStyle(defaultFont, float4(1), 64)), GameScreen.size / 2 + offset + spacing, float2(8, -16), GLTexture("ButtonBorder"), {
             UserInterface.fade {
                 UserInterface.controller.reduce()
                 let pr = PrincipalScreen()

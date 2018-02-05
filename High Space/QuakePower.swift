@@ -22,6 +22,9 @@ class QuakePower: TimedUnitPower {
         soldier.behavior.base.append(TemporaryBehavior(ShakeBehavior(0.25.m), 1) {
             Camera.current.transform.location = float2(0, -Camera.size.y)
         })
+        
+        Audio.play("shake", 0.25)
+        Map.current.append(Halo(soldier.transform.location, 2.m))
     }
     
 }

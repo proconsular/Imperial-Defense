@@ -28,21 +28,10 @@ class GuardPower: TimedUnitPower {
             }
         }
         Explosion.create(entity.transform.location, radius, float4(1, 0, 0, 1))
-        Audio.start("enemy-rush")
+        Audio.play("enemy-rush", 0.2)
     }
     
     func apply(_ soldier: Soldier) {
-//        let animator = BaseMarchAnimator(soldier.body, 10, 0.0.m)
-//        animator.set(soldier.sprinter ? 1 : 0)
-//        soldier.behavior.push(TemporaryBehavior(MarchBehavior(soldier, animator), 0.4) { [weak self] in
-//            //soldier.setImmunity(false)
-//            if let s = self {
-//                s.active = false
-//            }
-//        })
-//        soldier.behavior.push(TemporaryBehavior(MarchBehavior(soldier, animator), 0.1) { [unowned soldier] in
-//            soldier.setImmunity(true, 0.4)
-//        })
         soldier.behavior.push(TemporaryBehavior(Immunity(soldier), 0.5) { [unowned soldier] in
             soldier.shield_material?.overlay = false
         })
