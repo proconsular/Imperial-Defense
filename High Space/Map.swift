@@ -9,7 +9,6 @@
 import Foundation
 
 class Map {
-    
     static var current: Map!
     
     let size: float2
@@ -18,14 +17,11 @@ class Map {
     var bullets: [Bullet]
     let actorate: Actorate
     
-    var renderSystem: MapRenderSystem
-    
     init(_ size: float2) {
         self.size = size
         actorate = Actorate()
         grid = Grid(5.m, size, actorate)
         bullets = []
-        renderSystem = FlatRenderSystem(actorate)
     }
     
     func append(_ element: Entity) {
@@ -90,10 +86,6 @@ class Map {
     }
     
     private func clean() {
-//        let dead = actorate.actors.filter{ !isAlive($0) }
-//        for d in dead {
-//            d.handle.alive = false
-//        }
         actorate.actors = actorate.actors.filter(isAlive)
     }
     
@@ -101,61 +93,7 @@ class Map {
         return actor.alive && (actor.bound ? grid.contains(actor: actor) : true)
     }
     
-    func render() {
-        //renderSystem.render()
-    }
-    
 }
-
-protocol ActorMap {
-    var actors: [Entity] { get set }
-}
-
-protocol MapRenderSystem {
-    var map: ActorMap { get set }
-    func render()
-}
-
-class FlatRenderSystem: MapRenderSystem {
-    var map: ActorMap
-    
-    init(_ map: ActorMap) {
-        self.map = map
-    }
-    
-    func render() {
-        sortActors().forEach{
-            //if Camera.current.visible($0.display) {
-//                $0.display.refresh()
-                $0.render()
-            //}
-        }
-    }
-    
-    func sortActors() -> [Entity] {
-        return map.actors.sorted{ $0.material.texture.id < $1.material.texture.id }.sorted{ $0.material.order < $1.material.order }
-    }
-    
-}
-
-class GroupRenderSystem: MapRenderSystem {
-    var map: ActorMap
-    
-    init(_ map: ActorMap) {
-        self.map = map
-    }
-    
-    func render() {
-//        let batches = compile()
-//        for batch in batches {
-//            batch.render()
-//        }
-    }
-    
-}
-
-
-
 
 
 

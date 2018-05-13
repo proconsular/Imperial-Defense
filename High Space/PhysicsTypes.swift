@@ -226,6 +226,3 @@ class BodyPair: Pair<Body>, Equatable {
     
 }
 
-func == (prime: Manifold, secunde: Manifold) -> Bool {
-    return prime.pair == secunde.pair
-}

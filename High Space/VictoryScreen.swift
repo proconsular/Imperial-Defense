@@ -8,39 +8,6 @@
 
 import Foundation
 
-class StartPrompt: Screen {
-    
-    var wave: WaveDisplay
-    
-    override init() {
-        UserInterface.controller.push(PointController(0))
-        
-        wave = WaveDisplay(GameScreen.size / 2 + float2(0, -100), float2(800, 200), GameData.info.wave + 1)
-        
-        super.init()
-        
-        let layer = InterfaceLayer()
-        
-        let offset = float2(0, 0) + float2(0, -GameScreen.size.y)
-        
-        layer.objects.append(TextButton(Text("Battle", FontStyle(defaultFont, float4(1), 72)), GameScreen.size / 2 + offset, {
-            UserInterface.space.pop()
-            UserInterface.controller.reduce()
-            if let princ = UserInterface.space.contents[0] as? PrincipalScreen {
-                princ.game.level.simulation.unhalt()
-                //princ.game.start()
-            }
-        }))
-        
-        layers.append(layer)
-    }
-    
-    override func display() {
-        super.display()
-    }
-    
-}
-
 class EndPrompt: Screen {
     
     let background: Display

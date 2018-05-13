@@ -77,7 +77,6 @@ class Grid {
         
         let start = restrict(st)
         let end = restrict(et)
-        //print(start, end)
         if start.x > end.x || start.y > end.y { return [] }
         for x in start.x ..< end.x + 1 {
             for y in start.y ..< end.y + 1 {
@@ -110,51 +109,6 @@ class Grid {
     }
 }
 
-class Placed<Element> {
-    let element: Element
-    var placement: Placement
-    
-    init(_ placement: Placement, _ element: Element) {
-        self.placement = placement
-        self.element = element
-    }
-}
-
-class Cell {
-    let size: Float
-    let placement: Placement
-    let location: float2
-    let mask: FixedRect
-    var elements: [Entity]
-    
-    init(_ placement: Placement, _ size: Float) {
-        self.size = size
-        self.placement = placement
-        elements = []
-        location = float2(Float(placement.location.x), -Float(placement.location.y)) * size
-        mask = FixedRect(location + float2(size, -size) / 2, float2(size))
-    }
-    
-    func append(_ element: Entity) {
-        elements.append(element)
-    }
-    
-    func contains(_ placed: Placed<Entity>) -> Bool {
-        return mask.intersects(placed.element.body.shape.getBounds())
-    }
-}
-
-struct Placement {
-    var location: int2
-    
-    init(_ location: int2) {
-        self.location = location
-    }
-    
-    func computeIndex(_ width: Int) -> Int {
-        return Int(location.x) + Int(location.y) * width
-    }
-}
 
 
 

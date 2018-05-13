@@ -51,5 +51,4 @@ class EventSequence {
             layer.render()
         }
     }
-    
 }

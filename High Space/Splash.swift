@@ -20,9 +20,6 @@ class Splash: Screen {
     
     let clouds: SplashClouds
     
-    var player: SplashPlayer
-    var firer: SplashFirer
-    
     var save: SaveDisplay
     let audio: Audio
     
@@ -48,10 +45,6 @@ class Splash: Screen {
         clouds = SplashClouds()
         
         save = SaveDisplay(float2(GameScreen.size.x * 0.66, GameScreen.size.y * 0.75 - 5))
-        
-        player = SplashPlayer()
-        firer = SplashFirer(float2(Camera.size.x - 0.5.m, Camera.size.y) + float2(0, -GameScreen.size.y), float2(2.5.m, 0), player.player.transform, 0.25)
-        //map.append(player)
         
         audio = Audio("Title")
         if !audio.playing {
@@ -161,8 +154,6 @@ class Splash: Screen {
         mountains.render()
         castle_scene.render()
         castle.render()
-        
-        map.render()
         
         layers.forEach{$0.display()}
         title.render()

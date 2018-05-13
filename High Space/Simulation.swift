@@ -22,7 +22,6 @@ class Simulation {
     var speed = 1.0
     
     var processor = Processor(0.2)
-    var broadphaser: Broadphaser
     
     let grid: Grid
     
@@ -30,7 +29,6 @@ class Simulation {
         self.grid = grid
         speedLimit = speed
         self.speed = speedLimit
-        broadphaser = Broadphaser(grid)
     }
     
     func halt() {

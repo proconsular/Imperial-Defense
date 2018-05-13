@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Actorate: ActorMap {
+class Actorate {
     
     var actors: [Entity]
     

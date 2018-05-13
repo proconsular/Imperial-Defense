@@ -1,16 +1,12 @@
 //
-//  EventSetter.swift
+//  LevelSetter.swift
 //  Imperial Defense
 //
-//  Created by Chris Luttio on 11/28/17.
-//  Copyright © 2017 Storiel, LLC. All rights reserved.
+//  Created by Chris Luttio on 5/12/18.
+//  Copyright © 2018 Storiel, LLC. All rights reserved.
 //
 
 import Foundation
-
-protocol GameSetter {
-    func set(_ game: Game)
-}
 
 class LevelSetter: GameSetter {
     func set(_ game: Game) {
@@ -30,11 +26,3 @@ class LevelSetter: GameSetter {
         }
     }
 }
-
-class DebugSetter: GameSetter {
-    func set(_ game: Game) {
-        game.sequence.append(DebugLevel())
-    }
-}
-
-
