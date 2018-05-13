@@ -16,6 +16,7 @@ class Level {
     
     init() {
         map = Map(float2(20.m, 60.m))
+        Map.current = map
         simulation = Simulation(map.grid)
         GameCreator.createWalls(Map.current, 0.15.m)
         scenery = Scenery(GameCreator.createBarriers())

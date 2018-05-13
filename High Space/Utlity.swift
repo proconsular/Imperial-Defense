@@ -77,7 +77,7 @@ class Processor {
     }
     
     func process (_ frameTime: Double, _ step: @autoclosure () -> ()) {
-        deltaTime = clamp(deltaTime + computePastTime(), min: 0, max: limit)
+        deltaTime = clamp(deltaTime + computeTimePassed(), min: 0, max: limit)
         
         let frames = Int(computeFrames(frameTime))
         frames.cycle(step)
@@ -94,7 +94,7 @@ class Processor {
         return remainder
     }
     
-    func computePastTime () -> Double {
+    func computeTimePassed () -> Double {
         let currentTime = CACurrentMediaTime()
         let time = currentTime - startTime
         startTime = currentTime

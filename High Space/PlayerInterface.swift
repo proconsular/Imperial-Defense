@@ -25,7 +25,7 @@ class PlayerInterface: Interface {
         if let player = player {
             if player.dead { return }
             if command.id == 0 {
-                let force = command.vector! / 1000
+                let force = command.vector! / 2000
                 if abs(player.body.velocity.x) < speed {
                     player.body.velocity.x += force.x * acceleration
                 }

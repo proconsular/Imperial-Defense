@@ -143,7 +143,7 @@ class GameBase: GameInterface {
         for u in upgrader.upgrades {
             u.range.amount = Float(GameData.info.upgrades[u.name]!)
         }
-
+        
 //        GameBase.debug(wave: 101, gun: 0, shield: 5, barrier: 5)
         
         let main = ScreenSpace()

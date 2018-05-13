@@ -26,7 +26,6 @@ class Map {
         grid = Grid(5.m, size, actorate)
         bullets = []
         renderSystem = FlatRenderSystem(actorate)
-        Map.current = self
     }
     
     func append(_ element: Entity) {

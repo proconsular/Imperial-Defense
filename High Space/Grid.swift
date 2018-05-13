@@ -69,8 +69,14 @@ class Grid {
     func getCells(_ rect: FixedRect) -> [Cell] {
         var list: [Cell] = []
         let bounds = float2(rect.halfbounds.x, -rect.halfbounds.y)
-        let start = restrict(transform(rect.location - bounds)!)
-        let end = restrict(transform(rect.location + bounds)!)
+        
+        guard
+            let st = transform(rect.location - bounds),
+            let et = transform(rect.location + bounds) else
+        { return [] }
+        
+        let start = restrict(st)
+        let end = restrict(et)
         //print(start, end)
         if start.x > end.x || start.y > end.y { return [] }
         for x in start.x ..< end.x + 1 {

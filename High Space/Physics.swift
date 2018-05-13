@@ -8,15 +8,15 @@
 
 import Foundation
 
-let multiplier: Double = 2
-let framesPerSecond: Double = 60
+let multiplier: Double = 1
+let framesPerSecond: Double = 150
 
 let dt: Double = 1.0 / (framesPerSecond * multiplier)
 let gravity = float2(0, 2000)
 
 class Simulation {
     
-    private let iterations = 3
+    private let iterations = 1
     
     var speedLimit = 1.0
     var speed = 1.0
@@ -48,16 +48,12 @@ class Simulation {
     
     private func step(_ bodies: [Body], _ dt: Double) {
         let delta = Float(dt)
-        let contacts = broadphaser.getContacts()
         
         bodies.forEach{ $0.applyForces(delta) }
-        contacts.forEach{ $0.process(delta, iterations) }
         bodies.forEach{
             $0.applyVelocity(delta)
             $0.clearForces()
         }
-        
-        contacts.forEach{ $0.applyCorrection() }
     }
     
 }
