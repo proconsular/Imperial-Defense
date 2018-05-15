@@ -11,7 +11,3 @@ import Foundation
 protocol Damagable: class {
     func damage(_ amount: Float)
 }
-
-protocol Hittable {
-    var reaction: HitReaction? { get }
-}

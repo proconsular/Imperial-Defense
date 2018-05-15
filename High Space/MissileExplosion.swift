@@ -8,18 +8,6 @@
 
 import Foundation
 
-class DefaultTerminator: ActorTerminationDelegate {
-    unowned let actor: Actor
-    
-    init(_ actor: Actor) {
-        self.actor = actor
-    }
-    
-    func terminate() {
-        actor.alive = false
-    }
-}
-
 class MissileExplosion: ActorTerminationDelegate {
     unowned let actor: Entity
     let radius: Float

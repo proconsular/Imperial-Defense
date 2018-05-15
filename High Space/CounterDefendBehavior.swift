@@ -87,20 +87,6 @@ class CounterDefendBehavior: Behavior, Damagable {
     
 }
 
-class Battery {
-    let limit: Float
-    var amount: Float
-    
-    init(_ limit: Float) {
-        self.limit = limit
-        amount = 0
-    }
-    
-    var percent: Float {
-        return amount / limit
-    }
-}
-
 
 
 

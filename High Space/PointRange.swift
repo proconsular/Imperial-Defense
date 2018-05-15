@@ -34,14 +34,6 @@ struct PointRange {
     }
 }
 
-class Status {
-    var hitpoints: PointRange
-    
-    init(_ limit: Float) {
-        hitpoints = PointRange(limit)
-    }
-}
-
 
 
 

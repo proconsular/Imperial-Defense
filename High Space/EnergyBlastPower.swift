@@ -30,19 +30,4 @@ class EnergyBlastPower: TimedUnitPower {
         
         Audio.play("fire-energy", 0.5)
     }
-    
-}
-
-class BlastPool {
-    var blasts: [EnergyBlast]
-    
-    init() {
-        blasts = []
-    }
-    
-    func update() {
-        blasts.forEach{ $0.update() }
-        blasts = blasts.filter{ $0.alive }
-    }
-    
 }

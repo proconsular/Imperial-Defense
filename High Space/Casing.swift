@@ -8,17 +8,6 @@
 
 import Foundation
 
-struct Impact {
-    var damage: Float
-    var speed: Float
-    
-    init(_ damage: Float, _ speed: Float) {
-        self.damage = damage
-        self.speed = speed
-    }
-    
-}
-
 struct Casing {
     var size: float2
     var color: float4

@@ -31,19 +31,3 @@ class FreeRoamPower: TimedUnitPower {
         Audio.play("warrior-roam", 0.6)
     }
 }
-
-class MoveBehavior: Behavior {
-    var alive: Bool = true
-    
-    unowned let body: Body
-    var vector: float2
-    
-    init(_ body: Body, _ vector: float2) {
-        self.body = body
-        self.vector = vector
-    }
-    
-    func update() {
-        body.location += vector * Time.delta
-    }
-}

@@ -71,66 +71,6 @@ class CaptainController: UnitController {
     
 }
 
-class ComplexPower: UnitPower {
-    var powers: [RankedPower]
-    var rank: Int
-    
-    var selectedPower: UnitPower?
-    
-    init() {
-        rank = 0
-        powers = []
-    }
-    
-    var cost: Float {
-        return selectedPower?.cost ?? 0
-    }
-    
-    func set(_ rank: Int) {
-        selectedPower = find(rank)
-    }
-    
-    func append(_ rank: Int, _ power: UnitPower) {
-        powers.append(RankedPower(rank, power))
-    }
-    
-    func isAvailable(_ power: Float) -> Bool {
-        return selectedPower?.isAvailable(power) ?? false
-    }
-    
-    func invoke() {
-        selectedPower?.invoke()
-    }
-    
-    func find(_ rank: Int) -> UnitPower? {
-        var select: [RankedPower] = []
-        for ranked in powers {
-            if ranked.rank == rank {
-                select.append(ranked)
-            }
-        }
-        if select.isEmpty { return nil }
-        return select[randomInt(0, select.count)].power
-    }
-    
-    func update() {
-        for ranked in powers {
-            ranked.power.update()
-        }
-    }
-    
-}
-
-struct RankedPower {
-    var rank: Int
-    var power: UnitPower
-    
-    init(_ rank: Int, _ power: UnitPower) {
-        self.rank = rank
-        self.power = power
-    }
-}
-
 
 
 

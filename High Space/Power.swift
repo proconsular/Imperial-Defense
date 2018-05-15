@@ -9,7 +9,6 @@
 import Foundation
 
 struct Power {
-    
     var amount: Float
     var limit: Float
     
@@ -41,5 +40,4 @@ struct Power {
     var usable: Bool {
         return amount >= drain
     }
-    
 }
