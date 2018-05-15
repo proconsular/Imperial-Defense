@@ -9,7 +9,6 @@
 import Foundation
 
 class SoldierBehavior {
-    
     var main: SerialBehavior
     var base: ComplexBehavior
     
@@ -26,11 +25,6 @@ class SoldierBehavior {
     func push(_ behavior: Behavior) {
         main.stack.push(behavior)
     }
-    
-}
-
-protocol TriggeredBehavior: Behavior {
-    func trigger()
 }
 
 

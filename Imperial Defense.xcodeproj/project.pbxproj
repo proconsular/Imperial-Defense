@@ -156,6 +156,40 @@
 		2255CEC420AA89A500999FA2 /* BlastPool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2255CEC320AA89A500999FA2 /* BlastPool.swift */; };
 		2255CEC620AA89C200999FA2 /* PullUnitsBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2255CEC520AA89C200999FA2 /* PullUnitsBehavior.swift */; };
 		2255CEC820AA89E200999FA2 /* RadiateBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2255CEC720AA89E200999FA2 /* RadiateBehavior.swift */; };
+		2255CECB20AA8C3600999FA2 /* ComplexBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2255CECA20AA8C3600999FA2 /* ComplexBehavior.swift */; };
+		2255CECD20AA8C5600999FA2 /* SerialBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2255CECC20AA8C5600999FA2 /* SerialBehavior.swift */; };
+		2255CECF20AA8C7100999FA2 /* SequentialBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2255CECE20AA8C7100999FA2 /* SequentialBehavior.swift */; };
+		2255CED120AA8C8900999FA2 /* MarchBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2255CED020AA8C8900999FA2 /* MarchBehavior.swift */; };
+		2255CED320AA8C9F00999FA2 /* PushMarchBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2255CED220AA8C9F00999FA2 /* PushMarchBehavior.swift */; };
+		2255CED520AA8CB700999FA2 /* ShootBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2255CED420AA8CB700999FA2 /* ShootBehavior.swift */; };
+		2255CED720AA8CD500999FA2 /* HomingShootBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2255CED620AA8CD500999FA2 /* HomingShootBehavior.swift */; };
+		2255CED920AA8CEF00999FA2 /* EmptyBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2255CED820AA8CEF00999FA2 /* EmptyBehavior.swift */; };
+		2255CEDB20AA8D0700999FA2 /* TemporaryBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2255CEDA20AA8D0700999FA2 /* TemporaryBehavior.swift */; };
+		2255CEDE20AA8F0D00999FA2 /* TriggeredBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2255CEDD20AA8F0D00999FA2 /* TriggeredBehavior.swift */; };
+		2255CEE120AA904300999FA2 /* BossOpeningBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2255CEE020AA904300999FA2 /* BossOpeningBehavior.swift */; };
+		2255CEE320AA905B00999FA2 /* ConditionalBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2255CEE220AA905B00999FA2 /* ConditionalBehavior.swift */; };
+		2255CEE520AA906F00999FA2 /* ActiveBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2255CEE420AA906F00999FA2 /* ActiveBehavior.swift */; };
+		2255CEE720AA908800999FA2 /* RandomBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2255CEE620AA908800999FA2 /* RandomBehavior.swift */; };
+		2255CEE920AA909B00999FA2 /* TimedBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2255CEE820AA909B00999FA2 /* TimedBehavior.swift */; };
+		2255CEEB20AA90B300999FA2 /* LaserBlastBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2255CEEA20AA90B300999FA2 /* LaserBlastBehavior.swift */; };
+		2255CEED20AA90CC00999FA2 /* ActionBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2255CEEC20AA90CC00999FA2 /* ActionBehavior.swift */; };
+		2255CEEF20AA90E600999FA2 /* FastLaserBlastBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2255CEEE20AA90E600999FA2 /* FastLaserBlastBehavior.swift */; };
+		2255CEF120AA911900999FA2 /* PulseLaserBlastBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2255CEF020AA911900999FA2 /* PulseLaserBlastBehavior.swift */; };
+		2255CEF320AA912F00999FA2 /* RestBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2255CEF220AA912F00999FA2 /* RestBehavior.swift */; };
+		2255CEF520AA914D00999FA2 /* DarkEnergyBlastBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2255CEF420AA914D00999FA2 /* DarkEnergyBlastBehavior.swift */; };
+		2255CEF720AA916200999FA2 /* DarkBlast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2255CEF620AA916200999FA2 /* DarkBlast.swift */; };
+		2255CEF920AA918600999FA2 /* StompBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2255CEF820AA918600999FA2 /* StompBehavior.swift */; };
+		2255CEFB20AA91A300999FA2 /* SummonLegionBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2255CEFA20AA91A300999FA2 /* SummonLegionBehavior.swift */; };
+		2255CEFD20AA91BC00999FA2 /* RubbleFallBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2255CEFC20AA91BC00999FA2 /* RubbleFallBehavior.swift */; };
+		2255CEFF20AA91D300999FA2 /* ParticleWaveBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2255CEFE20AA91D300999FA2 /* ParticleWaveBehavior.swift */; };
+		2255CF0120AA91ED00999FA2 /* ParticleBeamBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2255CF0020AA91ED00999FA2 /* ParticleBeamBehavior.swift */; };
+		2255CF0320AA920700999FA2 /* ParticleShieldBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2255CF0220AA920700999FA2 /* ParticleShieldBehavior.swift */; };
+		2255CF0520AA921A00999FA2 /* ParticleShield.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2255CF0420AA921A00999FA2 /* ParticleShield.swift */; };
+		2255CF0720AA923300999FA2 /* ParticleShieldEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2255CF0620AA923300999FA2 /* ParticleShieldEffect.swift */; };
+		2255CF0920AA924700999FA2 /* CollapseEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2255CF0820AA924700999FA2 /* CollapseEffect.swift */; };
+		2255CF0B20AA925E00999FA2 /* DefendEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2255CF0A20AA925E00999FA2 /* DefendEffect.swift */; };
+		2255CF0D20AA927200999FA2 /* DeathBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2255CF0C20AA927200999FA2 /* DeathBehavior.swift */; };
+		2255CF0F20AA928600999FA2 /* PowerInfuser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2255CF0E20AA928600999FA2 /* PowerInfuser.swift */; };
 		225DC2D51E5016980068B566 /* Shield.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225DC2D41E5016980068B566 /* Shield.swift */; };
 		225E516A1DC55CB30065EECF /* UserInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225E51691DC55CB30065EECF /* UserInterface.swift */; };
 		225E516C1DC55D180065EECF /* PhysicsTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225E516B1DC55D180065EECF /* PhysicsTypes.swift */; };
@@ -677,6 +711,40 @@
 		2255CEC320AA89A500999FA2 /* BlastPool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlastPool.swift; sourceTree = "<group>"; };
 		2255CEC520AA89C200999FA2 /* PullUnitsBehavior.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PullUnitsBehavior.swift; sourceTree = "<group>"; };
 		2255CEC720AA89E200999FA2 /* RadiateBehavior.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadiateBehavior.swift; sourceTree = "<group>"; };
+		2255CECA20AA8C3600999FA2 /* ComplexBehavior.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplexBehavior.swift; sourceTree = "<group>"; };
+		2255CECC20AA8C5600999FA2 /* SerialBehavior.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SerialBehavior.swift; sourceTree = "<group>"; };
+		2255CECE20AA8C7100999FA2 /* SequentialBehavior.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SequentialBehavior.swift; sourceTree = "<group>"; };
+		2255CED020AA8C8900999FA2 /* MarchBehavior.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarchBehavior.swift; sourceTree = "<group>"; };
+		2255CED220AA8C9F00999FA2 /* PushMarchBehavior.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushMarchBehavior.swift; sourceTree = "<group>"; };
+		2255CED420AA8CB700999FA2 /* ShootBehavior.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShootBehavior.swift; sourceTree = "<group>"; };
+		2255CED620AA8CD500999FA2 /* HomingShootBehavior.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomingShootBehavior.swift; sourceTree = "<group>"; };
+		2255CED820AA8CEF00999FA2 /* EmptyBehavior.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyBehavior.swift; sourceTree = "<group>"; };
+		2255CEDA20AA8D0700999FA2 /* TemporaryBehavior.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemporaryBehavior.swift; sourceTree = "<group>"; };
+		2255CEDD20AA8F0D00999FA2 /* TriggeredBehavior.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriggeredBehavior.swift; sourceTree = "<group>"; };
+		2255CEE020AA904300999FA2 /* BossOpeningBehavior.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BossOpeningBehavior.swift; sourceTree = "<group>"; };
+		2255CEE220AA905B00999FA2 /* ConditionalBehavior.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConditionalBehavior.swift; sourceTree = "<group>"; };
+		2255CEE420AA906F00999FA2 /* ActiveBehavior.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveBehavior.swift; sourceTree = "<group>"; };
+		2255CEE620AA908800999FA2 /* RandomBehavior.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomBehavior.swift; sourceTree = "<group>"; };
+		2255CEE820AA909B00999FA2 /* TimedBehavior.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimedBehavior.swift; sourceTree = "<group>"; };
+		2255CEEA20AA90B300999FA2 /* LaserBlastBehavior.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaserBlastBehavior.swift; sourceTree = "<group>"; };
+		2255CEEC20AA90CC00999FA2 /* ActionBehavior.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionBehavior.swift; sourceTree = "<group>"; };
+		2255CEEE20AA90E600999FA2 /* FastLaserBlastBehavior.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FastLaserBlastBehavior.swift; sourceTree = "<group>"; };
+		2255CEF020AA911900999FA2 /* PulseLaserBlastBehavior.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PulseLaserBlastBehavior.swift; sourceTree = "<group>"; };
+		2255CEF220AA912F00999FA2 /* RestBehavior.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestBehavior.swift; sourceTree = "<group>"; };
+		2255CEF420AA914D00999FA2 /* DarkEnergyBlastBehavior.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkEnergyBlastBehavior.swift; sourceTree = "<group>"; };
+		2255CEF620AA916200999FA2 /* DarkBlast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkBlast.swift; sourceTree = "<group>"; };
+		2255CEF820AA918600999FA2 /* StompBehavior.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StompBehavior.swift; sourceTree = "<group>"; };
+		2255CEFA20AA91A300999FA2 /* SummonLegionBehavior.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummonLegionBehavior.swift; sourceTree = "<group>"; };
+		2255CEFC20AA91BC00999FA2 /* RubbleFallBehavior.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RubbleFallBehavior.swift; sourceTree = "<group>"; };
+		2255CEFE20AA91D300999FA2 /* ParticleWaveBehavior.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticleWaveBehavior.swift; sourceTree = "<group>"; };
+		2255CF0020AA91ED00999FA2 /* ParticleBeamBehavior.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticleBeamBehavior.swift; sourceTree = "<group>"; };
+		2255CF0220AA920700999FA2 /* ParticleShieldBehavior.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticleShieldBehavior.swift; sourceTree = "<group>"; };
+		2255CF0420AA921A00999FA2 /* ParticleShield.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticleShield.swift; sourceTree = "<group>"; };
+		2255CF0620AA923300999FA2 /* ParticleShieldEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticleShieldEffect.swift; sourceTree = "<group>"; };
+		2255CF0820AA924700999FA2 /* CollapseEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollapseEffect.swift; sourceTree = "<group>"; };
+		2255CF0A20AA925E00999FA2 /* DefendEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefendEffect.swift; sourceTree = "<group>"; };
+		2255CF0C20AA927200999FA2 /* DeathBehavior.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeathBehavior.swift; sourceTree = "<group>"; };
+		2255CF0E20AA928600999FA2 /* PowerInfuser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerInfuser.swift; sourceTree = "<group>"; };
 		225DC2D41E5016980068B566 /* Shield.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shield.swift; sourceTree = "<group>"; };
 		225E51691DC55CB30065EECF /* UserInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInterface.swift; sourceTree = "<group>"; };
 		225E516B1DC55D180065EECF /* PhysicsTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhysicsTypes.swift; sourceTree = "<group>"; };
@@ -1371,6 +1439,70 @@
 			name = powers;
 			sourceTree = "<group>";
 		};
+		2255CEC920AA8C0100999FA2 /* misc */ = {
+			isa = PBXGroup;
+			children = (
+				2254AB121F1B382C0020DD01 /* FinalBattle.swift */,
+				2205EF3B1EB19EC400DEFFF2 /* Behavior.swift */,
+				229B21441EC6B10B001B3110 /* SoldierBehavior.swift */,
+				22A8BEFA1F28366400F32FC0 /* BehaviorLimits.swift */,
+				229B21421EC6B0DF001B3110 /* Coordinator.swift */,
+				2251DEEC1DAB249F0022D711 /* MarchAnimator.swift */,
+				22C313E01FD7A14A004F9CEB /* UnitEffects.swift */,
+				224BE2FA1FDF52C8000EAC8D /* VisualEffects.swift */,
+				2255CEDD20AA8F0D00999FA2 /* TriggeredBehavior.swift */,
+			);
+			name = misc;
+			sourceTree = "<group>";
+		};
+		2255CEDC20AA8E4E00999FA2 /* general_behaviors */ = {
+			isa = PBXGroup;
+			children = (
+				2255CECA20AA8C3600999FA2 /* ComplexBehavior.swift */,
+				2255CECC20AA8C5600999FA2 /* SerialBehavior.swift */,
+				2255CECE20AA8C7100999FA2 /* SequentialBehavior.swift */,
+				2255CED020AA8C8900999FA2 /* MarchBehavior.swift */,
+				2255CED220AA8C9F00999FA2 /* PushMarchBehavior.swift */,
+				2255CED420AA8CB700999FA2 /* ShootBehavior.swift */,
+				2255CED620AA8CD500999FA2 /* HomingShootBehavior.swift */,
+				2255CED820AA8CEF00999FA2 /* EmptyBehavior.swift */,
+				2255CEDA20AA8D0700999FA2 /* TemporaryBehavior.swift */,
+			);
+			name = general_behaviors;
+			sourceTree = "<group>";
+		};
+		2255CEDF20AA8F2600999FA2 /* boss */ = {
+			isa = PBXGroup;
+			children = (
+				222B965A1F15E6FD00D47922 /* BossBehaviors.swift */,
+				2255CEE020AA904300999FA2 /* BossOpeningBehavior.swift */,
+				2255CEE220AA905B00999FA2 /* ConditionalBehavior.swift */,
+				2255CEE420AA906F00999FA2 /* ActiveBehavior.swift */,
+				2255CEE620AA908800999FA2 /* RandomBehavior.swift */,
+				2255CEE820AA909B00999FA2 /* TimedBehavior.swift */,
+				2255CEEA20AA90B300999FA2 /* LaserBlastBehavior.swift */,
+				2255CEEC20AA90CC00999FA2 /* ActionBehavior.swift */,
+				2255CEEE20AA90E600999FA2 /* FastLaserBlastBehavior.swift */,
+				2255CEF020AA911900999FA2 /* PulseLaserBlastBehavior.swift */,
+				2255CEF220AA912F00999FA2 /* RestBehavior.swift */,
+				2255CEF420AA914D00999FA2 /* DarkEnergyBlastBehavior.swift */,
+				2255CEF620AA916200999FA2 /* DarkBlast.swift */,
+				2255CEF820AA918600999FA2 /* StompBehavior.swift */,
+				2255CEFA20AA91A300999FA2 /* SummonLegionBehavior.swift */,
+				2255CEFC20AA91BC00999FA2 /* RubbleFallBehavior.swift */,
+				2255CEFE20AA91D300999FA2 /* ParticleWaveBehavior.swift */,
+				2255CF0020AA91ED00999FA2 /* ParticleBeamBehavior.swift */,
+				2255CF0220AA920700999FA2 /* ParticleShieldBehavior.swift */,
+				2255CF0420AA921A00999FA2 /* ParticleShield.swift */,
+				2255CF0620AA923300999FA2 /* ParticleShieldEffect.swift */,
+				2255CF0820AA924700999FA2 /* CollapseEffect.swift */,
+				2255CF0A20AA925E00999FA2 /* DefendEffect.swift */,
+				2255CF0C20AA927200999FA2 /* DeathBehavior.swift */,
+				2255CF0E20AA928600999FA2 /* PowerInfuser.swift */,
+			);
+			name = boss;
+			sourceTree = "<group>";
+		};
 		225B15AD1E862606008F8D55 /* audio */ = {
 			isa = PBXGroup;
 			children = (
@@ -1740,20 +1872,14 @@
 		22A75AD91FC3B6E600AA625B /* AI */ = {
 			isa = PBXGroup;
 			children = (
+				2255CEDF20AA8F2600999FA2 /* boss */,
+				2255CEDC20AA8E4E00999FA2 /* general_behaviors */,
+				2255CEC920AA8C0100999FA2 /* misc */,
 				2255CEA620AA868B00999FA2 /* powers */,
 				2255CE9320AA857200999FA2 /* turn */,
 				22C313DB1FD755A7004F9CEB /* core */,
 				22AC52DB1FCD0D5A005ABFAF /* controllers */,
 				22A75B011FC4F66E00AA625B /* behaviors */,
-				2254AB121F1B382C0020DD01 /* FinalBattle.swift */,
-				2205EF3B1EB19EC400DEFFF2 /* Behavior.swift */,
-				229B21441EC6B10B001B3110 /* SoldierBehavior.swift */,
-				222B965A1F15E6FD00D47922 /* BossBehaviors.swift */,
-				22A8BEFA1F28366400F32FC0 /* BehaviorLimits.swift */,
-				229B21421EC6B0DF001B3110 /* Coordinator.swift */,
-				2251DEEC1DAB249F0022D711 /* MarchAnimator.swift */,
-				22C313E01FD7A14A004F9CEB /* UnitEffects.swift */,
-				224BE2FA1FDF52C8000EAC8D /* VisualEffects.swift */,
 			);
 			name = AI;
 			sourceTree = "<group>";
@@ -2627,17 +2753,23 @@
 				22613CEF1DC555D400FECAB0 /* Aux.swift in Sources */,
 				22BB48901FC8CAFC006CD5C1 /* Firer.swift in Sources */,
 				22A75AB71FB9529600AA625B /* SettingsScreen.swift in Sources */,
+				2255CEF320AA912F00999FA2 /* RestBehavior.swift in Sources */,
 				2241540F1F04B1880046CFDA /* Story.swift in Sources */,
 				2205EF3C1EB19EC400DEFFF2 /* Behavior.swift in Sources */,
 				22613CF01DC555D400FECAB0 /* Utlity.swift in Sources */,
 				2239566E1F45323D00EB5CBA /* Sorting.swift in Sources */,
+				2255CF0320AA920700999FA2 /* ParticleShieldBehavior.swift in Sources */,
 				22AC52DA1FCD0D48005ABFAF /* FireSprayPower.swift in Sources */,
+				2255CEE320AA905B00999FA2 /* ConditionalBehavior.swift in Sources */,
 				22A75AB91FBBC2A300AA625B /* Tutorial.swift in Sources */,
 				22429FD51E5B9CDD004BCBD0 /* Actorate.swift in Sources */,
 				22032F5C1E0F0342001462C2 /* Bullet.swift in Sources */,
 				22613CF21DC555D400FECAB0 /* Bridge.m in Sources */,
 				2255CE3820AA771600999FA2 /* Energy.swift in Sources */,
+				2255CF0F20AA928600999FA2 /* PowerInfuser.swift in Sources */,
 				22BB488A1FC8CA21006CD5C1 /* Laser.swift in Sources */,
+				2255CEFF20AA91D300999FA2 /* ParticleWaveBehavior.swift in Sources */,
+				2255CEFD20AA91BC00999FA2 /* RubbleFallBehavior.swift in Sources */,
 				2255CE5F20AA7BDC00999FA2 /* ReflectReaction.swift in Sources */,
 				22032F3B1E0EFB9C001462C2 /* Scheme.swift in Sources */,
 				22613CF31DC555D400FECAB0 /* main.m in Sources */,
@@ -2647,6 +2779,7 @@
 				2254AB131F1B382C0020DD01 /* FinalBattle.swift in Sources */,
 				22C1FE6B20A7F24F005D9ABB /* VictoryEvent.swift in Sources */,
 				22A75AEC1FC4E9E900AA625B /* FirepowerUpgrade.swift in Sources */,
+				2255CEF120AA911900999FA2 /* PulseLaserBlastBehavior.swift in Sources */,
 				22AC52C41FCB1A28005ABFAF /* GameProtocols.swift in Sources */,
 				2255CE8520AA80C500999FA2 /* Stamina.swift in Sources */,
 				22A75ACA1FC3B5DF00AA625B /* Scout.swift in Sources */,
@@ -2655,6 +2788,7 @@
 				22A75AEE1FC4E9FC00AA625B /* ShieldUpgrade.swift in Sources */,
 				2211AFCC1F2AD90C00F8B584 /* GraphicIndexer.swift in Sources */,
 				22613CF51DC555D400FECAB0 /* MainGame.swift in Sources */,
+				2255CEE720AA908800999FA2 /* RandomBehavior.swift in Sources */,
 				22613CF61DC555D400FECAB0 /* Game.swift in Sources */,
 				228C5C141FD36FB800B93C8C /* CooldownBehavior.swift in Sources */,
 				22613CF81DC555D400FECAB0 /* GameViewController.m in Sources */,
@@ -2664,6 +2798,8 @@
 				22429FD11E542CAD004BCBD0 /* Experimental.swift in Sources */,
 				222FA5F71E5E98E100D4A931 /* Texture.swift in Sources */,
 				22032F4D1E0EFF7A001462C2 /* RawScheme.swift in Sources */,
+				2255CF0120AA91ED00999FA2 /* ParticleBeamBehavior.swift in Sources */,
+				2255CEF520AA914D00999FA2 /* DarkEnergyBlastBehavior.swift in Sources */,
 				22613CFD1DC555D400FECAB0 /* Grid.swift in Sources */,
 				22AC52DD1FCD1464005ABFAF /* FreeRoamPower.swift in Sources */,
 				22704E131FE3126700F8A7F6 /* RadiatePower.swift in Sources */,
@@ -2673,21 +2809,25 @@
 				224BE2FF1FE08C7B000EAC8D /* EnergyWavePower.swift in Sources */,
 				22C1FE6020A7DFE4005D9ABB /* SplashSky.swift in Sources */,
 				22032F411E0EFE23001462C2 /* Form.swift in Sources */,
+				2255CEF720AA916200999FA2 /* DarkBlast.swift in Sources */,
 				22704E111FE219E200F8A7F6 /* GravitateUnitsPower.swift in Sources */,
 				22BB488C1FC8CAC2006CD5C1 /* HomingBullet.swift in Sources */,
 				22613D011DC555D400FECAB0 /* Map.swift in Sources */,
 				2255CE9720AA859200999FA2 /* UnitTurn.swift in Sources */,
 				22A75AE61FC4E92C00AA625B /* DeathEvent.swift in Sources */,
 				22032F4F1E0EFF99001462C2 /* RawSchemeGroup.swift in Sources */,
+				2255CED520AA8CB700999FA2 /* ShootBehavior.swift in Sources */,
 				22A75AFC1FC4F63700AA625B /* RapidFirePower.swift in Sources */,
 				22C1FE9620A7FB5A005D9ABB /* HorizontialMovementController.swift in Sources */,
 				227D574A1FCF49AB000558E3 /* PhantomController.swift in Sources */,
 				22C1FE7920A7F4FA005D9ABB /* LevelSetter.swift in Sources */,
 				22032F3F1E0EFDCC001462C2 /* Shape.swift in Sources */,
 				22613D021DC555D400FECAB0 /* Controller.swift in Sources */,
+				2255CEEB20AA90B300999FA2 /* LaserBlastBehavior.swift in Sources */,
 				22FBF6B81E131EF400B7824C /* GLTexture.swift in Sources */,
 				22A8BEFB1F28366400F32FC0 /* BehaviorLimits.swift in Sources */,
 				225E516C1DC55D180065EECF /* PhysicsTypes.swift in Sources */,
+				2255CEED20AA90CC00999FA2 /* ActionBehavior.swift in Sources */,
 				22C1FE9220A7FB24005D9ABB /* ControllerLayer.swift in Sources */,
 				22C1FE6920A7F232005D9ABB /* WaveLevel.swift in Sources */,
 				2255CEB620AA88C900999FA2 /* MoveBehavior.swift in Sources */,
@@ -2708,6 +2848,7 @@
 				22C1FE8620A7F939005D9ABB /* Placement.swift in Sources */,
 				2205EF6D1EC2D0C200DEFFF2 /* Animator.swift in Sources */,
 				22A75AF81FC4F5FF00AA625B /* FireCallPower.swift in Sources */,
+				2255CED920AA8CEF00999FA2 /* EmptyBehavior.swift in Sources */,
 				22A75B031FC4FC5700AA625B /* FireBehavior.swift in Sources */,
 				22613D031DC555D400FECAB0 /* Interaction.swift in Sources */,
 				2255CEBE20AA894900999FA2 /* EnergyWave.swift in Sources */,
@@ -2722,6 +2863,7 @@
 				2255CE7F20AA808000999FA2 /* ShieldAbsorbEffect.swift in Sources */,
 				2255CEBC20AA892A00999FA2 /* DisruptFirePower.swift in Sources */,
 				229B213D1EC6B070001B3110 /* Soldier.swift in Sources */,
+				2255CEE920AA909B00999FA2 /* TimedBehavior.swift in Sources */,
 				22C1FE6720A7F217005D9ABB /* TutorialLevel.swift in Sources */,
 				2255CE7B20AA805400999FA2 /* ShieldPower.swift in Sources */,
 				22A75ACE1FC3B62000AA625B /* Thief.swift in Sources */,
@@ -2732,9 +2874,11 @@
 				22C313E11FD7A14A004F9CEB /* UnitEffects.swift in Sources */,
 				2255CE5020AA793C00999FA2 /* TrailEffect.swift in Sources */,
 				228C5C111FD0933500B93C8C /* UnitController.swift in Sources */,
+				2255CF0720AA923300999FA2 /* ParticleShieldEffect.swift in Sources */,
 				22AC52CC1FCBB68D005ABFAF /* GameDisplayLayer.swift in Sources */,
 				22A75AFE1FC4F64F00AA625B /* HealBehavior.swift in Sources */,
 				222FA5F51E5DFCE200D4A931 /* Materials.swift in Sources */,
+				2255CEFB20AA91A300999FA2 /* SummonLegionBehavior.swift in Sources */,
 				22C1FE7620A7F463005D9ABB /* GameSystem.swift in Sources */,
 				22BB488E1FC8CAEA006CD5C1 /* Casing.swift in Sources */,
 				2255CE5D20AA7BC200999FA2 /* DamageReaction.swift in Sources */,
@@ -2747,6 +2891,7 @@
 				229B21471EC6B139001B3110 /* ActorUtility.swift in Sources */,
 				22A75AE21FC4E8F700AA625B /* PlayerWalk.swift in Sources */,
 				2255CEC820AA89E200999FA2 /* RadiateBehavior.swift in Sources */,
+				2255CEE120AA904300999FA2 /* BossOpeningBehavior.swift in Sources */,
 				2255CEA520AA864800999FA2 /* NullPower.swift in Sources */,
 				22C1FE7B20A7F51A005D9ABB /* DebugSetter.swift in Sources */,
 				22AC52D21FCCB929005ABFAF /* HitReaction.swift in Sources */,
@@ -2772,6 +2917,7 @@
 				22A75AF01FC4EA1B00AA625B /* BarrierUpgrade.swift in Sources */,
 				22C1FE9020A7FAF6005D9ABB /* MainController.swift in Sources */,
 				229C299E1F57AFDF0080717A /* Point.swift in Sources */,
+				2255CF0520AA921A00999FA2 /* ParticleShield.swift in Sources */,
 				22C1FE8C20A7FAC4005D9ABB /* LimitedController.swift in Sources */,
 				22613D0D1DC555D400FECAB0 /* FixedRect.swift in Sources */,
 				22C1FE6D20A7F26B005D9ABB /* DebugLevel.swift in Sources */,
@@ -2779,10 +2925,13 @@
 				22613D0E1DC555D400FECAB0 /* Structure.swift in Sources */,
 				22ED3F871F263AEF00BFE5AF /* StoryOutro.swift in Sources */,
 				2255CE9520AA858000999FA2 /* Turn.swift in Sources */,
+				2255CECD20AA8C5600999FA2 /* SerialBehavior.swift in Sources */,
 				225DC2D51E5016980068B566 /* Shield.swift in Sources */,
 				227016271E1B023D0062442B /* DefeatScreen.swift in Sources */,
 				2255CE5920AA7B6800999FA2 /* Spark.swift in Sources */,
 				229B214B1EC6C600001B3110 /* Effects.swift in Sources */,
+				2255CED320AA8C9F00999FA2 /* PushMarchBehavior.swift in Sources */,
+				2255CECB20AA8C3600999FA2 /* ComplexBehavior.swift in Sources */,
 				224BE2FD1FDF6C5B000EAC8D /* GravitateFireBehavior.swift in Sources */,
 				2205EEF41EA451D600DEFFF2 /* VictoryScreen.swift in Sources */,
 				2255CE9220AA83AB00999FA2 /* TimedAnimationPlayer.swift in Sources */,
@@ -2800,6 +2949,7 @@
 				22032F5A1E0F030D001462C2 /* PointRange.swift in Sources */,
 				2255CEC220AA898B00999FA2 /* ConsumeBehavior.swift in Sources */,
 				22613D121DC555D400FECAB0 /* Wall.swift in Sources */,
+				2255CEE520AA906F00999FA2 /* ActiveBehavior.swift in Sources */,
 				22AC52C81FCB8599005ABFAF /* EventSequence.swift in Sources */,
 				22032F471E0EFEE6001462C2 /* BoundingShapes.swift in Sources */,
 				22BB487E1FC76080006CD5C1 /* HomingWeapon.swift in Sources */,
@@ -2810,6 +2960,7 @@
 				22BB48921FC8CB18006CD5C1 /* HomingFirer.swift in Sources */,
 				22C1FE8A20A7FA92005D9ABB /* Command.swift in Sources */,
 				2255CE7920AA804000999FA2 /* EnemyShieldAudio.swift in Sources */,
+				2255CEF920AA918600999FA2 /* StompBehavior.swift in Sources */,
 				2255CEA120AA862000999FA2 /* UnitPower.swift in Sources */,
 				229B21411EC6B0A9001B3110 /* Emperor.swift in Sources */,
 				22A75AF41FC4F51300AA625B /* GuardPower.swift in Sources */,
@@ -2817,12 +2968,16 @@
 				2255CEA820AA869500999FA2 /* ComplexPower.swift in Sources */,
 				22C1FE5C20A7DFA9005D9ABB /* Selection.swift in Sources */,
 				2255CE6A20AA7E9100999FA2 /* StatusObject.swift in Sources */,
+				2255CED720AA8CD500999FA2 /* HomingShootBehavior.swift in Sources */,
 				2255CE4820AA77E300999FA2 /* FallingRubble.swift in Sources */,
+				2255CF0D20AA927200999FA2 /* DeathBehavior.swift in Sources */,
 				22AC52B81FC9402D005ABFAF /* MissilePower.swift in Sources */,
 				22A75AD41FC3B65B00AA625B /* Heavy.swift in Sources */,
 				22411F8E2010215F005BE080 /* EMP.swift in Sources */,
 				2255CEC020AA896500999FA2 /* ShakeBehavior.swift in Sources */,
 				22FBF6B31E13198300B7824C /* DisplayAdapter.swift in Sources */,
+				2255CF0B20AA925E00999FA2 /* DefendEffect.swift in Sources */,
+				2255CED120AA8C8900999FA2 /* MarchBehavior.swift in Sources */,
 				22C1FE6220A7E04A005D9ABB /* Time.swift in Sources */,
 				2241540A1F04AFEC0046CFDA /* StoryIntro.swift in Sources */,
 				222B965B1F15E6FD00D47922 /* BossBehaviors.swift in Sources */,
@@ -2850,6 +3005,8 @@
 				229C299C1F57A93F0080717A /* ParticleSystem.swift in Sources */,
 				22AC52CA1FCBB188005ABFAF /* Level.swift in Sources */,
 				22613D1B1DC555D400FECAB0 /* Visual.swift in Sources */,
+				2255CEDE20AA8F0D00999FA2 /* TriggeredBehavior.swift in Sources */,
+				2255CEEF20AA90E600999FA2 /* FastLaserBlastBehavior.swift in Sources */,
 				22A75AD01FC3B63900AA625B /* Titan.swift in Sources */,
 				229C02D81F785CC40079B3C6 /* GhostEffect.swift in Sources */,
 				2255CE5B20AA7B8D00999FA2 /* DefaultTerminator.swift in Sources */,
@@ -2859,17 +3016,20 @@
 				2255CE6C20AA7ECD00999FA2 /* LifeDisplayAdapter.swift in Sources */,
 				22C313D61FD62161004F9CEB /* BatteryChargedCondition.swift in Sources */,
 				22BB48881FC8CA04006CD5C1 /* PlayerWeapon.swift in Sources */,
+				2255CECF20AA8C7100999FA2 /* SequentialBehavior.swift in Sources */,
 				2255CEAC20AA880600999FA2 /* TimedUnitPower.swift in Sources */,
 				2255CE3220AA76D800999FA2 /* ColorEffect.swift in Sources */,
 				22613D1F1DC555D400FECAB0 /* GLVisualDisplay.m in Sources */,
 				22613D201DC555D400FECAB0 /* Display.swift in Sources */,
 				226ECBA61E25FDC500334585 /* Scenery.swift in Sources */,
+				2255CF0920AA924700999FA2 /* CollapseEffect.swift in Sources */,
 				227016251E1B021B0062442B /* UpgradeView.swift in Sources */,
 				2255CE8E20AA837F00999FA2 /* MarchEvent.swift in Sources */,
 				22C1FE9F20A8016C005D9ABB /* GameInfo.swift in Sources */,
 				22613D221DC555D400FECAB0 /* Shader.m in Sources */,
 				22C1FE6420A7E05F005D9ABB /* GameBase.swift in Sources */,
 				2255CEB420AA887E00999FA2 /* LineOfSightCondition.swift in Sources */,
+				2255CEDB20AA8D0700999FA2 /* TemporaryBehavior.swift in Sources */,
 				22AC52E51FCE07CC005ABFAF /* GameSetter.swift in Sources */,
 				22F03C341F2C25EE004F2BF1 /* GraphicsMethods.swift in Sources */,
 				22613D241DC555D400FECAB0 /* ShaderLoader.m in Sources */,
