@@ -20,27 +20,6 @@ class BaseMarchAnimator: Animator {
     
 }
 
-protocol ActorTerminationDelegate {
-    func terminate()
-}
-
-class SoldierTerminator: ActorTerminationDelegate {
-    
-    unowned let soldier: Soldier
-    
-    init(_ soldier: Soldier) {
-        self.soldier = soldier
-    }
-    
-    func terminate() {
-        let a = Audio("enemy-death")
-        a.volume = 0.005
-        a.pitch = random(0.9, 1.1)
-        //a.start()
-    }
-    
-}
-
 
 
 

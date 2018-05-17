@@ -108,25 +108,6 @@ class Player: Entity, Damagable {
     
 }
 
-class PlayerShieldEffect: ShieldDelegate {
-    unowned let transform: Transform
-    
-    init(_ transform: Transform) {
-        self.transform = transform
-    }
-    
-    func recover(_ percent: Float) {
-        if percent < 0.9 {
-            Map.current.append(Halo(transform.location, 3.25.m))
-        }
-    }
-    
-    func damage() {
-        
-    }
-    
-}
-
 
 
 

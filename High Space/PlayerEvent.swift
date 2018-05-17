@@ -12,7 +12,3 @@ protocol PlayerEvent {
     func isActive() -> Bool
     func trigger()
 }
-
-protocol PlayerAnimation {
-    func update()
-}

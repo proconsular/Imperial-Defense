@@ -9,7 +9,3 @@
 protocol Controller {
     func apply (_ location: float2) -> Command?
 }
-
-protocol Interface: class {
-    func use (_ command: Command)
-}
