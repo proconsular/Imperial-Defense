@@ -42,7 +42,7 @@ class PlayerDeath: PlayerAnimation {
         anim_timer += Time.normal
         if anim_timer >= 1 && player.animator.frame < 11 {
             anim_timer = 0
-            Audio.start("player_fall", 0.75)
+            Audio.play("player_fall", 0.5)
             player.animator.animate()
         }
     }

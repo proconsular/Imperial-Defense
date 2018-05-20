@@ -25,6 +25,11 @@ class Trigger {
         wasPressed = pressed
     }
     
+    static func clear() {
+        pressed = false
+        wasPressed = false
+    }
+    
 }
 
 class InteractiveElement: InterfaceElement, Interface {

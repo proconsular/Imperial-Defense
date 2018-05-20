@@ -30,7 +30,7 @@ class FireCallPower: TimedUnitPower {
                 for _ in 0 ..< amount {
                     soldier.behavior.push(TemporaryBehavior(MarchBehavior(soldier, animator), 0.125) { [unowned soldier] in
                         soldier.weapon?.fire()
-                        Audio.play("fire_call", 0.1)
+                        Audio.play("fire_call", 0.4)
                     })
                 }
             }

@@ -26,7 +26,7 @@ class FireBehavior: Behavior {
         if cooldown <= 0 {
             if let gun = soldier.weapon {
                 gun.fire()
-                Audio.play("fire_call", 0.05)
+                Audio.play("fire_call", 0.5)
                 cooldown = rate
             }
         }

@@ -49,6 +49,9 @@ class Bullet: Entity {
     override func update() {
         super.update()
         body.orientation = atan2f(body.velocity.y, body.velocity.x)
+        if body.location.x < 0 || body.location.x > Camera.size.x || body.location.y > 0 || body.location.y < -Map.current.size.y {
+            terminator.terminate()
+        }
     }
     
     func hit(_ body: Body, _ collision: Collision) {

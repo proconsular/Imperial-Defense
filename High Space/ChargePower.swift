@@ -28,7 +28,7 @@ class ChargePower: TimedUnitPower {
             }
         }
         Explosion.create(transform.location, radius, float4(1, 0, 0, 1))
-        Audio.play("enemy-rush", 0.2)
+        Audio.play("enemy-rush", 0.6)
     }
 }
 

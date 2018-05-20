@@ -38,6 +38,7 @@ class Game: DisplayLayer {
         level.update()
         sequence.update()
         layers.forEach{ $0.update() }
+        Boundary.checkPlayer()
         GameSystem.update()
     }
     

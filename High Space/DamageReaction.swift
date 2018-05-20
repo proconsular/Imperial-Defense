@@ -17,7 +17,6 @@ class DamageReaction: HitReaction {
     
     func react(_ bullet: Bullet) {
         object.damage(bullet.impact.damage)
-        //Spark.create(randomInt(3, 5), bullet.body, bullet.casing)
         bullet.terminator.terminate()
         let exp = Explosion(bullet.hitPoint, 0.25.m)
         exp.color = bullet.casing.color

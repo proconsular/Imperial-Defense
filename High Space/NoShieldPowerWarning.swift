@@ -25,6 +25,6 @@ class NoShieldPowerWarning: ShieldLowPowerWarning {
     }
     
     override func notify() {
-        Audio.play("health_warning", 0.025)
+        Audio.play("health_warning", 0.4)
     }
 }

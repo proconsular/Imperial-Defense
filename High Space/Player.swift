@@ -77,7 +77,7 @@ class Player: Entity, Damagable {
     func damage(_ amount: Float) {
         let augment = amount * (Float(GameData.info.challenge) * 0.25)
         health.damage(amount + augment)
-        Audio.play("player_hit", 0.2)
+        Audio.play("player_hit", 0.5)
     }
     
     override func update() {

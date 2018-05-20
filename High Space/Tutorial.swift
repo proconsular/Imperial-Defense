@@ -12,12 +12,14 @@ class Tutorial {
     
     let left, right, overscreen: Display
     let move, shoot, health, fire: Text
-    let move_des, shoot_des, health_des, fire_des, end: Text
+    let move_des, shoot_des, health_des, fire_des, end, challenge_text: Text
     
     let moveInput: ShowInput
     let shootInput: ShowInput
     
-    var again, play: TextButton!
+    let shield_pointer, fire_pointer: ShowPointer
+    
+    var again, play, start: TextButton!
     
     var velocity: float2
     
@@ -26,7 +28,9 @@ class Tutorial {
     var mode: Int = 1
     var counter: Float = 0
     
-    var wait: Float = 3
+    var wait: Float = 2
+    
+    let challenge: Selection
     
     init(_ controller: PlayerInterface) {
         self.controller = controller
@@ -47,7 +51,8 @@ class Tutorial {
         health = Text(float2(Camera.size.x / 2, Camera.size.y / 3 - Camera.size.y), "Shield", FontStyle(defaultFont, float4(1), 144))
         fire = Text(float2(Camera.size.x / 2, Camera.size.y / 3 - Camera.size.y), "Firing", FontStyle(defaultFont, float4(1), 144))
         
-        end = Text(float2(Camera.size.x / 2, Camera.size.y / 3 - Camera.size.y), "Understand?", FontStyle(defaultFont, float4(1), 104))
+        end = Text(float2(Camera.size.x / 2, Camera.size.y / 4 - Camera.size.y), "Are you ready?", FontStyle(defaultFont, float4(1), 104))
+        challenge_text = Text(float2(Camera.size.x / 2, Camera.size.y / 4 - Camera.size.y), "Level of Challenge?", FontStyle(defaultFont, float4(1), 104))
         
         move_des = Text(float2(Camera.size.x / 4, Camera.size.y * 0.66 - Camera.size.y), "Drag in area to move.", FontStyle(defaultFont, float4(1), 54))
         shoot_des = Text(float2(Camera.size.x * 0.75, Camera.size.y * 0.66 - Camera.size.y), "Tap or Hold in area to shoot.", FontStyle(defaultFont, float4(1), 54))
@@ -57,14 +62,31 @@ class Tutorial {
         moveInput = ShowInput(float2(Camera.size.x / 4, Camera.size.y / 2 - Camera.size.y), 1.m)
         shootInput = ShowInput(float2(Camera.size.x * 0.75, Camera.size.y / 2 - Camera.size.y), 1.m)
         
-        again = TextButton(Text("Show Again"), float2(Camera.size.x / 4, -Camera.size.y * 0.33)) { [unowned self] in
+        shield_pointer = ShowPointer(float2(Camera.size.x * 0.13, -Camera.size.y * 0.85))
+        fire_pointer = ShowPointer(float2(Camera.size.x * 0.905, -Camera.size.y * 0.85))
+        
+        let vert = float2(0, 150)
+        let off = float2(0, 50)
+        
+        let list = ["Least", "Lesser", "True"]
+        challenge = Selection(float2(Camera.size.x / 2, Camera.size.y / 2 - Camera.size.y) - vert + off, 400, list)
+        
+        again = TextButton(Text("Show Again"), float2(Camera.size.x / 4, -Camera.size.y * 0.5)) { [unowned self] in
             self.mode = 1
             UserInterface.controller.reduce()
+            controller.unfreeze()
         }
-        play = TextButton(Text("Play Game"), float2(Camera.size.x * 0.75, -Camera.size.y * 0.33)) { [unowned self] in
+        play = TextButton(Text("Play Game"), float2(Camera.size.x * 0.75, -Camera.size.y * 0.5)) { [unowned self] in
+            self.mode = 9
+        }
+        start = TextButton(Text("Start"), float2(Camera.size.x * 0.5, -Camera.size.y * 0.33)) { [unowned self] in
             self.mode = 0
             UserInterface.controller.reduce()
+            controller.unfreeze()
         }
+        
+        challenge.select(GameData.info.challenge + 2)
+        
     }
     
     var isComplete: Bool {
@@ -73,8 +95,16 @@ class Tutorial {
     
     func use(_ command: Command) {
         if command.id == 0 {
-            again.use(command)
-            play.use(command)
+            if mode == 8 {
+                again.use(command)
+                play.use(command)
+            }
+            if mode == 9 {
+                start.use(command)
+                for button in challenge.buttons {
+                    button.use(command)
+                }
+            }
         }
     }
     
@@ -92,7 +122,7 @@ class Tutorial {
             wait -= Time.delta
             if wait <= 0 {
                 mode += 1
-                wait = 10
+                wait = 5
                 counter = 0
                 left.color = float4(0.9, 0.3, 0.3, 1) * 0.5
             }
@@ -102,7 +132,7 @@ class Tutorial {
             wait -= Time.delta
             if wait <= 0 {
                 mode += 1
-                wait = 3
+                wait = 2
             }
         }else if mode == 3 {
             counter += Time.delta
@@ -114,7 +144,7 @@ class Tutorial {
             wait -= Time.delta
             if wait <= 0 {
                 mode += 1
-                wait = 7
+                wait = 5
                 counter = 0
                 right.color = float4(0.3, 0.3, 0.9, 1) * 0.5
             }
@@ -124,7 +154,7 @@ class Tutorial {
             wait -= Time.delta
             if wait <= 0 {
                 mode += 1
-                wait = 5
+                wait = 4
             }
         }else if mode == 5 {
             showMove()
@@ -133,7 +163,7 @@ class Tutorial {
             wait -= Time.delta
             if wait <= 0 {
                 mode += 1
-                wait = 6
+                wait = 8
                 counter = 0
                 overscreen.color = float4(0.3, 0.9, 0.3, 1) * 0.1
             }
@@ -142,23 +172,31 @@ class Tutorial {
                 controller.player!.damage(controller.player!.health.shield!.points.amount)
                 counter = 1
             }
-            
+            shield_pointer.update()
             wait -= Time.delta
             if wait <= 0 {
                 mode += 1
-                wait = 10
+                wait = 8
                 counter = 0
                 overscreen.color = float4(0.9, 0.9, 0.3, 1) * 0.1
             }
         }else if mode == 7 {
             showShoot(1)
-            
+            fire_pointer.update()
             wait -= Time.delta
             if wait <= 0 {
                 mode += 1
                 wait = 5
                 counter = 0
+                Trigger.clear()
                 UserInterface.controller.push(PointController(0))
+                controller.freeze()
+            }
+        }else if mode == 9 {
+            let c = GameData.info.challenge
+            if c != challenge.index - 2 {
+                GameData.info.challenge = challenge.index - 2
+                GameData.persist()
             }
         }
         
@@ -220,6 +258,7 @@ class Tutorial {
             overscreen.render()
             health.render()
             health_des.render()
+            shield_pointer.render()
         }
         
         if mode == 7 {
@@ -227,6 +266,7 @@ class Tutorial {
             overscreen.render()
             fire.render()
             fire_des.render()
+            fire_pointer.render()
         }
         
         if mode == 8 {
@@ -234,37 +274,14 @@ class Tutorial {
             again.render()
             play.render()
         }
-    }
-    
-}
-
-class ShowInput {
-    
-    let transform: Transform
-    let base, radius: Display
-    
-    init(_ location: float2, _ size: Float) {
-        transform = Transform(location)
-        base = Display(Rect(transform, float2(size)), GLTexture("ShowInput-Base"))
-        radius = Display(Rect(transform, float2(size)), GLTexture("ShowInput-Case"))
-    }
-    
-    var color: float4 {
-        get {
-            return base.color
-        }
-        set {
-            base.color = newValue
-            radius.color = newValue
-        }
-    }
-    
-    func render() {
-        radius.refresh()
-        radius.render()
         
-        base.refresh()
-        base.render()
+        if mode == 9 {
+            challenge_text.render()
+            start.render()
+            for button in challenge.buttons {
+                button.render()
+            }
+        }
     }
     
 }

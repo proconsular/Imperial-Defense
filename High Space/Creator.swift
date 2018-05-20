@@ -24,7 +24,7 @@ class GameCreator {
     static func createPlayer() -> Player {
         let shield = PlayerShield(Float(40), Float(2), Float(20))
         shield.delegates.append(ShieldAudio())
-        let health = Health(30, shield)
+        let health = Health(75, shield)
         
         upgrader.shieldpower.apply(shield)
         
@@ -33,7 +33,7 @@ class GameCreator {
         var power = Power(200, 115, 15)
         upgrader.firepower.apply(&power)
         
-        return Player(float2(Camera.size.x / 2, -1.5.m), health, firer, power)
+        return Player(float2(Camera.size.x / 2 - 2.m, -1.5.m), health, firer, power)
     }
     
     static func computeFireSize() -> float2 {

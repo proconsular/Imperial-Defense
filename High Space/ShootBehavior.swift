@@ -33,7 +33,6 @@ class ShootBehavior: Behavior {
         if let player = Player.player {
             dl = player.body.location - soldier.body.location
         }
-        
         let d = min(dl.x / 1.m, 1)
         let roll = (1 - d) * 0.2
         return random(0, 1) < (0.05 + roll)
@@ -46,7 +45,12 @@ class ShootBehavior: Behavior {
     func fire() {
         if weapon.canFire {
             weapon.fire()
-            Audio.play(sound, 0.05)
+            if sound == "enemy-shoot-heavy" {
+                Audio.play(sound, 0.5)
+            }else{
+                Audio.play(sound, 0.125)
+            }
+            
         }
     }
 }

@@ -44,7 +44,7 @@ class ShieldLowPowerWarning: PowerWarning {
     
     func notify() {
         let a = Audio("shield_weak")
-        a.volume = 0.05
+        a.volume = 0.3
         a.start()
     }
     

@@ -30,7 +30,7 @@ class Missile: Bullet {
         trail.update()
         
         counter.update(Time.delta) {
-            Audio.play("missile-move", 0.7)
+            Audio.play("missile-move", 0.9)
         }
         
         if transform.location.y >= -0.5.m {

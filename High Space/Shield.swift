@@ -48,7 +48,7 @@ class Shield: Life {
     }
     
     func explode(_ transform: Transform) {
-        Audio.play("shield_break", 0.025)
+        Audio.play("shield_break", 0.1)
         let explosion = Explosion(transform.location, 1.m)
         explosion.color = float4(0.2, 0.6, 1, 1)
         Map.current.append(explosion)

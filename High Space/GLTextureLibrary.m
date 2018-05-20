@@ -72,6 +72,7 @@
     
     [self prefetch:@"ShowInput-Base"];
     [self prefetch:@"ShowInput-Case"];
+    [self prefetch:@"ShowPointer"];
     [self prefetch:@"Missile"];
     
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);

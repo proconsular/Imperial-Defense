@@ -10,9 +10,9 @@ import Foundation
 
 class EnemyShieldAudio: ShieldDelegate {
     func recover(_ percent: Float) {
-        //        if percent < 1 {
-        //            Audio.play("enemy_charge", 0.05)
-        //        }
+        if percent < 1 {
+            Audio.play("enemy_charge", 0.3)
+        }
     }
     
     func damage() {

@@ -85,12 +85,12 @@ class Soldier: Entity, Damagable {
     
     func hit() {
         if let mat = shield_material, mat.overlay {
-            Audio.play("immune-hit", 0.2)
+            Audio.play("immune-hit", 0.4)
         }else{
             if let shield = health.shield, shield.percent > 0 {
-                Audio.play("enemy-shield-hit", 0.4)
+                Audio.play("enemy-shield-hit", 0.9)
             }else{
-                Audio.play("enemy-health-hit", 0.2)
+                Audio.play("enemy-health-hit", 0.7)
             }
         }
     }
