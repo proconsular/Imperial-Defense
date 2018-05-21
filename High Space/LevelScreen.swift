@@ -29,6 +29,13 @@ class LevelScreen: Screen {
             layer.objects.append(button)
         }
         
+        let index = 101
+        let location = float2(Camera.size.x / 2, -Camera.size.y * 0.1)
+        let button = TextButton(Text("\(index)", FontStyle(defaultFont, float4(1), 72)), location) { [unowned self] in
+            self.setLevel(index)
+        }
+        layer.objects.append(button)
+        
         let spacing = float2(800, 0)
         let offset = float2(0, 475 - GameScreen.size.y)
         

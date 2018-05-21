@@ -23,8 +23,8 @@ class GameplayController {
         
         let wave = GameData.info.wave + 1
         
-        if wave >= 50 {
-            powerlimit = 2
+        if wave > 80 && !(wave % 5 == 0 || wave % 10 == 0) {
+            powerlimit = 1.75
         }
         
         slots = []

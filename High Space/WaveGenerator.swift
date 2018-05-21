@@ -35,8 +35,16 @@ class WaveGenerator {
         let wave = GameData.info.wave + 1
         var ideal: Float = 75
         
+        if wave >= 80 {
+            ideal = 80
+        }
+        
         if wave % 5 == 0 && wave > 0 {
             ideal = 85
+        }
+        
+        if wave == 100 {
+            ideal = 90
         }
         
         let layout = findBestLayout(ideal, 20)

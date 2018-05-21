@@ -199,7 +199,6 @@ class Tutorial {
                 GameData.persist()
             }
         }
-        
     }
     
     func showMove() {
