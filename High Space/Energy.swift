@@ -20,6 +20,7 @@ class Energy: Particle {
                     if dl.length <= size * 2 {
                         bullet.alive = false
                         alive = false
+                        Audio.play("boss_deflect", 1)
                     }
                 }
             }

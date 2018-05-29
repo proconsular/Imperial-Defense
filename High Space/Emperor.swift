@@ -60,7 +60,7 @@ class Emperor: Soldier {
         
         handle.materials.removeLast()
         
-        animator = BaseMarchAnimator(body, 0.1, 26.m)
+        animator = BossMarchAnimator(body, 0.2, 26.m)
         let t = animator.player.animation as! TextureAnimator
         march_animation = t.list[0]
         
@@ -76,30 +76,49 @@ class Emperor: Soldier {
     
     func setupBehaviors() {
         laserBlast = LaserBlastBehavior(Float.pi / 24, 6, laser, particle_shielding)
-        march = TimedBehavior(MarchBehavior(self, animator), 1)
+        march = TimedBehavior(MarchBehavior(self, animator), 2)
         
         let clear = ActionBehavior{ [unowned self] in
             self.laser.visible = false
             self.pulseLaser.visible = false
         }
+        let wipeout = ActionBehavior{ [unowned self] in
+            let wipe = Explosion(self.body.location, Camera.size.x)
+            wipe.rate = 0.95
+            Map.current.append(wipe)
+            //Audio.play("boss_wipeout", 1)
+        }
+        let restoreShield = ActionBehavior { [unowned self] in
+            self.particle_shielding.reset()
+            self.particle_shielding.set(DefendEffect(2))
+            Audio.play("boss_recover", 1)
+        }
         
         let timeline = BossBehavior()
-        behavior.push(timeline)
         
         timeline.append(ConditionalBehavior(setupFirstSegment()) { [unowned self] in
             self.health.stamina.percent > 0.75
         })
         timeline.append(clear)
+        timeline.append(wipeout)
+        timeline.append(StompBehavior(2, 1, 50, "boss_wipeout"))
+        timeline.append(restoreShield)
         timeline.append(march)
         timeline.append(ConditionalBehavior(setupFirstSegmentVariation()) { [unowned self] in
             self.health.stamina.percent > 0.5 && self.health.stamina.percent <= 0.75
         })
         timeline.append(clear)
+        timeline.append(wipeout)
+        timeline.append(StompBehavior(2, 1, 50, "boss_wipeout"))
+        timeline.append(restoreShield)
         timeline.append(march)
         timeline.append(ConditionalBehavior(setupSecondSegment()) { [unowned self] in
             self.health.stamina.percent > 0.25 && self.health.stamina.percent <= 0.5
         })
         timeline.append(clear)
+        timeline.append(wipeout)
+        timeline.append(StompBehavior(2, 1, 50, "boss_wipeout"))
+        timeline.append(restoreShield)
         timeline.append(march)
         timeline.append(ConditionalBehavior(setupThirdSegment()) { [unowned self] in
             self.health.stamina.percent > 0.1 && self.health.stamina.percent <= 0.25
@@ -109,6 +128,9 @@ class Emperor: Soldier {
         timeline.append(ConditionalBehavior(setupClimaxSegment()) { [unowned self] in
             self.health.stamina.percent <= 0.1
         })
+        
+        behavior.push(timeline)
+        
         
     }
     
@@ -211,6 +233,7 @@ class Emperor: Soldier {
                     return
                 }
             }else{
+                Audio.play("boss_defend", 1)
                 particle_shielding.set(DefendEffect(3))
             }
         }

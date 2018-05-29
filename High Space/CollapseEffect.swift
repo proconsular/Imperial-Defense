@@ -29,9 +29,7 @@ class CollapseEffect: ParticleShieldEffect {
     func update() {
         timer += Time.delta
         if timer >= length {
-            shield.drag = 0.925
-            shield.dilation = 1
-            shield.spawning = true
+            shield.reset()
             alive = false
         }
         shield.drag = clamp(shield.drag - 0.1 * Time.delta, min: 0.9, max: 1)

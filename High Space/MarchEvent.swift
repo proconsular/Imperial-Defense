@@ -12,14 +12,11 @@ class MarchEvent: Event {
     unowned var body: Body
     var amount: Float
     var frames: [Int]
-    var pitch: Float
-    var foot: Int = 0
     
     init(_ body: Body, _ amount: Float, _ frames: [Int]) {
         self.body = body
         self.amount = amount
         self.frames = frames
-        pitch = random(0.9, 1) + amount / 40.m
     }
     
     func activate() {

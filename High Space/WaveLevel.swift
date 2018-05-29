@@ -28,7 +28,7 @@ class WaveLevel: GameElement {
         let audio = Audio(name)
         if !audio.playing {
             audio.loop = true
-            audio.volume = 0.9
+            audio.volume = 1
             audio.start()
         }
     }

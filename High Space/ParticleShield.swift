@@ -38,6 +38,13 @@ class ParticleShield {
         enabled = true
     }
     
+    func reset() {
+        drag = 0.925
+        dilation = 1
+        spawning = true
+        Audio.play("boss_shield_recover", 1)
+    }
+    
     func update() {
         if !enabled { return }
         

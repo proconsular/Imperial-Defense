@@ -10,7 +10,7 @@ import Foundation
 
 class ConditionalBehavior: ActiveBehavior {
     var alive: Bool = true
-    var active: Bool = false
+    var active: Bool = true
     
     let condition: () -> Bool
     let behavior: Behavior

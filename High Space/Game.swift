@@ -51,6 +51,7 @@ class Game: DisplayLayer {
     
     static func showFailScreen() {
         Audio.stop("Battle")
+        Audio.stop("Emperor")
         UserInterface.fade {
             UserInterface.space.push(EndScreen(false))
         }

@@ -17,11 +17,13 @@ class StompBehavior: ActiveBehavior {
     
     var power, direction: Float
     var magnitude: Float
+    var sound: String
     
-    init(_ rate: Float, _ amount: Int, _ magnitude: Float) {
+    init(_ rate: Float, _ amount: Int, _ magnitude: Float, _ sound: String = "boss_shake") {
         self.rate = rate
         self.amount = amount
         self.magnitude = magnitude
+        self.sound = sound
         timer = 0
         count = 0
         power = 0
@@ -32,7 +34,8 @@ class StompBehavior: ActiveBehavior {
         active = true
         timer = 0
         count = 0
-        power = 0
+        power = 1
+        Audio.play(sound, 1)
     }
     
     func update() {
@@ -46,9 +49,7 @@ class StompBehavior: ActiveBehavior {
                 Camera.current.transform.location.x = 0
                 return
             }
-            let audio = Audio("stomp")
-            audio.volume = 1
-            audio.start()
+            Audio.play(sound, 1)
         }
         power = clamp(power - Time.delta, min: 0, max: 1)
         shake()

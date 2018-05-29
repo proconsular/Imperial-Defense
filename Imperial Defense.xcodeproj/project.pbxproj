@@ -35,7 +35,6 @@
 		2205EF6D1EC2D0C200DEFFF2 /* Animator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2205EF6C1EC2D0C200DEFFF2 /* Animator.swift */; };
 		2211AFCC1F2AD90C00F8B584 /* GraphicIndexer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2211AFCB1F2AD90C00F8B584 /* GraphicIndexer.swift */; };
 		2211AFCE1F2ADCFD00F8B584 /* PointCompiler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2211AFCD1F2ADCFD00F8B584 /* PointCompiler.swift */; };
-		2212C378200BE64100C4ED11 /* m_Emperor.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2212C377200BE64000C4ED11 /* m_Emperor.wav */; };
 		2212C37E200BEA3800C4ED11 /* ButtonBorder.png in Resources */ = {isa = PBXBuildFile; fileRef = 2212C37D200BEA3800C4ED11 /* ButtonBorder.png */; };
 		2212C382200C26DD00C4ED11 /* Background.png in Resources */ = {isa = PBXBuildFile; fileRef = 2212C381200C26DC00C4ED11 /* Background.png */; };
 		221A5F0C1D9866B5004B1516 /* Segan.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 221A5F0B1D9866B5004B1516 /* Segan.ttf */; };
@@ -47,7 +46,7 @@
 		222986591E48156B00389B49 /* s_power_full.wav in Resources */ = {isa = PBXBuildFile; fileRef = 222986581E48156B00389B49 /* s_power_full.wav */; };
 		2229865D1E4C464C00389B49 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2229865C1E4C464C00389B49 /* Media.xcassets */; };
 		2229865F1E4C466500389B49 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2229865E1E4C466500389B49 /* Launch Screen.storyboard */; };
-		222B965B1F15E6FD00D47922 /* BossBehaviors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222B965A1F15E6FD00D47922 /* BossBehaviors.swift */; };
+		222B965B1F15E6FD00D47922 /* BossBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222B965A1F15E6FD00D47922 /* BossBehavior.swift */; };
 		222B965D1F1721D300D47922 /* s_stomp.wav in Resources */ = {isa = PBXBuildFile; fileRef = 222B965C1F1721D300D47922 /* s_stomp.wav */; };
 		222DD8D51D48854700A70FA8 /* Default.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 222DD86A1D48854600A70FA8 /* Default.fsh */; };
 		222DD8D61D48854700A70FA8 /* Default.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 222DD86B1D48854600A70FA8 /* Default.vsh */; };
@@ -410,7 +409,6 @@
 		229F0D8B20267F8200A15991 /* s_phantom-power.wav in Resources */ = {isa = PBXBuildFile; fileRef = 229F0D8820267F8200A15991 /* s_phantom-power.wav */; };
 		229F0D8C20267F8200A15991 /* s_energy-pour.wav in Resources */ = {isa = PBXBuildFile; fileRef = 229F0D8920267F8200A15991 /* s_energy-pour.wav */; };
 		229F0D8E2026877200A15991 /* s_shake.wav in Resources */ = {isa = PBXBuildFile; fileRef = 229F0D8D2026877200A15991 /* s_shake.wav */; };
-		229F0D902027905500A15991 /* Emperor.png in Resources */ = {isa = PBXBuildFile; fileRef = 229F0D8F2027905500A15991 /* Emperor.png */; };
 		22A354C11FE0F02200BFE735 /* EnergyBlastPower.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22A354C01FE0F02200BFE735 /* EnergyBlastPower.swift */; };
 		22A6FA771F57B6F9007B1B9C /* Point.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 22A6FA761F57B6F9007B1B9C /* Point.vsh */; };
 		22A6FA791F57B706007B1B9C /* Point.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 22A6FA781F57B706007B1B9C /* Point.fsh */; };
@@ -467,6 +465,18 @@
 		22AC52E31FCD2538005ABFAF /* AbsorbBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AC52E21FCD2538005ABFAF /* AbsorbBehavior.swift */; };
 		22AC52E51FCE07CC005ABFAF /* GameSetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AC52E41FCE07CC005ABFAF /* GameSetter.swift */; };
 		22AC52E71FCE60ED005ABFAF /* LevelScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AC52E61FCE60ED005ABFAF /* LevelScreen.swift */; };
+		22ACC93C20BCD37D00233353 /* s_laser.wav in Resources */ = {isa = PBXBuildFile; fileRef = 22ACC93B20BCD37D00233353 /* s_laser.wav */; };
+		22ACC94020BCDB1B00233353 /* s_reflect.wav in Resources */ = {isa = PBXBuildFile; fileRef = 22ACC93D20BCDB1A00233353 /* s_reflect.wav */; };
+		22ACC94120BCDB1B00233353 /* s_boss_defend.wav in Resources */ = {isa = PBXBuildFile; fileRef = 22ACC93E20BCDB1B00233353 /* s_boss_defend.wav */; };
+		22ACC94220BCDB1B00233353 /* s_boss_step.wav in Resources */ = {isa = PBXBuildFile; fileRef = 22ACC93F20BCDB1B00233353 /* s_boss_step.wav */; };
+		22ACC94520BCDEE800233353 /* BossMarchEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22ACC94420BCDEE800233353 /* BossMarchEvent.swift */; };
+		22ACC94720BCDF9900233353 /* BossMarchAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22ACC94620BCDF9900233353 /* BossMarchAnimator.swift */; };
+		22ACC94920BCE95D00233353 /* s_boss_wipeout.wav in Resources */ = {isa = PBXBuildFile; fileRef = 22ACC94820BCE95C00233353 /* s_boss_wipeout.wav */; };
+		22ACC94B20BCF38D00233353 /* Emperor.png in Resources */ = {isa = PBXBuildFile; fileRef = 22ACC94A20BCF38C00233353 /* Emperor.png */; };
+		22ACC94D20BCF50200233353 /* s_boss_shake.wav in Resources */ = {isa = PBXBuildFile; fileRef = 22ACC94C20BCF50200233353 /* s_boss_shake.wav */; };
+		22ACC94F20BCFC0A00233353 /* s_boss_deflect.wav in Resources */ = {isa = PBXBuildFile; fileRef = 22ACC94E20BCFC0A00233353 /* s_boss_deflect.wav */; };
+		22ACC95320BD00F800233353 /* s_boss_recover.wav in Resources */ = {isa = PBXBuildFile; fileRef = 22ACC95220BD00F700233353 /* s_boss_recover.wav */; };
+		22ACC95520BD037000233353 /* s_boss_shield_recover.wav in Resources */ = {isa = PBXBuildFile; fileRef = 22ACC95420BD037000233353 /* s_boss_shield_recover.wav */; };
 		22B8C35D1D7D302400806C16 /* spineboy.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 22B8C35A1D7D302400806C16 /* spineboy.atlas */; };
 		22B8C35F1D7D302400806C16 /* spineboy.png in Resources */ = {isa = PBXBuildFile; fileRef = 22B8C35C1D7D302400806C16 /* spineboy.png */; };
 		22B8C3681D8262C400806C16 /* spineboy.json in Resources */ = {isa = PBXBuildFile; fileRef = 22B8C3671D8262C400806C16 /* spineboy.json */; };
@@ -556,6 +566,7 @@
 		22ED4A1E1F20F933002B8A8F /* Castle-Centerpiece.png in Resources */ = {isa = PBXBuildFile; fileRef = 22ED4A1B1F20F933002B8A8F /* Castle-Centerpiece.png */; };
 		22ED4A1F1F20F933002B8A8F /* Castle-Leftpiece.png in Resources */ = {isa = PBXBuildFile; fileRef = 22ED4A1C1F20F933002B8A8F /* Castle-Leftpiece.png */; };
 		22ED4A201F20F933002B8A8F /* Castle-Rightpiece.png in Resources */ = {isa = PBXBuildFile; fileRef = 22ED4A1D1F20F933002B8A8F /* Castle-Rightpiece.png */; };
+		22EFB14C20BBB5F5008215CA /* m_Emperor.wav in Resources */ = {isa = PBXBuildFile; fileRef = 22EFB14B20BBB5F5008215CA /* m_Emperor.wav */; };
 		22F03C341F2C25EE004F2BF1 /* GraphicsMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F03C331F2C25EE004F2BF1 /* GraphicsMethod.swift */; };
 		22F499FA20B0F999000EE0C9 /* Boundary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F499F920B0F999000EE0C9 /* Boundary.swift */; };
 		22F499FC20B10826000EE0C9 /* s_barrier-breakdown.wav in Resources */ = {isa = PBXBuildFile; fileRef = 22F499FB20B10825000EE0C9 /* s_barrier-breakdown.wav */; };
@@ -618,7 +629,6 @@
 		2205EF6C1EC2D0C200DEFFF2 /* Animator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Animator.swift; sourceTree = "<group>"; };
 		2211AFCB1F2AD90C00F8B584 /* GraphicIndexer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphicIndexer.swift; sourceTree = "<group>"; };
 		2211AFCD1F2ADCFD00F8B584 /* PointCompiler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PointCompiler.swift; sourceTree = "<group>"; };
-		2212C377200BE64000C4ED11 /* m_Emperor.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = m_Emperor.wav; sourceTree = "<group>"; };
 		2212C37D200BEA3800C4ED11 /* ButtonBorder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ButtonBorder.png; sourceTree = "<group>"; };
 		2212C381200C26DC00C4ED11 /* Background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Background.png; sourceTree = "<group>"; };
 		221A5F0B1D9866B5004B1516 /* Segan.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Segan.ttf; sourceTree = "<group>"; };
@@ -631,7 +641,7 @@
 		222986581E48156B00389B49 /* s_power_full.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = s_power_full.wav; sourceTree = "<group>"; };
 		2229865C1E4C464C00389B49 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		2229865E1E4C466500389B49 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
-		222B965A1F15E6FD00D47922 /* BossBehaviors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BossBehaviors.swift; sourceTree = "<group>"; };
+		222B965A1F15E6FD00D47922 /* BossBehavior.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BossBehavior.swift; sourceTree = "<group>"; };
 		222B965C1F1721D300D47922 /* s_stomp.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = s_stomp.wav; sourceTree = "<group>"; };
 		222DD8301D48843100A70FA8 /* Imperial Defense.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Imperial Defense.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		222DD8431D48843100A70FA8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -1002,7 +1012,6 @@
 		229F0D8820267F8200A15991 /* s_phantom-power.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "s_phantom-power.wav"; sourceTree = "<group>"; };
 		229F0D8920267F8200A15991 /* s_energy-pour.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "s_energy-pour.wav"; sourceTree = "<group>"; };
 		229F0D8D2026877200A15991 /* s_shake.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = s_shake.wav; sourceTree = "<group>"; };
-		229F0D8F2027905500A15991 /* Emperor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Emperor.png; sourceTree = "<group>"; };
 		22A354C01FE0F02200BFE735 /* EnergyBlastPower.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnergyBlastPower.swift; sourceTree = "<group>"; };
 		22A37E961DB1E8C60050816F /* Upgrade.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Upgrade.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		22A6FA761F57B6F9007B1B9C /* Point.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = Point.vsh; sourceTree = "<group>"; };
@@ -1062,6 +1071,18 @@
 		22AC52E21FCD2538005ABFAF /* AbsorbBehavior.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AbsorbBehavior.swift; sourceTree = "<group>"; };
 		22AC52E41FCE07CC005ABFAF /* GameSetter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameSetter.swift; sourceTree = "<group>"; };
 		22AC52E61FCE60ED005ABFAF /* LevelScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelScreen.swift; sourceTree = "<group>"; };
+		22ACC93B20BCD37D00233353 /* s_laser.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = s_laser.wav; sourceTree = "<group>"; };
+		22ACC93D20BCDB1A00233353 /* s_reflect.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = s_reflect.wav; sourceTree = "<group>"; };
+		22ACC93E20BCDB1B00233353 /* s_boss_defend.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = s_boss_defend.wav; sourceTree = "<group>"; };
+		22ACC93F20BCDB1B00233353 /* s_boss_step.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = s_boss_step.wav; sourceTree = "<group>"; };
+		22ACC94420BCDEE800233353 /* BossMarchEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BossMarchEvent.swift; sourceTree = "<group>"; };
+		22ACC94620BCDF9900233353 /* BossMarchAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BossMarchAnimator.swift; sourceTree = "<group>"; };
+		22ACC94820BCE95C00233353 /* s_boss_wipeout.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = s_boss_wipeout.wav; sourceTree = "<group>"; };
+		22ACC94A20BCF38C00233353 /* Emperor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Emperor.png; sourceTree = "<group>"; };
+		22ACC94C20BCF50200233353 /* s_boss_shake.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = s_boss_shake.wav; sourceTree = "<group>"; };
+		22ACC94E20BCFC0A00233353 /* s_boss_deflect.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = s_boss_deflect.wav; sourceTree = "<group>"; };
+		22ACC95220BD00F700233353 /* s_boss_recover.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = s_boss_recover.wav; sourceTree = "<group>"; };
+		22ACC95420BD037000233353 /* s_boss_shield_recover.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = s_boss_shield_recover.wav; sourceTree = "<group>"; };
 		22B8C35A1D7D302400806C16 /* spineboy.atlas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = spineboy.atlas; sourceTree = "<group>"; };
 		22B8C35C1D7D302400806C16 /* spineboy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spineboy.png; sourceTree = "<group>"; };
 		22B8C3671D8262C400806C16 /* spineboy.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = spineboy.json; sourceTree = "<group>"; };
@@ -1158,6 +1179,7 @@
 		22ED4A1B1F20F933002B8A8F /* Castle-Centerpiece.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Castle-Centerpiece.png"; sourceTree = "<group>"; };
 		22ED4A1C1F20F933002B8A8F /* Castle-Leftpiece.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Castle-Leftpiece.png"; sourceTree = "<group>"; };
 		22ED4A1D1F20F933002B8A8F /* Castle-Rightpiece.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Castle-Rightpiece.png"; sourceTree = "<group>"; };
+		22EFB14B20BBB5F5008215CA /* m_Emperor.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = m_Emperor.wav; sourceTree = "<group>"; };
 		22F03C331F2C25EE004F2BF1 /* GraphicsMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphicsMethod.swift; sourceTree = "<group>"; };
 		22F499F920B0F999000EE0C9 /* Boundary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Boundary.swift; sourceTree = "<group>"; };
 		22F499FB20B10825000EE0C9 /* s_barrier-breakdown.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "s_barrier-breakdown.wav"; sourceTree = "<group>"; };
@@ -1552,6 +1574,7 @@
 				2255CE8D20AA837F00999FA2 /* MarchEvent.swift */,
 				2255CE8F20AA839900999FA2 /* AnimationPlayer.swift */,
 				2255CE9120AA83AB00999FA2 /* TimedAnimationPlayer.swift */,
+				22ACC94420BCDEE800233353 /* BossMarchEvent.swift */,
 			);
 			name = animation;
 			sourceTree = "<group>";
@@ -1598,6 +1621,7 @@
 				2255CF2620AB598500999FA2 /* Sprint.swift */,
 				2255CF2820AB59A600999FA2 /* DrainEffect.swift */,
 				2255CF2A20AB59C100999FA2 /* VortexDrainEffect.swift */,
+				22ACC94620BCDF9900233353 /* BossMarchAnimator.swift */,
 			);
 			name = misc;
 			sourceTree = "<group>";
@@ -1621,7 +1645,7 @@
 		2255CEDF20AA8F2600999FA2 /* boss */ = {
 			isa = PBXGroup;
 			children = (
-				222B965A1F15E6FD00D47922 /* BossBehaviors.swift */,
+				222B965A1F15E6FD00D47922 /* BossBehavior.swift */,
 				2255CEE020AA904300999FA2 /* BossOpeningBehavior.swift */,
 				2255CEE220AA905B00999FA2 /* ConditionalBehavior.swift */,
 				2255CEE420AA906F00999FA2 /* ActiveBehavior.swift */,
@@ -1769,6 +1793,7 @@
 		225B15AE1E862630008F8D55 /* sounds */ = {
 			isa = PBXGroup;
 			children = (
+				22ACC94320BCDB1E00233353 /* boss */,
 				22E37C432009666C00BAFFB9 /* march */,
 				22E37C422009665400BAFFB9 /* barrier */,
 				22E37C412009663A00BAFFB9 /* castle */,
@@ -1784,7 +1809,7 @@
 			children = (
 				22C1FE4A20A7D75F005D9ABB /* m_Battle.wav */,
 				22C1FE4920A7D75F005D9ABB /* m_Title.wav */,
-				2212C377200BE64000C4ED11 /* m_Emperor.wav */,
+				22EFB14B20BBB5F5008215CA /* m_Emperor.wav */,
 				2295831D1F6DAE20009F7131 /* m_Emprate.wav */,
 				22C1FE4E20A7D9D9005D9ABB /* m_Castle.wav */,
 				22C1FE5020A7D9DA005D9ABB /* m_Defeat.wav */,
@@ -2208,6 +2233,21 @@
 			name = controllers;
 			sourceTree = "<group>";
 		};
+		22ACC94320BCDB1E00233353 /* boss */ = {
+			isa = PBXGroup;
+			children = (
+				22ACC93E20BCDB1B00233353 /* s_boss_defend.wav */,
+				22ACC93F20BCDB1B00233353 /* s_boss_step.wav */,
+				22ACC95420BD037000233353 /* s_boss_shield_recover.wav */,
+				22ACC95220BD00F700233353 /* s_boss_recover.wav */,
+				22ACC94E20BCFC0A00233353 /* s_boss_deflect.wav */,
+				22ACC93D20BCDB1A00233353 /* s_reflect.wav */,
+				22ACC94820BCE95C00233353 /* s_boss_wipeout.wav */,
+				22ACC94C20BCF50200233353 /* s_boss_shake.wav */,
+			);
+			name = boss;
+			sourceTree = "<group>";
+		};
 		22B8C3591D7D301C00806C16 /* spine */ = {
 			isa = PBXGroup;
 			children = (
@@ -2489,10 +2529,10 @@
 				229583411F6F3AAE009F7131 /* Thief.png */,
 				228CC2121EFF032A00E6F75C /* Player.png */,
 				229583571F70ACB1009F7131 /* Healer.png */,
+				22ACC94A20BCF38C00233353 /* Emperor.png */,
 				229583531F701FD0009F7131 /* Captain.png */,
 				22AC52BD1FC956C7005ABFAF /* Missile.png */,
 				224BE3001FE0B8E8000EAC8D /* Titan.png */,
-				229F0D8F2027905500A15991 /* Emperor.png */,
 				22411F84200FEA38005BE080 /* ArmoredSoldier.png */,
 				22411F8620100F6E005BE080 /* ArmoredScout.png */,
 				22411F82200FEA33005BE080 /* HardSoldier.png */,
@@ -2558,6 +2598,7 @@
 				22F57ED220183742001AEE06 /* s_missile.wav */,
 				229F0D6720256BFA00A15991 /* s_missile-explode.wav */,
 				229F0D632025645B00A15991 /* s_missile-move.wav */,
+				22ACC93B20BCD37D00233353 /* s_laser.wav */,
 				229F0D6920256EDF00A15991 /* s_warrior-roam.wav */,
 				229F0D6F2025739F00A15991 /* s_enemy-shield-reflect.wav */,
 				229F0D7B2025EDD000A15991 /* s_eat.wav */,
@@ -2834,8 +2875,10 @@
 				228CC2111EFEFB9E00E6F75C /* bullet.png in Resources */,
 				22A75AC51FBCDA0200AA625B /* ShowInput-Case.png in Resources */,
 				22A75AC41FBCDA0200AA625B /* ShowInput-Base.png in Resources */,
+				22ACC94F20BCFC0A00233353 /* s_boss_deflect.wav in Resources */,
 				229583461F6F40BD009F7131 /* Commander.png in Resources */,
 				229583201F6DAE20009F7131 /* m_Emprate.wav in Resources */,
+				22ACC94B20BCF38D00233353 /* Emperor.png in Resources */,
 				229F0D812025EDD200A15991 /* s_eat.wav in Resources */,
 				22C1FE5120A7D9DA005D9ABB /* m_Victory.wav in Resources */,
 				22E671E41F11D912006B5B59 /* s_enemy-shoot-heavy.wav in Resources */,
@@ -2843,11 +2886,14 @@
 				22E671E21F11D912006B5B59 /* s_enemy-shoot-snipe.wav in Resources */,
 				228CC2171F004FFA00E6F75C /* s_player_died.wav in Resources */,
 				2212C382200C26DD00C4ED11 /* Background.png in Resources */,
+				22ACC94120BCDB1B00233353 /* s_boss_defend.wav in Resources */,
 				22D56A4F1ED7E38B0017F7AE /* AUGUSTUS.TTF in Resources */,
 				22D73B251F23D23A00C01997 /* Rubble.png in Resources */,
 				221A5F121D986C60004B1516 /* Metropolis-ExtraLight.otf in Resources */,
+				22ACC95520BD037000233353 /* s_boss_shield_recover.wav in Resources */,
 				229B21381EC6A9C4001B3110 /* soldier_walk.png in Resources */,
 				229583901F740F59009F7131 /* s_upgrade_buy.wav in Resources */,
+				22ACC94020BCDB1B00233353 /* s_reflect.wav in Resources */,
 				22968D981F0DEE7D009A2E3D /* s_castle-break.wav in Resources */,
 				22E671E31F11D912006B5B59 /* s_enemy-shoot-magic.wav in Resources */,
 				22F57ED320183742001AEE06 /* s_missile.wav in Resources */,
@@ -2877,6 +2923,7 @@
 				22C313DF1FD79CA7004F9CEB /* Warrior.png in Resources */,
 				2295835E1F70B809009F7131 /* Soldier4.png in Resources */,
 				22BE4DA11EF50EFC00C641EC /* Mage.png in Resources */,
+				22ACC94220BCDB1B00233353 /* s_boss_step.wav in Resources */,
 				22B8C35D1D7D302400806C16 /* spineboy.atlas in Resources */,
 				228C5C0F1FCFEB7A00B93C8C /* s_explosion1.wav in Resources */,
 				229F0D8B20267F8200A15991 /* s_phantom-power.wav in Resources */,
@@ -2897,8 +2944,8 @@
 				2295830F1F697DB5009F7131 /* Splash_Castle_Scene.png in Resources */,
 				22411F8720100F6F005BE080 /* ArmoredScout.png in Resources */,
 				229F0D822025EDD200A15991 /* s_pull-close.wav in Resources */,
+				22ACC93C20BCD37D00233353 /* s_laser.wav in Resources */,
 				226DA1461DD19A570065EB00 /* gun.png in Resources */,
-				229F0D902027905500A15991 /* Emperor.png in Resources */,
 				22AC52BE1FC956C7005ABFAF /* Missile.png in Resources */,
 				226DA14A1DD1A07A0065EB00 /* bomb.png in Resources */,
 				2295838C1F736A34009F7131 /* Plates.png in Resources */,
@@ -2910,6 +2957,7 @@
 				229583921F74BB36009F7131 /* Explosion.vsh in Resources */,
 				229F0D74202577CC00A15991 /* s_shield-regen.wav in Resources */,
 				22D31C201D94D0F200818AFA /* s_shield_hit.wav in Resources */,
+				22ACC94920BCE95D00233353 /* s_boss_wipeout.wav in Resources */,
 				229F0D702025739F00A15991 /* s_enemy-shield-reflect.wav in Resources */,
 				229583581F70ACB1009F7131 /* Healer.png in Resources */,
 				228CC2231F005D8D00E6F75C /* s_weapon_lowpower.wav in Resources */,
@@ -2945,6 +2993,7 @@
 				2254AB0F1F1B2DA80020DD01 /* laser.png in Resources */,
 				22C1FE5220A7D9DA005D9ABB /* m_Castle.wav in Resources */,
 				22B8C3681D8262C400806C16 /* spineboy.json in Resources */,
+				22EFB14C20BBB5F5008215CA /* m_Emperor.wav in Resources */,
 				229583291F6E1E98009F7131 /* Scout.png in Resources */,
 				22F57ECD20183518001AEE06 /* s_enemy-rush.wav in Resources */,
 				22968DB61F10968E009A2E3D /* s_player-step.wav in Resources */,
@@ -2952,9 +3001,9 @@
 				229F0D8A20267F8200A15991 /* s_absorb-shield.wav in Resources */,
 				22722C171D488D2700BFA78A /* white.png in Resources */,
 				2254AB091F1B16900020DD01 /* Laser.vsh in Resources */,
-				2212C378200BE64100C4ED11 /* m_Emperor.wav in Resources */,
 				229F0D832025EDD200A15991 /* s_wave-blast.wav in Resources */,
 				228CC2151F004CB400E6F75C /* s_health_warning.wav in Resources */,
+				22ACC94D20BCF50200233353 /* s_boss_shake.wav in Resources */,
 				22F499FC20B10826000EE0C9 /* s_barrier-breakdown.wav in Resources */,
 				22E671E61F11D912006B5B59 /* s_button-click.wav in Resources */,
 				22E37C3E20093EEB00BAFFB9 /* Forge-Brick.png in Resources */,
@@ -2969,6 +3018,7 @@
 				22968D9B1F0DEE7D009A2E3D /* s_enemy-shield-hit.wav in Resources */,
 				2229865F1E4C466500389B49 /* Launch Screen.storyboard in Resources */,
 				229F0D8E2026877200A15991 /* s_shake.wav in Resources */,
+				22ACC95320BD00F800233353 /* s_boss_recover.wav in Resources */,
 				22968DAA1F0DF8D8009A2E3D /* s_march-2.wav in Resources */,
 				2295838E1F7379D9009F7131 /* Upgrade_Effects.png in Resources */,
 				226DA14E1DD1A4FD0065EB00 /* shield.png in Resources */,
@@ -3145,6 +3195,7 @@
 				22C1FE7920A7F4FA005D9ABB /* LevelSetter.swift in Sources */,
 				22F499FA20B0F999000EE0C9 /* Boundary.swift in Sources */,
 				22032F3F1E0EFDCC001462C2 /* Shape.swift in Sources */,
+				22ACC94720BCDF9900233353 /* BossMarchAnimator.swift in Sources */,
 				22613D021DC555D400FECAB0 /* Controller.swift in Sources */,
 				2255CEEB20AA90B300999FA2 /* LaserBlastBehavior.swift in Sources */,
 				22FBF6B81E131EF400B7824C /* GLTexture.swift in Sources */,
@@ -3187,6 +3238,7 @@
 				2255CE4220AA778E00999FA2 /* Halo.swift in Sources */,
 				2255CE4420AA77BA00999FA2 /* TextParticle.swift in Sources */,
 				2255CE7F20AA808000999FA2 /* ShieldAbsorbEffect.swift in Sources */,
+				22ACC94520BCDEE800233353 /* BossMarchEvent.swift in Sources */,
 				2255CEBC20AA892A00999FA2 /* DisruptFirePower.swift in Sources */,
 				229B213D1EC6B070001B3110 /* Soldier.swift in Sources */,
 				2255CEE920AA909B00999FA2 /* TimedBehavior.swift in Sources */,
@@ -3332,7 +3384,7 @@
 				2255CF9620ABFE4200999FA2 /* MaterialValue.swift in Sources */,
 				22C1FE6220A7E04A005D9ABB /* Time.swift in Sources */,
 				2241540A1F04AFEC0046CFDA /* StoryIntro.swift in Sources */,
-				222B965B1F15E6FD00D47922 /* BossBehaviors.swift in Sources */,
+				222B965B1F15E6FD00D47922 /* BossBehavior.swift in Sources */,
 				22AC52E31FCD2538005ABFAF /* AbsorbBehavior.swift in Sources */,
 				22613D141DC555D400FECAB0 /* Upgrade.swift in Sources */,
 				22613D151DC555D400FECAB0 /* Player.swift in Sources */,

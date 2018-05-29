@@ -51,5 +51,4 @@ class FinalBattleLayer: GameDisplayLayer {
             emperor.render()
         }
     }
-    
 }

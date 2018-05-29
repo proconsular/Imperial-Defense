@@ -15,7 +15,6 @@ class BaseMarchAnimator: Animator {
         animation.append(SheetAnimator(rate * 1.25, [MarchEvent(body, speed * 1.25, [0, 6])], SheetAnimation(0, 12, 12, 1)))
         animation.append(SheetAnimator(rate * 1.5, [MarchEvent(body, speed * 3, [12, 16])], SheetAnimation(12, 8, 12, 1)))
         super.init(TimedAnimationPlayer(animation))
-        //animation.current.animation.index = randomInt(0, 12)
     }
     
 }

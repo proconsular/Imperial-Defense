@@ -24,5 +24,6 @@ class ReflectReaction: HitReaction {
         bullet.body.orientation = atan2(reflect.y, reflect.x)
         bullet.casing.tag = ""
         bullet.body.mask = 0b111
+        Audio.play("reflect", 1)
     }
 }
