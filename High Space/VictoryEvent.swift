@@ -22,11 +22,7 @@ class VictoryEvent: GameEvent {
             UserInterface.space.push(screen)
         }
         
-        let audio = Audio("Battle")
-        audio.stop()
-        
-        let s = Audio("Emperor")
-        s.stop()
+        MusicSystem.instance.flush()
         
         GameData.info.wave += 1
         GameData.info.points += 1

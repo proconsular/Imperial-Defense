@@ -14,7 +14,7 @@ class DarkEnergy: Particle {
         if let player = Player.player {
             let dl = player.transform.location - transform.global.location
             if dl.length <= size * 3 && opacity >= 0.1 {
-                Player.player.damage(10)
+                player.damage(10 * (fabsf(player.body.velocity.x) / 1.m))
             }
         }
     }

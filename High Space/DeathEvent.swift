@@ -20,7 +20,7 @@ class DeathEvent: PlayerEvent {
     }
     
     func trigger() {
-        Audio.stop("Battle")
+        MusicSystem.instance.flush()
         Audio.play("player_died", 0.5)
         player.animation = PlayerDeath(player)
         player.animator.set(1)

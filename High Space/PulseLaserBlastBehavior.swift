@@ -10,8 +10,10 @@ import Foundation
 
 class PulseLaserBlastBehavior: LaserBlastBehavior {
     var charge: Float
+    unowned let guideLaser: Laser
     
-    init(_ laser: Laser, _ shield: ParticleShield) {
+    init(_ laser: Laser, _ guideLaser: Laser, _ shield: ParticleShield) {
+        self.guideLaser = guideLaser
         charge = 0
         super.init(0, 1, laser, shield)
         damage = 100
@@ -22,7 +24,7 @@ class PulseLaserBlastBehavior: LaserBlastBehavior {
         power = 1
         laser.visible = true
         shield.set(CollapseEffect(power))
-        laser.direction = normalize(Player.player.transform.location - Emperor.instance.transform.location)
+        laser.direction = guideLaser.direction
         charge = 0
     }
     

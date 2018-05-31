@@ -42,6 +42,7 @@ class RubbleFallBehavior: ActiveBehavior {
                 }
             }
             Map.current.append(FallingRubble(location, normalize(float2(0.25, 1))))
+            Audio.play("rubble_fall")
         }
     }
 }

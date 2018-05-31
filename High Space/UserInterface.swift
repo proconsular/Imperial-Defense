@@ -29,7 +29,6 @@ class UserInterface {
     static func create() {
         transition = FadeTransition(2)
         transition.transition(-1)
-        //controller.push(PointController(0))
     }
     
     static func update() {
@@ -39,6 +38,7 @@ class UserInterface {
         }
         space.update()
         Graphics.update()
+        MusicSystem.instance.update()
     }
     
     static func display() {

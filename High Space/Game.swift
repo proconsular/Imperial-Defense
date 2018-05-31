@@ -50,18 +50,11 @@ class Game: DisplayLayer {
     }
     
     static func showFailScreen() {
-        Audio.stop("Battle")
-        Audio.stop("Emperor")
+        MusicSystem.instance.flush()
         UserInterface.fade {
             UserInterface.space.push(EndScreen(false))
         }
         Game.instance.playing = false
-    }
-    
-    deinit {
-        Audio.stop("Battle")
-        Audio.stop("Emperor")
-        Audio.stop("wind")
     }
 }
 

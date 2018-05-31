@@ -17,13 +17,17 @@ class GameBase: GameInterface {
         
         UserInterface.create()
         GameData.create()
+        MusicSystem.create()
         
         for u in upgrader.upgrades {
             u.range.amount = Float(GameData.info.upgrades[u.name]!)
         }
         
+        //GameBase.debug(wave: 101, gun: 5, shield: 5, barrier: 5)
+        
         let main = ScreenSpace()
         main.push(Splash())
+        //main.push(PrincipalScreen())
         UserInterface.set(space: main)
     }
     

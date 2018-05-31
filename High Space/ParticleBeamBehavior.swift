@@ -29,6 +29,7 @@ class ParticleBeamBehavior: ActiveBehavior {
         count = 5
         radius = 0
         computeAngle()
+        Audio.play("particle_beam")
     }
     
     func computeAngle() {
@@ -49,6 +50,7 @@ class ParticleBeamBehavior: ActiveBehavior {
         }
         
         if radius >= Camera.size.x / 2 {
+            Audio.play("particle_beam")
             radius = 0
             count -= 1
             computeAngle()

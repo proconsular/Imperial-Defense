@@ -12,7 +12,7 @@ class BossMarchEvent: MarchEvent {
     
     override func activate() {
         super.activate()
-        Audio.play("boss_step", 0.5)
+        Audio.play("boss_step", 0.25)
     }
     
 }

@@ -34,10 +34,15 @@ class ParticleWaveBehavior: ActiveBehavior {
         active = true
         count = amount
         radius = 0
+        
     }
     
     func update() {
         radius += speed * Time.delta
+        
+        if !Audio("particle_wave").playing {
+            Audio.play("particle_wave")
+        }
         
         let amount = Int(10 + radius / 5.m + speed / 5.m)
         for i in 0 ..< amount {

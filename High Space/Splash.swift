@@ -21,7 +21,6 @@ class Splash: Screen {
     let clouds: SplashClouds
     
     var save: SaveDisplay
-    let audio: Audio
     
     var map: Map
     var simulation: Simulation
@@ -46,13 +45,8 @@ class Splash: Screen {
         
         save = SaveDisplay(float2(GameScreen.size.x * 0.66, GameScreen.size.y * 0.75 - 5))
         
-        audio = Audio("Title")
-        if !audio.playing {
-            audio.loop = true
-            audio.volume = 1
-            audio.pitch = 1
-            audio.start()
-        }
+        MusicSystem.instance.append(MusicEvent("Title_intro"))
+        MusicSystem.instance.append(MusicEvent("Title_main", true))
         
         title = SplashTitle()
        
@@ -126,10 +120,6 @@ class Splash: Screen {
         }
         
         layers.append(layer)
-    }
-    
-    deinit {
-        audio.stop()
     }
     
     override func update() {

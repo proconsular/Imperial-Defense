@@ -258,6 +258,27 @@
 		2255CF9E20ABFF4000999FA2 /* ExplosionMaterial.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2255CF9D20ABFF4000999FA2 /* ExplosionMaterial.swift */; };
 		2255CFA220AD0F2F00999FA2 /* Interface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2255CFA120AD0F2F00999FA2 /* Interface.swift */; };
 		225DC2D51E5016980068B566 /* Shield.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225DC2D41E5016980068B566 /* Shield.swift */; };
+		225E240A20BE1656004B0B63 /* m_Title_intro.wav in Resources */ = {isa = PBXBuildFile; fileRef = 225E240820BE1655004B0B63 /* m_Title_intro.wav */; };
+		225E240B20BE1656004B0B63 /* m_Title_main.wav in Resources */ = {isa = PBXBuildFile; fileRef = 225E240920BE1655004B0B63 /* m_Title_main.wav */; };
+		225E240E20BE1912004B0B63 /* MusicSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225E240D20BE1912004B0B63 /* MusicSystem.swift */; };
+		225E241020BE1BFB004B0B63 /* MusicEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225E240F20BE1BFB004B0B63 /* MusicEvent.swift */; };
+		225E241820BF2AA9004B0B63 /* m_Battle_main.wav in Resources */ = {isa = PBXBuildFile; fileRef = 225E241720BF2AA9004B0B63 /* m_Battle_main.wav */; };
+		225E241A20BF2D0D004B0B63 /* m_Battle_intro.wav in Resources */ = {isa = PBXBuildFile; fileRef = 225E241920BF2D0D004B0B63 /* m_Battle_intro.wav */; };
+		225E241D20BF3B0D004B0B63 /* m_Boss_intro.wav in Resources */ = {isa = PBXBuildFile; fileRef = 225E241B20BF3B0D004B0B63 /* m_Boss_intro.wav */; };
+		225E241E20BF3B0D004B0B63 /* m_Boss_main.wav in Resources */ = {isa = PBXBuildFile; fileRef = 225E241C20BF3B0D004B0B63 /* m_Boss_main.wav */; };
+		225E242120BF4992004B0B63 /* BossSequencer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225E242020BF4992004B0B63 /* BossSequencer.swift */; };
+		225E242320BF503C004B0B63 /* BossStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225E242220BF503C004B0B63 /* BossStatus.swift */; };
+		225E242520BF519B004B0B63 /* BossLaser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225E242420BF519B004B0B63 /* BossLaser.swift */; };
+		225E242720BF585F004B0B63 /* BossShield.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225E242620BF585F004B0B63 /* BossShield.swift */; };
+		225E242E20BF7F9D004B0B63 /* WarningLaserBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225E242D20BF7F9D004B0B63 /* WarningLaserBehavior.swift */; };
+		225E243020BF8463004B0B63 /* AudioDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225E242F20BF8463004B0B63 /* AudioDelegate.swift */; };
+		225E243220BF84AB004B0B63 /* LaserAudio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225E243120BF84AB004B0B63 /* LaserAudio.swift */; };
+		225E243420BFA224004B0B63 /* SequentialBossBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225E243320BFA224004B0B63 /* SequentialBossBehavior.swift */; };
+		225E243620BFA7D4004B0B63 /* s_boss_laser_warning.wav in Resources */ = {isa = PBXBuildFile; fileRef = 225E243520BFA7D4004B0B63 /* s_boss_laser_warning.wav */; };
+		225E243920BFB60E004B0B63 /* s_rubble_hit.wav in Resources */ = {isa = PBXBuildFile; fileRef = 225E243720BFB60D004B0B63 /* s_rubble_hit.wav */; };
+		225E243A20BFB60E004B0B63 /* s_rubble_fall.wav in Resources */ = {isa = PBXBuildFile; fileRef = 225E243820BFB60D004B0B63 /* s_rubble_fall.wav */; };
+		225E243E20BFBC5E004B0B63 /* s_particle_wave.wav in Resources */ = {isa = PBXBuildFile; fileRef = 225E243D20BFBC5D004B0B63 /* s_particle_wave.wav */; };
+		225E244020BFBF6D004B0B63 /* s_particle_beam.wav in Resources */ = {isa = PBXBuildFile; fileRef = 225E243F20BFBF6D004B0B63 /* s_particle_beam.wav */; };
 		225E516A1DC55CB30065EECF /* UserInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225E51691DC55CB30065EECF /* UserInterface.swift */; };
 		225E516C1DC55D180065EECF /* PhysicsTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225E516B1DC55D180065EECF /* PhysicsTypes.swift */; };
 		22613CE71DC555D400FECAB0 /* AudioLibrary.m in Sources */ = {isa = PBXBuildFile; fileRef = 222DD8531D48854600A70FA8 /* AudioLibrary.m */; };
@@ -494,8 +515,6 @@
 		22BB48921FC8CB18006CD5C1 /* HomingFirer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BB48911FC8CB18006CD5C1 /* HomingFirer.swift */; };
 		22BB48941FC8CB3B006CD5C1 /* Damagable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BB48931FC8CB3B006CD5C1 /* Damagable.swift */; };
 		22BE4DA11EF50EFC00C641EC /* Mage.png in Resources */ = {isa = PBXBuildFile; fileRef = 22BE4DA01EF50EFC00C641EC /* Mage.png */; };
-		22C1FE4B20A7D75F005D9ABB /* m_Title.wav in Resources */ = {isa = PBXBuildFile; fileRef = 22C1FE4920A7D75F005D9ABB /* m_Title.wav */; };
-		22C1FE4C20A7D75F005D9ABB /* m_Battle.wav in Resources */ = {isa = PBXBuildFile; fileRef = 22C1FE4A20A7D75F005D9ABB /* m_Battle.wav */; };
 		22C1FE5120A7D9DA005D9ABB /* m_Victory.wav in Resources */ = {isa = PBXBuildFile; fileRef = 22C1FE4D20A7D9D9005D9ABB /* m_Victory.wav */; };
 		22C1FE5220A7D9DA005D9ABB /* m_Castle.wav in Resources */ = {isa = PBXBuildFile; fileRef = 22C1FE4E20A7D9D9005D9ABB /* m_Castle.wav */; };
 		22C1FE5320A7D9DA005D9ABB /* m_Tutorial.wav in Resources */ = {isa = PBXBuildFile; fileRef = 22C1FE4F20A7D9D9005D9ABB /* m_Tutorial.wav */; };
@@ -897,6 +916,27 @@
 		2255CF9D20ABFF4000999FA2 /* ExplosionMaterial.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplosionMaterial.swift; sourceTree = "<group>"; };
 		2255CFA120AD0F2F00999FA2 /* Interface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interface.swift; sourceTree = "<group>"; };
 		225DC2D41E5016980068B566 /* Shield.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shield.swift; sourceTree = "<group>"; };
+		225E240820BE1655004B0B63 /* m_Title_intro.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = m_Title_intro.wav; sourceTree = "<group>"; };
+		225E240920BE1655004B0B63 /* m_Title_main.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = m_Title_main.wav; sourceTree = "<group>"; };
+		225E240D20BE1912004B0B63 /* MusicSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicSystem.swift; sourceTree = "<group>"; };
+		225E240F20BE1BFB004B0B63 /* MusicEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicEvent.swift; sourceTree = "<group>"; };
+		225E241720BF2AA9004B0B63 /* m_Battle_main.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = m_Battle_main.wav; sourceTree = "<group>"; };
+		225E241920BF2D0D004B0B63 /* m_Battle_intro.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = m_Battle_intro.wav; sourceTree = "<group>"; };
+		225E241B20BF3B0D004B0B63 /* m_Boss_intro.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = m_Boss_intro.wav; sourceTree = "<group>"; };
+		225E241C20BF3B0D004B0B63 /* m_Boss_main.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = m_Boss_main.wav; sourceTree = "<group>"; };
+		225E242020BF4992004B0B63 /* BossSequencer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BossSequencer.swift; sourceTree = "<group>"; };
+		225E242220BF503C004B0B63 /* BossStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BossStatus.swift; sourceTree = "<group>"; };
+		225E242420BF519B004B0B63 /* BossLaser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BossLaser.swift; sourceTree = "<group>"; };
+		225E242620BF585F004B0B63 /* BossShield.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BossShield.swift; sourceTree = "<group>"; };
+		225E242D20BF7F9D004B0B63 /* WarningLaserBehavior.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WarningLaserBehavior.swift; sourceTree = "<group>"; };
+		225E242F20BF8463004B0B63 /* AudioDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioDelegate.swift; sourceTree = "<group>"; };
+		225E243120BF84AB004B0B63 /* LaserAudio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaserAudio.swift; sourceTree = "<group>"; };
+		225E243320BFA224004B0B63 /* SequentialBossBehavior.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SequentialBossBehavior.swift; sourceTree = "<group>"; };
+		225E243520BFA7D4004B0B63 /* s_boss_laser_warning.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = s_boss_laser_warning.wav; sourceTree = "<group>"; };
+		225E243720BFB60D004B0B63 /* s_rubble_hit.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = s_rubble_hit.wav; sourceTree = "<group>"; };
+		225E243820BFB60D004B0B63 /* s_rubble_fall.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = s_rubble_fall.wav; sourceTree = "<group>"; };
+		225E243D20BFBC5D004B0B63 /* s_particle_wave.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = s_particle_wave.wav; sourceTree = "<group>"; };
+		225E243F20BFBF6D004B0B63 /* s_particle_beam.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = s_particle_beam.wav; sourceTree = "<group>"; };
 		225E51691DC55CB30065EECF /* UserInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInterface.swift; sourceTree = "<group>"; };
 		225E516B1DC55D180065EECF /* PhysicsTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhysicsTypes.swift; sourceTree = "<group>"; };
 		226DA1331DC584790065EB00 /* Body.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Body.swift; sourceTree = "<group>"; };
@@ -1101,8 +1141,6 @@
 		22BB48931FC8CB3B006CD5C1 /* Damagable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Damagable.swift; sourceTree = "<group>"; };
 		22BE4DA01EF50EFC00C641EC /* Mage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Mage.png; sourceTree = "<group>"; };
 		22BE5DBE1D6D3BE30038FAA8 /* Grid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Grid.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		22C1FE4920A7D75F005D9ABB /* m_Title.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = m_Title.wav; sourceTree = "<group>"; };
-		22C1FE4A20A7D75F005D9ABB /* m_Battle.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = m_Battle.wav; sourceTree = "<group>"; };
 		22C1FE4D20A7D9D9005D9ABB /* m_Victory.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = m_Victory.wav; sourceTree = "<group>"; };
 		22C1FE4E20A7D9D9005D9ABB /* m_Castle.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = m_Castle.wav; sourceTree = "<group>"; };
 		22C1FE4F20A7D9D9005D9ABB /* m_Tutorial.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = m_Tutorial.wav; sourceTree = "<group>"; };
@@ -1331,6 +1369,7 @@
 		222FA5FA1E667EF200D4A931 /* primary */ = {
 			isa = PBXGroup;
 			children = (
+				225E240C20BE1783004B0B63 /* audio */,
 				22C1FE7720A7F4AF005D9ABB /* misc */,
 				22C1FE7420A7F44F005D9ABB /* game */,
 				22C1FE7320A7F36B005D9ABB /* entry */,
@@ -1645,31 +1684,12 @@
 		2255CEDF20AA8F2600999FA2 /* boss */ = {
 			isa = PBXGroup;
 			children = (
-				222B965A1F15E6FD00D47922 /* BossBehavior.swift */,
-				2255CEE020AA904300999FA2 /* BossOpeningBehavior.swift */,
-				2255CEE220AA905B00999FA2 /* ConditionalBehavior.swift */,
-				2255CEE420AA906F00999FA2 /* ActiveBehavior.swift */,
-				2255CEE620AA908800999FA2 /* RandomBehavior.swift */,
-				2255CEE820AA909B00999FA2 /* TimedBehavior.swift */,
-				2255CEEA20AA90B300999FA2 /* LaserBlastBehavior.swift */,
-				2255CEEC20AA90CC00999FA2 /* ActionBehavior.swift */,
-				2255CEEE20AA90E600999FA2 /* FastLaserBlastBehavior.swift */,
-				2255CEF020AA911900999FA2 /* PulseLaserBlastBehavior.swift */,
-				2255CEF220AA912F00999FA2 /* RestBehavior.swift */,
-				2255CEF420AA914D00999FA2 /* DarkEnergyBlastBehavior.swift */,
-				2255CEF620AA916200999FA2 /* DarkBlast.swift */,
-				2255CEF820AA918600999FA2 /* StompBehavior.swift */,
-				2255CEFA20AA91A300999FA2 /* SummonLegionBehavior.swift */,
-				2255CEFC20AA91BC00999FA2 /* RubbleFallBehavior.swift */,
-				2255CEFE20AA91D300999FA2 /* ParticleWaveBehavior.swift */,
-				2255CF0020AA91ED00999FA2 /* ParticleBeamBehavior.swift */,
-				2255CF0220AA920700999FA2 /* ParticleShieldBehavior.swift */,
-				2255CF0420AA921A00999FA2 /* ParticleShield.swift */,
-				2255CF0620AA923300999FA2 /* ParticleShieldEffect.swift */,
-				2255CF0820AA924700999FA2 /* CollapseEffect.swift */,
-				2255CF0A20AA925E00999FA2 /* DefendEffect.swift */,
-				2255CF0C20AA927200999FA2 /* DeathBehavior.swift */,
-				2255CF0E20AA928600999FA2 /* PowerInfuser.swift */,
+				225E242C20BF7EAF004B0B63 /* misc */,
+				225E242B20BF7E8B004B0B63 /* attack */,
+				225E242A20BF7E55004B0B63 /* shield */,
+				225E242920BF7E27004B0B63 /* general */,
+				225E242820BF7E07004B0B63 /* laser */,
+				225E241F20BF4942004B0B63 /* sequence */,
 			);
 			name = boss;
 			sourceTree = "<group>";
@@ -1807,9 +1827,13 @@
 		225B15AF1E86263D008F8D55 /* music */ = {
 			isa = PBXGroup;
 			children = (
-				22C1FE4A20A7D75F005D9ABB /* m_Battle.wav */,
-				22C1FE4920A7D75F005D9ABB /* m_Title.wav */,
+				225E241920BF2D0D004B0B63 /* m_Battle_intro.wav */,
+				225E241720BF2AA9004B0B63 /* m_Battle_main.wav */,
 				22EFB14B20BBB5F5008215CA /* m_Emperor.wav */,
+				225E241B20BF3B0D004B0B63 /* m_Boss_intro.wav */,
+				225E241C20BF3B0D004B0B63 /* m_Boss_main.wav */,
+				225E240820BE1655004B0B63 /* m_Title_intro.wav */,
+				225E240920BE1655004B0B63 /* m_Title_main.wav */,
 				2295831D1F6DAE20009F7131 /* m_Emprate.wav */,
 				22C1FE4E20A7D9D9005D9ABB /* m_Castle.wav */,
 				22C1FE5020A7D9DA005D9ABB /* m_Defeat.wav */,
@@ -1827,6 +1851,89 @@
 				2254AB0E1F1B2DA80020DD01 /* laser.png */,
 			);
 			name = textures;
+			sourceTree = "<group>";
+		};
+		225E240C20BE1783004B0B63 /* audio */ = {
+			isa = PBXGroup;
+			children = (
+				225E240D20BE1912004B0B63 /* MusicSystem.swift */,
+				225E240F20BE1BFB004B0B63 /* MusicEvent.swift */,
+				225E242F20BF8463004B0B63 /* AudioDelegate.swift */,
+			);
+			name = audio;
+			sourceTree = "<group>";
+		};
+		225E241F20BF4942004B0B63 /* sequence */ = {
+			isa = PBXGroup;
+			children = (
+				225E242020BF4992004B0B63 /* BossSequencer.swift */,
+				225E242220BF503C004B0B63 /* BossStatus.swift */,
+				225E242420BF519B004B0B63 /* BossLaser.swift */,
+				225E242620BF585F004B0B63 /* BossShield.swift */,
+			);
+			name = sequence;
+			sourceTree = "<group>";
+		};
+		225E242820BF7E07004B0B63 /* laser */ = {
+			isa = PBXGroup;
+			children = (
+				2255CEEE20AA90E600999FA2 /* FastLaserBlastBehavior.swift */,
+				2255CEEA20AA90B300999FA2 /* LaserBlastBehavior.swift */,
+				2255CEF020AA911900999FA2 /* PulseLaserBlastBehavior.swift */,
+				225E242D20BF7F9D004B0B63 /* WarningLaserBehavior.swift */,
+			);
+			name = laser;
+			sourceTree = "<group>";
+		};
+		225E242920BF7E27004B0B63 /* general */ = {
+			isa = PBXGroup;
+			children = (
+				222B965A1F15E6FD00D47922 /* BossBehavior.swift */,
+				2255CEE020AA904300999FA2 /* BossOpeningBehavior.swift */,
+				2255CEE220AA905B00999FA2 /* ConditionalBehavior.swift */,
+				2255CEE420AA906F00999FA2 /* ActiveBehavior.swift */,
+				2255CEE620AA908800999FA2 /* RandomBehavior.swift */,
+				2255CEE820AA909B00999FA2 /* TimedBehavior.swift */,
+				2255CEEC20AA90CC00999FA2 /* ActionBehavior.swift */,
+				225E243320BFA224004B0B63 /* SequentialBossBehavior.swift */,
+			);
+			name = general;
+			sourceTree = "<group>";
+		};
+		225E242A20BF7E55004B0B63 /* shield */ = {
+			isa = PBXGroup;
+			children = (
+				2255CF0420AA921A00999FA2 /* ParticleShield.swift */,
+				2255CF0220AA920700999FA2 /* ParticleShieldBehavior.swift */,
+				2255CF0620AA923300999FA2 /* ParticleShieldEffect.swift */,
+				2255CF0820AA924700999FA2 /* CollapseEffect.swift */,
+				2255CF0A20AA925E00999FA2 /* DefendEffect.swift */,
+			);
+			name = shield;
+			sourceTree = "<group>";
+		};
+		225E242B20BF7E8B004B0B63 /* attack */ = {
+			isa = PBXGroup;
+			children = (
+				2255CEF820AA918600999FA2 /* StompBehavior.swift */,
+				2255CEF420AA914D00999FA2 /* DarkEnergyBlastBehavior.swift */,
+				2255CEF620AA916200999FA2 /* DarkBlast.swift */,
+				2255CEFA20AA91A300999FA2 /* SummonLegionBehavior.swift */,
+				2255CEFC20AA91BC00999FA2 /* RubbleFallBehavior.swift */,
+				2255CEFE20AA91D300999FA2 /* ParticleWaveBehavior.swift */,
+				2255CF0020AA91ED00999FA2 /* ParticleBeamBehavior.swift */,
+			);
+			name = attack;
+			sourceTree = "<group>";
+		};
+		225E242C20BF7EAF004B0B63 /* misc */ = {
+			isa = PBXGroup;
+			children = (
+				2255CEF220AA912F00999FA2 /* RestBehavior.swift */,
+				2255CF0C20AA927200999FA2 /* DeathBehavior.swift */,
+				2255CF0E20AA928600999FA2 /* PowerInfuser.swift */,
+			);
+			name = misc;
 			sourceTree = "<group>";
 		};
 		227016341E1B04DB0062442B /* game */ = {
@@ -2236,9 +2343,14 @@
 		22ACC94320BCDB1E00233353 /* boss */ = {
 			isa = PBXGroup;
 			children = (
+				225E243820BFB60D004B0B63 /* s_rubble_fall.wav */,
+				225E243720BFB60D004B0B63 /* s_rubble_hit.wav */,
+				225E243D20BFBC5D004B0B63 /* s_particle_wave.wav */,
+				225E243F20BFBF6D004B0B63 /* s_particle_beam.wav */,
 				22ACC93E20BCDB1B00233353 /* s_boss_defend.wav */,
 				22ACC93F20BCDB1B00233353 /* s_boss_step.wav */,
 				22ACC95420BD037000233353 /* s_boss_shield_recover.wav */,
+				225E243520BFA7D4004B0B63 /* s_boss_laser_warning.wav */,
 				22ACC95220BD00F700233353 /* s_boss_recover.wav */,
 				22ACC94E20BCFC0A00233353 /* s_boss_deflect.wav */,
 				22ACC93D20BCDB1A00233353 /* s_reflect.wav */,
@@ -2265,6 +2377,7 @@
 				22BB487D1FC76080006CD5C1 /* HomingWeapon.swift */,
 				22BB48871FC8CA04006CD5C1 /* PlayerWeapon.swift */,
 				22BB48891FC8CA21006CD5C1 /* Laser.swift */,
+				225E243120BF84AB004B0B63 /* LaserAudio.swift */,
 			);
 			name = weapon;
 			sourceTree = "<group>";
@@ -2865,10 +2978,12 @@
 				229F0D6820256BFA00A15991 /* s_missile-explode.wav in Resources */,
 				2229865D1E4C464C00389B49 /* Media.xcassets in Resources */,
 				22968DB91F1098FE009A2E3D /* s_enemy-shoot.wav in Resources */,
+				225E243620BFA7D4004B0B63 /* s_boss_laser_warning.wav in Resources */,
 				22D6F0BE1ED0006000F36F00 /* s_thunder.wav in Resources */,
 				22968D971F0DEE7D009A2E3D /* s_barrier-hit.wav in Resources */,
 				22B8C35F1D7D302400806C16 /* spineboy.png in Resources */,
 				229F0D6A20256EDF00A15991 /* s_warrior-roam.wav in Resources */,
+				225E240A20BE1656004B0B63 /* m_Title_intro.wav in Resources */,
 				22D6F0B81ECFF15E00F36F00 /* Splash_Cloud_2.png in Resources */,
 				221A5F101D986B21004B1516 /* Adamina-Regular.ttf in Resources */,
 				221A5F0E1D986A39004B1516 /* Aaargh.ttf in Resources */,
@@ -2910,6 +3025,7 @@
 				229583741F70CECB009F7131 /* Title.png in Resources */,
 				22968D921F0DEE7D009A2E3D /* s_march-big.wav in Resources */,
 				22E671DD1F11D912006B5B59 /* s_enemy-dodge.wav in Resources */,
+				225E243A20BFB60E004B0B63 /* s_rubble_fall.wav in Resources */,
 				22E671E11F11D912006B5B59 /* s_forge-hit.wav in Resources */,
 				226ECBAA1E29B9EC00334585 /* pause.png in Resources */,
 				22968D961F0DEE7D009A2E3D /* s_barrier-destroyed.wav in Resources */,
@@ -2934,6 +3050,7 @@
 				22F57ED120183691001AEE06 /* s_immune.wav in Resources */,
 				229F0D652025645C00A15991 /* s_missile-move.wav in Resources */,
 				22D6F0AA1ECFDFF500F36F00 /* Splash_Sky.png in Resources */,
+				225E241820BF2AA9004B0B63 /* m_Battle_main.wav in Resources */,
 				224EA292200ACEB100F49541 /* UpgradeBorder.png in Resources */,
 				22D6F0BA1ECFF15E00F36F00 /* Splash_Cloud_4.png in Resources */,
 				2254AB111F1B372F0020DD01 /* Lava.png in Resources */,
@@ -2946,11 +3063,14 @@
 				229F0D822025EDD200A15991 /* s_pull-close.wav in Resources */,
 				22ACC93C20BCD37D00233353 /* s_laser.wav in Resources */,
 				226DA1461DD19A570065EB00 /* gun.png in Resources */,
+				225E241E20BF3B0D004B0B63 /* m_Boss_main.wav in Resources */,
 				22AC52BE1FC956C7005ABFAF /* Missile.png in Resources */,
 				226DA14A1DD1A07A0065EB00 /* bomb.png in Resources */,
 				2295838C1F736A34009F7131 /* Plates.png in Resources */,
+				225E244020BFBF6D004B0B63 /* s_particle_beam.wav in Resources */,
 				22A6FA771F57B6F9007B1B9C /* Point.vsh in Resources */,
 				228CC2131EFF032A00E6F75C /* Player.png in Resources */,
+				225E243E20BFBC5E004B0B63 /* s_particle_wave.wav in Resources */,
 				229583421F6F3AAE009F7131 /* Thief.png in Resources */,
 				22722BA01D4887B700BFA78A /* MainView.storyboard in Resources */,
 				22FAEA7C1ED101E60014DD1F /* Splash_Player.png in Resources */,
@@ -2967,7 +3087,6 @@
 				229B21651EC992BE001B3110 /* s_enemy_charge.wav in Resources */,
 				22411FCA2012EE8D005BE080 /* s_enemy-health-hit.wav in Resources */,
 				229583151F6B7142009F7131 /* Upgrades.png in Resources */,
-				22C1FE4C20A7D75F005D9ABB /* m_Battle.wav in Resources */,
 				229F0D7620257ABE00A15991 /* s_level_defeat.wav in Resources */,
 				229B21611EC98EBC001B3110 /* s_shield_break.wav in Resources */,
 				22411F89201017FD005BE080 /* Charger.png in Resources */,
@@ -2980,6 +3099,7 @@
 				2205EEFE1EA9C7B600DEFFF2 /* Splash.png in Resources */,
 				22D872D61F2792D300C792C8 /* laser-fire.png in Resources */,
 				22C1FE5420A7D9DA005D9ABB /* m_Defeat.wav in Resources */,
+				225E243920BFB60E004B0B63 /* s_rubble_hit.wav in Resources */,
 				2271AAE01DB9C2DB00C87152 /* s_player_hit.wav in Resources */,
 				22F57ECB20183106001AEE06 /* s_immune-hit.wav in Resources */,
 				229F0D7F2025EDD200A15991 /* s_fire-energy.wav in Resources */,
@@ -2991,11 +3111,14 @@
 				22C1FE5320A7D9DA005D9ABB /* m_Tutorial.wav in Resources */,
 				222DD8D61D48854700A70FA8 /* Default.vsh in Resources */,
 				2254AB0F1F1B2DA80020DD01 /* laser.png in Resources */,
+				225E241A20BF2D0D004B0B63 /* m_Battle_intro.wav in Resources */,
+				225E241D20BF3B0D004B0B63 /* m_Boss_intro.wav in Resources */,
 				22C1FE5220A7D9DA005D9ABB /* m_Castle.wav in Resources */,
 				22B8C3681D8262C400806C16 /* spineboy.json in Resources */,
 				22EFB14C20BBB5F5008215CA /* m_Emperor.wav in Resources */,
 				229583291F6E1E98009F7131 /* Scout.png in Resources */,
 				22F57ECD20183518001AEE06 /* s_enemy-rush.wav in Resources */,
+				225E240B20BE1656004B0B63 /* m_Title_main.wav in Resources */,
 				22968DB61F10968E009A2E3D /* s_player-step.wav in Resources */,
 				2205EEE61EA09F0300DEFFF2 /* GameUIBack.png in Resources */,
 				229F0D8A20267F8200A15991 /* s_absorb-shield.wav in Resources */,
@@ -3022,7 +3145,6 @@
 				22968DAA1F0DF8D8009A2E3D /* s_march-2.wav in Resources */,
 				2295838E1F7379D9009F7131 /* Upgrade_Effects.png in Resources */,
 				226DA14E1DD1A4FD0065EB00 /* shield.png in Resources */,
-				22C1FE4B20A7D75F005D9ABB /* m_Title.wav in Resources */,
 				22D6F0A91ECFDFF500F36F00 /* Splash_Mountains.png in Resources */,
 				229583541F701FD0009F7131 /* Captain.png in Resources */,
 				2254AB0B1F1B169B0020DD01 /* Laser.fsh in Resources */,
@@ -3080,6 +3202,7 @@
 				22A75B001FC4F66200AA625B /* GlideBehavior.swift in Sources */,
 				22429FD31E56C8FF004BCBD0 /* Extensions.swift in Sources */,
 				224BE2F91FDF4CB8000EAC8D /* CounterAttackPower.swift in Sources */,
+				225E242E20BF7F9D004B0B63 /* WarningLaserBehavior.swift in Sources */,
 				2255CE2F20AA768000999FA2 /* FireEnergy.swift in Sources */,
 				2255CF2D20AB5A1500999FA2 /* LevelLayout.swift in Sources */,
 				22AC52C01FCB1970005ABFAF /* Upgrader.swift in Sources */,
@@ -3102,6 +3225,7 @@
 				22A75AE41FC4E91100AA625B /* PlayerDeath.swift in Sources */,
 				22613CEF1DC555D400FECAB0 /* Aux.swift in Sources */,
 				22BB48901FC8CAFC006CD5C1 /* Firer.swift in Sources */,
+				225E243420BFA224004B0B63 /* SequentialBossBehavior.swift in Sources */,
 				2255CF5720AB5D1700999FA2 /* BarrierConstructor.swift in Sources */,
 				22A75AB71FB9529600AA625B /* SettingsScreen.swift in Sources */,
 				2255CEF320AA912F00999FA2 /* RestBehavior.swift in Sources */,
@@ -3148,6 +3272,7 @@
 				2255CF7220ABF70000999FA2 /* SingleDisplayMethod.swift in Sources */,
 				2211AFCC1F2AD90C00F8B584 /* GraphicIndexer.swift in Sources */,
 				22613CF51DC555D400FECAB0 /* MainGame.swift in Sources */,
+				225E241020BE1BFB004B0B63 /* MusicEvent.swift in Sources */,
 				2255CEE720AA908800999FA2 /* RandomBehavior.swift in Sources */,
 				22613CF61DC555D400FECAB0 /* Game.swift in Sources */,
 				228C5C141FD36FB800B93C8C /* CooldownBehavior.swift in Sources */,
@@ -3169,6 +3294,7 @@
 				22704E131FE3126700F8A7F6 /* RadiatePower.swift in Sources */,
 				2255CF2720AB598500999FA2 /* Sprint.swift in Sources */,
 				2255CF6620AB5E7600999FA2 /* GraphicsBuffer.swift in Sources */,
+				225E243020BF8463004B0B63 /* AudioDelegate.swift in Sources */,
 				22C1FE8420A7F923005D9ABB /* Cell.swift in Sources */,
 				22AC52D41FCCB9EC005ABFAF /* LockdownPower.swift in Sources */,
 				22704E0F1FE20C7D00F8A7F6 /* QuakePower.swift in Sources */,
@@ -3193,6 +3319,7 @@
 				2255CF4920AB5B8500999FA2 /* SoldierMapper.swift in Sources */,
 				2255CF5A20AB5D5600999FA2 /* PlayerShieldEffect.swift in Sources */,
 				22C1FE7920A7F4FA005D9ABB /* LevelSetter.swift in Sources */,
+				225E242320BF503C004B0B63 /* BossStatus.swift in Sources */,
 				22F499FA20B0F999000EE0C9 /* Boundary.swift in Sources */,
 				22032F3F1E0EFDCC001462C2 /* Shape.swift in Sources */,
 				22ACC94720BCDF9900233353 /* BossMarchAnimator.swift in Sources */,
@@ -3325,6 +3452,8 @@
 				2255CE9220AA83AB00999FA2 /* TimedAnimationPlayer.swift in Sources */,
 				22AC52C61FCB2D9A005ABFAF /* Creator.swift in Sources */,
 				2255CEC420AA89A500999FA2 /* BlastPool.swift in Sources */,
+				225E243220BF84AB004B0B63 /* LaserAudio.swift in Sources */,
+				225E242520BF519B004B0B63 /* BossLaser.swift in Sources */,
 				227016311E1B04B70062442B /* ScreenSpace.swift in Sources */,
 				2255CF9A20ABFEAA00999FA2 /* ClassicMaterial.swift in Sources */,
 				2255CE4E20AA791F00999FA2 /* BulletSystem.swift in Sources */,
@@ -3350,6 +3479,7 @@
 				22BB487E1FC76080006CD5C1 /* HomingWeapon.swift in Sources */,
 				22AC52D61FCD0B7D005ABFAF /* Warrior.swift in Sources */,
 				2255CF6820AB5E9000999FA2 /* PolygonBuffer.swift in Sources */,
+				225E242720BF585F004B0B63 /* BossShield.swift in Sources */,
 				2255CE8120AA80A600999FA2 /* PlayerShield.swift in Sources */,
 				2255CE9D20AA85E800999FA2 /* ChaoticSelector.swift in Sources */,
 				22613D131DC555D400FECAB0 /* Particle.swift in Sources */,
@@ -3357,6 +3487,7 @@
 				22BB48921FC8CB18006CD5C1 /* HomingFirer.swift in Sources */,
 				2255CF3720AB5A9200999FA2 /* BaseWaveInfo.swift in Sources */,
 				22C1FE8A20A7FA92005D9ABB /* Command.swift in Sources */,
+				225E240E20BE1912004B0B63 /* MusicSystem.swift in Sources */,
 				2255CE7920AA804000999FA2 /* EnemyShieldAudio.swift in Sources */,
 				2255CEF920AA918600999FA2 /* StompBehavior.swift in Sources */,
 				2255CEA120AA862000999FA2 /* UnitPower.swift in Sources */,
@@ -3430,6 +3561,7 @@
 				2255CEAC20AA880600999FA2 /* TimedUnitPower.swift in Sources */,
 				2255CE3220AA76D800999FA2 /* ColorEffect.swift in Sources */,
 				2255CF9820ABFE6E00999FA2 /* Material.swift in Sources */,
+				225E242120BF4992004B0B63 /* BossSequencer.swift in Sources */,
 				22613D1F1DC555D400FECAB0 /* GLVisualDisplay.m in Sources */,
 				22613D201DC555D400FECAB0 /* Display.swift in Sources */,
 				226ECBA61E25FDC500334585 /* Scenery.swift in Sources */,

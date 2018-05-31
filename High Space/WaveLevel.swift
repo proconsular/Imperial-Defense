@@ -20,17 +20,16 @@ class WaveLevel: GameElement {
     func activate() {
         coordinator.next()
         
-        var name = "Battle"
+        MusicSystem.instance.flush()
+        
         if GameData.info.wave + 1 >= 101 {
-            name = "Emperor"
+            MusicSystem.instance.append(MusicEvent("Boss_intro"))
+            MusicSystem.instance.append(MusicEvent("Boss_main", true))
+        }else{
+            MusicSystem.instance.append(MusicEvent("Battle_intro"))
+            MusicSystem.instance.append(MusicEvent("Battle_main", true))
         }
         
-        let audio = Audio(name)
-        if !audio.playing {
-            audio.loop = true
-            audio.volume = 1
-            audio.start()
-        }
     }
     
     var complete: Bool {
