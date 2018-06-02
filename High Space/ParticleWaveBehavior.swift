@@ -41,7 +41,7 @@ class ParticleWaveBehavior: ActiveBehavior {
         radius += speed * Time.delta
         
         if !Audio("particle_wave").playing {
-            Audio.play("particle_wave")
+            Audio.play("particle_wave", 0.5)
         }
         
         let amount = Int(10 + radius / 5.m + speed / 5.m)

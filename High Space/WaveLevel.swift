@@ -20,6 +20,20 @@ class WaveLevel: GameElement {
     func activate() {
         coordinator.next()
         
+        if debugBoss {
+            var amount: Float = 0
+            if bossStage == 1 {
+                amount = 0.25
+            }else if bossStage == 2 {
+                amount = 0.5
+            }else if bossStage == 3 {
+                amount = 0.75
+            }else if bossStage == 4 {
+                amount = 0.9
+            }
+            Emperor.instance.health.stamina.damage(Emperor.instance.health.stamina.points.amount * amount)
+        }
+        
         MusicSystem.instance.flush()
         
         if GameData.info.wave + 1 >= 101 {

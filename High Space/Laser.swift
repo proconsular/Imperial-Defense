@@ -47,12 +47,12 @@ class Laser {
         display.color = rand == 0 ? color_first : color_second
         side.color = display.color
         side.refresh()
-        display.visual.refresh()
         audio?.play()
     }
     
     func render() {
         if visible {
+            display.visual.refresh()
             display.render()
         }
     }

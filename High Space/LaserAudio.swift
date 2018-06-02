@@ -21,7 +21,7 @@ class LaserAudio: AudioDelegate {
         if laser.visible {
             if laser.display.color.w == 1 {
                 if !Audio(sound).playing {
-                    Audio.play(sound, 0.5)
+                    Audio.play(sound, 0.25)
                 }
             }
         }

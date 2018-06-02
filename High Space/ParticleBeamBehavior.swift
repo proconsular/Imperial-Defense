@@ -50,7 +50,7 @@ class ParticleBeamBehavior: ActiveBehavior {
         }
         
         if radius >= Camera.size.x / 2 {
-            Audio.play("particle_beam")
+            Audio.play("particle_beam", 0.5)
             radius = 0
             count -= 1
             computeAngle()

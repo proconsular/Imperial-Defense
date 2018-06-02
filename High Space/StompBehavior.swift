@@ -49,7 +49,7 @@ class StompBehavior: ActiveBehavior {
                 Camera.current.transform.location.x = 0
                 return
             }
-            Audio.play(sound, 1)
+            Audio.play(sound, 0.75)
         }
         power = clamp(power - Time.delta, min: 0, max: 1)
         shake()

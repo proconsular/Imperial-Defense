@@ -10,7 +10,7 @@ import Foundation
 
 class GameBase: GameInterface {
     
-    init() {
+    init(_ config: GameConfig) {
         upgrader = Upgrader()
         
         Camera.current = Camera()
@@ -23,12 +23,7 @@ class GameBase: GameInterface {
             u.range.amount = Float(GameData.info.upgrades[u.name]!)
         }
         
-        //GameBase.debug(wave: 101, gun: 5, shield: 5, barrier: 5)
-        
-        let main = ScreenSpace()
-        main.push(Splash())
-        //main.push(PrincipalScreen())
-        UserInterface.set(space: main)
+        config.configure()
     }
     
     func update() {
@@ -37,14 +32,5 @@ class GameBase: GameInterface {
     
     func render() {
         UserInterface.display()
-    }
-    
-    static func debug(wave: Int, gun: Int, shield: Int, barrier: Int) {
-        GameData.info.wave = wave - 1
-        
-        upgrader.firepower.range.amount = Float(gun)
-        upgrader.shieldpower.range.amount = Float(shield)
-        upgrader.barrier.range.amount = Float(barrier)
-        GameData.info.points = 0
     }
 }

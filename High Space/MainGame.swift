@@ -18,7 +18,8 @@ protocol GameInterface {
     
     override init() {
         GameScreen.create()
-        interface = GameBase()
+        let config = StandardConfig()
+        interface = GameBase(config)
         super.init()
     }
     

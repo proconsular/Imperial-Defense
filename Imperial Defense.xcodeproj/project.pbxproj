@@ -71,6 +71,17 @@
 		22429FD11E542CAD004BCBD0 /* Experimental.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22429FD01E542CAD004BCBD0 /* Experimental.swift */; };
 		22429FD31E56C8FF004BCBD0 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22429FD21E56C8FF004BCBD0 /* Extensions.swift */; };
 		22429FD51E5B9CDD004BCBD0 /* Actorate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22429FD41E5B9CDD004BCBD0 /* Actorate.swift */; };
+		22448C4920C1D7B3000D830E /* m_Battle_main.wav in Resources */ = {isa = PBXBuildFile; fileRef = 22448C4820C1D7B3000D830E /* m_Battle_main.wav */; };
+		22448C4B20C20D88000D830E /* GameConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22448C4A20C20D88000D830E /* GameConfig.swift */; };
+		22448C4D20C20E90000D830E /* StandardConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22448C4C20C20E90000D830E /* StandardConfig.swift */; };
+		22448C4F20C20EDC000D830E /* LevelDebugConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22448C4E20C20EDC000D830E /* LevelDebugConfig.swift */; };
+		22448C5220C2109D000D830E /* BossDebugConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22448C5120C2109D000D830E /* BossDebugConfig.swift */; };
+		22448C5420C21325000D830E /* DebugFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22448C5320C21325000D830E /* DebugFrame.swift */; };
+		22448C5720C214BE000D830E /* GameFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22448C5620C214BE000D830E /* GameFrame.swift */; };
+		22448C5920C22ADE000D830E /* s_castle_collapse.wav in Resources */ = {isa = PBXBuildFile; fileRef = 22448C5820C22ADE000D830E /* s_castle_collapse.wav */; };
+		22448C5B20C22E12000D830E /* ScreenDebugConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22448C5A20C22E12000D830E /* ScreenDebugConfig.swift */; };
+		22448C5D20C22F43000D830E /* GameCompleteScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22448C5C20C22F43000D830E /* GameCompleteScreen.swift */; };
+		22448C5F20C2380A000D830E /* SaveDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22448C5E20C2380A000D830E /* SaveDisplay.swift */; };
 		224BE2F71FDF419C000EAC8D /* CounterDefendBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224BE2F61FDF419C000EAC8D /* CounterDefendBehavior.swift */; };
 		224BE2F91FDF4CB8000EAC8D /* CounterAttackPower.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224BE2F81FDF4CB8000EAC8D /* CounterAttackPower.swift */; };
 		224BE2FB1FDF52C8000EAC8D /* VisualEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 224BE2FA1FDF52C8000EAC8D /* VisualEffect.swift */; };
@@ -262,10 +273,8 @@
 		225E240B20BE1656004B0B63 /* m_Title_main.wav in Resources */ = {isa = PBXBuildFile; fileRef = 225E240920BE1655004B0B63 /* m_Title_main.wav */; };
 		225E240E20BE1912004B0B63 /* MusicSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225E240D20BE1912004B0B63 /* MusicSystem.swift */; };
 		225E241020BE1BFB004B0B63 /* MusicEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225E240F20BE1BFB004B0B63 /* MusicEvent.swift */; };
-		225E241820BF2AA9004B0B63 /* m_Battle_main.wav in Resources */ = {isa = PBXBuildFile; fileRef = 225E241720BF2AA9004B0B63 /* m_Battle_main.wav */; };
 		225E241A20BF2D0D004B0B63 /* m_Battle_intro.wav in Resources */ = {isa = PBXBuildFile; fileRef = 225E241920BF2D0D004B0B63 /* m_Battle_intro.wav */; };
 		225E241D20BF3B0D004B0B63 /* m_Boss_intro.wav in Resources */ = {isa = PBXBuildFile; fileRef = 225E241B20BF3B0D004B0B63 /* m_Boss_intro.wav */; };
-		225E241E20BF3B0D004B0B63 /* m_Boss_main.wav in Resources */ = {isa = PBXBuildFile; fileRef = 225E241C20BF3B0D004B0B63 /* m_Boss_main.wav */; };
 		225E242120BF4992004B0B63 /* BossSequencer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225E242020BF4992004B0B63 /* BossSequencer.swift */; };
 		225E242320BF503C004B0B63 /* BossStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225E242220BF503C004B0B63 /* BossStatus.swift */; };
 		225E242520BF519B004B0B63 /* BossLaser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 225E242420BF519B004B0B63 /* BossLaser.swift */; };
@@ -359,6 +368,7 @@
 		228CC2171F004FFA00E6F75C /* s_player_died.wav in Resources */ = {isa = PBXBuildFile; fileRef = 228CC2161F004FFA00E6F75C /* s_player_died.wav */; };
 		228CC21B1F00526700E6F75C /* s_player_fall.wav in Resources */ = {isa = PBXBuildFile; fileRef = 228CC21A1F00526700E6F75C /* s_player_fall.wav */; };
 		228CC2231F005D8D00E6F75C /* s_weapon_lowpower.wav in Resources */ = {isa = PBXBuildFile; fileRef = 228CC2221F005D8D00E6F75C /* s_weapon_lowpower.wav */; };
+		228E552720C08E8F00FBE122 /* m_Boss_main.wav in Resources */ = {isa = PBXBuildFile; fileRef = 228E552620C08E8E00FBE122 /* m_Boss_main.wav */; };
 		229523961FAE9238000E62F6 /* story.txt in Resources */ = {isa = PBXBuildFile; fileRef = 229523951FAE9238000E62F6 /* story.txt */; };
 		229583031F5F9108009F7131 /* LevelPiece.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229583021F5F9108009F7131 /* LevelPiece.swift */; };
 		229583051F5F92AC009F7131 /* UnitValueMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229583041F5F92AC009F7131 /* UnitValueMap.swift */; };
@@ -585,7 +595,6 @@
 		22ED4A1E1F20F933002B8A8F /* Castle-Centerpiece.png in Resources */ = {isa = PBXBuildFile; fileRef = 22ED4A1B1F20F933002B8A8F /* Castle-Centerpiece.png */; };
 		22ED4A1F1F20F933002B8A8F /* Castle-Leftpiece.png in Resources */ = {isa = PBXBuildFile; fileRef = 22ED4A1C1F20F933002B8A8F /* Castle-Leftpiece.png */; };
 		22ED4A201F20F933002B8A8F /* Castle-Rightpiece.png in Resources */ = {isa = PBXBuildFile; fileRef = 22ED4A1D1F20F933002B8A8F /* Castle-Rightpiece.png */; };
-		22EFB14C20BBB5F5008215CA /* m_Emperor.wav in Resources */ = {isa = PBXBuildFile; fileRef = 22EFB14B20BBB5F5008215CA /* m_Emperor.wav */; };
 		22F03C341F2C25EE004F2BF1 /* GraphicsMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F03C331F2C25EE004F2BF1 /* GraphicsMethod.swift */; };
 		22F499FA20B0F999000EE0C9 /* Boundary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F499F920B0F999000EE0C9 /* Boundary.swift */; };
 		22F499FC20B10826000EE0C9 /* s_barrier-breakdown.wav in Resources */ = {isa = PBXBuildFile; fileRef = 22F499FB20B10825000EE0C9 /* s_barrier-breakdown.wav */; };
@@ -726,6 +735,17 @@
 		22429FD21E56C8FF004BCBD0 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		22429FD41E5B9CDD004BCBD0 /* Actorate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Actorate.swift; sourceTree = "<group>"; };
 		22444E0B2022D1C200AEA155 /* TextureProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TextureProvider.h; sourceTree = "<group>"; };
+		22448C4820C1D7B3000D830E /* m_Battle_main.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = m_Battle_main.wav; sourceTree = "<group>"; };
+		22448C4A20C20D88000D830E /* GameConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameConfig.swift; sourceTree = "<group>"; };
+		22448C4C20C20E90000D830E /* StandardConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandardConfig.swift; sourceTree = "<group>"; };
+		22448C4E20C20EDC000D830E /* LevelDebugConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelDebugConfig.swift; sourceTree = "<group>"; };
+		22448C5120C2109D000D830E /* BossDebugConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BossDebugConfig.swift; sourceTree = "<group>"; };
+		22448C5320C21325000D830E /* DebugFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugFrame.swift; sourceTree = "<group>"; };
+		22448C5620C214BE000D830E /* GameFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameFrame.swift; sourceTree = "<group>"; };
+		22448C5820C22ADE000D830E /* s_castle_collapse.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = s_castle_collapse.wav; sourceTree = "<group>"; };
+		22448C5A20C22E12000D830E /* ScreenDebugConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenDebugConfig.swift; sourceTree = "<group>"; };
+		22448C5C20C22F43000D830E /* GameCompleteScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCompleteScreen.swift; sourceTree = "<group>"; };
+		22448C5E20C2380A000D830E /* SaveDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveDisplay.swift; sourceTree = "<group>"; };
 		2249C3551DBC307A00D4EEBF /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Player.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		224BE2F61FDF419C000EAC8D /* CounterDefendBehavior.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CounterDefendBehavior.swift; sourceTree = "<group>"; };
 		224BE2F81FDF4CB8000EAC8D /* CounterAttackPower.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CounterAttackPower.swift; sourceTree = "<group>"; };
@@ -920,10 +940,8 @@
 		225E240920BE1655004B0B63 /* m_Title_main.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = m_Title_main.wav; sourceTree = "<group>"; };
 		225E240D20BE1912004B0B63 /* MusicSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicSystem.swift; sourceTree = "<group>"; };
 		225E240F20BE1BFB004B0B63 /* MusicEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicEvent.swift; sourceTree = "<group>"; };
-		225E241720BF2AA9004B0B63 /* m_Battle_main.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = m_Battle_main.wav; sourceTree = "<group>"; };
 		225E241920BF2D0D004B0B63 /* m_Battle_intro.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = m_Battle_intro.wav; sourceTree = "<group>"; };
 		225E241B20BF3B0D004B0B63 /* m_Boss_intro.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = m_Boss_intro.wav; sourceTree = "<group>"; };
-		225E241C20BF3B0D004B0B63 /* m_Boss_main.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = m_Boss_main.wav; sourceTree = "<group>"; };
 		225E242020BF4992004B0B63 /* BossSequencer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BossSequencer.swift; sourceTree = "<group>"; };
 		225E242220BF503C004B0B63 /* BossStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BossStatus.swift; sourceTree = "<group>"; };
 		225E242420BF519B004B0B63 /* BossLaser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BossLaser.swift; sourceTree = "<group>"; };
@@ -981,6 +999,7 @@
 		228CC2161F004FFA00E6F75C /* s_player_died.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = s_player_died.wav; sourceTree = "<group>"; };
 		228CC21A1F00526700E6F75C /* s_player_fall.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = s_player_fall.wav; sourceTree = "<group>"; };
 		228CC2221F005D8D00E6F75C /* s_weapon_lowpower.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = s_weapon_lowpower.wav; sourceTree = "<group>"; };
+		228E552620C08E8E00FBE122 /* m_Boss_main.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = m_Boss_main.wav; sourceTree = "<group>"; };
 		229523951FAE9238000E62F6 /* story.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = story.txt; sourceTree = "<group>"; };
 		229583021F5F9108009F7131 /* LevelPiece.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelPiece.swift; sourceTree = "<group>"; };
 		229583041F5F92AC009F7131 /* UnitValueMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnitValueMap.swift; sourceTree = "<group>"; };
@@ -1217,7 +1236,6 @@
 		22ED4A1B1F20F933002B8A8F /* Castle-Centerpiece.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Castle-Centerpiece.png"; sourceTree = "<group>"; };
 		22ED4A1C1F20F933002B8A8F /* Castle-Leftpiece.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Castle-Leftpiece.png"; sourceTree = "<group>"; };
 		22ED4A1D1F20F933002B8A8F /* Castle-Rightpiece.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Castle-Rightpiece.png"; sourceTree = "<group>"; };
-		22EFB14B20BBB5F5008215CA /* m_Emperor.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = m_Emperor.wav; sourceTree = "<group>"; };
 		22F03C331F2C25EE004F2BF1 /* GraphicsMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GraphicsMethod.swift; sourceTree = "<group>"; };
 		22F499F920B0F999000EE0C9 /* Boundary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Boundary.swift; sourceTree = "<group>"; };
 		22F499FB20B10825000EE0C9 /* s_barrier-breakdown.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "s_barrier-breakdown.wav"; sourceTree = "<group>"; };
@@ -1409,6 +1427,27 @@
 				22ED3F881F26416900BFE5AF /* outro.txt */,
 			);
 			name = story;
+			sourceTree = "<group>";
+		};
+		22448C5020C20F0C000D830E /* configuration */ = {
+			isa = PBXGroup;
+			children = (
+				22448C4A20C20D88000D830E /* GameConfig.swift */,
+				22448C4C20C20E90000D830E /* StandardConfig.swift */,
+				22448C4E20C20EDC000D830E /* LevelDebugConfig.swift */,
+				22448C5120C2109D000D830E /* BossDebugConfig.swift */,
+				22448C5A20C22E12000D830E /* ScreenDebugConfig.swift */,
+			);
+			name = configuration;
+			sourceTree = "<group>";
+		};
+		22448C5520C2142D000D830E /* frame */ = {
+			isa = PBXGroup;
+			children = (
+				22448C5620C214BE000D830E /* GameFrame.swift */,
+				22448C5320C21325000D830E /* DebugFrame.swift */,
+			);
+			name = frame;
 			sourceTree = "<group>";
 		};
 		224BE2F51FDF415D000EAC8D /* titan */ = {
@@ -1828,10 +1867,9 @@
 			isa = PBXGroup;
 			children = (
 				225E241920BF2D0D004B0B63 /* m_Battle_intro.wav */,
-				225E241720BF2AA9004B0B63 /* m_Battle_main.wav */,
-				22EFB14B20BBB5F5008215CA /* m_Emperor.wav */,
+				22448C4820C1D7B3000D830E /* m_Battle_main.wav */,
 				225E241B20BF3B0D004B0B63 /* m_Boss_intro.wav */,
-				225E241C20BF3B0D004B0B63 /* m_Boss_main.wav */,
+				228E552620C08E8E00FBE122 /* m_Boss_main.wav */,
 				225E240820BE1655004B0B63 /* m_Title_intro.wav */,
 				225E240920BE1655004B0B63 /* m_Title_main.wav */,
 				2295831D1F6DAE20009F7131 /* m_Emprate.wav */,
@@ -2343,6 +2381,7 @@
 		22ACC94320BCDB1E00233353 /* boss */ = {
 			isa = PBXGroup;
 			children = (
+				22448C5820C22ADE000D830E /* s_castle_collapse.wav */,
 				225E243820BFB60D004B0B63 /* s_rubble_fall.wav */,
 				225E243720BFB60D004B0B63 /* s_rubble_hit.wav */,
 				225E243D20BFBC5D004B0B63 /* s_particle_wave.wav */,
@@ -2401,6 +2440,7 @@
 				22FAEA7D1ED259EF0014DD1F /* SplashTitle.swift */,
 				22C1FE5D20A7DFCE005D9ABB /* SplashClouds.swift */,
 				22C1FE5F20A7DFE4005D9ABB /* SplashSky.swift */,
+				22448C5E20C2380A000D830E /* SaveDisplay.swift */,
 			);
 			name = splash;
 			sourceTree = "<group>";
@@ -2422,6 +2462,7 @@
 				2270162C1E1B028F0062442B /* PrincipalScreen.swift */,
 				222DD8751D48854600A70FA8 /* PauseScreen.swift */,
 				2205EEF31EA451D600DEFFF2 /* VictoryScreen.swift */,
+				22448C5C20C22F43000D830E /* GameCompleteScreen.swift */,
 			);
 			name = "in-game";
 			sourceTree = "<group>";
@@ -2459,6 +2500,8 @@
 		22C1FE7320A7F36B005D9ABB /* entry */ = {
 			isa = PBXGroup;
 			children = (
+				22448C5520C2142D000D830E /* frame */,
+				22448C5020C20F0C000D830E /* configuration */,
 				222DD8661D48854600A70FA8 /* MainGame.swift */,
 				22C1FE6320A7E05F005D9ABB /* GameBase.swift */,
 				22C1FE7120A7F364005D9ABB /* GameProperties.swift */,
@@ -2977,6 +3020,7 @@
 				22A6FA791F57B706007B1B9C /* Point.fsh in Resources */,
 				229F0D6820256BFA00A15991 /* s_missile-explode.wav in Resources */,
 				2229865D1E4C464C00389B49 /* Media.xcassets in Resources */,
+				22448C4920C1D7B3000D830E /* m_Battle_main.wav in Resources */,
 				22968DB91F1098FE009A2E3D /* s_enemy-shoot.wav in Resources */,
 				225E243620BFA7D4004B0B63 /* s_boss_laser_warning.wav in Resources */,
 				22D6F0BE1ED0006000F36F00 /* s_thunder.wav in Resources */,
@@ -3001,6 +3045,7 @@
 				22E671E21F11D912006B5B59 /* s_enemy-shoot-snipe.wav in Resources */,
 				228CC2171F004FFA00E6F75C /* s_player_died.wav in Resources */,
 				2212C382200C26DD00C4ED11 /* Background.png in Resources */,
+				228E552720C08E8F00FBE122 /* m_Boss_main.wav in Resources */,
 				22ACC94120BCDB1B00233353 /* s_boss_defend.wav in Resources */,
 				22D56A4F1ED7E38B0017F7AE /* AUGUSTUS.TTF in Resources */,
 				22D73B251F23D23A00C01997 /* Rubble.png in Resources */,
@@ -3033,6 +3078,7 @@
 				229F0D6E2025711D00A15991 /* Halo.png in Resources */,
 				22D56A5D1EDB450E0017F7AE /* Anvil.png in Resources */,
 				229B215D1EC81E0D001B3110 /* Shield.fsh in Resources */,
+				22448C5920C22ADE000D830E /* s_castle_collapse.wav in Resources */,
 				229F0D8C20267F8200A15991 /* s_energy-pour.wav in Resources */,
 				2229864F1E48025000389B49 /* s_shield_weak.wav in Resources */,
 				2212C37E200BEA3800C4ED11 /* ButtonBorder.png in Resources */,
@@ -3050,7 +3096,6 @@
 				22F57ED120183691001AEE06 /* s_immune.wav in Resources */,
 				229F0D652025645C00A15991 /* s_missile-move.wav in Resources */,
 				22D6F0AA1ECFDFF500F36F00 /* Splash_Sky.png in Resources */,
-				225E241820BF2AA9004B0B63 /* m_Battle_main.wav in Resources */,
 				224EA292200ACEB100F49541 /* UpgradeBorder.png in Resources */,
 				22D6F0BA1ECFF15E00F36F00 /* Splash_Cloud_4.png in Resources */,
 				2254AB111F1B372F0020DD01 /* Lava.png in Resources */,
@@ -3063,7 +3108,6 @@
 				229F0D822025EDD200A15991 /* s_pull-close.wav in Resources */,
 				22ACC93C20BCD37D00233353 /* s_laser.wav in Resources */,
 				226DA1461DD19A570065EB00 /* gun.png in Resources */,
-				225E241E20BF3B0D004B0B63 /* m_Boss_main.wav in Resources */,
 				22AC52BE1FC956C7005ABFAF /* Missile.png in Resources */,
 				226DA14A1DD1A07A0065EB00 /* bomb.png in Resources */,
 				2295838C1F736A34009F7131 /* Plates.png in Resources */,
@@ -3115,7 +3159,6 @@
 				225E241D20BF3B0D004B0B63 /* m_Boss_intro.wav in Resources */,
 				22C1FE5220A7D9DA005D9ABB /* m_Castle.wav in Resources */,
 				22B8C3681D8262C400806C16 /* spineboy.json in Resources */,
-				22EFB14C20BBB5F5008215CA /* m_Emperor.wav in Resources */,
 				229583291F6E1E98009F7131 /* Scout.png in Resources */,
 				22F57ECD20183518001AEE06 /* s_enemy-rush.wav in Resources */,
 				225E240B20BE1656004B0B63 /* m_Title_main.wav in Resources */,
@@ -3193,6 +3236,7 @@
 				2255CEB020AA885300999FA2 /* PlayerAwayCondition.swift in Sources */,
 				2255CEB820AA88EE00999FA2 /* StealEnergyPower.swift in Sources */,
 				2255CF7820ABF78100999FA2 /* RenderGroupNode.swift in Sources */,
+				22448C5720C214BE000D830E /* GameFrame.swift in Sources */,
 				22613CE81DC555D400FECAB0 /* Audio.swift in Sources */,
 				2255CF7020ABF6CF00999FA2 /* RenderNode.swift in Sources */,
 				22C1FE7220A7F364005D9ABB /* GameProperties.swift in Sources */,
@@ -3211,6 +3255,7 @@
 				22C1FE9D20A7FFBE005D9ABB /* PolygonSolver.swift in Sources */,
 				22A75AD81FC3B68A00AA625B /* Phantom.swift in Sources */,
 				22AC52E11FCD238A005ABFAF /* TitanController.swift in Sources */,
+				22448C5D20C22F43000D830E /* GameCompleteScreen.swift in Sources */,
 				22613CEA1DC555D400FECAB0 /* Interactive.swift in Sources */,
 				2255CE4020AA776D00999FA2 /* Explosion.swift in Sources */,
 				2255CE3A20AA773000999FA2 /* Guider.swift in Sources */,
@@ -3220,6 +3265,7 @@
 				2255CF7A20ABF7A000999FA2 /* GraphicsRenderer.swift in Sources */,
 				2255CF2120AB58E400999FA2 /* Row.swift in Sources */,
 				22613CEE1DC555D400FECAB0 /* AppDelegate.m in Sources */,
+				22448C5F20C2380A000D830E /* SaveDisplay.swift in Sources */,
 				2205EE971E9AC90300DEFFF2 /* Animation.swift in Sources */,
 				22A354C11FE0F02200BFE735 /* EnergyBlastPower.swift in Sources */,
 				22A75AE41FC4E91100AA625B /* PlayerDeath.swift in Sources */,
@@ -3271,6 +3317,7 @@
 				22A75AEE1FC4E9FC00AA625B /* ShieldUpgrade.swift in Sources */,
 				2255CF7220ABF70000999FA2 /* SingleDisplayMethod.swift in Sources */,
 				2211AFCC1F2AD90C00F8B584 /* GraphicIndexer.swift in Sources */,
+				22448C5420C21325000D830E /* DebugFrame.swift in Sources */,
 				22613CF51DC555D400FECAB0 /* MainGame.swift in Sources */,
 				225E241020BE1BFB004B0B63 /* MusicEvent.swift in Sources */,
 				2255CEE720AA908800999FA2 /* RandomBehavior.swift in Sources */,
@@ -3306,6 +3353,7 @@
 				22BB488C1FC8CAC2006CD5C1 /* HomingBullet.swift in Sources */,
 				2255CF5C20AB5D7100999FA2 /* PlayerAnimation.swift in Sources */,
 				22613D011DC555D400FECAB0 /* Map.swift in Sources */,
+				22448C4F20C20EDC000D830E /* LevelDebugConfig.swift in Sources */,
 				2255CE9720AA859200999FA2 /* UnitTurn.swift in Sources */,
 				22A75AE61FC4E92C00AA625B /* DeathEvent.swift in Sources */,
 				22032F4F1E0EFF99001462C2 /* RawSchemeGroup.swift in Sources */,
@@ -3316,6 +3364,7 @@
 				22C1FE9620A7FB5A005D9ABB /* HorizontialMovementController.swift in Sources */,
 				2255CF6020AB5DFC00999FA2 /* Edgeform.swift in Sources */,
 				227D574A1FCF49AB000558E3 /* PhantomController.swift in Sources */,
+				22448C4D20C20E90000D830E /* StandardConfig.swift in Sources */,
 				2255CF4920AB5B8500999FA2 /* SoldierMapper.swift in Sources */,
 				2255CF5A20AB5D5600999FA2 /* PlayerShieldEffect.swift in Sources */,
 				22C1FE7920A7F4FA005D9ABB /* LevelSetter.swift in Sources */,
@@ -3436,6 +3485,7 @@
 				22613D0D1DC555D400FECAB0 /* FixedRect.swift in Sources */,
 				22C1FE6D20A7F26B005D9ABB /* DebugLevel.swift in Sources */,
 				2255CF4120AB5B2D00999FA2 /* LayoutConverter.swift in Sources */,
+				22448C4B20C20D88000D830E /* GameConfig.swift in Sources */,
 				2255CEAE20AA882600999FA2 /* PowerCondition.swift in Sources */,
 				22613D0E1DC555D400FECAB0 /* Structure.swift in Sources */,
 				22ED3F871F263AEF00BFE5AF /* StoryOutro.swift in Sources */,
@@ -3462,6 +3512,7 @@
 				2255CF3520AB5A8000999FA2 /* WaveInfo.swift in Sources */,
 				226DA1341DC584790065EB00 /* Body.swift in Sources */,
 				22BB48821FC8C99C006CD5C1 /* PowerWarning.swift in Sources */,
+				22448C5B20C22E12000D830E /* ScreenDebugConfig.swift in Sources */,
 				2255CF6C20ABF67600999FA2 /* SingleRendererMethod.swift in Sources */,
 				2255CF2520AB596900999FA2 /* SoldierTerminator.swift in Sources */,
 				22613D101DC555D400FECAB0 /* BaseMarchAnimator.swift in Sources */,
@@ -3541,6 +3592,7 @@
 				229C299C1F57A93F0080717A /* ParticleSystem.swift in Sources */,
 				22F49A0120B11D9E000EE0C9 /* ShowPointer.swift in Sources */,
 				22AC52CA1FCBB188005ABFAF /* Level.swift in Sources */,
+				22448C5220C2109D000D830E /* BossDebugConfig.swift in Sources */,
 				22613D1B1DC555D400FECAB0 /* Visual.swift in Sources */,
 				2255CEDE20AA8F0D00999FA2 /* TriggeredBehavior.swift in Sources */,
 				2255CEEF20AA90E600999FA2 /* FastLaserBlastBehavior.swift in Sources */,

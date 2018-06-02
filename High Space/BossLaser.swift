@@ -48,6 +48,7 @@ class BossLaser {
         laserFire.refresh()
         if pulseLaser.visible {
             laserBlast.angle = atan2(pulseLaser.direction.y, pulseLaser.direction.x)
+            laser.direction = pulseLaser.direction
         }
     }
     

@@ -53,25 +53,25 @@ class LevelScreen: Screen {
     func setLevel(_ index: Int) {
         switch index {
         case 5:
-            GameBase.debug(wave: index, gun: 0, shield: 0, barrier: 1)
+            LevelDebugConfig.debug(index, 0, 1)
         case 10:
-            GameBase.debug(wave: index, gun: 0, shield: 1, barrier: 1)
+            LevelDebugConfig.debug(index, 1, 1)
         case 15:
-            GameBase.debug(wave: index, gun: 0, shield: 1, barrier: 2)
+            LevelDebugConfig.debug(index, 1, 2)
         case 20:
-            GameBase.debug(wave: index, gun: 0, shield: 2, barrier: 3)
+            LevelDebugConfig.debug(index, 2, 3)
         case 25:
-            GameBase.debug(wave: index, gun: 0, shield: 3, barrier: 3)
+            LevelDebugConfig.debug(index, 3, 3)
         case 30:
-            GameBase.debug(wave: index, gun: 0, shield: 3, barrier: 4)
+            LevelDebugConfig.debug(index, 3, 4)
         case 35:
-            GameBase.debug(wave: index, gun: 0, shield: 4, barrier: 4)
+            LevelDebugConfig.debug(index, 4, 4)
         case 40:
-            GameBase.debug(wave: index, gun: 0, shield: 4, barrier: 5)
+            LevelDebugConfig.debug(index, 4, 5)
         case 45:
-            GameBase.debug(wave: index, gun: 0, shield: 5, barrier: 5)
+            LevelDebugConfig.debug(index, 5, 5)
         default:
-            GameBase.debug(wave: index, gun: 0, shield: 5, barrier: 5)
+            LevelDebugConfig.debug(index, 5, 5)
             break
         }
     }

@@ -13,8 +13,10 @@ class BossSequencer {
     
     static func setSequence(_ boss: Emperor) {
         create(boss)
-        setupBehaviors(boss)
-        setupOpener(boss)
+        setupBehaviors(boss, bossStage)
+        if bossStage == 0 {
+            setupOpener(boss)
+        }
     }
     
     private static func create(_ boss: Emperor) {
@@ -34,25 +36,32 @@ class BossSequencer {
         }
     }
     
-    private static func setupBehaviors(_ boss: Emperor) {
+    private static func setupBehaviors(_ boss: Emperor, _ stage: Int = 0) {
         let timeline = BossBehavior()
+        boss.behavior.push(timeline)
         
-        setSegment(timeline, boss, setupFirstSegment(boss), low: 0.75, high: 1)
-        setWipeout(boss, timeline)
+        if stage == 0 {
+            setSegment(timeline, boss, setupFirstSegment(boss), low: 0.75, high: 1)
+            setWipeout(boss, timeline)
+        }
         
-        setSegment(timeline, boss, setupFirstSegmentVariation(boss), low: 0.5, high: 0.75)
-        setWipeout(boss, timeline)
+        if stage <= 1 {
+            setSegment(timeline, boss, setupFirstSegmentVariation(boss), low: 0.5, high: 0.75)
+            setWipeout(boss, timeline)
+        }
         
-        setSegment(timeline, boss, setupSecondSegment(boss), low: 0.25, high: 0.5)
-        setWipeout(boss, timeline)
+        if stage <= 2 {
+            setSegment(timeline, boss, setupSecondSegment(boss), low: 0.25, high: 0.5)
+            setWipeout(boss, timeline)
+        }
         
-        setSegment(timeline, boss, setupThirdSegment(boss), low: 0.1, high: 0.25)
-        timeline.append(clear)
-        timeline.append(TimedBehavior(MarchBehavior(boss, boss.animator), 5))
+        if stage <= 3 {
+            setSegment(timeline, boss, setupThirdSegment(boss), low: 0.1, high: 0.25)
+            timeline.append(clear)
+            timeline.append(TimedBehavior(MarchBehavior(boss, boss.animator), 5))
+        }
         
         setSegment(timeline, boss, setupClimaxSegment(boss), low: 0, high: 0.1)
-        
-        boss.behavior.push(timeline)
     }
     
     private static func setSegment(_ timeline: BossBehavior, _ boss: Emperor, _ segment: BossBehavior, low: Float, high: Float) {
@@ -107,6 +116,7 @@ class BossSequencer {
         
         second.append(boss.march)
         second.append(RubbleFallBehavior())
+        second.append(boss.march)
         second.append(ParticleWaveBehavior(15.m, 3, boss.transform))
         second.append(StompBehavior(0.5, 2, 35))
         second.append(pulse)
@@ -122,18 +132,21 @@ class BossSequencer {
     private static func setupThirdSegment(_ boss: Emperor) -> BossBehavior {
         let third = BossBehavior()
         
+        let speed = Float.pi / 3
+        let length: Float = 1.5
+        
         third.append(boss.march)
         third.append(ParticleBeamBehavior(boss.transform))
-        third.append(FastLaserBlastBehavior(Float.pi * 0.1, Float.pi / 4, 2, boss.laser.laser, boss.shield.particle_shielding))
+        third.append(FastLaserBlastBehavior(Float.pi * 0.1, speed, length, boss.laser.laser, boss.shield.particle_shielding))
         third.append(RestBehavior(0.25, boss.shield.particle_shielding))
-        third.append(FastLaserBlastBehavior(Float.pi * 0.9, Float.pi / 4, 2, boss.laser.laser, boss.shield.particle_shielding))
+        third.append(FastLaserBlastBehavior(Float.pi * 0.9, speed, length, boss.laser.laser, boss.shield.particle_shielding))
         third.append(RestBehavior(0.25, boss.shield.particle_shielding))
-        third.append(FastLaserBlastBehavior(Float.pi * 0.1, Float.pi / 4, 2, boss.laser.laser, boss.shield.particle_shielding))
+        third.append(FastLaserBlastBehavior(Float.pi * 0.1, speed, length, boss.laser.laser, boss.shield.particle_shielding))
         third.append(RestBehavior(0.25, boss.shield.particle_shielding))
-        third.append(FastLaserBlastBehavior(Float.pi * 0.9, Float.pi / 4, 2, boss.laser.laser, boss.shield.particle_shielding))
+        third.append(FastLaserBlastBehavior(Float.pi * 0.9, speed, length, boss.laser.laser, boss.shield.particle_shielding))
         third.append(RestBehavior(0.25, boss.shield.particle_shielding))
         third.append(RandomBehavior([
-            FastLaserBlastBehavior(Float.pi * 0.1, Float.pi / 4, 2, boss.laser.laser, boss.shield.particle_shielding),
+            FastLaserBlastBehavior(Float.pi * 0.1, speed, 2, boss.laser.laser, boss.shield.particle_shielding),
             StompBehavior(0.5, 5, 30)
             ]))
         

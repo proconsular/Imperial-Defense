@@ -29,7 +29,7 @@ class FallingRubble: Rubble {
         if dt.length <= 0.5.m {
             alive = false
             Map.current.append(Explosion(target, 1.m))
-            Audio.play("rubble_hit")
+            Audio.play("rubble_hit", 0.5)
         }
         
         let dl = Player.player.transform.location - transform.location

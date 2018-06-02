@@ -75,9 +75,10 @@ class Castle {
                 }
                 fall_index += 1
                 velocity = float2()
-                let place = float2((fall_index == 1 ? Camera.size.x * 0.75 : Camera.size.x * 0.25), 0)
-                let exp = Explosion(side.transform.location + place, 5.m)
+                let place = float2((fall_index == 1 ? Camera.size.x * 0.175 : Camera.size.x * 0.825), -Camera.size.y * 0.1)
+                let exp = Explosion(place, 5.m)
                 Map.current.append(exp)
+                Audio.play("castle_collapse")
             }
             side.refresh()
             if fall_index >= 2 {

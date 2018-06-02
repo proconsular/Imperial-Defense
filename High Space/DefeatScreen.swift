@@ -67,46 +67,6 @@ class EndScreen: Screen {
     
 }
 
-class GameCompleteScreen: Screen {
-    
-    let background: Display
-    
-    override init() {
-        UserInterface.controller.push(PointController(0))
-        
-        background = Display(Rect(GameScreen.size / 2 + float2(0, -GameScreen.size.y), GameScreen.size) , GLTexture())
-        background.camera = false
-        background.color = float4(0, 0, 0, 1)
-        
-        super.init()
-        
-        let layer = InterfaceLayer()
-        
-        layer.objects.append(Text(GameScreen.size / 2 + float2(0, -100) + float2(0, -GameScreen.size.y), "You Won!", FontStyle(defaultFont, float4(1), 144)))
-        
-        let spacing = float2(250, 0)
-        
-        layer.objects.append(TextButton(Text("The Empress!", FontStyle(defaultFont, float4(1), 64)), GameScreen.size / 2 - spacing + float2(0, -GameScreen.size.y), {
-            UserInterface.space.wipe()
-            UserInterface.controller.reduce()
-            UserInterface.space.push(StoryScreen(StoryOutro()))
-        }))
-        
-        layers.append(layer)
-    }
-    
-    deinit {
-        UserInterface.controller.reduce()
-    }
-    
-    override func display() {
-        background.render()
-        super.display()
-    }
-    
-}
-
-
 
 
 

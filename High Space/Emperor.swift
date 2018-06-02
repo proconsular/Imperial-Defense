@@ -21,7 +21,6 @@ class Emperor: Soldier {
     
     required init(_ location: float2) {
         super.init(location, Health(2500, Shield(Float(50), Float(5), Float(60))), float4(1), "Emperor")
-        //health.stamina.damage(2500 * 0.90)
         status = BossStatus(health)
         handle.materials.removeLast()
         shield = BossShield(self)
