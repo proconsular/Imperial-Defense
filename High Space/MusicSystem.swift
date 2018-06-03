@@ -11,6 +11,7 @@ import Foundation
 class MusicSystem {
     static var instance: MusicSystem!
     var events: [MusicEvent]
+    var blended: [MusicEvent]
     
     static func create() {
         instance = MusicSystem()
@@ -18,6 +19,7 @@ class MusicSystem {
     
     init() {
         events = []
+        blended = []
     }
     
     func update() {
@@ -37,6 +39,14 @@ class MusicSystem {
                 }
             }
         }
+        if !blended.isEmpty {
+            let current = blended.first!
+            current.volume -= (4 * Time.delta)
+            if current.volume <= 0 {
+                current.stop()
+                blended.removeFirst()
+            }
+        }
     }
     
     func append(_ event: MusicEvent) {
@@ -44,9 +54,8 @@ class MusicSystem {
     }
     
     func interrupt() {
-        if let current = events.first {
-            current.stop()
-            events.removeFirst()
+        if !events.isEmpty {
+            blended.append(events.removeFirst())
         }
     }
     

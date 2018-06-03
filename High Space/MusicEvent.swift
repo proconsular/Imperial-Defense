@@ -9,6 +9,7 @@
 import Foundation
 
 class MusicEvent {
+    let audio: Audio
     var song: String
     var loop: Bool
     var wasPlayed: Bool
@@ -17,15 +18,22 @@ class MusicEvent {
         self.song = song
         self.loop = loop
         wasPlayed = false
+        audio = Audio(song)
+        audio.volume = 1
     }
     
     func play() {
-        Audio.play(song, 1)
+        audio.start()
         wasPlayed = true
     }
     
     func stop() {
-        Audio.stop(song)
+        audio.stop()
+    }
+    
+    var volume: Float {
+        get { return audio.volume }
+        set { audio.volume = newValue }
     }
     
     var playing: Bool {

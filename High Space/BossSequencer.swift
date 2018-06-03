@@ -184,7 +184,7 @@ class BossSequencer {
     private static func setupOpener(_ boss: Emperor) {
         let opener = BossOpeningBehavior()
         boss.behavior.push(opener)
-        opener.behaviors.append(TimedBehavior(MarchBehavior(boss, boss.animator), 6))
+        opener.behaviors.append(TimedBehavior(MarchBehavior(boss, boss.animator), 12.5))
         opener.behaviors.append(boss.laser.laserBlast)
     }
     
