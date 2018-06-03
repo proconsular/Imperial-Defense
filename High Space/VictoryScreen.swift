@@ -53,7 +53,7 @@ class EndPrompt: Screen {
         let spacing = float2(500, 0)
         let offset = float2(0, 450) + float2(0, -GameScreen.size.y)
         
-        layer.objects.append(BorderedButton(Text("Improve", FontStyle(defaultFont, float4(1), 64)), GameScreen.size / 2 + offset - spacing, float2(8, -16), GLTexture("ButtonBorder"), {
+        layer.objects.append(BorderedButton(Text("Upgrade", FontStyle(defaultFont, float4(1), 64)), GameScreen.size / 2 + offset - spacing, float2(8, -16), GLTexture("ButtonBorder"), {
             UserInterface.fade {
                 UserInterface.space.wipe()
                 UserInterface.controller.reduce()
@@ -63,7 +63,7 @@ class EndPrompt: Screen {
         
         notifier = ShinyNotifier(GameScreen.size / 2 + offset - spacing + float2(220, -5))
         
-        layer.objects.append(BorderedButton(Text("Defend", FontStyle(defaultFont, float4(1), 64)), GameScreen.size / 2 + offset + spacing, float2(8, -16), GLTexture("ButtonBorder"), {
+        layer.objects.append(BorderedButton(Text("Play", FontStyle(defaultFont, float4(1), 64)), GameScreen.size / 2 + offset + spacing, float2(8, -16), GLTexture("ButtonBorder"), {
             UserInterface.fade {
                 UserInterface.space.wipe()
                 UserInterface.controller.reduce()
@@ -77,14 +77,8 @@ class EndPrompt: Screen {
         
         layers.append(layer)
         
-        let audio = Audio("Victory")
-        audio.loop = true
-        audio.start()
-    }
-    
-    deinit {
-        let audio = Audio("Victory")
-        audio.stop()
+        MusicSystem.instance.flush()
+        MusicSystem.instance.append(MusicEvent("Victory", true))
     }
     
     override func display() {

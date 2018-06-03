@@ -45,6 +45,7 @@ class Splash: Screen {
         
         save = SaveDisplay(float2(GameScreen.size.x * 0.66, GameScreen.size.y * 0.75 - 5))
         
+        MusicSystem.instance.flush()
         MusicSystem.instance.append(MusicEvent("Title_intro"))
         MusicSystem.instance.append(MusicEvent("Title_main", true))
         

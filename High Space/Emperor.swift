@@ -9,7 +9,7 @@
 import Foundation
 
 class Emperor: Soldier {
-    static var instance: Emperor!
+    static weak var instance: Emperor!
     
     var status: BossStatus!
     var laser: BossLaser!

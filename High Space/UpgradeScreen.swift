@@ -62,7 +62,7 @@ class StoreScreen: Screen {
         let spacing = float2(600, 0)
         let offset = float2(0, 475 - GameScreen.size.y)
         
-        layer.objects.append(BorderedButton(Text("Escape", FontStyle(defaultFont, float4(1), 64)), Camera.size / 2 + offset - spacing, float2(8, -16), GLTexture("ButtonBorder"), {
+        layer.objects.append(BorderedButton(Text("Title", FontStyle(defaultFont, float4(1), 64)), Camera.size / 2 + offset - spacing, float2(8, -16), GLTexture("ButtonBorder"), {
             UserInterface.fade {
                 UserInterface.space.wipe()
                 UserInterface.controller.reduce()
@@ -70,7 +70,7 @@ class StoreScreen: Screen {
             }
         }))
         
-        layer.objects.append(BorderedButton(Text("Defend", FontStyle(defaultFont, float4(1), 64)), Camera.size / 2 + offset + spacing, float2(8, -16), GLTexture("ButtonBorder"), {
+        layer.objects.append(BorderedButton(Text("Play", FontStyle(defaultFont, float4(1), 64)), Camera.size / 2 + offset + spacing, float2(8, -16), GLTexture("ButtonBorder"), {
             UserInterface.fade {
                 UserInterface.space.wipe()
                 UserInterface.controller.reduce()
@@ -84,18 +84,12 @@ class StoreScreen: Screen {
         
         layers.append(layer)
         
-        let music = Audio("Castle")
-        music.loop = true
-        music.start()
+        MusicSystem.instance.flush()
+        MusicSystem.instance.append(MusicEvent("Castle", true))
         
         for _ in 0 ..< 100 {
             energy.populate()
         }
-    }
-    
-    deinit {
-        let music = Audio("Castle")
-        music.stop()
     }
     
     func buy(_ upgrade: Upgrade) {

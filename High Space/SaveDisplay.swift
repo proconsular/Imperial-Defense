@@ -57,7 +57,6 @@ class SaveDisplay: Entity, Damagable {
     }
     
     func delete() {
-        
         deleted = true
     }
     
@@ -85,7 +84,7 @@ class SaveDisplay: Entity, Damagable {
         bottom.render()
         var st = "\((GameData.info.wave + 1).roman)"
         if GameData.info.wave >= 100 {
-            st = "Lord Saal"
+            st = "???"
         }
         legion.setString(st)
         legion.render()

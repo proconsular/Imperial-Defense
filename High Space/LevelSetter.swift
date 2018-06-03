@@ -13,8 +13,12 @@ class LevelSetter: GameSetter {
         if GameData.info.tutorial {
             game.sequence.append(TutorialLevel(game.interface))
         }
+        var timeout: Float = 2
+        if GameData.info.wave + 1 >= 101 {
+            timeout = 6
+        }
         game.sequence.append(WaveLevel())
-        game.sequence.append(WaitElement(2))
+        game.sequence.append(WaitElement(timeout))
         game.sequence.append(VictoryEvent())
         
         if debugDisplay {

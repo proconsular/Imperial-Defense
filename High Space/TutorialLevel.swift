@@ -16,9 +16,8 @@ class TutorialLevel: GameLayer {
     }
     
     func activate() {
-        let music = Audio("Tutorial")
-        music.loop = true
-        music.start()
+        MusicSystem.instance.flush()
+        MusicSystem.instance.append(MusicEvent("Tutorial", true))
     }
     
     var complete: Bool {
@@ -38,7 +37,6 @@ class TutorialLevel: GameLayer {
     }
     
     deinit {
-        Audio.stop("Tutorial")
         GameData.info.tutorial = false
         GameData.persist()
     }

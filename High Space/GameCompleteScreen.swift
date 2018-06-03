@@ -41,6 +41,9 @@ class GameCompleteScreen: Screen {
         }))
         
         layers.append(layer)
+        
+        MusicSystem.instance.flush()
+        MusicSystem.instance.append(MusicEvent("Endgame", true))
     }
     
     override func display() {

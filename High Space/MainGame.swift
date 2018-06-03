@@ -8,16 +8,12 @@
 
 import Foundation
 
-protocol GameInterface {
-    func update()
-    func render()
-}
-
 @objc class MainGame: NSObject {
     let interface: GameInterface
     
     override init() {
         GameScreen.create()
+        MusicSystem.create()
         let config = StandardConfig()
         interface = GameBase(config)
         super.init()
