@@ -11,8 +11,8 @@ import UIKit
 class Camera {
     
     class var size: float2 {
-        let bounds = UIScreen.main.bounds
-        let scaleFactor = UIScreen.main.scale
+//        let bounds = UIScreen.main.bounds
+//        let scaleFactor = UIScreen.main.scale
         return float2(2001, 1125)
         //return float2 (Float(bounds.width * scaleFactor), Float(bounds.height * scaleFactor))
     }

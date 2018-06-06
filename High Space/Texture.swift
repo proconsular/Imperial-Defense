@@ -58,8 +58,8 @@ class Texture: NSObject {
         let height = Int(bounds.y)
         let data = textureData.asData()
         glTexImage2D(GLenum(GL_TEXTURE_2D), 0, GL_RGBA8, GLsizei(width), GLsizei(height), 0, GLenum(GL_RGBA), GLenum(GL_UNSIGNED_BYTE), data)
-        data.deinitialize()
-        data.deallocate(capacity: width * height)
+        data.deinitialize(count: width * height)
+        data.deallocate()
     }
     
     func blank() {

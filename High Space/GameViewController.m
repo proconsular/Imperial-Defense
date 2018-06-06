@@ -49,13 +49,13 @@ GLKView *glkview;
 
 -(void)setupShaders{
     [ShaderLoader load:@"Default" :&_defaultprogram :^{
-        glBindAttribLocation(_defaultprogram, GLKVertexAttribPosition, "position");
-        glBindAttribLocation(_defaultprogram, GLKVertexAttribColor, "color");
-        glBindAttribLocation(_defaultprogram, GLKVertexAttribTexCoord0, "texCoord0");
+        glBindAttribLocation(self->_defaultprogram, GLKVertexAttribPosition, "position");
+        glBindAttribLocation(self->_defaultprogram, GLKVertexAttribColor, "color");
+        glBindAttribLocation(self->_defaultprogram, GLKVertexAttribTexCoord0, "texCoord0");
     }];
     
     [ShaderLoader load:@"Lighting" :&_lightingprogram :^{
-        glBindAttribLocation(_lightingprogram, GLKVertexAttribPosition, "position");
+        glBindAttribLocation(self->_lightingprogram, GLKVertexAttribPosition, "position");
     }];
     
     Shader *light = [[Shader alloc] initAsProgram:_lightingprogram];
@@ -80,8 +80,8 @@ GLKView *glkview;
     [Graphics append:light];
     
     [ShaderLoader load:@"Shield" :&_shieldprogram :^{
-        glBindAttribLocation(_shieldprogram, GLKVertexAttribPosition, "position");
-        glBindAttribLocation(_shieldprogram, GLKVertexAttribTexCoord0, "texCoord0");
+        glBindAttribLocation(self->_shieldprogram, GLKVertexAttribPosition, "position");
+        glBindAttribLocation(self->_shieldprogram, GLKVertexAttribTexCoord0, "texCoord0");
     }];
     
     Shader *shield = [[Shader alloc] initAsProgram:_shieldprogram];
@@ -93,13 +93,13 @@ GLKView *glkview;
     [Graphics append:shield];
     
     [ShaderLoader load:@"Bloom" :&_bloomprogram :^{
-        glBindAttribLocation(_bloomprogram, GLKVertexAttribPosition, "position");
-        glBindAttribLocation(_bloomprogram, GLKVertexAttribTexCoord0, "texCoord0");
+        glBindAttribLocation(self->_bloomprogram, GLKVertexAttribPosition, "position");
+        glBindAttribLocation(self->_bloomprogram, GLKVertexAttribTexCoord0, "texCoord0");
     }];
     
     [ShaderLoader load:@"Laser" :&_laserprogram :^{
-        glBindAttribLocation(_laserprogram, GLKVertexAttribPosition, "position");
-        glBindAttribLocation(_laserprogram, GLKVertexAttribTexCoord0, "texCoord0");
+        glBindAttribLocation(self->_laserprogram, GLKVertexAttribPosition, "position");
+        glBindAttribLocation(self->_laserprogram, GLKVertexAttribTexCoord0, "texCoord0");
     }];
     
     Shader *laser = [[Shader alloc] initAsProgram:_laserprogram];
@@ -117,9 +117,9 @@ GLKView *glkview;
     [Graphics append:bloom_shader];
     
     [ShaderLoader load:@"Point" :&_pointprogram :^{
-        glBindAttribLocation(_pointprogram, GLKVertexAttribPosition, "position");
-        glBindAttribLocation(_pointprogram, GLKVertexAttribNormal, "size");
-        glBindAttribLocation(_pointprogram, GLKVertexAttribColor, "color");
+        glBindAttribLocation(self->_pointprogram, GLKVertexAttribPosition, "position");
+        glBindAttribLocation(self->_pointprogram, GLKVertexAttribNormal, "size");
+        glBindAttribLocation(self->_pointprogram, GLKVertexAttribColor, "color");
     }];
     
     Shader *point = [[Shader alloc] initAsProgram:_pointprogram];
@@ -127,7 +127,7 @@ GLKView *glkview;
     [Graphics append:point];
     
     [ShaderLoader load:@"Explosion" :&_explosionprogram :^{
-        glBindAttribLocation(_explosionprogram, GLKVertexAttribPosition, "position");
+        glBindAttribLocation(self->_explosionprogram, GLKVertexAttribPosition, "position");
     }];
     
     Shader *explosion = [[Shader alloc] initAsProgram:_explosionprogram];

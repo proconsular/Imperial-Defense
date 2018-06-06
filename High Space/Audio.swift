@@ -99,7 +99,10 @@ class Audio: AudioElement {
     
     func isPlaying () -> Bool {
         let value = UnsafeMutablePointer<ALint>.allocate(capacity: 1)
-        defer { value.deinitialize(); value.deallocate(capacity: 1) }
+        defer {
+            value.deinitialize(count: 1)
+            value.deallocate()
+        }
         alGetSourcei(source, AL_SOURCE_STATE, value)
         return value.pointee == AL_PLAYING
     }

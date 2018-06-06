@@ -93,7 +93,7 @@ extension float2 {
     }
 }
 
-extension Collection where Iterator.Element == float2, Index == Int, IndexDistance == Int {
+extension Collection where Iterator.Element == float2, Index == Int {
     var center: float2 {
         var sum = float2()
         for vec in self {
@@ -103,7 +103,7 @@ extension Collection where Iterator.Element == float2, Index == Int, IndexDistan
     }
 }
 
-extension Collection where Iterator.Element == Int, Index == Int, IndexDistance == Int {
+extension Collection where Iterator.Element == Int, Index == Int {
     func getValue(at: Int) -> Iterator.Element? {
         if at < count {
             return self[at]
@@ -112,7 +112,7 @@ extension Collection where Iterator.Element == Int, Index == Int, IndexDistance 
     }
 }
 
-extension MutableCollection where Iterator.Element == float2, Index == Int, IndexDistance == Int {
+extension MutableCollection where Iterator.Element == float2, Index == Int {
     var centered: Self {
         var array = self
         let cen = center

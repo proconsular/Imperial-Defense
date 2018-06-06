@@ -38,7 +38,7 @@ class Transform {
             let sine = sinf(newValue)
             matrix = float2x2(rows: [float2(cosine, -sine), float2(sine, cosine)])
         }
-        get { return atan2f(matrix.cmatrix.columns.0.y, matrix.cmatrix.columns.0.x) }
+        get { return atan2f(matrix.columns.0.y, matrix.columns.0.x) }
     }
     
     var global: Transform {

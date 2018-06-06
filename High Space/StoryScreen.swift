@@ -51,7 +51,7 @@ class StoryScreen: Screen {
             let display = StoryDisplay(GameData.info.wave - 1)
             story = display
             
-            let quote = display.quotes[0]
+            //let quote = display.quotes[0]
             
 //            if quote.contains("empress") {
 //                music = "4 Empress"

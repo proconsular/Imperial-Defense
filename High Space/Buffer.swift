@@ -20,8 +20,8 @@ class Buffer<Value> {
         glBindBuffer(type, id)
         let d = data.asData()
         glBufferData(type, data.count * MemoryLayout<Value>.size, d, usage)
-        d.deinitialize()
-        d.deallocate(capacity: data.count)
+        d.deinitialize(count: data.count)
+        d.deallocate()
     }
     
     func bind() {
@@ -41,8 +41,8 @@ class Buffer<Value> {
         let buffer_memory = glMapBufferRange(GLenum(GL_ARRAY_BUFFER), 0, size, GLbitfield(GL_MAP_WRITE_BIT | GL_MAP_INVALIDATE_BUFFER_BIT))
         memcpy(buffer_memory, memory, size)
         
-        memory.deinitialize()
-        memory.deallocate(capacity: data.count)
+        memory.deinitialize(count: data.count)
+        memory.deallocate()
         
         glUnmapBuffer(GLenum(GL_ARRAY_BUFFER))
     }
