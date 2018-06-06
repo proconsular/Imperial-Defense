@@ -49,7 +49,7 @@ class ParticleBeamBehavior: ActiveBehavior {
             Map.current.append(p)
         }
         
-        if radius >= Camera.size.x / 2 {
+        if radius >= Camera.size.x / 2 + 2.m {
             Audio.play("particle_beam", 0.5)
             radius = 0
             count -= 1

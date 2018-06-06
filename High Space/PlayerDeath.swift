@@ -46,4 +46,8 @@ class PlayerDeath: PlayerAnimation {
             player.animator.animate()
         }
     }
+    
+    deinit {
+        Time.scale = 1
+    }
 }

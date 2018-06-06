@@ -23,8 +23,10 @@ class PauseScreen: Screen {
         let layer = InterfaceLayer()
         
         layer.objects.append(BorderedButton(Text("Resume", FontStyle(defaultFont, float4(1), 84)), GameScreen.size / 2 + float2(0, -100) + float2(0, -GameScreen.size.y), float2(8, -24), GLTexture("ButtonBorder")) {
-            UserInterface.space.pop()
-            UserInterface.controller.reduce()
+            if !UserInterface.transition.active {
+                UserInterface.space.pop()
+                UserInterface.controller.reduce()
+            }
         })
         
         layer.objects.append(BorderedButton(Text("Menu", FontStyle(defaultFont, float4(1), 84)), GameScreen.size / 2 + float2(0, 100) + float2(0, -GameScreen.size.y), float2(8, -24), GLTexture("ButtonBorder")) {

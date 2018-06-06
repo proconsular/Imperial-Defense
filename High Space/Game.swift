@@ -50,6 +50,7 @@ class Game: DisplayLayer {
     }
     
     static func showFailScreen() {
+        Time.scale = 1
         MusicSystem.instance.flush()
         UserInterface.fade {
             UserInterface.space.push(EndScreen(false))

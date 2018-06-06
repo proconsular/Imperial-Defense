@@ -16,7 +16,7 @@ var upgrader: Upgrader!
 
 var enableStory: Bool = false
 var debug = false
-var debugDisplay = false
+var debugDisplay = true
 
 var debugBoss = false
 var bossStage = 0

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import StoreKit
 
 class VictoryEvent: GameEvent {
     var complete: Bool = true
@@ -25,6 +26,10 @@ class VictoryEvent: GameEvent {
         if GameData.info.wave + 1 < 101 {
             GameData.info.wave += 1
             GameData.info.points += 1
+            if GameData.info.wave == 20 && !GameData.info.reviewed {
+                SKStoreReviewController.requestReview()
+                GameData.info.reviewed = true
+            }
         }
         GameData.persist()
         

@@ -60,6 +60,7 @@ class UserInterface {
     }
     
     static func fade(_ callback: @escaping () -> ()) {
+        if UserInterface.transition.active { return }
         UserInterface.transition.transition(1) {
             callback()
             UserInterface.transition.transition(-1)

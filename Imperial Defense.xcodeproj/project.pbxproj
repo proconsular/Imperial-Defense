@@ -534,6 +534,7 @@
 		22BB48901FC8CAFC006CD5C1 /* Firer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BB488F1FC8CAFC006CD5C1 /* Firer.swift */; };
 		22BB48921FC8CB18006CD5C1 /* HomingFirer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BB48911FC8CB18006CD5C1 /* HomingFirer.swift */; };
 		22BB48941FC8CB3B006CD5C1 /* Damagable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22BB48931FC8CB3B006CD5C1 /* Damagable.swift */; };
+		22BCC1B220C794FC0060308C /* s_button-click.wav in Resources */ = {isa = PBXBuildFile; fileRef = 22BCC1B120C794FB0060308C /* s_button-click.wav */; };
 		22BE4DA11EF50EFC00C641EC /* Mage.png in Resources */ = {isa = PBXBuildFile; fileRef = 22BE4DA01EF50EFC00C641EC /* Mage.png */; };
 		22C1FE5C20A7DFA9005D9ABB /* Selection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C1FE5B20A7DFA9005D9ABB /* Selection.swift */; };
 		22C1FE5E20A7DFCE005D9ABB /* SplashClouds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C1FE5D20A7DFCE005D9ABB /* SplashClouds.swift */; };
@@ -595,7 +596,6 @@
 		22E671E31F11D912006B5B59 /* s_enemy-shoot-magic.wav in Resources */ = {isa = PBXBuildFile; fileRef = 22E671D91F11D912006B5B59 /* s_enemy-shoot-magic.wav */; };
 		22E671E41F11D912006B5B59 /* s_enemy-shoot-heavy.wav in Resources */ = {isa = PBXBuildFile; fileRef = 22E671DA1F11D912006B5B59 /* s_enemy-shoot-heavy.wav */; };
 		22E671E51F11D912006B5B59 /* s_enemy-shoot-light.wav in Resources */ = {isa = PBXBuildFile; fileRef = 22E671DB1F11D912006B5B59 /* s_enemy-shoot-light.wav */; };
-		22E671E61F11D912006B5B59 /* s_button-click.wav in Resources */ = {isa = PBXBuildFile; fileRef = 22E671DC1F11D912006B5B59 /* s_button-click.wav */; };
 		22ED3F871F263AEF00BFE5AF /* StoryOutro.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22ED3F861F263AEF00BFE5AF /* StoryOutro.swift */; };
 		22ED3F891F26416900BFE5AF /* outro.txt in Resources */ = {isa = PBXBuildFile; fileRef = 22ED3F881F26416900BFE5AF /* outro.txt */; };
 		22ED4A1E1F20F933002B8A8F /* Castle-Centerpiece.png in Resources */ = {isa = PBXBuildFile; fileRef = 22ED4A1B1F20F933002B8A8F /* Castle-Centerpiece.png */; };
@@ -1174,6 +1174,7 @@
 		22BB488F1FC8CAFC006CD5C1 /* Firer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Firer.swift; sourceTree = "<group>"; };
 		22BB48911FC8CB18006CD5C1 /* HomingFirer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomingFirer.swift; sourceTree = "<group>"; };
 		22BB48931FC8CB3B006CD5C1 /* Damagable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Damagable.swift; sourceTree = "<group>"; };
+		22BCC1B120C794FB0060308C /* s_button-click.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "s_button-click.wav"; sourceTree = "<group>"; };
 		22BE4DA01EF50EFC00C641EC /* Mage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Mage.png; sourceTree = "<group>"; };
 		22BE5DBE1D6D3BE30038FAA8 /* Grid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Grid.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		22C1FE5B20A7DFA9005D9ABB /* Selection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Selection.swift; sourceTree = "<group>"; };
@@ -1241,7 +1242,6 @@
 		22E671D91F11D912006B5B59 /* s_enemy-shoot-magic.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "s_enemy-shoot-magic.wav"; sourceTree = "<group>"; };
 		22E671DA1F11D912006B5B59 /* s_enemy-shoot-heavy.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "s_enemy-shoot-heavy.wav"; sourceTree = "<group>"; };
 		22E671DB1F11D912006B5B59 /* s_enemy-shoot-light.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "s_enemy-shoot-light.wav"; sourceTree = "<group>"; };
-		22E671DC1F11D912006B5B59 /* s_button-click.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "s_button-click.wav"; sourceTree = "<group>"; };
 		22EB500F1DB09A5900F769D9 /* Particle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = Particle.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		22ED3F861F263AEF00BFE5AF /* StoryOutro.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryOutro.swift; sourceTree = "<group>"; };
 		22ED3F881F26416900BFE5AF /* outro.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = outro.txt; sourceTree = "<group>"; };
@@ -2261,7 +2261,7 @@
 				2295838F1F740F59009F7131 /* s_upgrade_buy.wav */,
 				222B965C1F1721D300D47922 /* s_stomp.wav */,
 				22E671D71F11D912006B5B59 /* s_forge-hit.wav */,
-				22E671DC1F11D912006B5B59 /* s_button-click.wav */,
+				22BCC1B120C794FB0060308C /* s_button-click.wav */,
 				228C5C0E1FCFEB7A00B93C8C /* s_explosion1.wav */,
 				22D6F0BD1ED0006000F36F00 /* s_thunder.wav */,
 			);
@@ -3120,6 +3120,7 @@
 				22D6F0BA1ECFF15E00F36F00 /* Splash_Cloud_4.png in Resources */,
 				2254AB111F1B372F0020DD01 /* Lava.png in Resources */,
 				22968DA61F0DF550009A2E3D /* s_march.wav in Resources */,
+				22BCC1B220C794FC0060308C /* s_button-click.wav in Resources */,
 				224BE3011FE0B8E8000EAC8D /* Titan.png in Resources */,
 				229F0D802025EDD200A15991 /* s_wave-move.wav in Resources */,
 				2205EEEC1EA0BDCA00DEFFF2 /* Pixel.ttf in Resources */,
@@ -3189,7 +3190,6 @@
 				228CC2151F004CB400E6F75C /* s_health_warning.wav in Resources */,
 				22ACC94D20BCF50200233353 /* s_boss_shake.wav in Resources */,
 				22F499FC20B10826000EE0C9 /* s_barrier-breakdown.wav in Resources */,
-				22E671E61F11D912006B5B59 /* s_button-click.wav in Resources */,
 				22E37C3E20093EEB00BAFFB9 /* Forge-Brick.png in Resources */,
 				22F49A0320B12A33000EE0C9 /* ShowPointer.png in Resources */,
 				22E671E51F11D912006B5B59 /* s_enemy-shoot-light.wav in Resources */,
@@ -3816,7 +3816,7 @@
 				GCC_UNROLL_LOOPS = YES;
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "High Space/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LLVM_LTO = YES_THIN;
 				OTHER_CFLAGS = "";
@@ -3848,7 +3848,7 @@
 				GCC_UNROLL_LOOPS = YES;
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "High Space/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LLVM_LTO = YES_THIN;
 				OTHER_CFLAGS = "";
