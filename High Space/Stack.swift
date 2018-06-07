@@ -9,14 +9,14 @@
 import Foundation
 
 class Stack<T> {
-    var contents: [T]
+    var contents: LinkedList<T>
     
     init() {
-        contents = []
+        contents = LinkedList()
     }
     
     func wipe() {
-        contents.removeAll()
+        contents.clear()
     }
     
     func push(_ item: T) {
@@ -24,14 +24,14 @@ class Stack<T> {
     }
     
     func pop() {
-        contents.removeLast()
+        let _ = contents.popLast()
     }
     
     func peel() {
-        contents.removeFirst()
+        let _ = contents.popFirst()
     }
     
     var peek: T? {
-        return contents.last
+        return contents.tail.value
     }
 }

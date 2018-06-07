@@ -19,7 +19,11 @@ class WaveLevel: GameElement {
     
     func activate() {
         coordinator.next()
-        
+        setDebugBoss()
+        startMusic()
+    }
+    
+    private func setDebugBoss() {
         if debugBoss {
             var amount: Float = 0
             if bossStage == 1 {
@@ -33,9 +37,10 @@ class WaveLevel: GameElement {
             }
             Emperor.instance.health.stamina.damage(Emperor.instance.health.stamina.points.amount * amount)
         }
-        
+    }
+    
+    private func startMusic() {
         MusicSystem.instance.flush()
-        
         if GameData.info.wave + 1 >= 101 {
             MusicSystem.instance.append(MusicEvent("Boss_intro"))
             MusicSystem.instance.append(MusicEvent("Boss_main", true))
@@ -43,7 +48,6 @@ class WaveLevel: GameElement {
             MusicSystem.instance.append(MusicEvent("Battle_intro"))
             MusicSystem.instance.append(MusicEvent("Battle_main", true))
         }
-        
     }
     
     var complete: Bool {
@@ -56,38 +60,7 @@ class WaveLevel: GameElement {
         }
         coordinator.update()
         timer.update(Time.delta) {
-            separate()
-            enforceDrawOrder()
-        }
-    }
-    
-    func separate() {
-        let solver = RectSolver()
-        let soldiers = Map.current.actorate.actors.filter{ $0 is Soldier }.map{ $0 as! Soldier }
-        for n in 0 ..< soldiers.count {
-            let a = soldiers[n]
-            for m in n + 1 ..< soldiers.count {
-                let b = soldiers[m]
-                let dl = b.transform.location - a.transform.location
-                if dl.length >= 2.m { continue }
-                let a_rect = Rect(a.transform.location, float2(75, 50))
-                let b_rect = Rect(b.transform.location, float2(75, 50))
-                if a_rect.getBounds().intersects(b_rect.getBounds()) {
-                    if let collision = solver.solve(a_rect, b_rect) {
-                        a.body.velocity += collision.penetration * -collision.normal * 0.05
-                        b.body.velocity += collision.penetration * collision.normal * 0.05
-                    }
-                }
-            }
-        }
-    }
-    
-    func enforceDrawOrder() {
-        var soldiers = Map.current.actorate.actors.filter{ $0 is Soldier }.map{ $0 as! Soldier }
-        soldiers.sort{ $0.transform.location.y > $1.transform.location.y }
-        for n in 0 ..< soldiers.count {
-            let soldier = soldiers[n]
-            soldier.material["order"] = -n - 10
+            WaveOrganizer.organize()
         }
     }
     

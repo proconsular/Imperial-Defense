@@ -53,7 +53,7 @@ class Game: DisplayLayer {
         Time.scale = 1
         MusicSystem.instance.flush()
         UserInterface.fade {
-            UserInterface.space.push(EndScreen(false))
+            UserInterface.space.push(EndScreen())
         }
         Game.instance.playing = false
     }

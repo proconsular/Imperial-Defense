@@ -9,12 +9,11 @@
 import Foundation
 
 class EndScreen: Screen {
-    
     let background: Display
     let quote: StoryQuote
     var opacity: Float = 0
     
-    init(_ win: Bool) {
+    override init() {
         UserInterface.controller.push(PointController(0))
         
         background = Display(Rect(GameScreen.size / 2 + float2(0, -GameScreen.size.y), GameScreen.size) , GLTexture("Background"))
@@ -29,7 +28,7 @@ class EndScreen: Screen {
         
         let layer = InterfaceLayer()
         
-        layer.objects.append(Text(GameScreen.size / 2 + float2(0, -200) + float2(0, -GameScreen.size.y), win ? "Victory!" : "DEFEATUM ABSOLUTUM", FontStyle("Augustus", float4(1), 128)))
+        layer.objects.append(Text(GameScreen.size / 2 + float2(0, -200) + float2(0, -GameScreen.size.y), "DEFEATUM ABSOLUTUM", FontStyle("Augustus", float4(1), 128)))
         
         let spacing = float2(500, 0)
         let offset = float2(0, 450) + float2(0, -GameScreen.size.y)

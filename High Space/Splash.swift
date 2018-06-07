@@ -62,7 +62,7 @@ class Splash: Screen {
         let margin: Float = 35
         
         let storiel = Text(float2(Camera.size.x / 2, margin) + float2(0, -GameScreen.size.y), "a storiel game", smallstyle)
-        let copyright = Text(float2(Camera.size.x / 2, Camera.size.y - margin) + float2(0, -GameScreen.size.y), "Copyright © 2017 Storiel, LLC. All rights reserved.", smallstyle)
+        let copyright = Text(float2(Camera.size.x / 2, Camera.size.y - margin) + float2(0, -GameScreen.size.y), "Copyright © 2018 Storiel, LLC. All rights reserved.", smallstyle)
         
         layer.objects.append(storiel)
         layer.objects.append(copyright)
