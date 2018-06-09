@@ -52,13 +52,17 @@ class LinkedList<T>: Sequence {
     
     func popFirst() -> T? {
         let first = head
-        head = head.next
+        if head != nil {
+            head = head.next
+        }
         return first?.value
     }
     
     func popLast() -> T? {
         let last = tail
-        tail = tail.previous
+        if tail != nil {
+            tail = tail.previous
+        }
         return last?.value
     }
     

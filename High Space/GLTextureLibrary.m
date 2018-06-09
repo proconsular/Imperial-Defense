@@ -39,8 +39,12 @@
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
     
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+//    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+//    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+//
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    
     
     [self prefetch:@"laser"];
     [self prefetch:@"white"];
@@ -49,23 +53,15 @@
     [self prefetch:@"stonefloor"];
     [self prefetch:@"rockfloor"];
     
-    [self prefetch:@"machine"];
-    [self prefetch:@"bomb"];
-    [self prefetch:@"shield"];
-    [self prefetch:@"barrier"];
     [self prefetch:@"GameUIBack"];
     [self prefetch:@"pause"];
-    [self prefetch:@"Splash_Sky"];
-    [self prefetch:@"Splash_Mountains"];
-    [self prefetch:@"Splash_Castle"];
+    [self prefetch:@"Splash_Foreground"];
     [self prefetch:@"Splash_Cloud_1"];
     [self prefetch:@"Splash_Cloud_2"];
     [self prefetch:@"Splash_Cloud_3"];
     [self prefetch:@"Splash_Cloud_4"];
-    [self prefetch:@"Splash_Castle_Scene"];
     [self prefetch:@"Splash_FarCliffs"];
     
-    [self prefetch:@"gun"];
     [self prefetch:@"Forge-Back"];
     [self prefetch:@"Forge-Brick"];
     [self prefetch:@"Title"];
@@ -75,38 +71,27 @@
     [self prefetch:@"ShowPointer"];
     [self prefetch:@"Missile"];
     
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-    
-    [self prefetch:@"soldier_walk"];
     [self prefetch:@"Soldier4"];
     [self prefetch:@"Scout"];
     [self prefetch:@"Captain"];
     [self prefetch:@"Warrior"];
     [self prefetch:@"Thief"];
     [self prefetch:@"Heavy"];
-    [self prefetch:@"Commander"];
     [self prefetch:@"barrier_castle"];
     [self prefetch:@"Crystal"];
     [self prefetch:@"Plates"];
     [self prefetch:@"SaveFile"];
-    [self prefetch:@"Splash_Player"];
-    [self prefetch:@"Anvil"];
     [self prefetch:@"Treasure"];
     [self prefetch:@"Mage"];
     [self prefetch:@"Emperor"];
-    [self prefetch:@"Sniper"];
-    [self prefetch:@"Healer"];
     [self prefetch:@"Titan"];
     [self prefetch:@"ArmoredSoldier"];
     [self prefetch:@"ArmoredScout"];
     [self prefetch:@"HardSoldier"];
-    [self prefetch:@"Charger"];
     [self prefetch:@"Castle-Centerpiece"];
     [self prefetch:@"Castle-Rightpiece"];
     [self prefetch:@"Castle-Leftpiece"];
     [self prefetch:@"Rubble"];
-    [self prefetch:@"laser-fire"];
     [self prefetch:@"Upgrades"];
     [self prefetch:@"Upgrade_Effects"];
     [self prefetch:@"UpgradeBorder"];

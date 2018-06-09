@@ -13,9 +13,7 @@ class Splash: Screen {
     let title: SplashTitle
     
     let sky: SplashSky
-    let mountains: Display
-    let castle: Display
-    let castle_scene: Display
+    let foreground: Display
     let far_cliffs: Display
     
     let clouds: SplashClouds
@@ -36,9 +34,7 @@ class Splash: Screen {
         
         sky = SplashSky()
         
-        mountains = Display(Rect(Camera.size / 2 + float2(0, -GameScreen.size.y), Camera.size), GLTexture("Splash_Mountains"))
-        castle = Display(Rect(Camera.size / 2 + float2(0, -GameScreen.size.y), Camera.size), GLTexture("Splash_Castle"))
-        castle_scene = Display(Rect(Camera.size / 2 + float2(0, -GameScreen.size.y), Camera.size), GLTexture("Splash_Castle_Scene"))
+        foreground = Display(Rect(Camera.size / 2 + float2(0, -GameScreen.size.y), Camera.size), GLTexture("Splash_Foreground"))
         far_cliffs = Display(Rect(Camera.size / 2 + float2(0, -GameScreen.size.y), Camera.size), GLTexture("Splash_FarCliffs"))
         
         clouds = SplashClouds()
@@ -123,8 +119,6 @@ class Splash: Screen {
     override func update() {
         super.update()
         
-        //firer.update()
-        
         map.update()
         simulation.simulate()
         
@@ -139,9 +133,7 @@ class Splash: Screen {
         far_cliffs.render()
         clouds.render()
         
-        mountains.render()
-        castle_scene.render()
-        castle.render()
+        foreground.render()
         
         layers.forEach{$0.display()}
         title.render()
