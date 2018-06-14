@@ -48,7 +48,7 @@
     {
       "size" : "60x60",
       "idiom" : "iphone",
-      "filename" : "icon.png",
+      "filename" : "icon_120.png",
       "scale" : "2x"
     },
     {
@@ -59,7 +59,7 @@
     {
       "size" : "1024x1024",
       "idiom" : "ios-marketing",
-      "filename" : "icon_big.png",
+      "filename" : "icon_1024.png",
       "scale" : "1x"
     }
   ],
