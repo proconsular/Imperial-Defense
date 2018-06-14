@@ -7,13 +7,12 @@
 //
 #version 300 es
 
-precision mediump float;
+precision highp float;
 
 in highp vec2 texCoord0_Varying;
 
 uniform highp sampler2D Texture0;
 uniform highp vec4 color;
-uniform highp vec2 location;
 uniform highp vec2 level;
 
 out vec4 fragColor;
@@ -33,7 +32,8 @@ vec4 computeColor(vec4 texel) {
 
 void main() {
     vec4 col;
-    vec4 texel = computeColor(texture(Texture0, texCoord0_Varying));
+    vec4 tex = texture(Texture0, texCoord0_Varying);
+    vec4 texel = computeColor(tex);
     
     if (texel.a > 0.0f) {
         col = texel;
@@ -44,7 +44,13 @@ void main() {
         }
         if (col.a > 0.0f) {
             col = color * 0.5f;
+        }else{
+            col = vec4(0.0f);
         }
+    }
+    
+    if (tex.a == 0.0f && col.a == 0.0f) {
+        discard;
     }
     
     fragColor = col;

@@ -393,6 +393,7 @@
 		228CC2171F004FFA00E6F75C /* s_player_died.wav in Resources */ = {isa = PBXBuildFile; fileRef = 228CC2161F004FFA00E6F75C /* s_player_died.wav */; };
 		228CC21B1F00526700E6F75C /* s_player_fall.wav in Resources */ = {isa = PBXBuildFile; fileRef = 228CC21A1F00526700E6F75C /* s_player_fall.wav */; };
 		228CC2231F005D8D00E6F75C /* s_weapon_lowpower.wav in Resources */ = {isa = PBXBuildFile; fileRef = 228CC2221F005D8D00E6F75C /* s_weapon_lowpower.wav */; };
+		2291226020D2178C0031CB73 /* DebugInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2291225F20D2178C0031CB73 /* DebugInterface.swift */; };
 		229523961FAE9238000E62F6 /* story.txt in Resources */ = {isa = PBXBuildFile; fileRef = 229523951FAE9238000E62F6 /* story.txt */; };
 		229583031F5F9108009F7131 /* LevelPiece.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229583021F5F9108009F7131 /* LevelPiece.swift */; };
 		229583051F5F92AC009F7131 /* UnitValueMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229583041F5F92AC009F7131 /* UnitValueMap.swift */; };
@@ -1026,6 +1027,7 @@
 		228CC2161F004FFA00E6F75C /* s_player_died.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = s_player_died.wav; sourceTree = "<group>"; };
 		228CC21A1F00526700E6F75C /* s_player_fall.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = s_player_fall.wav; sourceTree = "<group>"; };
 		228CC2221F005D8D00E6F75C /* s_weapon_lowpower.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = s_weapon_lowpower.wav; sourceTree = "<group>"; };
+		2291225F20D2178C0031CB73 /* DebugInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugInterface.swift; sourceTree = "<group>"; };
 		229523951FAE9238000E62F6 /* story.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = story.txt; sourceTree = "<group>"; };
 		229583021F5F9108009F7131 /* LevelPiece.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelPiece.swift; sourceTree = "<group>"; };
 		229583041F5F92AC009F7131 /* UnitValueMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnitValueMap.swift; sourceTree = "<group>"; };
@@ -1156,6 +1158,7 @@
 		22ACC94E20BCFC0A00233353 /* s_boss_deflect.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = s_boss_deflect.wav; sourceTree = "<group>"; };
 		22ACC95220BD00F700233353 /* s_boss_recover.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = s_boss_recover.wav; sourceTree = "<group>"; };
 		22ACC95420BD037000233353 /* s_boss_shield_recover.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = s_boss_shield_recover.wav; sourceTree = "<group>"; };
+		22B6C7A020CCF62700FB9FB5 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		22B8C35A1D7D302400806C16 /* spineboy.atlas */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = spineboy.atlas; sourceTree = "<group>"; };
 		22B8C35C1D7D302400806C16 /* spineboy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spineboy.png; sourceTree = "<group>"; };
 		22B8C3671D8262C400806C16 /* spineboy.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = spineboy.json; sourceTree = "<group>"; };
@@ -1352,6 +1355,7 @@
 				22C7C8E32020EF8200BBDBFE /* Imperial Defense Tests */,
 				22C7C8F12020F20C00BBDBFE /* Imperial Defense UI Tests */,
 				222DD8311D48843100A70FA8 /* Products */,
+				22B6C79F20CCF62600FB9FB5 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -2019,6 +2023,14 @@
 			name = captain;
 			sourceTree = "<group>";
 		};
+		2291225E20D217470031CB73 /* interfaces */ = {
+			isa = PBXGroup;
+			children = (
+				2291225F20D2178C0031CB73 /* DebugInterface.swift */,
+			);
+			name = interfaces;
+			sourceTree = "<group>";
+		};
 		2292324A1D50646C00F47D02 /* elements */ = {
 			isa = PBXGroup;
 			children = (
@@ -2420,6 +2432,14 @@
 			name = boss;
 			sourceTree = "<group>";
 		};
+		22B6C79F20CCF62600FB9FB5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				22B6C7A020CCF62700FB9FB5 /* UIKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		22B8C3591D7D301C00806C16 /* spine */ = {
 			isa = PBXGroup;
 			children = (
@@ -2532,6 +2552,7 @@
 		22C1FE7320A7F36B005D9ABB /* entry */ = {
 			isa = PBXGroup;
 			children = (
+				2291225E20D217470031CB73 /* interfaces */,
 				22448C5020C20F0C000D830E /* configuration */,
 				222DD8661D48854600A70FA8 /* MainGame.swift */,
 				22C1FE6320A7E05F005D9ABB /* GameBase.swift */,
@@ -3250,6 +3271,7 @@
 				2255CF7C20ABF7BA00999FA2 /* DisplayGroupRenderer.swift in Sources */,
 				22C1FE9D20A7FFBE005D9ABB /* PolygonSolver.swift in Sources */,
 				22A75AD81FC3B68A00AA625B /* Phantom.swift in Sources */,
+				2291226020D2178C0031CB73 /* DebugInterface.swift in Sources */,
 				22AC52E11FCD238A005ABFAF /* TitanController.swift in Sources */,
 				22448C5D20C22F43000D830E /* GameCompleteScreen.swift in Sources */,
 				22613CEA1DC555D400FECAB0 /* Interactive.swift in Sources */,
@@ -3822,7 +3844,7 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
 			name = Debug;
@@ -3852,7 +3874,7 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
 			name = Release;

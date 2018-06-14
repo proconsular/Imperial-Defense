@@ -40,6 +40,20 @@ class MainTest: XCTestCase {
         }
     }
     
+    func testLinkedList() {
+        let list = LinkedList<Int>()
+        list.append(2)
+        list.append(6)
+        list.append(3)
+        XCTAssert(list.head.value == 2)
+        XCTAssert(list.head.next.value == 6)
+        XCTAssert(list.head.next.next.value == 3)
+        let _ = list.popLast()
+        list.print()
+        XCTAssert(list.tail.value == 6)
+        XCTAssert(list.tail.next == nil)
+    }
+    
 }
 
 class BulletTimeTest: XCTestCase {

@@ -54,14 +54,20 @@ class LinkedList<T>: Sequence {
         let first = head
         if head != nil {
             head = head.next
+            if head != nil {
+                head.previous = nil
+            }
         }
         return first?.value
     }
     
     func popLast() -> T? {
         let last = tail
-        if tail != nil {
+        if tail != nil && tail.previous != nil {
             tail = tail.previous
+            if tail != nil {
+                tail.next = nil
+            }
         }
         return last?.value
     }

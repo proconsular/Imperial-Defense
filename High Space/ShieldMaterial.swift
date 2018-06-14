@@ -65,9 +65,17 @@ class ShieldMaterial: Material {
         
         let shader = Graphics.bind(2)
         
+        let level = float2(0, height * shield.percent - height / 2)
+        //print(shield.percent)
+        
+        let native = UIScreen.main.nativeBounds.width
+        let sca = Float(native) / Camera.size.y
+        
+        let location = (-transform.location.y + level.y) * sca
+        
         shader.setProperty("color", vector4: output_color)
         shader.setProperty("location", vector2: transform(transform.location))
-        shader.setProperty("level", vector2: transform(transform.location - float2(0, height * shield.percent - height / 2)))
+        shader.setProperty("level", vector2: float2(0, location))
         
         glBindTexture(GLenum(GL_TEXTURE_2D), self["texture"] as! GLuint)
         GraphicsHelper.setUniformMatrix(GLKMatrix4MakeTranslation(0, Camera.size.y, 0))
@@ -80,10 +88,10 @@ class ShieldMaterial: Material {
         }
         let t = location - l
         let height = Float(UIScreen.main.bounds.height * UIScreen.main.scale)
-        let scale: Float = Float(1125 / height)
+        //let scale: Float = Float(1125 / height)
         let s: Float = (height - 750) / (1125 - 750)
         let m: Float = 1 - 0.04 * clamp(s, min: 0, max: 1)
-        return float2(t.x, Camera.size.y - t.y) * float2(1 / scale) * float2(m)
+        return float2(t.x, Camera.size.y - t.y) * m
     }
     
 }

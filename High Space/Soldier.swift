@@ -57,7 +57,7 @@ class Soldier: Entity, Damagable {
         animator.apply(material)
         
         if let shield = health.shield {
-            let sm = ShieldMaterial(shield, transform, float4(0.1, 0.7, 1, 1), rect.bounds.y)
+            let sm = ShieldMaterial(shield, rect.transform, float4(0.1, 0.7, 1, 1), handle.hull.getBounds().bounds.y)
             sm["texture"] = material["texture"]
             handle.materials.append(sm)
             shield_material = sm

@@ -66,11 +66,11 @@ class StatusLayer: InterfaceLayer {
         
         stamina.render()
         shield.render()
-        
+
         score.render()
         wave.render()
         legion.render()
-        
+
         weapon.render()
     }
 }

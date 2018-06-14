@@ -9,4 +9,4 @@
 #import "GLTextureLoader.h"
 #import "GLHelper.h"
 
-#import <UIKit/UIGestureRecognizerSubClass.h>
+@import UIKit.UIGestureRecognizerSubclass;
