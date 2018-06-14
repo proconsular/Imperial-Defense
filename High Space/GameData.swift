@@ -28,7 +28,6 @@ class GameData {
         upgrader = Upgrader()
         persist()
     }
-    
 }
 
 

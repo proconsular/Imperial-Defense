@@ -23,7 +23,7 @@ class GameCompleteScreen: Screen {
         
         let layer = InterfaceLayer()
         
-        layer.objects.append(Text(GameScreen.size / 2 + float2(0, -400) + float2(0, -GameScreen.size.y), "VICTORIUM SUMPREMUM", FontStyle(defaultFont, float4(1), 144)))
+        layer.objects.append(Text(GameScreen.size / 2 + float2(0, -400) + float2(0, -GameScreen.size.y), "VICTORIUM SUPREMUM", FontStyle("Augustus", float4(1), 128)))
         
         let text = """
         You've obtained supreme victory and have pacified \n!@#%#&^# and !^#$&%##!@#%. \n

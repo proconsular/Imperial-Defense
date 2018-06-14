@@ -34,6 +34,8 @@
 		<string>Lora-Regular.ttf</string>
 		<string>AUGUSTUS.TTF</string>
 		<string>Quant-Light.otf</string>
+		<string>Lato-Regular.ttf</string>
+		<string>Lato-Light.ttf</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>Launch Screen</string>
@@ -50,6 +52,7 @@
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationLandscapeRight</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
 	</array>
 </dict>
 </plist>

@@ -26,9 +26,10 @@ class VictoryEvent: GameEvent {
         if GameData.info.wave + 1 < 101 {
             GameData.info.wave += 1
             GameData.info.points += 1
-            if GameData.info.wave == 20 && !GameData.info.reviewed {
+            if GameData.info.wave == 20 && !AppData.main.reviewed {
                 SKStoreReviewController.requestReview()
-                GameData.info.reviewed = true
+                AppData.main.reviewed = true
+                AppData.persist()
             }
         }
         GameData.persist()

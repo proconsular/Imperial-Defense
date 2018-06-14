@@ -17,6 +17,7 @@ class GameBase: GameInterface {
         
         UserInterface.create()
         GameData.create()
+        AppData.retrieve()
         
         for u in upgrader.upgrades {
             u.range.amount = Float(GameData.info.upgrades[u.name]!)

@@ -19,7 +19,6 @@ struct GameInfo {
     var story: Story
     var challenge: Int
     var tutorial: Bool
-    var reviewed: Bool
     
     init() {
         name = "default"
@@ -30,7 +29,6 @@ struct GameInfo {
         wave = 0
         challenge = 0
         tutorial = true
-        reviewed = false
         upgrades = ["Gun": 0, "Shield": 0, "Barrier": 0]
         story = StoryGateway().retrieve(name: "story")
     }

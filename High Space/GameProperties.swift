@@ -8,7 +8,7 @@
 
 import Foundation
 
-let defaultFont = "Quant-Light"
+let defaultFont = "Lato-Light"
 let defaultStyle = FontStyle(defaultFont, float4(1), 72)
 let sound_volume: Float = 0.005
 

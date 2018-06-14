@@ -9,7 +9,6 @@
 import Foundation
 
 class Gateway<T> {
-    
     func retrieve(name: String) -> T? {
         return nil
     }
@@ -17,7 +16,6 @@ class Gateway<T> {
     func persist(item: T) {
         
     }
-    
 }
 
 class GameDefaultsGateway: Gateway<GameInfo> {
@@ -33,7 +31,6 @@ class GameDefaultsGateway: Gateway<GameInfo> {
         info.wave = defaults.integer(forKey: "wave")
         info.challenge = defaults.integer(forKey: "challenge")
         info.tutorial = defaults.bool(forKey: "tutorial")
-        info.reviewed = defaults.bool(forKey: "reviewed")
         for u in info.upgrades.keys {
             info.upgrades.updateValue(defaults.integer(forKey: u), forKey: u)
         }
@@ -49,7 +46,6 @@ class GameDefaultsGateway: Gateway<GameInfo> {
         defaults.set(item.wave, forKey: "wave")
         defaults.set(item.challenge, forKey: "challenge")
         defaults.set(item.tutorial, forKey: "tutorial")
-        defaults.set(item.reviewed, forKey: "reviewed")
         defaults.setValuesForKeys(item.upgrades)
     }
     
