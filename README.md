@@ -8,6 +8,11 @@ I made all the music, art, sound effects were generated, and programmed the whol
 
 It was released on the App Store and I think got around 80-100+ downloads.
 
+## Media
+
+Here is some gameplay if you want to take a look:
+https://www.youtube.com/watch?v=UQpG3YfY29s
+
 ## Reflections
 
 This was one of my first major software projects (major to me at the time) and I learned quite a lot, especially in terms of production and my capabilites.
